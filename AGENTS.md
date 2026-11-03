@@ -19,7 +19,9 @@ Los precios, cupos y plazos son **hipótesis a validar en un piloto**, no datos.
 - Hechas: EM-001 (base Django) y EM-002 (CI).
 - Solo existe la app `core` (inicio provisional y `/health/`). No hay modelos ni migraciones propias todavía.
 - **Lo siguiente es EM-003 (modelo de usuario personalizado).** Hasta que esté en `main`, no crees modelos con relación al usuario ni migraciones en otras apps. Si corriste `migrate` antes de EM-003, borra tu `db.sqlite3` local después de que se mezcle.
-- Decisiones abiertas que no debes inventar: hosting, proveedor de correo, enfoque de estilos (Tailwind u otro), juegos con los que arranca el piloto, textos legales. Ver la sección final de `docs/BACKLOG.md`.
+- **Hay un recorte vigente para la entrega de semestre** (hasta alrededor del 1 de diciembre de 2026). El objetivo es Misión Cero de punta a punta en staging. Solo se toman historias de ese recorte; ver la sección "Recorte para la entrega de semestre" en `docs/BACKLOG.md`.
+- Decidido: Misión Cero es autoguiada (sin grupo), el acceso al contenido es por tiempo y el tutor trabaja en pantallas propias, no en el admin. Ver `docs/arquitectura.md`.
+- Decisiones abiertas que no debes inventar: hosting, proveedor de correo, enfoque de estilos (Tailwind u otro), juegos con los que arranca el piloto, días de acceso, textos legales. Ver la sección final de `docs/BACKLOG.md`.
 
 ## 3. Stack y comandos
 
@@ -70,7 +72,7 @@ Apps previstas y de qué es dueña cada una: `core`, `accounts`, `catalog`, `cou
 
 Cada historia tiene un ID `EM-###`, una sección en `docs/BACKLOG.md` y una GitHub Issue con el mismo ID en el título.
 
-1. **Elige una historia** de la ola más baja disponible en `docs/BACKLOG.md` (sección "Orden sugerido") cuyas dependencias estén cerradas. Prioriza `Must` sobre `Should` y `Could`. No tomes nada de R2 (post-piloto).
+1. **Elige una historia** de la ola más baja disponible cuyas dependencias estén cerradas. Mientras esté vigente el recorte de semestre, toma solo del bloque A, después del B y después del C (sección "Recorte para la entrega de semestre" en `docs/BACKLOG.md`). Fuera del recorte, usa la sección "Orden sugerido" y prioriza `Must` sobre `Should` y `Could`. No tomes nada de R2 (post-piloto).
 2. **Verifica que nadie la tenga:** `gh issue list --search "EM-0XX in:title"` y `gh issue view <número>`. Si está asignada a otra persona, elige otra. Si no tienes `gh`, pregúntale a tu humano.
 3. **Asígnala** a la persona para la que trabajas (`gh issue edit <número> --add-assignee @me`) antes de escribir código. Una persona (y su agente) trabaja en una historia a la vez.
 4. **Rama** desde `main` actualizado: `em-0XX-descripcion-corta` (por ejemplo `em-043-webhook-stripe`).

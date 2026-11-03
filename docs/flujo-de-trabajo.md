@@ -4,7 +4,7 @@
 
 - **`docs/BACKLOG.md`** define el alcance: historias, criterios de aceptación, prioridad, dependencias. Se cambia por PR.
 - **GitHub Issues** llevan el estado: una issue por historia, con el ID `EM-###` en el título. Abierta, asignada o cerrada.
-- **Milestones:** `R1 Piloto` y `R2 Post-piloto`. Si el equipo usa sprints, se crea un milestone por sprint (`Sprint 1`, `Sprint 2`...) y se mueven ahí las issues comprometidas.
+- **Milestones:** `R1 Piloto` y `R2 Post-piloto`. Mientras esté vigente el recorte de semestre, también existe `Semestre`, con las issues de los bloques A y B (ver `docs/BACKLOG.md`). Si el equipo usa sprints, se crea un milestone por sprint (`Sprint 1`, `Sprint 2`...) y se mueven ahí las issues comprometidas.
 
 ## Etiquetas
 
