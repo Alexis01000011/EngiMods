@@ -1,0 +1,31 @@
+name: Historia
+description: Nueva historia de usuario o trabajo técnico del backlog
+title: "EM-0XX: "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: "Antes de crearla, agrega la historia a `docs/BACKLOG.md` con el mismo ID (ver `docs/flujo-de-trabajo.md`)."
+  - type: textarea
+    id: historia
+    attributes:
+      label: Historia
+      description: "Como <rol>, quiero <qué>, para <para qué>. Si es técnica, describe el objetivo."
+    validations:
+      required: true
+  - type: textarea
+    id: criterios
+    attributes:
+      label: Criterios de aceptación
+      description: Lista verificable, uno por línea con "- [ ]".
+    validations:
+      required: true
+  - type: input
+    id: depende
+    attributes:
+      label: Depende de
+      placeholder: "EM-003, EM-010"
+  - type: textarea
+    id: notas
+    attributes:
+      label: Notas
