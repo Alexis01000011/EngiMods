@@ -21,8 +21,10 @@ Si reciben una ruta práctica, estructurada y actualizada por versión, con plan
 
 | Producto | Formato | Precio propuesto |
 |---|---|---|
-| Misión Cero | Práctica corta con un cambio funcional | MXN 199 en piloto; después probar MXN 299 |
+| Misión Cero | Práctica corta autoguiada (sin grupo ni fechas) con un cambio funcional | MXN 199 en piloto; después probar MXN 299 |
 | Curso principal | Seis semanas, hasta 8 plazas por grupo, revisión de entregas en 24 h, clínicas grupales | MXN 1,990 por alumno |
+
+En ambos el acceso al contenido es por tiempo limitado; cuántos días dura sigue por definir. Las actualizaciones posteriores serían la membresía (decisiones del 3/11/2026).
 | Más adelante | Membresía de actualizaciones; talleres para grupos bajo cotización; ruta introductoria para quienes empiezan de cero | Por definir |
 
 ## Segmento
