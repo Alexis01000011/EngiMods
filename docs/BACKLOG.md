@@ -56,73 +56,73 @@ Catálogo completo de lo que se va a construir en la plataforma. Generado el 3 d
 
 ## Índice
 
-| ID | Título | Épica | Prioridad | Pts | Ola | Depende de | Estado |
-|---|---|---|---|---|---|---|---|
-| [EM-001](#em-001) | Base del proyecto Django | E0 | Must | 2 | 0 | - | Hecho |
-| [EM-002](#em-002) | Integración continua en GitHub Actions | E0 | Must | 1 | 0 | EM-001 | Hecho |
-| [EM-003](#em-003) | Modelo de usuario personalizado | E0 | Must | 2 | 1 | EM-001 | Pendiente |
-| [EM-004](#em-004) | Plantilla base y sistema de estilos | E0 | Must | 3 | 1 | EM-001 | Pendiente |
-| [EM-005](#em-005) | Despliegue a un entorno de pruebas (staging) | E0 | Must | 5 | 1 | EM-001 | Pendiente |
-| [EM-006](#em-006) | Datos de ejemplo para desarrollo | E0 | Should | 2 | 5 | EM-003, EM-011, EM-021, EM-050 | Pendiente |
-| [EM-007](#em-007) | Almacenamiento de archivos subidos | E0 | Could | 3 | 2 | EM-005 | Pendiente |
-| [EM-008](#em-008) | Correo transaccional en producción | E0 | Must | 3 | 2 | EM-005 | Pendiente |
-| [EM-009](#em-009) | Cuenta de Stripe en modo prueba conectada | E0 | Must | 2 | 1 | EM-001 | Pendiente |
-| [EM-010](#em-010) | Registrar juegos en el catálogo | E1 | Must | 2 | 2 | EM-003 | Pendiente |
-| [EM-011](#em-011) | Registrar versiones del juego y entornos de modding | E1 | Must | 3 | 3 | EM-010 | Pendiente |
-| [EM-012](#em-012) | Página pública de cada juego | E1 | Must | 3 | 4 | EM-011, EM-020 | Pendiente |
-| [EM-013](#em-013) | Filtrar cursos por juego | E1 | Should | 2 | 5 | EM-012 | Pendiente |
-| [EM-014](#em-014) | Marcar contenido pendiente de revalidar al salir una nueva versión | E1 | Should | 5 | 5 | EM-021 | Pendiente |
-| [EM-020](#em-020) | Modelo de curso | E2 | Must | 3 | 3 | EM-010 | Pendiente |
-| [EM-021](#em-021) | Módulos y lecciones con versión probada | E2 | Must | 5 | 4 | EM-020, EM-011 | Pendiente |
-| [EM-022](#em-022) | Vista previa de lecciones para tutores | E2 | Should | 3 | 8 | EM-021, EM-061 | Pendiente |
-| [EM-023](#em-023) | Recursos descargables y plantillas por lección | E2 | Must | 2 | 5 | EM-021 | Pendiente |
-| [EM-024](#em-024) | Lección de muestra gratuita | E2 | Must | 2 | 5 | EM-021 | Pendiente |
-| [EM-030](#em-030) | Registro con correo y verificación | E3 | Must | 5 | 3 | EM-003, EM-004, EM-033 | Pendiente |
-| [EM-031](#em-031) | Inicio de sesión, cierre y recuperación de contraseña | E3 | Must | 2 | 4 | EM-030 | Pendiente |
-| [EM-032](#em-032) | Perfil del alumno | E3 | Should | 2 | 4 | EM-030, EM-010 | Pendiente |
-| [EM-033](#em-033) | Aviso de privacidad y consentimiento | E3 | Must | 2 | 2 | EM-003 | Pendiente |
-| [EM-034](#em-034) | Solicitar baja de la cuenta y de los datos | E3 | Could | 3 | 5 | EM-032 | Pendiente |
-| [EM-040](#em-040) | Landing de EngiMods | E4 | Must | 3 | 5 | EM-004, EM-012 | Pendiente |
-| [EM-041](#em-041) | Página de detalle del curso | E4 | Must | 3 | 6 | EM-020, EM-024, EM-050 | Pendiente |
-| [EM-042](#em-042) | Pago con Stripe Checkout | E4 | Must | 5 | 5 | EM-009, EM-030, EM-050 | Pendiente |
-| [EM-043](#em-043) | Webhook de Stripe que confirma el pago e inscribe | E4 | Must | 5 | 6 | EM-042, EM-053 | Pendiente |
-| [EM-044](#em-044) | Correo de confirmación de compra | E4 | Must | 2 | 7 | EM-043, EM-008 | Pendiente |
-| [EM-045](#em-045) | Cupo máximo por grupo | E4 | Must | 3 | 6 | EM-042 | Pendiente |
-| [EM-046](#em-046) | Lista de espera e interés por juego | E4 | Should | 2 | 3 | EM-010, EM-033 | Pendiente |
-| [EM-047](#em-047) | Registrar devoluciones | E4 | Should | 3 | 7 | EM-043 | Pendiente |
-| [EM-048](#em-048) | Pago en efectivo en OXXO | E4 | Could | 3 | 7 | EM-043, EM-045 | Pendiente |
-| [EM-049](#em-049) | Códigos de descuento | E4 | Could | 2 | 6 | EM-042 | Pendiente |
-| [EM-050](#em-050) | Crear grupos de un curso | E5 | Must | 3 | 4 | EM-020, EM-003 | Pendiente |
-| [EM-051](#em-051) | Liberar contenido por semana | E5 | Should | 3 | 8 | EM-050, EM-061 | Pendiente |
-| [EM-052](#em-052) | Calendario de clínicas grupales | E5 | Should | 2 | 7 | EM-050, EM-060 | Pendiente |
-| [EM-053](#em-053) | Inscripciones e inscripción manual por administrador | E5 | Must | 2 | 5 | EM-050 | Pendiente |
-| [EM-060](#em-060) | Panel del alumno: mis cursos | E6 | Must | 3 | 6 | EM-053 | Pendiente |
-| [EM-061](#em-061) | Ver una lección | E6 | Must | 3 | 7 | EM-021, EM-060 | Pendiente |
-| [EM-062](#em-062) | Marcar lección como completada | E6 | Must | 2 | 8 | EM-061 | Pendiente |
-| [EM-063](#em-063) | Guía de laboratorio local por juego | E6 | Should | 3 | 7 | EM-011, EM-060 | Pendiente |
-| [EM-070](#em-070) | Enviar una entrega | E7 | Must | 3 | 8 | EM-061 | Pendiente |
-| [EM-071](#em-071) | Cola de revisión con alerta de 24 horas | E7 | Must | 3 | 9 | EM-070 | Pendiente |
-| [EM-072](#em-072) | Revisar con rúbrica | E7 | Must | 5 | 10 | EM-071 | Pendiente |
-| [EM-073](#em-073) | Reenviar entrega tras cambios | E7 | Must | 2 | 11 | EM-072 | Pendiente |
-| [EM-074](#em-074) | Notificaciones de entregas por correo | E7 | Should | 2 | 11 | EM-072, EM-008 | Pendiente |
-| [EM-075](#em-075) | Entregar archivo .zip | E7 | Could | 3 | 9 | EM-070, EM-007 | Pendiente |
-| [EM-076](#em-076) | Proyecto final con checklist de publicación | E7 | Should | 3 | 11 | EM-072 | Pendiente |
-| [EM-080](#em-080) | Acceso al Discord del grupo | E8 | Must | 1 | 7 | EM-050, EM-060 | Pendiente |
-| [EM-081](#em-081) | Avisos del curso | E8 | Should | 3 | 5 | EM-050, EM-008 | Pendiente |
-| [EM-082](#em-082) | Aviso de nueva versión del juego a alumnos afectados | E8 | Could | 3 | 6 | EM-014, EM-081 | Pendiente |
-| [EM-090](#em-090) | Admin configurado para operar el piloto | E9 | Must | 2 | 9 | EM-053, EM-070 | Pendiente |
-| [EM-091](#em-091) | Métricas del piloto | E9 | Must | 3 | 11 | EM-062, EM-072 | Pendiente |
-| [EM-092](#em-092) | Exportar datos operativos a CSV | E9 | Should | 2 | 10 | EM-090 | Pendiente |
-| [EM-093](#em-093) | Encuesta de cierre del curso | E9 | Should | 2 | 7 | EM-060 | Pendiente |
-| [EM-100](#em-100) | Membresía de actualizaciones | E10 | Later | - | - | - | Pendiente |
-| [EM-101](#em-101) | Talleres para grupos bajo cotización | E10 | Later | - | - | - | Pendiente |
-| [EM-102](#em-102) | Ruta introductoria para quienes empiezan de cero | E10 | Later | - | - | - | Pendiente |
-| [EM-103](#em-103) | Portafolio público del alumno | E10 | Later | - | - | - | Pendiente |
-| [EM-104](#em-104) | Constancia de finalización verificable | E10 | Later | - | - | - | Pendiente |
-| [EM-105](#em-105) | Espacio para aliados y creadores | E10 | Later | - | - | - | Pendiente |
-| [EM-106](#em-106) | Varios tutores y reparto de revisiones | E10 | Later | - | - | - | Pendiente |
-| [EM-107](#em-107) | Facturación electrónica (CFDI) | E10 | Later | - | - | - | Pendiente |
-| [EM-108](#em-108) | Plataforma en inglés | E10 | Later | - | - | - | Pendiente |
+| ID | Issue | Título | Épica | Prioridad | Pts | Ola | Depende de | Estado |
+|---|---|---|---|---|---|---|---|---|
+| [EM-001](#em-001) | [#1](https://github.com/Alexis01000011/EngiMods/issues/1) | Base del proyecto Django | E0 | Must | 2 | 0 | - | Hecho |
+| [EM-002](#em-002) | [#2](https://github.com/Alexis01000011/EngiMods/issues/2) | Integración continua en GitHub Actions | E0 | Must | 1 | 0 | EM-001 | Hecho |
+| [EM-003](#em-003) | [#3](https://github.com/Alexis01000011/EngiMods/issues/3) | Modelo de usuario personalizado | E0 | Must | 2 | 1 | EM-001 | Pendiente |
+| [EM-004](#em-004) | [#4](https://github.com/Alexis01000011/EngiMods/issues/4) | Plantilla base y sistema de estilos | E0 | Must | 3 | 1 | EM-001 | Pendiente |
+| [EM-005](#em-005) | [#5](https://github.com/Alexis01000011/EngiMods/issues/5) | Despliegue a un entorno de pruebas (staging) | E0 | Must | 5 | 1 | EM-001 | Pendiente |
+| [EM-006](#em-006) | [#6](https://github.com/Alexis01000011/EngiMods/issues/6) | Datos de ejemplo para desarrollo | E0 | Should | 2 | 5 | EM-003, EM-011, EM-021, EM-050 | Pendiente |
+| [EM-007](#em-007) | [#7](https://github.com/Alexis01000011/EngiMods/issues/7) | Almacenamiento de archivos subidos | E0 | Could | 3 | 2 | EM-005 | Pendiente |
+| [EM-008](#em-008) | [#8](https://github.com/Alexis01000011/EngiMods/issues/8) | Correo transaccional en producción | E0 | Must | 3 | 2 | EM-005 | Pendiente |
+| [EM-009](#em-009) | [#9](https://github.com/Alexis01000011/EngiMods/issues/9) | Cuenta de Stripe en modo prueba conectada | E0 | Must | 2 | 1 | EM-001 | Pendiente |
+| [EM-010](#em-010) | [#10](https://github.com/Alexis01000011/EngiMods/issues/10) | Registrar juegos en el catálogo | E1 | Must | 2 | 2 | EM-003 | Pendiente |
+| [EM-011](#em-011) | [#11](https://github.com/Alexis01000011/EngiMods/issues/11) | Registrar versiones del juego y entornos de modding | E1 | Must | 3 | 3 | EM-010 | Pendiente |
+| [EM-012](#em-012) | [#12](https://github.com/Alexis01000011/EngiMods/issues/12) | Página pública de cada juego | E1 | Must | 3 | 4 | EM-011, EM-020 | Pendiente |
+| [EM-013](#em-013) | [#13](https://github.com/Alexis01000011/EngiMods/issues/13) | Filtrar cursos por juego | E1 | Should | 2 | 5 | EM-012 | Pendiente |
+| [EM-014](#em-014) | [#14](https://github.com/Alexis01000011/EngiMods/issues/14) | Marcar contenido pendiente de revalidar al salir una nueva versión | E1 | Should | 5 | 5 | EM-021 | Pendiente |
+| [EM-020](#em-020) | [#15](https://github.com/Alexis01000011/EngiMods/issues/15) | Modelo de curso | E2 | Must | 3 | 3 | EM-010 | Pendiente |
+| [EM-021](#em-021) | [#16](https://github.com/Alexis01000011/EngiMods/issues/16) | Módulos y lecciones con versión probada | E2 | Must | 5 | 4 | EM-020, EM-011 | Pendiente |
+| [EM-022](#em-022) | [#17](https://github.com/Alexis01000011/EngiMods/issues/17) | Vista previa de lecciones para tutores | E2 | Should | 3 | 8 | EM-021, EM-061 | Pendiente |
+| [EM-023](#em-023) | [#18](https://github.com/Alexis01000011/EngiMods/issues/18) | Recursos descargables y plantillas por lección | E2 | Must | 2 | 5 | EM-021 | Pendiente |
+| [EM-024](#em-024) | [#19](https://github.com/Alexis01000011/EngiMods/issues/19) | Lección de muestra gratuita | E2 | Must | 2 | 5 | EM-021 | Pendiente |
+| [EM-030](#em-030) | [#20](https://github.com/Alexis01000011/EngiMods/issues/20) | Registro con correo y verificación | E3 | Must | 5 | 3 | EM-003, EM-004, EM-033 | Pendiente |
+| [EM-031](#em-031) | [#21](https://github.com/Alexis01000011/EngiMods/issues/21) | Inicio de sesión, cierre y recuperación de contraseña | E3 | Must | 2 | 4 | EM-030 | Pendiente |
+| [EM-032](#em-032) | [#22](https://github.com/Alexis01000011/EngiMods/issues/22) | Perfil del alumno | E3 | Should | 2 | 4 | EM-030, EM-010 | Pendiente |
+| [EM-033](#em-033) | [#23](https://github.com/Alexis01000011/EngiMods/issues/23) | Aviso de privacidad y consentimiento | E3 | Must | 2 | 2 | EM-003 | Pendiente |
+| [EM-034](#em-034) | [#24](https://github.com/Alexis01000011/EngiMods/issues/24) | Solicitar baja de la cuenta y de los datos | E3 | Could | 3 | 5 | EM-032 | Pendiente |
+| [EM-040](#em-040) | [#25](https://github.com/Alexis01000011/EngiMods/issues/25) | Landing de EngiMods | E4 | Must | 3 | 5 | EM-004, EM-012 | Pendiente |
+| [EM-041](#em-041) | [#26](https://github.com/Alexis01000011/EngiMods/issues/26) | Página de detalle del curso | E4 | Must | 3 | 6 | EM-020, EM-024, EM-050 | Pendiente |
+| [EM-042](#em-042) | [#27](https://github.com/Alexis01000011/EngiMods/issues/27) | Pago con Stripe Checkout | E4 | Must | 5 | 5 | EM-009, EM-030, EM-050 | Pendiente |
+| [EM-043](#em-043) | [#28](https://github.com/Alexis01000011/EngiMods/issues/28) | Webhook de Stripe que confirma el pago e inscribe | E4 | Must | 5 | 6 | EM-042, EM-053 | Pendiente |
+| [EM-044](#em-044) | [#29](https://github.com/Alexis01000011/EngiMods/issues/29) | Correo de confirmación de compra | E4 | Must | 2 | 7 | EM-043, EM-008 | Pendiente |
+| [EM-045](#em-045) | [#30](https://github.com/Alexis01000011/EngiMods/issues/30) | Cupo máximo por grupo | E4 | Must | 3 | 6 | EM-042 | Pendiente |
+| [EM-046](#em-046) | [#31](https://github.com/Alexis01000011/EngiMods/issues/31) | Lista de espera e interés por juego | E4 | Should | 2 | 3 | EM-010, EM-033 | Pendiente |
+| [EM-047](#em-047) | [#32](https://github.com/Alexis01000011/EngiMods/issues/32) | Registrar devoluciones | E4 | Should | 3 | 7 | EM-043 | Pendiente |
+| [EM-048](#em-048) | [#33](https://github.com/Alexis01000011/EngiMods/issues/33) | Pago en efectivo en OXXO | E4 | Could | 3 | 7 | EM-043, EM-045 | Pendiente |
+| [EM-049](#em-049) | [#34](https://github.com/Alexis01000011/EngiMods/issues/34) | Códigos de descuento | E4 | Could | 2 | 6 | EM-042 | Pendiente |
+| [EM-050](#em-050) | [#35](https://github.com/Alexis01000011/EngiMods/issues/35) | Crear grupos de un curso | E5 | Must | 3 | 4 | EM-020, EM-003 | Pendiente |
+| [EM-051](#em-051) | [#36](https://github.com/Alexis01000011/EngiMods/issues/36) | Liberar contenido por semana | E5 | Should | 3 | 8 | EM-050, EM-061 | Pendiente |
+| [EM-052](#em-052) | [#37](https://github.com/Alexis01000011/EngiMods/issues/37) | Calendario de clínicas grupales | E5 | Should | 2 | 7 | EM-050, EM-060 | Pendiente |
+| [EM-053](#em-053) | [#38](https://github.com/Alexis01000011/EngiMods/issues/38) | Inscripciones e inscripción manual por administrador | E5 | Must | 2 | 5 | EM-050 | Pendiente |
+| [EM-060](#em-060) | [#39](https://github.com/Alexis01000011/EngiMods/issues/39) | Panel del alumno: mis cursos | E6 | Must | 3 | 6 | EM-053 | Pendiente |
+| [EM-061](#em-061) | [#40](https://github.com/Alexis01000011/EngiMods/issues/40) | Ver una lección | E6 | Must | 3 | 7 | EM-021, EM-060 | Pendiente |
+| [EM-062](#em-062) | [#41](https://github.com/Alexis01000011/EngiMods/issues/41) | Marcar lección como completada | E6 | Must | 2 | 8 | EM-061 | Pendiente |
+| [EM-063](#em-063) | [#42](https://github.com/Alexis01000011/EngiMods/issues/42) | Guía de laboratorio local por juego | E6 | Should | 3 | 7 | EM-011, EM-060 | Pendiente |
+| [EM-070](#em-070) | [#43](https://github.com/Alexis01000011/EngiMods/issues/43) | Enviar una entrega | E7 | Must | 3 | 8 | EM-061 | Pendiente |
+| [EM-071](#em-071) | [#44](https://github.com/Alexis01000011/EngiMods/issues/44) | Cola de revisión con alerta de 24 horas | E7 | Must | 3 | 9 | EM-070 | Pendiente |
+| [EM-072](#em-072) | [#45](https://github.com/Alexis01000011/EngiMods/issues/45) | Revisar con rúbrica | E7 | Must | 5 | 10 | EM-071 | Pendiente |
+| [EM-073](#em-073) | [#46](https://github.com/Alexis01000011/EngiMods/issues/46) | Reenviar entrega tras cambios | E7 | Must | 2 | 11 | EM-072 | Pendiente |
+| [EM-074](#em-074) | [#47](https://github.com/Alexis01000011/EngiMods/issues/47) | Notificaciones de entregas por correo | E7 | Should | 2 | 11 | EM-072, EM-008 | Pendiente |
+| [EM-075](#em-075) | [#48](https://github.com/Alexis01000011/EngiMods/issues/48) | Entregar archivo .zip | E7 | Could | 3 | 9 | EM-070, EM-007 | Pendiente |
+| [EM-076](#em-076) | [#49](https://github.com/Alexis01000011/EngiMods/issues/49) | Proyecto final con checklist de publicación | E7 | Should | 3 | 11 | EM-072 | Pendiente |
+| [EM-080](#em-080) | [#50](https://github.com/Alexis01000011/EngiMods/issues/50) | Acceso al Discord del grupo | E8 | Must | 1 | 7 | EM-050, EM-060 | Pendiente |
+| [EM-081](#em-081) | [#51](https://github.com/Alexis01000011/EngiMods/issues/51) | Avisos del curso | E8 | Should | 3 | 5 | EM-050, EM-008 | Pendiente |
+| [EM-082](#em-082) | [#52](https://github.com/Alexis01000011/EngiMods/issues/52) | Aviso de nueva versión del juego a alumnos afectados | E8 | Could | 3 | 6 | EM-014, EM-081 | Pendiente |
+| [EM-090](#em-090) | [#53](https://github.com/Alexis01000011/EngiMods/issues/53) | Admin configurado para operar el piloto | E9 | Must | 2 | 9 | EM-053, EM-070 | Pendiente |
+| [EM-091](#em-091) | [#54](https://github.com/Alexis01000011/EngiMods/issues/54) | Métricas del piloto | E9 | Must | 3 | 11 | EM-062, EM-072 | Pendiente |
+| [EM-092](#em-092) | [#55](https://github.com/Alexis01000011/EngiMods/issues/55) | Exportar datos operativos a CSV | E9 | Should | 2 | 10 | EM-090 | Pendiente |
+| [EM-093](#em-093) | [#56](https://github.com/Alexis01000011/EngiMods/issues/56) | Encuesta de cierre del curso | E9 | Should | 2 | 7 | EM-060 | Pendiente |
+| [EM-100](#em-100) | [#57](https://github.com/Alexis01000011/EngiMods/issues/57) | Membresía de actualizaciones | E10 | Later | - | - | - | Pendiente |
+| [EM-101](#em-101) | [#58](https://github.com/Alexis01000011/EngiMods/issues/58) | Talleres para grupos bajo cotización | E10 | Later | - | - | - | Pendiente |
+| [EM-102](#em-102) | [#59](https://github.com/Alexis01000011/EngiMods/issues/59) | Ruta introductoria para quienes empiezan de cero | E10 | Later | - | - | - | Pendiente |
+| [EM-103](#em-103) | [#60](https://github.com/Alexis01000011/EngiMods/issues/60) | Portafolio público del alumno | E10 | Later | - | - | - | Pendiente |
+| [EM-104](#em-104) | [#61](https://github.com/Alexis01000011/EngiMods/issues/61) | Constancia de finalización verificable | E10 | Later | - | - | - | Pendiente |
+| [EM-105](#em-105) | [#62](https://github.com/Alexis01000011/EngiMods/issues/62) | Espacio para aliados y creadores | E10 | Later | - | - | - | Pendiente |
+| [EM-106](#em-106) | [#63](https://github.com/Alexis01000011/EngiMods/issues/63) | Varios tutores y reparto de revisiones | E10 | Later | - | - | - | Pendiente |
+| [EM-107](#em-107) | [#64](https://github.com/Alexis01000011/EngiMods/issues/64) | Facturación electrónica (CFDI) | E10 | Later | - | - | - | Pendiente |
+| [EM-108](#em-108) | [#65](https://github.com/Alexis01000011/EngiMods/issues/65) | Plataforma en inglés | E10 | Later | - | - | - | Pendiente |
 
 ## Historias
 
@@ -134,7 +134,7 @@ Base del proyecto, infraestructura, despliegue y servicios externos.
 
 **Base del proyecto Django**
 
-Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 0 · Estado: Hecho
+Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 0 · Estado: Hecho · Issue: [#1](https://github.com/Alexis01000011/EngiMods/issues/1)
 
 Criterios de aceptación:
 
@@ -147,7 +147,7 @@ Criterios de aceptación:
 
 **Integración continua en GitHub Actions**
 
-Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 1 · Ola: 0 · Estado: Hecho
+Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 1 · Ola: 0 · Estado: Hecho · Issue: [#2](https://github.com/Alexis01000011/EngiMods/issues/2)
 
 Criterios de aceptación:
 
@@ -160,7 +160,7 @@ Depende de: [EM-001](#em-001)
 
 **Modelo de usuario personalizado**
 
-Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 1
+Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 1 · Issue: [#3](https://github.com/Alexis01000011/EngiMods/issues/3)
 
 Criterios de aceptación:
 
@@ -177,7 +177,7 @@ Nota: Bloquea casi todo lo demás. Cambiar el modelo de usuario después de tene
 
 **Plantilla base y sistema de estilos**
 
-Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 1
+Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 1 · Issue: [#4](https://github.com/Alexis01000011/EngiMods/issues/4)
 
 Criterios de aceptación:
 
@@ -191,7 +191,7 @@ Depende de: [EM-001](#em-001)
 
 **Despliegue a un entorno de pruebas (staging)**
 
-Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 5 · Ola: 1
+Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 5 · Ola: 1 · Issue: [#5](https://github.com/Alexis01000011/EngiMods/issues/5)
 
 Criterios de aceptación:
 
@@ -209,7 +209,7 @@ Nota: Presupuesto del piloto en el lienzo: hasta MXN 1,500. El costo del hosting
 
 **Datos de ejemplo para desarrollo**
 
-Tipo: Técnica · Prioridad: Should · Release: R1 · Puntos: 2 · Ola: 5
+Tipo: Técnica · Prioridad: Should · Release: R1 · Puntos: 2 · Ola: 5 · Issue: [#6](https://github.com/Alexis01000011/EngiMods/issues/6)
 
 Criterios de aceptación:
 
@@ -225,7 +225,7 @@ Nota: Permite que varias personas (y sus agentes) trabajen en pantallas distinta
 
 **Almacenamiento de archivos subidos**
 
-Tipo: Técnica · Prioridad: Could · Release: R1 · Puntos: 3 · Ola: 2
+Tipo: Técnica · Prioridad: Could · Release: R1 · Puntos: 3 · Ola: 2 · Issue: [#7](https://github.com/Alexis01000011/EngiMods/issues/7)
 
 Criterios de aceptación:
 
@@ -241,7 +241,7 @@ Nota: Solo hace falta si se aceptan entregas en .zip (EM-075) o descargables com
 
 **Correo transaccional en producción**
 
-Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 2
+Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 2 · Issue: [#8](https://github.com/Alexis01000011/EngiMods/issues/8)
 
 Criterios de aceptación:
 
@@ -255,7 +255,7 @@ Depende de: [EM-005](#em-005)
 
 **Cuenta de Stripe en modo prueba conectada**
 
-Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 1
+Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 1 · Issue: [#9](https://github.com/Alexis01000011/EngiMods/issues/9)
 
 Criterios de aceptación:
 
@@ -273,7 +273,7 @@ Juegos soportados, sus versiones y entornos de modding. Es lo que permite decir 
 
 **Registrar juegos en el catálogo**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 2
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 2 · Issue: [#10](https://github.com/Alexis01000011/EngiMods/issues/10)
 
 > Como **administrador**, quiero registrar los juegos para los que EngiMods ofrece contenido, para poder ofrecer cursos de varios juegos desde una sola plataforma.
 
@@ -289,7 +289,7 @@ Depende de: [EM-003](#em-003)
 
 **Registrar versiones del juego y entornos de modding**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 3
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 3 · Issue: [#11](https://github.com/Alexis01000011/EngiMods/issues/11)
 
 > Como **administrador**, quiero registrar las versiones de cada juego y los entornos de modding que usamos (loader, SDK o herramienta, con su versión), para que cada lección pueda declarar con qué combinación exacta fue probada.
 
@@ -308,7 +308,7 @@ Nota: El modelo debe servir para cualquier juego; no se asume nada específico d
 
 **Página pública de cada juego**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 4
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 4 · Issue: [#12](https://github.com/Alexis01000011/EngiMods/issues/12)
 
 > Como **visitante**, quiero ver una página de cada juego con sus cursos disponibles y las versiones que soportamos, para saber si EngiMods me sirve para el juego que me interesa.
 
@@ -324,7 +324,7 @@ Depende de: [EM-011](#em-011), [EM-020](#em-020)
 
 **Filtrar cursos por juego**
 
-Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 2 · Ola: 5
+Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 2 · Ola: 5 · Issue: [#13](https://github.com/Alexis01000011/EngiMods/issues/13)
 
 > Como **visitante**, quiero filtrar el catálogo de cursos por juego y por nivel, para encontrar rápido lo que me sirve.
 
@@ -339,7 +339,7 @@ Depende de: [EM-012](#em-012)
 
 **Marcar contenido pendiente de revalidar al salir una nueva versión**
 
-Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 5 · Ola: 5
+Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 5 · Ola: 5 · Issue: [#14](https://github.com/Alexis01000011/EngiMods/issues/14)
 
 > Como **tutor**, quiero saber qué lecciones quedaron probadas en una versión vieja cuando marco una nueva versión como actual, para mantener la promesa de que todo el contenido indica con qué versión funciona.
 
@@ -362,7 +362,7 @@ Estructura de cursos, módulos, lecciones y recursos descargables, para cualquie
 
 **Modelo de curso**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 3
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 3 · Issue: [#15](https://github.com/Alexis01000011/EngiMods/issues/15)
 
 > Como **administrador**, quiero crear cursos asociados a un juego, para ofrecer tanto la práctica corta (Misión Cero) como el curso de seis semanas.
 
@@ -380,7 +380,7 @@ Nota: Precios del lienzo (MXN 199 Misión Cero, MXN 1,990 curso) son propuestas 
 
 **Módulos y lecciones con versión probada**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 5 · Ola: 4
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 5 · Ola: 4 · Issue: [#16](https://github.com/Alexis01000011/EngiMods/issues/16)
 
 > Como **tutor**, quiero organizar un curso en módulos (uno por semana) y lecciones ordenadas, indicando con qué versión del juego y entorno se probó cada lección, para que el alumno siga una ruta clara y confiable.
 
@@ -397,7 +397,7 @@ Depende de: [EM-020](#em-020), [EM-011](#em-011)
 
 **Vista previa de lecciones para tutores**
 
-Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 3 · Ola: 8
+Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 3 · Ola: 8 · Issue: [#17](https://github.com/Alexis01000011/EngiMods/issues/17)
 
 > Como **tutor**, quiero ver cómo se verá una lección antes de publicarla, para corregir errores sin que los vean los alumnos.
 
@@ -412,7 +412,7 @@ Depende de: [EM-021](#em-021), [EM-061](#em-061)
 
 **Recursos descargables y plantillas por lección**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 5
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 5 · Issue: [#18](https://github.com/Alexis01000011/EngiMods/issues/18)
 
 > Como **alumno**, quiero descargar la plantilla o el proyecto base de cada lección, para empezar a trabajar sin perder tiempo armando la estructura.
 
@@ -430,7 +430,7 @@ Nota: Para el piloto basta con enlaces. Subir archivos depende de EM-007.
 
 **Lección de muestra gratuita**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 5
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 5 · Issue: [#19](https://github.com/Alexis01000011/EngiMods/issues/19)
 
 > Como **visitante**, quiero ver una lección completa gratis antes de pagar, para comprobar si el estilo del curso me sirve.
 
@@ -450,7 +450,7 @@ Registro, acceso, perfil y cumplimiento de privacidad.
 
 **Registro con correo y verificación**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 5 · Ola: 3
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 5 · Ola: 3 · Issue: [#20](https://github.com/Alexis01000011/EngiMods/issues/20)
 
 > Como **visitante**, quiero crear una cuenta con mi correo y contraseña, para poder inscribirme y guardar mi avance.
 
@@ -467,7 +467,7 @@ Depende de: [EM-003](#em-003), [EM-004](#em-004), [EM-033](#em-033)
 
 **Inicio de sesión, cierre y recuperación de contraseña**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 4
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 4 · Issue: [#21](https://github.com/Alexis01000011/EngiMods/issues/21)
 
 > Como **alumno**, quiero entrar, salir y recuperar mi contraseña, para acceder a mis cursos sin depender del equipo.
 
@@ -483,7 +483,7 @@ Depende de: [EM-030](#em-030)
 
 **Perfil del alumno**
 
-Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 2 · Ola: 4
+Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 2 · Ola: 4 · Issue: [#22](https://github.com/Alexis01000011/EngiMods/issues/22)
 
 > Como **alumno**, quiero registrar mi usuario de Discord, mi usuario de GitHub y los juegos que me interesan, para que el tutor me encuentre en la comunidad y pueda revisar mis repositorios.
 
@@ -498,7 +498,7 @@ Depende de: [EM-030](#em-030), [EM-010](#em-010)
 
 **Aviso de privacidad y consentimiento**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 2
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 2 · Issue: [#23](https://github.com/Alexis01000011/EngiMods/issues/23)
 
 > Como **visitante**, quiero leer el aviso de privacidad y aceptarlo al registrarme, para saber qué datos se guardan y para qué.
 
@@ -516,7 +516,7 @@ Nota: El texto legal es un entregable del equipo y debe revisarse contra la ley 
 
 **Solicitar baja de la cuenta y de los datos**
 
-Tipo: Historia de usuario · Prioridad: Could · Release: R1 · Puntos: 3 · Ola: 5
+Tipo: Historia de usuario · Prioridad: Could · Release: R1 · Puntos: 3 · Ola: 5 · Issue: [#24](https://github.com/Alexis01000011/EngiMods/issues/24)
 
 > Como **alumno**, quiero pedir que se borre mi cuenta y mis datos, para ejercer mis derechos sobre mis datos personales.
 
@@ -535,7 +535,7 @@ Páginas públicas, cobro con Stripe, cupos y devoluciones.
 
 **Landing de EngiMods**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 5
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 5 · Issue: [#25](https://github.com/Alexis01000011/EngiMods/issues/25)
 
 > Como **visitante**, quiero entender en una página qué es EngiMods, para qué juegos hay cursos y cómo empezar, para decidir si me inscribo al piloto.
 
@@ -552,7 +552,7 @@ Depende de: [EM-004](#em-004), [EM-012](#em-012)
 
 **Página de detalle del curso**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 6
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 6 · Issue: [#26](https://github.com/Alexis01000011/EngiMods/issues/26)
 
 > Como **visitante**, quiero ver el temario, precio, requisitos, duración y política de devolución de un curso antes de pagar, para saber exactamente qué compro.
 
@@ -571,7 +571,7 @@ Nota: El lienzo pide "precio, requisitos y devolución claros antes del pago".
 
 **Pago con Stripe Checkout**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 5 · Ola: 5
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 5 · Ola: 5 · Issue: [#27](https://github.com/Alexis01000011/EngiMods/issues/27)
 
 > Como **alumno con cuenta verificada**, quiero pagar un curso con tarjeta, para inscribirme a un grupo.
 
@@ -589,7 +589,7 @@ Depende de: [EM-009](#em-009), [EM-030](#em-030), [EM-050](#em-050)
 
 **Webhook de Stripe que confirma el pago e inscribe**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 5 · Ola: 6
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 5 · Ola: 6 · Issue: [#28](https://github.com/Alexis01000011/EngiMods/issues/28)
 
 > Como **sistema**, quiero confirmar el pago al recibir el aviso de Stripe, para que la inscripción dependa del pago real y no de que el alumno regrese a la página de éxito.
 
@@ -606,7 +606,7 @@ Depende de: [EM-042](#em-042), [EM-053](#em-053)
 
 **Correo de confirmación de compra**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 7
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 7 · Issue: [#29](https://github.com/Alexis01000011/EngiMods/issues/29)
 
 > Como **alumno**, quiero recibir un correo al confirmarse mi pago, para tener comprobante y saber los siguientes pasos.
 
@@ -621,7 +621,7 @@ Depende de: [EM-043](#em-043), [EM-008](#em-008)
 
 **Cupo máximo por grupo**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 6
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 6 · Issue: [#30](https://github.com/Alexis01000011/EngiMods/issues/30)
 
 > Como **administrador**, quiero definir un cupo por grupo, para no vender más plazas de las que el tutor puede revisar.
 
@@ -637,7 +637,7 @@ Depende de: [EM-042](#em-042)
 
 **Lista de espera e interés por juego**
 
-Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 2 · Ola: 3
+Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 2 · Ola: 3 · Issue: [#31](https://github.com/Alexis01000011/EngiMods/issues/31)
 
 > Como **visitante**, quiero dejar mi correo para el próximo grupo o para un juego que aún no tiene curso, para enterarme cuando abra.
 
@@ -655,7 +655,7 @@ Nota: Sirve como dato de demanda por juego: ayuda a decidir para qué juego hace
 
 **Registrar devoluciones**
 
-Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 3 · Ola: 7
+Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 3 · Ola: 7 · Issue: [#32](https://github.com/Alexis01000011/EngiMods/issues/32)
 
 > Como **administrador**, quiero registrar una devolución y quitar el acceso al curso, para cumplir la política de devolución sin hacerlo a mano en varios lugares.
 
@@ -671,7 +671,7 @@ Depende de: [EM-043](#em-043)
 
 **Pago en efectivo en OXXO**
 
-Tipo: Historia de usuario · Prioridad: Could · Release: R1 · Puntos: 3 · Ola: 7
+Tipo: Historia de usuario · Prioridad: Could · Release: R1 · Puntos: 3 · Ola: 7 · Issue: [#33](https://github.com/Alexis01000011/EngiMods/issues/33)
 
 > Como **alumno sin tarjeta**, quiero pagar en efectivo, para poder inscribirme aunque no tenga tarjeta.
 
@@ -688,7 +688,7 @@ Nota: Hipótesis no validada: que una parte del público no tiene tarjeta. Confi
 
 **Códigos de descuento**
 
-Tipo: Historia de usuario · Prioridad: Could · Release: R1 · Puntos: 2 · Ola: 6
+Tipo: Historia de usuario · Prioridad: Could · Release: R1 · Puntos: 2 · Ola: 6 · Issue: [#34](https://github.com/Alexis01000011/EngiMods/issues/34)
 
 > Como **administrador**, quiero crear códigos de descuento, para ofrecer precio de piloto o promociones con aliados.
 
@@ -707,7 +707,7 @@ Grupos de seis semanas con fechas, cupo, tutor y sesiones en vivo.
 
 **Crear grupos de un curso**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 4
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 4 · Issue: [#35](https://github.com/Alexis01000011/EngiMods/issues/35)
 
 > Como **administrador**, quiero abrir un grupo de un curso con fechas, cupo y tutor, para organizar cada generación de seis semanas.
 
@@ -722,7 +722,7 @@ Depende de: [EM-020](#em-020), [EM-003](#em-003)
 
 **Liberar contenido por semana**
 
-Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 3 · Ola: 8
+Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 3 · Ola: 8 · Issue: [#36](https://github.com/Alexis01000011/EngiMods/issues/36)
 
 > Como **tutor**, quiero que los módulos se liberen semana a semana según la fecha de inicio del grupo, para que el grupo avance al mismo ritmo y las clínicas tengan sentido.
 
@@ -738,7 +738,7 @@ Depende de: [EM-050](#em-050), [EM-061](#em-061)
 
 **Calendario de clínicas grupales**
 
-Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 2 · Ola: 7
+Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 2 · Ola: 7 · Issue: [#37](https://github.com/Alexis01000011/EngiMods/issues/37)
 
 > Como **alumno**, quiero ver las fechas y enlaces de las clínicas en vivo de mi grupo, para no perderme ninguna.
 
@@ -753,7 +753,7 @@ Depende de: [EM-050](#em-050), [EM-060](#em-060)
 
 **Inscripciones e inscripción manual por administrador**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 5
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 5 · Issue: [#38](https://github.com/Alexis01000011/EngiMods/issues/38)
 
 > Como **administrador**, quiero inscribir a alguien a un grupo sin pasar por Stripe, para dar becas, hacer pruebas o registrar pagos cobrados por fuera durante el piloto.
 
@@ -776,7 +776,7 @@ Lo que ve y hace el alumno inscrito: lecciones, progreso y laboratorio local.
 
 **Panel del alumno: mis cursos**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 6
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 6 · Issue: [#39](https://github.com/Alexis01000011/EngiMods/issues/39)
 
 > Como **alumno**, quiero ver mis cursos inscritos con mi avance, para retomar donde me quedé.
 
@@ -792,7 +792,7 @@ Depende de: [EM-053](#em-053)
 
 **Ver una lección**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 7
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 7 · Issue: [#40](https://github.com/Alexis01000011/EngiMods/issues/40)
 
 > Como **alumno inscrito**, quiero leer una lección con su versión probada y sus recursos, para aprender y trabajar con confianza en que el ejemplo funciona.
 
@@ -808,7 +808,7 @@ Depende de: [EM-021](#em-021), [EM-060](#em-060)
 
 **Marcar lección como completada**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 8
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 8 · Issue: [#41](https://github.com/Alexis01000011/EngiMods/issues/41)
 
 > Como **alumno**, quiero marcar una lección como completada, para llevar el control de mi avance.
 
@@ -823,7 +823,7 @@ Depende de: [EM-061](#em-061)
 
 **Guía de laboratorio local por juego**
 
-Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 3 · Ola: 7
+Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 3 · Ola: 7 · Issue: [#42](https://github.com/Alexis01000011/EngiMods/issues/42)
 
 > Como **alumno**, quiero una guía paso a paso para preparar mi computadora para hacer mods de mi juego, para no abandonar en la instalación.
 
@@ -845,7 +845,7 @@ Envío de ejercicios y proyecto final, cola de revisión y rúbrica. Es el difer
 
 **Enviar una entrega**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 8
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 8 · Issue: [#43](https://github.com/Alexis01000011/EngiMods/issues/43)
 
 > Como **alumno**, quiero entregar un ejercicio con el enlace a mi repositorio, para recibir revisión de lo que construí.
 
@@ -862,7 +862,7 @@ Depende de: [EM-061](#em-061)
 
 **Cola de revisión con alerta de 24 horas**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 9
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 9 · Issue: [#44](https://github.com/Alexis01000011/EngiMods/issues/44)
 
 > Como **tutor**, quiero ver las entregas pendientes ordenadas por antigüedad, para cumplir la revisión en 24 horas que prometemos.
 
@@ -880,7 +880,7 @@ Nota: Las 24 horas son una promesa del lienzo. Si el piloto muestra que no se cu
 
 **Revisar con rúbrica**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 5 · Ola: 10
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 5 · Ola: 10 · Issue: [#45](https://github.com/Alexis01000011/EngiMods/issues/45)
 
 > Como **tutor**, quiero revisar una entrega con una rúbrica y comentarios, para dar retroalimentación consistente y de ingeniería, no solo "funciona o no funciona".
 
@@ -896,7 +896,7 @@ Depende de: [EM-071](#em-071)
 
 **Reenviar entrega tras cambios**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 11
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 11 · Issue: [#46](https://github.com/Alexis01000011/EngiMods/issues/46)
 
 > Como **alumno**, quiero reenviar mi entrega después de recibir cambios, para mejorar mi trabajo hasta aprobarlo.
 
@@ -911,7 +911,7 @@ Depende de: [EM-072](#em-072)
 
 **Notificaciones de entregas por correo**
 
-Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 2 · Ola: 11
+Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 2 · Ola: 11 · Issue: [#47](https://github.com/Alexis01000011/EngiMods/issues/47)
 
 > Como **alumno o tutor**, quiero recibir un correo cuando hay una entrega nueva o una revisión lista, para no tener que estar revisando la plataforma.
 
@@ -926,7 +926,7 @@ Depende de: [EM-072](#em-072), [EM-008](#em-008)
 
 **Entregar archivo .zip**
 
-Tipo: Historia de usuario · Prioridad: Could · Release: R1 · Puntos: 3 · Ola: 9
+Tipo: Historia de usuario · Prioridad: Could · Release: R1 · Puntos: 3 · Ola: 9 · Issue: [#48](https://github.com/Alexis01000011/EngiMods/issues/48)
 
 > Como **alumno que no usa Git todavía**, quiero subir mi proyecto como .zip, para poder entregar aunque aún no domine Git.
 
@@ -943,7 +943,7 @@ Nota: Contradice en parte la propuesta (Git es parte de lo que se enseña). Deci
 
 **Proyecto final con checklist de publicación**
 
-Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 3 · Ola: 11
+Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 3 · Ola: 11 · Issue: [#49](https://github.com/Alexis01000011/EngiMods/issues/49)
 
 > Como **alumno**, quiero entregar mi mod final con un checklist de publicación, para dejarlo listo para publicarlo y mantenerlo.
 
@@ -965,7 +965,7 @@ Discord, avisos del curso y avisos de nuevas versiones del juego.
 
 **Acceso al Discord del grupo**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 1 · Ola: 7
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 1 · Ola: 7 · Issue: [#50](https://github.com/Alexis01000011/EngiMods/issues/50)
 
 > Como **alumno inscrito**, quiero ver el enlace de invitación al Discord de mi grupo, para unirme a la comunidad desde el primer día.
 
@@ -981,7 +981,7 @@ Nota: Integración automática con Discord (bot, roles) queda fuera del piloto.
 
 **Avisos del curso**
 
-Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 3 · Ola: 5
+Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 3 · Ola: 5 · Issue: [#51](https://github.com/Alexis01000011/EngiMods/issues/51)
 
 > Como **tutor**, quiero publicar avisos para mi grupo, para comunicar cambios, recordatorios y nuevos retos.
 
@@ -996,7 +996,7 @@ Depende de: [EM-050](#em-050), [EM-008](#em-008)
 
 **Aviso de nueva versión del juego a alumnos afectados**
 
-Tipo: Historia de usuario · Prioridad: Could · Release: R1 · Puntos: 3 · Ola: 6
+Tipo: Historia de usuario · Prioridad: Could · Release: R1 · Puntos: 3 · Ola: 6 · Issue: [#52](https://github.com/Alexis01000011/EngiMods/issues/52)
 
 > Como **alumno**, quiero enterarme cuando sale una versión del juego que afecta lo que aprendí, para saber si mi mod necesita actualizarse.
 
@@ -1015,7 +1015,7 @@ Administración y medición de las hipótesis del piloto.
 
 **Admin configurado para operar el piloto**
 
-Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 9
+Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 9 · Issue: [#53](https://github.com/Alexis01000011/EngiMods/issues/53)
 
 Criterios de aceptación:
 
@@ -1028,7 +1028,7 @@ Depende de: [EM-053](#em-053), [EM-070](#em-070)
 
 **Métricas del piloto**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 11
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 11 · Issue: [#54](https://github.com/Alexis01000011/EngiMods/issues/54)
 
 > Como **equipo EngiMods**, quiero ver las métricas que validan las hipótesis del piloto, para decidir con datos si el negocio sigue, cambia o se detiene.
 
@@ -1046,7 +1046,7 @@ Nota: El lienzo dice que el piloto debe comprobar interés, aprendizaje y dispos
 
 **Exportar datos operativos a CSV**
 
-Tipo: Técnica · Prioridad: Should · Release: R1 · Puntos: 2 · Ola: 10
+Tipo: Técnica · Prioridad: Should · Release: R1 · Puntos: 2 · Ola: 10 · Issue: [#55](https://github.com/Alexis01000011/EngiMods/issues/55)
 
 Criterios de aceptación:
 
@@ -1058,7 +1058,7 @@ Depende de: [EM-090](#em-090)
 
 **Encuesta de cierre del curso**
 
-Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 2 · Ola: 7
+Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 2 · Ola: 7 · Issue: [#56](https://github.com/Alexis01000011/EngiMods/issues/56)
 
 > Como **equipo EngiMods**, quiero pedir a cada alumno una encuesta al terminar, para medir satisfacción, disposición a pagar el siguiente curso y si publicó su mod.
 
@@ -1077,7 +1077,7 @@ Lo que viene después de validar el piloto. No se trabaja en R1.
 
 **Membresía de actualizaciones**
 
-Tipo: Historia de usuario · Prioridad: Later · Release: R2
+Tipo: Historia de usuario · Prioridad: Later · Release: R2 · Issue: [#57](https://github.com/Alexis01000011/EngiMods/issues/57)
 
 > Como **egresado**, quiero pagar una membresía para recibir contenido actualizado por versión, para mantener mis mods al día.
 
@@ -1091,7 +1091,7 @@ Nota: Lienzo: "más adelante: membresía de actualizaciones". Requiere suscripci
 
 **Talleres para grupos bajo cotización**
 
-Tipo: Historia de usuario · Prioridad: Later · Release: R2
+Tipo: Historia de usuario · Prioridad: Later · Release: R2 · Issue: [#58](https://github.com/Alexis01000011/EngiMods/issues/58)
 
 > Como **administrador de un servidor o comunidad**, quiero solicitar un taller para mi grupo, para que mi equipo aprenda a hacer mods.
 
@@ -1105,7 +1105,7 @@ Nota: Lienzo: "talleres para grupos bajo cotización". Inicia como formulario de
 
 **Ruta introductoria para quienes empiezan de cero**
 
-Tipo: Historia de usuario · Prioridad: Later · Release: R2
+Tipo: Historia de usuario · Prioridad: Later · Release: R2 · Issue: [#59](https://github.com/Alexis01000011/EngiMods/issues/59)
 
 > Como **persona sin conocimientos de programación**, quiero una ruta previa al curso principal, para poder entrar después al curso de seis semanas.
 
@@ -1119,7 +1119,7 @@ Nota: Lienzo: "consideraremos una ruta introductoria posterior".
 
 **Portafolio público del alumno**
 
-Tipo: Historia de usuario · Prioridad: Later · Release: R2
+Tipo: Historia de usuario · Prioridad: Later · Release: R2 · Issue: [#60](https://github.com/Alexis01000011/EngiMods/issues/60)
 
 > Como **egresado**, quiero una página pública con los mods que publiqué, para mostrar mi trabajo.
 
@@ -1131,7 +1131,7 @@ Criterios de aceptación:
 
 **Constancia de finalización verificable**
 
-Tipo: Historia de usuario · Prioridad: Later · Release: R2
+Tipo: Historia de usuario · Prioridad: Later · Release: R2 · Issue: [#61](https://github.com/Alexis01000011/EngiMods/issues/61)
 
 > Como **egresado**, quiero una constancia con enlace de verificación, para demostrar que terminé el curso.
 
@@ -1143,7 +1143,7 @@ Criterios de aceptación:
 
 **Espacio para aliados y creadores**
 
-Tipo: Historia de usuario · Prioridad: Later · Release: R2
+Tipo: Historia de usuario · Prioridad: Later · Release: R2 · Issue: [#62](https://github.com/Alexis01000011/EngiMods/issues/62)
 
 > Como **creador de mods aliado**, quiero revisar ejercicios y que se reconozca mi aporte, para colaborar con la academia.
 
@@ -1157,7 +1157,7 @@ Nota: Lienzo, aliados clave: revisión de ejercicios a cambio de difusión y rec
 
 **Varios tutores y reparto de revisiones**
 
-Tipo: Historia de usuario · Prioridad: Later · Release: R2
+Tipo: Historia de usuario · Prioridad: Later · Release: R2 · Issue: [#63](https://github.com/Alexis01000011/EngiMods/issues/63)
 
 > Como **administrador**, quiero repartir automáticamente las entregas entre varios tutores, para escalar a más grupos sin romper las 24 horas.
 
@@ -1169,7 +1169,7 @@ Criterios de aceptación:
 
 **Facturación electrónica (CFDI)**
 
-Tipo: Historia de usuario · Prioridad: Later · Release: R2
+Tipo: Historia de usuario · Prioridad: Later · Release: R2 · Issue: [#64](https://github.com/Alexis01000011/EngiMods/issues/64)
 
 > Como **alumno que necesita factura**, quiero solicitar mi factura desde la plataforma, para deducir o comprobar el gasto.
 
@@ -1183,7 +1183,7 @@ Nota: Validar con un contador el régimen fiscal y si hace falta facturar desde 
 
 **Plataforma en inglés**
 
-Tipo: Historia de usuario · Prioridad: Later · Release: R2
+Tipo: Historia de usuario · Prioridad: Later · Release: R2 · Issue: [#65](https://github.com/Alexis01000011/EngiMods/issues/65)
 
 > Como **persona de habla inglesa**, quiero usar la plataforma en inglés, para aprender aunque no hable español.
 
