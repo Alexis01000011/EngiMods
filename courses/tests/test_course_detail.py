@@ -127,3 +127,20 @@ def test_hidden_game_is_not_linked(client, course):
     html = response.content.decode()
     assert "Juego de prueba" in html
     assert reverse("catalog:game_detail", args=[course.game.slug]) not in html
+
+
+def test_syllabus_links_published_lessons_to_their_page(client, course):
+    module = Module.objects.create(course=course, title="M", order=1)
+    published = make_lesson(module, "Lección publicada", 1)
+    draft = make_lesson(module, "Lección borrador", 2, Lesson.Status.DRAFT)
+    html = client.get(url(course)).content.decode()
+    published_url = reverse("courses:lesson_detail", args=[course.slug, published.pk])
+    assert f'<a href="{published_url}">Lección publicada</a>' in html
+    assert reverse("courses:lesson_detail", args=[course.slug, draft.pk]) not in html
+
+
+def test_syllabus_lesson_links_are_shown_to_anonymous(client, course):
+    module = Module.objects.create(course=course, title="M", order=1)
+    lesson = make_lesson(module, "L", 1)
+    html = client.get(url(course)).content.decode()
+    assert reverse("courses:lesson_detail", args=[course.slug, lesson.pk]) in html
