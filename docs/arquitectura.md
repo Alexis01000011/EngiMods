@@ -4,7 +4,7 @@ Monolito Django con plantillas del lado del servidor. Sin API separada ni fronte
 
 ## Mapa de apps
 
-Cada app es dueña de sus modelos y sus migraciones. Una historia normalmente toca una sola app; si toca otra, el PR lo dice explícitamente. Las apps se crean cuando llega la primera historia que las necesita (solo `core` existe hoy).
+Cada app es dueña de sus modelos y sus migraciones. Una historia normalmente toca una sola app; si toca otra, el PR lo dice explícitamente. Las apps se crean cuando llega la primera historia que las necesita (en `main` existen `core` y `accounts`; consulta el backlog y los PR para el trabajo posterior).
 
 | App | Es dueña de | Modelos previstos | Historias |
 |---|---|---|---|
