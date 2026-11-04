@@ -118,9 +118,11 @@ La persona 3 queda libre en las olas 3 y 7. Ahí puede tomar EM-036 y EM-044 del
 
 ### Al aprobar este recorte
 
-- Crear las issues de EM-035 y EM-036.
-- Actualizar el cuerpo de las issues cuyos criterios cambiaron.
-- Crear el milestone `Semestre` con las issues de los bloques A y B.
+Hecho el 3/11/2026:
+
+- Issues de EM-035 (#68) y EM-036 (#69).
+- Milestone `Semestre` con las 28 issues de los bloques A y B.
+- Cuerpo actualizado en las 30 issues cuyos criterios cambiaron en el recorte.
 
 ## Orden sugerido para R1 (olas por dependencias)
 
@@ -170,8 +172,8 @@ La persona 3 queda libre en las olas 3 y 7. Ahí puede tomar EM-036 y EM-044 del
 | [EM-032](#em-032) | [#22](https://github.com/Alexis01000011/EngiMods/issues/22) | Perfil del alumno | E3 | Should | 2 | 4 | EM-030, EM-010 | Pendiente |
 | [EM-033](#em-033) | [#23](https://github.com/Alexis01000011/EngiMods/issues/23) | Aviso de privacidad y consentimiento | E3 | Must | 2 | 2 | EM-003 | Pendiente |
 | [EM-034](#em-034) | [#24](https://github.com/Alexis01000011/EngiMods/issues/24) | Solicitar baja de la cuenta y de los datos | E3 | Could | 3 | 5 | EM-032 | Pendiente |
-| [EM-035](#em-035) | por crear | Rol de tutor | E3 | Must | 2 | 2 | EM-003 | Pendiente |
-| [EM-036](#em-036) | por crear | Términos y condiciones y política de devolución | E3 | Must | 2 | 3 | EM-033 | Pendiente |
+| [EM-035](#em-035) | [#68](https://github.com/Alexis01000011/EngiMods/issues/68) | Rol de tutor | E3 | Must | 2 | 2 | EM-003 | Pendiente |
+| [EM-036](#em-036) | [#69](https://github.com/Alexis01000011/EngiMods/issues/69) | Términos y condiciones y política de devolución | E3 | Must | 2 | 3 | EM-033 | Pendiente |
 | [EM-040](#em-040) | [#25](https://github.com/Alexis01000011/EngiMods/issues/25) | Landing de EngiMods | E4 | Must | 3 | 4 | EM-004, EM-020 | Pendiente |
 | [EM-041](#em-041) | [#26](https://github.com/Alexis01000011/EngiMods/issues/26) | Página de detalle del curso | E4 | Must | 3 | 5 | EM-020, EM-021 | Pendiente |
 | [EM-042](#em-042) | [#27](https://github.com/Alexis01000011/EngiMods/issues/27) | Pago con Stripe Checkout | E4 | Must | 5 | 5 | EM-009, EM-030, EM-053 | Pendiente |
@@ -627,7 +629,7 @@ Depende de: [EM-032](#em-032)
 
 **Rol de tutor**
 
-Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 2 · Issue: por crear
+Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 2 · Issue: [#68](https://github.com/Alexis01000011/EngiMods/issues/68)
 
 Criterios de aceptación:
 
@@ -643,7 +645,7 @@ Nota: El tutor trabaja en pantallas propias, no en el admin (decisión del 3/11/
 
 **Términos y condiciones y política de devolución**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 3 · Issue: por crear
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 3 · Issue: [#69](https://github.com/Alexis01000011/EngiMods/issues/69)
 
 > Como **visitante**, quiero leer los términos de compra y la política de devolución antes de pagar, para saber a qué me comprometo y cómo pedir un reembolso.
 

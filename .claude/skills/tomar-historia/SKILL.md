@@ -10,6 +10,7 @@ Esta skill es `AGENTS.md` (secciones 5 a 8) en pasos. Si algo choca, gana `AGENT
 ## 1. Elegir
 
 - Si la persona dio un ID, úsalo. Si pidió "la siguiente", ve a la sección "Recorte para la entrega de semestre" de `docs/BACKLOG.md`: bloque A por ola, luego B, luego C. No tomes nada de "Fuera del semestre" ni de R2 salvo que la persona lo pida.
+  Las historias de los bloques A y B también están en el milestone `Semestre`: `gh issue list --milestone Semestre --state open --json number,title,assignees`.
 - Lee completa la sección `#### EM-0XX`: criterios, "Depende de" y notas.
 - Comprueba que cada dependencia esté cerrada:
   `gh issue list --state all --search "EM-0YY in:title" --json number,state,title`.
