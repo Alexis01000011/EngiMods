@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     "accounts",
     "catalog",
     "courses",
+    "enrollments",
 ]
 
 # Modelo de usuario propio (EM-003): el correo es el identificador.

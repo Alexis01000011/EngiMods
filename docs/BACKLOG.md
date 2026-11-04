@@ -187,7 +187,7 @@ Hecho el 3/11/2026:
 | [EM-050](#em-050) | [#35](https://github.com/Alexis01000011/EngiMods/issues/35) | Crear grupos de un curso | E5 | Must | 3 | 4 | EM-020, EM-003 | Pendiente |
 | [EM-051](#em-051) | [#36](https://github.com/Alexis01000011/EngiMods/issues/36) | Liberar contenido por semana | E5 | Should | 3 | 6 | EM-050, EM-061, EM-035 | Pendiente |
 | [EM-052](#em-052) | [#37](https://github.com/Alexis01000011/EngiMods/issues/37) | Calendario de clínicas grupales | E5 | Should | 2 | 6 | EM-050, EM-060, EM-035 | Pendiente |
-| [EM-053](#em-053) | [#38](https://github.com/Alexis01000011/EngiMods/issues/38) | Inscripciones e inscripción manual por administrador | E5 | Must | 2 | 4 | EM-020, EM-003 | Pendiente |
+| [EM-053](#em-053) | [#38](https://github.com/Alexis01000011/EngiMods/issues/38) | Inscripciones e inscripción manual por administrador | E5 | Must | 2 | 4 | EM-020, EM-003 | Hecho |
 | [EM-060](#em-060) | [#39](https://github.com/Alexis01000011/EngiMods/issues/39) | Panel del alumno: mis cursos | E6 | Must | 3 | 5 | EM-053 | Pendiente |
 | [EM-061](#em-061) | [#40](https://github.com/Alexis01000011/EngiMods/issues/40) | Ver una lección | E6 | Must | 3 | 5 | EM-021, EM-053 | Pendiente |
 | [EM-062](#em-062) | [#41](https://github.com/Alexis01000011/EngiMods/issues/41) | Marcar lección como completada | E6 | Must | 2 | 6 | EM-061, EM-060 | Pendiente |
@@ -852,6 +852,7 @@ Criterios de aceptación:
 - [ ] Un grupo tiene curso, nombre, fecha de inicio, fecha de fin, cupo, tutor(es), enlace de Discord y estado (`inscripción abierta`, `en curso`, `cerrado`).
 - [ ] Solo los cursos de tipo `curso` tienen grupos; las prácticas cortas son autoguiadas.
 - [ ] Solo se puede pagar un grupo en `inscripción abierta`.
+- [ ] La inscripción puede llevar grupo (opcional, solo en cursos por grupos) y cuenta para su cupo.
 
 Depende de: [EM-020](#em-020), [EM-003](#em-003)
 
@@ -890,22 +891,21 @@ Depende de: [EM-050](#em-050), [EM-060](#em-060), [EM-035](#em-035)
 
 **Inscripciones e inscripción manual por administrador**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 4 · Issue: [#38](https://github.com/Alexis01000011/EngiMods/issues/38)
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 4 · Estado: Hecho · Issue: [#38](https://github.com/Alexis01000011/EngiMods/issues/38)
 
-> Como **administrador**, quiero inscribir a alguien a un grupo sin pasar por Stripe, para dar becas, hacer pruebas o registrar pagos cobrados por fuera durante el piloto.
+> Como **administrador**, quiero inscribir a alguien a un curso sin pasar por Stripe, para dar becas, hacer pruebas o registrar pagos cobrados por fuera durante el piloto.
 
 Criterios de aceptación:
 
-- [ ] Existe el modelo de inscripción: alumno, curso, grupo (opcional, solo en cursos por grupos), origen, estado (`activa` o `cancelada`), fecha de inscripción y fecha de fin de acceso. Es el que usa después el webhook de Stripe (EM-043).
-- [ ] El acceso está vigente si la inscripción está `activa` y no ha pasado su fecha de fin de acceso. "Vencida" se calcula; no se guarda como estado.
-- [ ] Desde el admin se crea una inscripción con origen (`beca`, `prueba`, `pago externo`); la fecha de fin de acceso se calcula con los días de acceso del curso (EM-020).
-- [ ] Un alumno no puede tener dos inscripciones con acceso vigente al mismo curso.
-- [ ] Si tiene grupo, cuenta para el cupo del grupo.
-- [ ] Queda distinguida de las inscripciones pagadas con Stripe en reportes.
+- [x] Existe el modelo de inscripción: alumno, curso, origen (`stripe`, `beca`, `prueba` o `pago externo`), estado (`activa` o `cancelada`), fecha de inscripción y fecha de fin de acceso. Es el que usa después el webhook de Stripe (EM-043).
+- [x] El acceso está vigente si la inscripción está `activa` y no ha pasado su fecha de fin de acceso. "Vencida" se calcula; no se guarda como estado.
+- [x] Desde el admin se crea una inscripción con origen (`beca`, `prueba` o `pago externo`); la fecha de fin de acceso se calcula con los días de acceso del curso (EM-020).
+- [x] Un alumno no puede tener dos inscripciones con acceso vigente al mismo curso.
+- [x] Queda distinguida de las inscripciones pagadas con Stripe en reportes.
 
 Depende de: [EM-020](#em-020), [EM-003](#em-003)
 
-Nota: Permite correr el piloto aunque el flujo de pago (EM-042, EM-043) no esté listo. Ya no depende de EM-050 porque Misión Cero es autoguiada y el acceso es por tiempo (decisiones del 3/11/2026).
+Nota: Permite correr el piloto aunque el flujo de pago (EM-042, EM-043) no esté listo. Ya no depende de EM-050 porque Misión Cero es autoguiada y el acceso es por tiempo (decisiones del 3/11/2026). Se implementó sin grupo ni cupo: el modelo de grupos llega con EM-050, que agrega el grupo opcional a la inscripción y su cuenta para el cupo.
 
 ### E6 Experiencia de aprendizaje
 
