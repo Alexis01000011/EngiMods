@@ -738,6 +738,8 @@ Criterios de aceptación:
 
 Depende de: [EM-042](#em-042), [EM-053](#em-053)
 
+Nota: La regla de una sola inscripción con acceso vigente por alumno y curso vive en `Enrollment.clean()`, no en la base de datos (EM-053). El webhook debe llamar a `full_clean()` antes de guardar la inscripción, o decidir qué hacer si el alumno ya tiene acceso vigente al curso.
+
 #### EM-044
 
 **Correo de confirmación de compra**
@@ -852,7 +854,7 @@ Criterios de aceptación:
 - [ ] Un grupo tiene curso, nombre, fecha de inicio, fecha de fin, cupo, tutor(es), enlace de Discord y estado (`inscripción abierta`, `en curso`, `cerrado`).
 - [ ] Solo los cursos de tipo `curso` tienen grupos; las prácticas cortas son autoguiadas.
 - [ ] Solo se puede pagar un grupo en `inscripción abierta`.
-- [ ] La inscripción puede llevar grupo (opcional, solo en cursos por grupos) y cuenta para su cupo.
+- [ ] La inscripción puede llevar grupo (opcional, solo en cursos por grupos) y cuenta para su cupo. En un curso por grupos, la fecha de fin de acceso se cuenta desde que termina el grupo, no desde la inscripción.
 
 Depende de: [EM-020](#em-020), [EM-003](#em-003)
 
