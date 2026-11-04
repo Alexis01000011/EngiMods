@@ -174,7 +174,7 @@ Hecho el 3/11/2026:
 | [EM-034](#em-034) | [#24](https://github.com/Alexis01000011/EngiMods/issues/24) | Solicitar baja de la cuenta y de los datos | E3 | Could | 3 | 5 | EM-032 | Pendiente |
 | [EM-035](#em-035) | [#68](https://github.com/Alexis01000011/EngiMods/issues/68) | Rol de tutor | E3 | Must | 2 | 2 | EM-003 | Hecho |
 | [EM-036](#em-036) | [#69](https://github.com/Alexis01000011/EngiMods/issues/69) | Términos y condiciones y política de devolución | E3 | Must | 2 | 3 | EM-033 | Hecho |
-| [EM-040](#em-040) | [#25](https://github.com/Alexis01000011/EngiMods/issues/25) | Landing de EngiMods | E4 | Must | 3 | 4 | EM-004, EM-020 | Pendiente |
+| [EM-040](#em-040) | [#25](https://github.com/Alexis01000011/EngiMods/issues/25) | Landing de EngiMods | E4 | Must | 3 | 4 | EM-004, EM-020 | Hecho |
 | [EM-041](#em-041) | [#26](https://github.com/Alexis01000011/EngiMods/issues/26) | Página de detalle del curso | E4 | Must | 3 | 5 | EM-020, EM-021 | Hecho |
 | [EM-042](#em-042) | [#27](https://github.com/Alexis01000011/EngiMods/issues/27) | Pago con Stripe Checkout | E4 | Must | 5 | 5 | EM-009, EM-030, EM-053 | Pendiente |
 | [EM-043](#em-043) | [#28](https://github.com/Alexis01000011/EngiMods/issues/28) | Webhook de Stripe que confirma el pago e inscribe | E4 | Must | 5 | 6 | EM-042, EM-053 | Pendiente |
@@ -668,17 +668,17 @@ Páginas públicas, cobro con Stripe, cupos y devoluciones.
 
 **Landing de EngiMods**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 4 · Issue: [#25](https://github.com/Alexis01000011/EngiMods/issues/25)
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 4 · Estado: Hecho · Issue: [#25](https://github.com/Alexis01000011/EngiMods/issues/25)
 
 > Como **visitante**, quiero entender en una página qué es EngiMods, para qué juegos hay cursos y cómo empezar, para decidir si me inscribo al piloto.
 
 Criterios de aceptación:
 
-- [ ] Presenta la propuesta de valor: ruta en español, ejercicios pequeños, versión comprobada y revisión de lo que construyes.
-- [ ] Muestra los juegos activos y los cursos publicados.
-- [ ] Llamado a la acción hacia Misión Cero y hacia el grupo piloto.
-- [ ] Funciona en teléfono.
-- [ ] Si existe EM-012, cada juego enlaza a su página.
+- [x] Presenta la propuesta de valor: ruta en español, ejercicios pequeños, versión comprobada y revisión de lo que construyes.
+- [x] Muestra los juegos activos y los cursos publicados.
+- [x] Llamado a la acción hacia Misión Cero y hacia el grupo piloto.
+- [x] Funciona en teléfono.
+- [x] Si existe EM-012, cada juego enlaza a su página.
 
 Depende de: [EM-004](#em-004), [EM-020](#em-020)
 
