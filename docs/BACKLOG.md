@@ -148,7 +148,7 @@ La persona 3 queda libre en las olas 3 y 7. Ahí puede tomar EM-036 y EM-044 del
 |---|---|---|---|---|---|---|---|---|
 | [EM-001](#em-001) | [#1](https://github.com/Alexis01000011/EngiMods/issues/1) | Base del proyecto Django | E0 | Must | 2 | 0 | - | Hecho |
 | [EM-002](#em-002) | [#2](https://github.com/Alexis01000011/EngiMods/issues/2) | Integración continua en GitHub Actions | E0 | Must | 1 | 0 | EM-001 | Hecho |
-| [EM-003](#em-003) | [#3](https://github.com/Alexis01000011/EngiMods/issues/3) | Modelo de usuario personalizado | E0 | Must | 2 | 1 | EM-001 | Pendiente |
+| [EM-003](#em-003) | [#3](https://github.com/Alexis01000011/EngiMods/issues/3) | Modelo de usuario personalizado | E0 | Must | 2 | 1 | EM-001 | Hecho |
 | [EM-004](#em-004) | [#4](https://github.com/Alexis01000011/EngiMods/issues/4) | Plantilla base y sistema de estilos | E0 | Must | 3 | 1 | EM-001 | Pendiente |
 | [EM-005](#em-005) | [#5](https://github.com/Alexis01000011/EngiMods/issues/5) | Despliegue a un entorno de pruebas (staging) | E0 | Must | 5 | 1 | EM-001 | Pendiente |
 | [EM-006](#em-006) | [#6](https://github.com/Alexis01000011/EngiMods/issues/6) | Datos de ejemplo para desarrollo | E0 | Should | 2 | 5 | EM-003, EM-011, EM-021 | Pendiente |
@@ -249,16 +249,16 @@ Depende de: [EM-001](#em-001)
 
 **Modelo de usuario personalizado**
 
-Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 1 · Issue: [#3](https://github.com/Alexis01000011/EngiMods/issues/3)
+Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 1 · Estado: Hecho · Issue: [#3](https://github.com/Alexis01000011/EngiMods/issues/3)
 
 Criterios de aceptación:
 
-- [ ] Existe la app `accounts` con `User(AbstractUser)` y `AUTH_USER_MODEL = "accounts.User"`.
-- [ ] El correo es único y es el identificador para iniciar sesión: el modelo no tiene `username` y usa un manager propio, de modo que `createsuperuser` pide correo.
-- [ ] La unicidad del correo no distingue mayúsculas (`Ana@x.com` y `ana@x.com` son el mismo correo).
-- [ ] El usuario tiene `display_name` (nombre a mostrar), que pide el registro (EM-030).
-- [ ] El modelo está registrado en el admin.
-- [ ] Es la primera migración del proyecto: ninguna otra app crea migraciones que dependan de `auth.User` antes de esto.
+- [x] Existe la app `accounts` con `User(AbstractUser)` y `AUTH_USER_MODEL = "accounts.User"`.
+- [x] El correo es único y es el identificador para iniciar sesión: el modelo no tiene `username` y usa un manager propio, de modo que `createsuperuser` pide correo.
+- [x] La unicidad del correo no distingue mayúsculas (`Ana@x.com` y `ana@x.com` son el mismo correo).
+- [x] El usuario tiene `display_name` (nombre a mostrar), que pide el registro (EM-030).
+- [x] El modelo está registrado en el admin.
+- [x] Es la primera migración del proyecto: ninguna otra app crea migraciones que dependan de `auth.User` antes de esto.
 
 Depende de: [EM-001](#em-001)
 
