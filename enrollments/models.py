@@ -100,3 +100,34 @@ class Enrollment(models.Model):
                 raise ValidationError(
                     _("El alumno ya tiene una inscripción con acceso vigente a este curso.")
                 )
+
+
+class LessonProgress(models.Model):
+    """Lección que el alumno marcó como completada dentro de una inscripción."""
+
+    enrollment = models.ForeignKey(
+        Enrollment,
+        on_delete=models.CASCADE,
+        related_name="lesson_progress",
+        verbose_name=_("inscripción"),
+    )
+    lesson = models.ForeignKey(
+        "courses.Lesson",
+        on_delete=models.CASCADE,
+        related_name="progress",
+        verbose_name=_("lección"),
+    )
+    completed_at = models.DateTimeField(_("fecha de completado"), default=timezone.now)
+
+    class Meta:
+        ordering = ("-completed_at", "-pk")
+        verbose_name = _("lección completada")
+        verbose_name_plural = _("lecciones completadas")
+        constraints = [
+            models.UniqueConstraint(
+                fields=("enrollment", "lesson"), name="unique_lesson_progress_per_enrollment"
+            )
+        ]
+
+    def __str__(self):
+        return f"{self.enrollment} · {self.lesson}"

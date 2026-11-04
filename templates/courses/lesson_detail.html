@@ -15,6 +15,18 @@
 
   {{ lesson.content_html }}
 
+  {% if enrollment %}
+    <form method="post" action="{% url 'enrollments:toggle_lesson' lesson.pk %}">
+      {% csrf_token %}
+      {% if completed %}
+        <p>{% translate "Marcaste esta lección como completada." %}</p>
+        <button type="submit">{% translate "Desmarcar como completada" %}</button>
+      {% else %}
+        <button type="submit">{% translate "Marcar como completada" %}</button>
+      {% endif %}
+    </form>
+  {% endif %}
+
   <nav aria-label="{% translate 'Navegación entre lecciones' %}">
     <ul>
       {% if previous_lesson %}

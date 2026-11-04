@@ -15,6 +15,16 @@
             <a href="{% url 'courses:course_detail' enrollment.course.slug %}">{{ enrollment.course.title }}</a>
             <br>
             {% blocktranslate with date=enrollment.access_ends_at|date:"j \d\e F \d\e Y" %}Acceso hasta el {{ date }}.{% endblocktranslate %}
+            <br>
+            {% blocktranslate with percent=enrollment.progress_percent %}Avance: {{ percent }} %{% endblocktranslate %}
+            <br>
+            {% if enrollment.next_lesson %}
+              <a href="{% url 'courses:lesson_detail' enrollment.course.slug enrollment.next_lesson.pk %}">{% translate "Siguiente lección" %}: {{ enrollment.next_lesson.title }}</a>
+            {% elif enrollment.all_done %}
+              {% translate "Completaste todas las lecciones." %}
+            {% elif not enrollment.has_lessons %}
+              {% translate "Este curso aún no tiene lecciones." %}
+            {% endif %}
           </li>
         {% endfor %}
       </ul>
@@ -30,6 +40,8 @@
             {{ enrollment.course.title }} <strong>({% translate "Vencido" %})</strong>
             <br>
             {% blocktranslate with date=enrollment.access_ends_at|date:"j \d\e F \d\e Y" %}El acceso terminó el {{ date }}.{% endblocktranslate %}
+            <br>
+            {% blocktranslate with percent=enrollment.progress_percent %}Avance: {{ percent }} %{% endblocktranslate %}
           </li>
         {% endfor %}
       </ul>

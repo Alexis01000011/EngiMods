@@ -9,7 +9,7 @@ from django.utils.translation import gettext as _
 
 from accounts.permissions import has_tutor_access
 from catalog.models import Game
-from enrollments.models import Enrollment
+from enrollments.models import Enrollment, LessonProgress
 
 from .models import Course, Lesson, Module
 
@@ -54,6 +54,12 @@ def lesson_detail(request, slug, pk):
     if not can_view_lesson(request.user, course):
         raise PermissionDenied(_("No tienes acceso a esta lección."))
     lesson = lessons[position]
+    # El botón de completada solo aparece a quien tiene inscripción vigente (no a tutores).
+    enrollment = Enrollment.objects.with_access().filter(user=request.user, course=course).first()
+    completed = (
+        enrollment is not None
+        and LessonProgress.objects.filter(enrollment=enrollment, lesson=lesson).exists()
+    )
     # Si hay varias pruebas, se muestra la más reciente por fecha de prueba.
     test = (
         lesson.tests.select_related("game_version__game", "modding_environment")
@@ -67,6 +73,8 @@ def lesson_detail(request, slug, pk):
             "course": course,
             "lesson": lesson,
             "test": test,
+            "enrollment": enrollment,
+            "completed": completed,
             "previous_lesson": lessons[position - 1] if position > 0 else None,
             "next_lesson": lessons[position + 1] if position < len(lessons) - 1 else None,
         },
