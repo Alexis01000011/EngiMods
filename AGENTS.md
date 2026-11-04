@@ -2,6 +2,8 @@
 
 Instrucciones para cualquier agente de código (Claude Code, Codex u otro) y para cualquier persona que llegue a este repositorio. Léelo completo antes de tocar código. Con este archivo debes poder empezar a trabajar sin más contexto; los detalles largos están en `docs/`.
 
+> **Pendiente urgente (3/11/2026).** A la issue de EM-020 (#15) le falta la etiqueta `decision-pendiente`. Siguen abiertos el juego de Misión Cero y cuántos días dura el acceso, y EM-020 está en la ruta crítica del recorte de semestre. Quien lea esto primero pone la etiqueta (`gh issue edit 15 --add-label decision-pendiente`) y borra este aviso en un PR `Docs:`. Si eres un agente, díselo a tu humano al inicio de la sesión y ofrécete a hacerlo.
+
 ## 1. Qué es EngiMods
 
 Academia en línea, en español, para aprender a **crear mods de videojuegos aplicando ingeniería de software**: arquitectura, Git, pruebas, calidad, documentación, publicación y mantenimiento. No es un curso para copiar código: el alumno construye su propio mod y un tutor revisa lo que entrega.
