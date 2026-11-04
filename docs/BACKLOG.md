@@ -158,7 +158,7 @@ Hecho el 3/11/2026:
 | [EM-008](#em-008) | [#8](https://github.com/Alexis01000011/EngiMods/issues/8) | Correo transaccional en producción | E0 | Must | 3 | 2 | EM-005 | Pendiente |
 | [EM-009](#em-009) | [#9](https://github.com/Alexis01000011/EngiMods/issues/9) | Cuenta de Stripe en modo prueba conectada | E0 | Must | 2 | 1 | EM-001 | Hecho |
 | [EM-010](#em-010) | [#10](https://github.com/Alexis01000011/EngiMods/issues/10) | Registrar juegos en el catálogo | E1 | Must | 2 | 2 | EM-003 | Hecho |
-| [EM-011](#em-011) | [#11](https://github.com/Alexis01000011/EngiMods/issues/11) | Registrar versiones del juego y entornos de modding | E1 | Must | 3 | 3 | EM-010 | Pendiente |
+| [EM-011](#em-011) | [#11](https://github.com/Alexis01000011/EngiMods/issues/11) | Registrar versiones del juego y entornos de modding | E1 | Must | 3 | 3 | EM-010 | Hecho |
 | [EM-012](#em-012) | [#12](https://github.com/Alexis01000011/EngiMods/issues/12) | Página pública de cada juego | E1 | Must | 3 | 4 | EM-011, EM-020 | Pendiente |
 | [EM-013](#em-013) | [#13](https://github.com/Alexis01000011/EngiMods/issues/13) | Filtrar cursos por juego | E1 | Should | 2 | 5 | EM-012 | Pendiente |
 | [EM-014](#em-014) | [#14](https://github.com/Alexis01000011/EngiMods/issues/14) | Marcar contenido pendiente de revalidar al salir una nueva versión | E1 | Should | 5 | 5 | EM-021, EM-035 | Pendiente |
@@ -384,16 +384,16 @@ Depende de: [EM-003](#em-003)
 
 **Registrar versiones del juego y entornos de modding**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 3 · Issue: [#11](https://github.com/Alexis01000011/EngiMods/issues/11)
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 3 · Estado: Hecho · Issue: [#11](https://github.com/Alexis01000011/EngiMods/issues/11)
 
 > Como **administrador**, quiero registrar las versiones de cada juego y los entornos de modding que usamos (loader, SDK o herramienta, con su versión), para que cada lección pueda declarar con qué combinación exacta fue probada.
 
 Criterios de aceptación:
 
-- [ ] Una versión del juego tiene número de versión, fecha de publicación y una marca de `versión actual` (solo una por juego).
-- [ ] Un entorno de modding pertenece a un juego y tiene nombre y versión (por ejemplo un loader, un SDK oficial o una herramienta de la comunidad).
-- [ ] Se puede indicar con qué versiones del juego es compatible cada entorno.
-- [ ] Todo se administra desde el admin con filtros por juego.
+- [x] Una versión del juego tiene número de versión, fecha de publicación y una marca de `versión actual` (solo una por juego).
+- [x] Un entorno de modding pertenece a un juego y tiene nombre y versión (por ejemplo un loader, un SDK oficial o una herramienta de la comunidad).
+- [x] Se puede indicar con qué versiones del juego es compatible cada entorno.
+- [x] Todo se administra desde el admin con filtros por juego.
 
 Depende de: [EM-010](#em-010)
 
