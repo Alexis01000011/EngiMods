@@ -52,6 +52,13 @@ LegalText 1──* PrivacyConsent ──> User, o correo si es lista de espera
 - **Tutor:** usuario marcado como tutor (EM-035). Revisa entregas, publica avisos, registra clínicas y revalida lecciones en pantallas propias, fuera del admin, protegidas con lo que ofrece `accounts`. Si además captura contenido, necesita acceso al admin con permisos sobre `courses`.
 - **Alumno:** ve el contenido de un curso solo con acceso vigente (EM-053), salvo las lecciones de muestra.
 
+Las pantallas de tutoría usan `accounts.permissions.tutor_required` en funciones o
+`TutorRequiredMixin` antes de `View` en clases. Ambos aplican `has_tutor_access`:
+solo cuentas activas con `is_tutor` o `is_superuser`; el resto recibe 403, incluidos
+los visitantes sin sesión. `is_staff` por sí solo no concede el rol de tutor y
+`is_tutor` no concede acceso al admin. El administrador cambia el rol desde el
+formulario del usuario y puede filtrar la lista por tutores.
+
 ## URLs públicas
 
 En español y con slugs: `/juegos/<slug>/`, `/cursos/<slug>/`, `/cursos/<slug>/lecciones/<id>/`, `/mi-panel/`, `/privacidad/`, `/terminos/`. Cada app define `app_name` y las vistas se referencian con `reverse("app:nombre")`.
