@@ -18,7 +18,13 @@ Los precios, cupos y plazos son **hipótesis a validar en un piloto**, no datos.
 
 - Hechas: EM-001 (base Django) y EM-002 (CI).
 - Solo existe la app `core` (inicio provisional y `/health/`). No hay modelos ni migraciones propias todavía.
-- **Lo siguiente es EM-003 (modelo de usuario personalizado).** Hasta que esté en `main`, no crees modelos con relación al usuario ni migraciones en otras apps. Si corriste `migrate` antes de EM-003, borra tu `db.sqlite3` local después de que se mezcle.
+- **En revisión (3 de noviembre):** EM-003 en el PR #70 y EM-009 en el PR #71, con la CI en verde. Hasta que EM-003 esté en `main`, no crees modelos con relación al usuario ni migraciones en otras apps.
+- **Pasos siguientes:**
+  1. Revisar y mezclar los PR #70 y #71 (skill `revisar-pr`). Se pueden mezclar en cualquier orden.
+  2. En cuanto EM-003 esté en `main`, cada persona borra su `db.sqlite3` local y corre `uv run python manage.py migrate`. Si no lo hace, `makemigrations --check` y el pre-push fallan con `InconsistentMigrationHistory`.
+  3. Con EM-003 en `main` se pueden tomar las historias de la ola 2 del bloque A: EM-010 (juegos), EM-033 (aviso de privacidad) y EM-035 (rol de tutor). Antes hay que crear la issue de EM-035, que sigue "por crear" en el índice del backlog.
+  4. Para usar EM-009, quien administre la cuenta de Stripe del equipo reparte las llaves de prueba por un canal privado. Cada persona las pone en su `.env` siguiendo `docs/stripe.md`.
+  5. El equipo decide el enfoque de estilos (desbloquea EM-004) y el hosting (desbloquea EM-005 y, después, EM-008). La skill `proponer-adr` prepara cada ADR con opciones y costos.
 - **Hay un recorte vigente para la entrega de semestre** (hasta alrededor del 1 de diciembre de 2026). El objetivo es Misión Cero de punta a punta en staging. Solo se toman historias de ese recorte; ver la sección "Recorte para la entrega de semestre" en `docs/BACKLOG.md`.
 - Decidido: Misión Cero es autoguiada (sin grupo), el acceso al contenido es por tiempo y el tutor trabaja en pantallas propias, no en el admin. Ver `docs/arquitectura.md`.
 - Decisiones abiertas que no debes inventar: hosting, proveedor de correo, enfoque de estilos (Tailwind u otro), juegos con los que arranca el piloto, días de acceso, textos legales. Ver la sección final de `docs/BACKLOG.md`.
