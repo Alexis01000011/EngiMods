@@ -57,6 +57,15 @@ class User(AbstractUser):
         default=False,
         help_text=_("Puede acceder a las pantallas de tutoría sin entrar al administrador."),
     )
+    email_verified_at = models.DateTimeField(
+        _("correo verificado el"),
+        null=True,
+        blank=True,
+        help_text=_(
+            "Se llena cuando la persona abre el enlace del correo de registro. "
+            "Sin correo verificado no puede pagar."
+        ),
+    )
 
     USERNAME_FIELD = "email"
     EMAIL_FIELD = "email"
@@ -83,6 +92,11 @@ class User(AbstractUser):
 
     def get_short_name(self):
         return self.display_name
+
+    @property
+    def can_pay(self):
+        """Sin correo verificado no se puede pagar (EM-030). EM-042 lo revisa antes del Checkout."""
+        return self.is_active and self.email_verified_at is not None
 
 
 class PrivacyConsent(models.Model):

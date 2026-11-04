@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Crea tu cuenta" %} · EngiMods{% endblock %}
+
+{% block content %}
+  <div class="max-w-reading-max">
+    <header class="flex flex-col gap-sm">
+      <h1 class="m-0">{% translate "Crea tu cuenta" %}</h1>
+      <p class="m-0 font-serif text-dek italic text-ink-soft">{% translate "Con tu cuenta guardas tu avance y puedes inscribirte a un curso." %}</p>
+    </header>
+
+    {% if form %}
+      <section aria-label="{% translate 'Registro' %}" class="mt-xl">
+        {% if form.errors %}
+          <div role="alert" class="mb-lg rounded-lg bg-error-container p-md text-error">
+            <p class="m-0"><strong>{% translate "No se pudo crear tu cuenta." %}</strong> {% translate "Revisa los campos marcados y vuelve a intentarlo." %}</p>
+            {% for error in form.non_field_errors %}
+              <p class="m-0 mt-xs">{{ error }}</p>
+            {% endfor %}
+          </div>
+        {% endif %}
+        <form method="post" class="flex flex-col gap-lg">
+          {% csrf_token %}
+          {% for field in form %}
+            {% if field.name != "accept_privacy" %}
+              <div class="flex flex-col [&_[aria-invalid=true]]:border-2 [&_[aria-invalid=true]]:border-error">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.help_text %}
+                  <span class="helptext" id="{{ field.auto_id }}_helptext">{{ field.help_text }}</span>
+                {% endif %}
+                {% include "components/field_errors.html" %}
+              </div>
+            {% endif %}
+          {% endfor %}
+
+          {% with field=form.accept_privacy %}
+            <div class="flex flex-col gap-sm">
+              {% url "core:privacy" as privacy_url %}
+              <p class="m-0 text-body-sm text-ink-muted">※ <a href="{{ privacy_url }}">{% blocktranslate with version=privacy_notice.version %}Lee el aviso de privacidad (versión {{ version }}) antes de crear tu cuenta.{% endblocktranslate %}</a></p>
+              <div class="flex min-h-touch-target items-start gap-sm [&>input]:mt-0.5 [&>input]:size-5 [&>input]:flex-none">
+                {{ field }}
+                <label for="{{ field.auto_id }}" class="font-sans text-body-md font-normal">{% translate "Leí y acepto el aviso de privacidad." %}</label>
+              </div>
+              {% include "components/field_errors.html" %}
+            </div>
+          {% endwith %}
+
+          <div>
+            <button type="submit" class="button-primary w-full sm:w-auto">{% translate "Crear mi cuenta" %}</button>
+          </div>
+        </form>
+      </section>
+    {% else %}
+      <div role="status" class="mt-xl rounded-lg bg-primary-container p-md text-on-primary-container">
+        <p class="m-0"><strong>{% translate "Todavía no abrimos el registro." %}</strong> {% translate "Falta publicar el aviso de privacidad. En cuanto esté, podrás crear tu cuenta aquí." %}</p>
+      </div>
+      <p class="mt-lg"><a href="{% url 'core:home' %}" class="button-secondary">{% translate "Volver al inicio" %}</a></p>
+    {% endif %}
+  </div>
+{% endblock %}
