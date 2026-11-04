@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ legal_text.get_kind_display }} · EngiMods{% endblock %}
+
+{% block content %}
+  <article>
+    <h1>{{ legal_text.get_kind_display }}</h1>
+    <p>
+      {% blocktranslate with version=legal_text.version date=legal_text.effective_date|date|lower %}Versión {{ version }}, vigente desde el {{ date }}.{% endblocktranslate %}
+    </p>
+    {{ legal_text.body|linebreaks }}
+  </article>
+{% endblock %}

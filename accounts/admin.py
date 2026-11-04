@@ -5,7 +5,7 @@ from django.contrib.auth.forms import BaseUserCreationForm
 from django.contrib.auth.forms import UserChangeForm as BaseUserChangeForm
 from django.utils.translation import gettext_lazy as _
 
-from .models import User
+from .models import PrivacyConsent, User
 
 
 class UserCreationForm(BaseUserCreationForm):
@@ -56,3 +56,23 @@ class UserAdmin(BaseUserAdmin):
     list_filter = ("is_tutor", "is_staff", "is_superuser", "is_active", "groups")
     search_fields = ("email", "display_name")
     ordering = ("email",)
+
+
+@admin.register(PrivacyConsent)
+class PrivacyConsentAdmin(admin.ModelAdmin):
+    """Solo lectura: los consentimientos los crean el registro y la lista de espera."""
+
+    list_display = ("user", "email", "legal_text", "accepted_at")
+    list_filter = ("legal_text",)
+    search_fields = ("user__email", "email")
+    list_select_related = ("user", "legal_text")
+    date_hierarchy = "accepted_at"
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False

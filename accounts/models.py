@@ -1,7 +1,10 @@
+from django.conf import settings
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 from django.db.models.functions import Lower
 from django.utils.translation import gettext_lazy as _
+
+from core.models import LegalText
 
 
 class UserManager(BaseUserManager):
@@ -80,3 +83,54 @@ class User(AbstractUser):
 
     def get_short_name(self):
         return self.display_name
+
+
+class PrivacyConsent(models.Model):
+    """Aceptación de una versión del aviso de privacidad.
+
+    Quien acepta es un usuario (registro, EM-030) o, sin cuenta, un correo (lista de
+    espera, EM-046). Nunca los dos.
+    """
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name=_("usuario"),
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="privacy_consents",
+    )
+    email = models.EmailField(
+        _("correo"),
+        blank=True,
+        help_text=_("Solo cuando se acepta sin cuenta, por ejemplo en la lista de espera."),
+    )
+    # PROTECT: no se puede borrar una versión que alguien ya aceptó.
+    legal_text = models.ForeignKey(
+        LegalText,
+        verbose_name=_("versión aceptada"),
+        on_delete=models.PROTECT,
+        limit_choices_to={"kind": LegalText.Kind.PRIVACY},
+        related_name="privacy_consents",
+    )
+    accepted_at = models.DateTimeField(_("aceptado el"), auto_now_add=True)
+
+    class Meta:
+        verbose_name = _("consentimiento de privacidad")
+        verbose_name_plural = _("consentimientos de privacidad")
+        ordering = ["-accepted_at"]
+        constraints = [
+            models.CheckConstraint(
+                condition=(
+                    (models.Q(user__isnull=False) & models.Q(email=""))
+                    | (models.Q(user__isnull=True) & ~models.Q(email=""))
+                ),
+                name="accounts_privacyconsent_user_xor_email",
+                violation_error_message=_(
+                    "El consentimiento es de un usuario o de un correo, no de ambos."
+                ),
+            ),
+        ]
+
+    def __str__(self):
+        return f"{self.user or self.email} · {self.legal_text}"

@@ -170,7 +170,7 @@ Hecho el 3/11/2026:
 | [EM-030](#em-030) | [#20](https://github.com/Alexis01000011/EngiMods/issues/20) | Registro con correo y verificación | E3 | Must | 5 | 3 | EM-003, EM-004, EM-033 | Pendiente |
 | [EM-031](#em-031) | [#21](https://github.com/Alexis01000011/EngiMods/issues/21) | Inicio de sesión, cierre y recuperación de contraseña | E3 | Must | 2 | 4 | EM-030 | Pendiente |
 | [EM-032](#em-032) | [#22](https://github.com/Alexis01000011/EngiMods/issues/22) | Perfil del alumno | E3 | Should | 2 | 4 | EM-030, EM-010 | Pendiente |
-| [EM-033](#em-033) | [#23](https://github.com/Alexis01000011/EngiMods/issues/23) | Aviso de privacidad y consentimiento | E3 | Must | 2 | 2 | EM-003 | Pendiente |
+| [EM-033](#em-033) | [#23](https://github.com/Alexis01000011/EngiMods/issues/23) | Aviso de privacidad y consentimiento | E3 | Must | 2 | 2 | EM-003 | Hecho |
 | [EM-034](#em-034) | [#24](https://github.com/Alexis01000011/EngiMods/issues/24) | Solicitar baja de la cuenta y de los datos | E3 | Could | 3 | 5 | EM-032 | Pendiente |
 | [EM-035](#em-035) | [#68](https://github.com/Alexis01000011/EngiMods/issues/68) | Rol de tutor | E3 | Must | 2 | 2 | EM-003 | Hecho |
 | [EM-036](#em-036) | [#69](https://github.com/Alexis01000011/EngiMods/issues/69) | Términos y condiciones y política de devolución | E3 | Must | 2 | 3 | EM-033 | Pendiente |
@@ -596,15 +596,15 @@ Depende de: [EM-030](#em-030), [EM-010](#em-010)
 
 **Aviso de privacidad y consentimiento**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 2 · Issue: [#23](https://github.com/Alexis01000011/EngiMods/issues/23)
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 2 · Estado: Hecho · Issue: [#23](https://github.com/Alexis01000011/EngiMods/issues/23)
 
 > Como **visitante**, quiero leer el aviso de privacidad y aceptarlo al registrarme, para saber qué datos se guardan y para qué.
 
 Criterios de aceptación:
 
-- [ ] El aviso es un texto legal versionado (versión, texto y fecha de vigencia) que se captura en el admin; no está escrito en plantillas.
-- [ ] Página pública `/privacidad/` con la versión vigente.
-- [ ] Existe el registro de consentimiento (quién, qué versión, cuándo). El registro (EM-030) y la lista de espera (EM-046) lo usan; la lista de espera lo guarda sin cuenta, ligado al correo.
+- [x] El aviso es un texto legal versionado (versión, texto y fecha de vigencia) que se captura en el admin; no está escrito en plantillas.
+- [x] Página pública `/privacidad/` con la versión vigente.
+- [x] Existe el registro de consentimiento (quién, qué versión, cuándo). El registro (EM-030) y la lista de espera (EM-046) lo usan; la lista de espera lo guarda sin cuenta, ligado al correo.
 
 Depende de: [EM-003](#em-003)
 
