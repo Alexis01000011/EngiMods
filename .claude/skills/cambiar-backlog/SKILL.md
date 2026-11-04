@@ -29,9 +29,9 @@ Nota: contexto o decisión que explica la historia.
 
 - `Tipo`: `Historia de usuario` (lleva la línea "Como...") o `Técnica` (sin ella).
 - R1 lleva `Prioridad` Must, Should o Could, `Puntos` (1, 2, 3, 5 u 8) y `Ola`. R2 lleva `Prioridad: Later`, sin puntos ni ola.
-- `Ola`: escribe cualquier número; el script la recalcula.
+- `Ola`: escribe cualquier número; el script la recalcula. Las historias hechas conservan la suya.
 - ID: el siguiente libre en la decena de su épica (EM-03X es E3). Si la decena está llena, pregúntale a la persona; no inventes otro esquema.
-- Al terminar una historia: `Estado: Hecho` antes de `Issue:` y criterios en `[x]`.
+- Al terminar una historia: `Estado: Hecho` antes de `Issue:` y criterios en `[x]`. Lo hace el PR de la propia historia (skill `tomar-historia`).
 
 ## Pasos
 

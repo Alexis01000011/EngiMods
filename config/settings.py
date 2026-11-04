@@ -31,7 +31,11 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # Apps del proyecto (ver docs/arquitectura.md para qué es dueña cada una)
     "core",
+    "accounts",
 ]
+
+# Modelo de usuario propio (EM-003): el correo es el identificador.
+AUTH_USER_MODEL = "accounts.User"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

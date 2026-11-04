@@ -8,7 +8,7 @@ Catálogo completo de lo que se va a construir en la plataforma. Generado el 3 d
 - **ID:** `EM-###`. La decena indica la épica (EM-04x es Landing y venta). Es el mismo ID en la issue, la rama y el PR.
 - **Prioridad (MoSCoW) dentro del release R1 (piloto):** `Must` sin esto no hay piloto; `Should` importante pero el piloto puede correr sin ello; `Could` solo si sobra tiempo. `Later` es post-piloto (R2).
 - **Puntos:** estimación inicial de complejidad relativa (1, 2, 3, 5, 8). Son una propuesta para arrancar, no una medición; el equipo las ajusta en refinamiento.
-- **Ola:** orden sugerido según dependencias. Todo lo de una misma ola se puede trabajar en paralelo cuando la ola anterior está lista. Ola 0 es lo que ya está hecho.
+- **Ola:** orden sugerido según dependencias. Todo lo de una misma ola se puede trabajar en paralelo cuando la ola anterior está lista. Ola 0 es lo que ya estaba hecho al escribir el backlog. Una historia que se termina conserva su ola; el índice dice si está hecha.
 - **Partes generadas:** las olas, el índice, el resumen por épica y el orden sugerido se calculan con `uv run python scripts/backlog.py --write` a partir de la sección de cada historia. No se editan a mano.
 - **Recorte de semestre:** mientras esté vigente, solo se toman historias del recorte: primero el bloque A, luego el B y luego el C. Ver la sección [Recorte para la entrega de semestre](#recorte-para-la-entrega-de-semestre).
 - **Fuera de este backlog:** la creación del contenido de los cursos (escribir y probar lecciones para cada juego) es trabajo del equipo de contenido, no de la plataforma.
@@ -111,16 +111,18 @@ La persona 3 queda libre en las olas 3 y 7. Ahí puede tomar EM-036 y EM-044 del
   1. EM-040 se reduce a una sección de la página de inicio.
   2. EM-072 queda sin calificación por criterio: solo comentario y decisión.
   3. EM-031 queda sin recuperación de contraseña.
-- **La ruta crítica tiene 7 pasos en serie:** EM-003 → EM-010 → EM-020 → EM-021 → EM-061 → EM-070 → EM-071/EM-072. Cada paso espera la revisión de otra persona, así que los PR de esa ruta se revisan el mismo día.
+- **La ruta crítica tiene 7 pasos en serie:** EM-003 → EM-010 → EM-020 → EM-021 → EM-061 → EM-070 → EM-071/EM-072. Cada paso espera a que el anterior esté en `main`; si un PR de esa ruta se pide a revisión, que se revise el mismo día.
 - **Hay decisiones que bloquean la semana 1:** el enfoque de estilos (EM-004), el hosting (EM-005), el proveedor de correo y el dominio (EM-008), el juego de Misión Cero y cuántos días dura el acceso (EM-020). Hosting, dominio y correo deben caber en los MXN 1,500 del piloto.
 - **El contenido no está en los puntos.** Para la demostración hace falta Misión Cero escrita y probada en al menos un juego, y la escribe el mismo equipo. Conviene reservarle tiempo desde la semana 2.
 - **Un posible acelerador:** `django-allauth` cubriría buena parte de EM-003, EM-030 y EM-031 (correo como identificador, verificación y recuperación). Es una dependencia nueva, así que necesita un ADR y la decisión del equipo.
 
 ### Al aprobar este recorte
 
-- Crear las issues de EM-035 y EM-036.
-- Actualizar el cuerpo de las issues cuyos criterios cambiaron.
-- Crear el milestone `Semestre` con las issues de los bloques A y B.
+Hecho el 3/11/2026:
+
+- Issues de EM-035 (#68) y EM-036 (#69).
+- Milestone `Semestre` con las 28 issues de los bloques A y B.
+- Cuerpo actualizado en las 30 issues cuyos criterios cambiaron en el recorte.
 
 ## Orden sugerido para R1 (olas por dependencias)
 
@@ -148,7 +150,7 @@ La persona 3 queda libre en las olas 3 y 7. Ahí puede tomar EM-036 y EM-044 del
 |---|---|---|---|---|---|---|---|---|
 | [EM-001](#em-001) | [#1](https://github.com/Alexis01000011/EngiMods/issues/1) | Base del proyecto Django | E0 | Must | 2 | 0 | - | Hecho |
 | [EM-002](#em-002) | [#2](https://github.com/Alexis01000011/EngiMods/issues/2) | Integración continua en GitHub Actions | E0 | Must | 1 | 0 | EM-001 | Hecho |
-| [EM-003](#em-003) | [#3](https://github.com/Alexis01000011/EngiMods/issues/3) | Modelo de usuario personalizado | E0 | Must | 2 | 1 | EM-001 | Pendiente |
+| [EM-003](#em-003) | [#3](https://github.com/Alexis01000011/EngiMods/issues/3) | Modelo de usuario personalizado | E0 | Must | 2 | 1 | EM-001 | Hecho |
 | [EM-004](#em-004) | [#4](https://github.com/Alexis01000011/EngiMods/issues/4) | Plantilla base y sistema de estilos | E0 | Must | 3 | 1 | EM-001 | Pendiente |
 | [EM-005](#em-005) | [#5](https://github.com/Alexis01000011/EngiMods/issues/5) | Despliegue a un entorno de pruebas (staging) | E0 | Must | 5 | 1 | EM-001 | Pendiente |
 | [EM-006](#em-006) | [#6](https://github.com/Alexis01000011/EngiMods/issues/6) | Datos de ejemplo para desarrollo | E0 | Should | 2 | 5 | EM-003, EM-011, EM-021 | Pendiente |
@@ -170,8 +172,8 @@ La persona 3 queda libre en las olas 3 y 7. Ahí puede tomar EM-036 y EM-044 del
 | [EM-032](#em-032) | [#22](https://github.com/Alexis01000011/EngiMods/issues/22) | Perfil del alumno | E3 | Should | 2 | 4 | EM-030, EM-010 | Pendiente |
 | [EM-033](#em-033) | [#23](https://github.com/Alexis01000011/EngiMods/issues/23) | Aviso de privacidad y consentimiento | E3 | Must | 2 | 2 | EM-003 | Pendiente |
 | [EM-034](#em-034) | [#24](https://github.com/Alexis01000011/EngiMods/issues/24) | Solicitar baja de la cuenta y de los datos | E3 | Could | 3 | 5 | EM-032 | Pendiente |
-| [EM-035](#em-035) | por crear | Rol de tutor | E3 | Must | 2 | 2 | EM-003 | Pendiente |
-| [EM-036](#em-036) | por crear | Términos y condiciones y política de devolución | E3 | Must | 2 | 3 | EM-033 | Pendiente |
+| [EM-035](#em-035) | [#68](https://github.com/Alexis01000011/EngiMods/issues/68) | Rol de tutor | E3 | Must | 2 | 2 | EM-003 | Pendiente |
+| [EM-036](#em-036) | [#69](https://github.com/Alexis01000011/EngiMods/issues/69) | Términos y condiciones y política de devolución | E3 | Must | 2 | 3 | EM-033 | Pendiente |
 | [EM-040](#em-040) | [#25](https://github.com/Alexis01000011/EngiMods/issues/25) | Landing de EngiMods | E4 | Must | 3 | 4 | EM-004, EM-020 | Pendiente |
 | [EM-041](#em-041) | [#26](https://github.com/Alexis01000011/EngiMods/issues/26) | Página de detalle del curso | E4 | Must | 3 | 5 | EM-020, EM-021 | Pendiente |
 | [EM-042](#em-042) | [#27](https://github.com/Alexis01000011/EngiMods/issues/27) | Pago con Stripe Checkout | E4 | Must | 5 | 5 | EM-009, EM-030, EM-053 | Pendiente |
@@ -249,16 +251,16 @@ Depende de: [EM-001](#em-001)
 
 **Modelo de usuario personalizado**
 
-Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 1 · Issue: [#3](https://github.com/Alexis01000011/EngiMods/issues/3)
+Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 1 · Estado: Hecho · Issue: [#3](https://github.com/Alexis01000011/EngiMods/issues/3)
 
 Criterios de aceptación:
 
-- [ ] Existe la app `accounts` con `User(AbstractUser)` y `AUTH_USER_MODEL = "accounts.User"`.
-- [ ] El correo es único y es el identificador para iniciar sesión: el modelo no tiene `username` y usa un manager propio, de modo que `createsuperuser` pide correo.
-- [ ] La unicidad del correo no distingue mayúsculas (`Ana@x.com` y `ana@x.com` son el mismo correo).
-- [ ] El usuario tiene `display_name` (nombre a mostrar), que pide el registro (EM-030).
-- [ ] El modelo está registrado en el admin.
-- [ ] Es la primera migración del proyecto: ninguna otra app crea migraciones que dependan de `auth.User` antes de esto.
+- [x] Existe la app `accounts` con `User(AbstractUser)` y `AUTH_USER_MODEL = "accounts.User"`.
+- [x] El correo es único y es el identificador para iniciar sesión: el modelo no tiene `username` y usa un manager propio, de modo que `createsuperuser` pide correo.
+- [x] La unicidad del correo no distingue mayúsculas (`Ana@x.com` y `ana@x.com` son el mismo correo).
+- [x] El usuario tiene `display_name` (nombre a mostrar), que pide el registro (EM-030).
+- [x] El modelo está registrado en el admin.
+- [x] Es la primera migración del proyecto: ninguna otra app crea migraciones que dependan de `auth.User` antes de esto.
 
 Depende de: [EM-001](#em-001)
 
@@ -627,7 +629,7 @@ Depende de: [EM-032](#em-032)
 
 **Rol de tutor**
 
-Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 2 · Issue: por crear
+Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 2 · Issue: [#68](https://github.com/Alexis01000011/EngiMods/issues/68)
 
 Criterios de aceptación:
 
@@ -643,7 +645,7 @@ Nota: El tutor trabaja en pantallas propias, no en el admin (decisión del 3/11/
 
 **Términos y condiciones y política de devolución**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 3 · Issue: por crear
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 3 · Issue: [#69](https://github.com/Alexis01000011/EngiMods/issues/69)
 
 > Como **visitante**, quiero leer los términos de compra y la política de devolución antes de pagar, para saber a qué me comprometo y cómo pedir un reembolso.
 

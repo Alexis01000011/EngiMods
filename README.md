@@ -24,7 +24,7 @@ Abre http://localhost:8000. Pruebas: `uv run pytest`. Lint y formato: `uv run ru
 
 1. Lee [`AGENTS.md`](AGENTS.md): reglas del proyecto para personas y agentes (Claude Code, Codex). Si usas Codex, abre `/hooks` y aprueba los hooks del proyecto; las skills y hooks están en la sección 10.
 2. Elige una historia en [`docs/BACKLOG.md`](docs/BACKLOG.md) y asígnate su issue.
-3. Rama `em-0XX-descripcion`, PR con `Closes #<issue>`, revisión de otra persona.
+3. Rama `em-0XX-descripcion`, PR con `Closes #<issue>`. Se sugiere que otra persona lo revise antes de mezclarlo.
 
 ## Documentación
 
