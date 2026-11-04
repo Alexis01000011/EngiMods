@@ -9,5 +9,7 @@
     {% if user.is_tutor or user.is_superuser %}
       <li><a href="{% url 'reviews:queue' %}" class="flex min-h-touch-target items-center rounded-md px-3 text-label-md no-underline hover:bg-surface-chip aria-[current=page]:underline aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-8"{% if section == "reviews" %} aria-current="page"{% endif %}>{% translate "Tutoría" %}</a></li>
     {% endif %}
+  {% else %}
+    <li><a href="{% url 'accounts:register' %}" class="flex min-h-touch-target items-center rounded-md px-3 text-label-md no-underline hover:bg-surface-chip aria-[current=page]:underline aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-8"{% if section == "accounts" %} aria-current="page"{% endif %}>{% translate "Crear cuenta" %}</a></li>
   {% endif %}
 {% endwith %}

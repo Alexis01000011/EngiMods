@@ -41,7 +41,10 @@ class UserAdmin(BaseUserAdmin):
                 ),
             },
         ),
-        (_("Fechas importantes"), {"fields": ("last_login", "date_joined")}),
+        (
+            _("Fechas importantes"),
+            {"fields": ("last_login", "date_joined", "email_verified_at")},
+        ),
     )
     add_fieldsets = (
         (
@@ -53,7 +56,14 @@ class UserAdmin(BaseUserAdmin):
         ),
     )
     list_display = ("email", "display_name", "is_tutor", "is_staff", "is_active", "date_joined")
-    list_filter = ("is_tutor", "is_staff", "is_superuser", "is_active", "groups")
+    list_filter = (
+        "is_tutor",
+        ("email_verified_at", admin.EmptyFieldListFilter),
+        "is_staff",
+        "is_superuser",
+        "is_active",
+        "groups",
+    )
     search_fields = ("email", "display_name")
     ordering = ("email",)
 

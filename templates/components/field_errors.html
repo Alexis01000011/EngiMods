@@ -1,4 +1,6 @@
-{# Errores de un campo con ícono y texto (DESIGN.md › input-field-error). Recibe `field`. #}{% if field.errors %}
+{% comment %}
+  Errores de un campo de formulario (DESIGN.md › input-field-error). Espera `field`.
+{% endcomment %}{% if field.errors %}
   <div id="{{ field.auto_id }}_error">
     {% for error in field.errors %}
       <p class="m-0 mt-1.5 flex items-start gap-1.5 text-body-sm text-error">
