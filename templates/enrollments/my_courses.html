@@ -7,6 +7,7 @@
   <h1>{% translate "Mi panel" %}</h1>
 
   {% if active or expired %}
+    <p><a href="{% url 'submissions:my_submissions' %}">{% translate "Mis entregas" %}</a></p>
     <h2>{% translate "Mis cursos" %}</h2>
     {% if active %}
       <ul>

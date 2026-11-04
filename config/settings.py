@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     "catalog",
     "courses",
     "enrollments",
+    "submissions",
 ]
 
 # Modelo de usuario propio (EM-003): el correo es el identificador.
@@ -99,6 +100,12 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Correo: en desarrollo se imprime en consola.
 EMAIL_BACKEND = env("EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend")
 DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default="EngiMods <no-reply@localhost>")
+
+# Servicios Git cuyos enlaces se aceptan como repositorio de una entrega (EM-070).
+# Lista separada por comas de dominios; se aceptan también sus subdominios www.
+GIT_REPOSITORY_HOSTS = env.list(
+    "GIT_REPOSITORY_HOSTS", default=["github.com", "gitlab.com", "bitbucket.org", "codeberg.org"]
+)
 
 # Stripe (EM-009). En desarrollo y staging solo llaves de prueba (sk_test_, pk_test_).
 # Vacías por defecto para que el proyecto arranque sin cuenta de Stripe.

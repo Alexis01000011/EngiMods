@@ -192,7 +192,7 @@ Hecho el 3/11/2026:
 | [EM-061](#em-061) | [#40](https://github.com/Alexis01000011/EngiMods/issues/40) | Ver una lección | E6 | Must | 3 | 5 | EM-021, EM-053 | Hecho |
 | [EM-062](#em-062) | [#41](https://github.com/Alexis01000011/EngiMods/issues/41) | Marcar lección como completada | E6 | Must | 2 | 6 | EM-061, EM-060 | Hecho |
 | [EM-063](#em-063) | [#42](https://github.com/Alexis01000011/EngiMods/issues/42) | Guía de laboratorio local por juego | E6 | Should | 3 | 6 | EM-011, EM-060, EM-035 | Pendiente |
-| [EM-070](#em-070) | [#43](https://github.com/Alexis01000011/EngiMods/issues/43) | Enviar una entrega | E7 | Must | 3 | 6 | EM-061 | Pendiente |
+| [EM-070](#em-070) | [#43](https://github.com/Alexis01000011/EngiMods/issues/43) | Enviar una entrega | E7 | Must | 3 | 6 | EM-061 | Hecho |
 | [EM-071](#em-071) | [#44](https://github.com/Alexis01000011/EngiMods/issues/44) | Cola de revisión con alerta de 24 horas | E7 | Must | 3 | 7 | EM-070, EM-035 | Pendiente |
 | [EM-072](#em-072) | [#45](https://github.com/Alexis01000011/EngiMods/issues/45) | Revisar con rúbrica | E7 | Must | 5 | 7 | EM-070, EM-035 | Pendiente |
 | [EM-073](#em-073) | [#46](https://github.com/Alexis01000011/EngiMods/issues/46) | Reenviar entrega tras cambios | E7 | Must | 2 | 8 | EM-072 | Pendiente |
@@ -855,6 +855,7 @@ Criterios de aceptación:
 - [ ] Solo los cursos de tipo `curso` tienen grupos; las prácticas cortas son autoguiadas.
 - [ ] Solo se puede pagar un grupo en `inscripción abierta`.
 - [ ] La inscripción puede llevar grupo (opcional, solo en cursos por grupos) y cuenta para su cupo. En un curso por grupos, la fecha de fin de acceso se cuenta desde que termina el grupo, no desde la inscripción.
+- [ ] Las entregas (EM-070) muestran el grupo de su inscripción, para saber de qué grupo es cada entrega.
 - [ ] La página del curso (EM-041) muestra las fechas del próximo grupo; si el grupo está lleno, no ofrece pagar (y ofrece la lista de espera cuando exista EM-046).
 
 Depende de: [EM-020](#em-020), [EM-003](#em-003)
@@ -992,19 +993,21 @@ Envío de ejercicios y proyecto final, cola de revisión y rúbrica. Es el difer
 
 **Enviar una entrega**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 6 · Issue: [#43](https://github.com/Alexis01000011/EngiMods/issues/43)
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 6 · Estado: Hecho · Issue: [#43](https://github.com/Alexis01000011/EngiMods/issues/43)
 
 > Como **alumno**, quiero entregar un ejercicio con el enlace a mi repositorio, para recibir revisión de lo que construí.
 
 Criterios de aceptación:
 
-- [ ] Una lección puede definir un ejercicio entregable con instrucciones.
-- [ ] La entrega queda ligada a la inscripción del alumno (no solo al usuario), para saber de qué curso y grupo es.
-- [ ] La entrega incluye enlace al repositorio Git (obligatorio), comentario y la versión del juego y entorno que usé.
-- [ ] Se valida que el enlace sea una URL de un servicio Git.
-- [ ] El alumno ve el estado: `enviada`, `en revisión`, `aprobada`, `requiere cambios`.
+- [x] Una lección puede definir un ejercicio entregable con instrucciones.
+- [x] La entrega queda ligada a la inscripción del alumno (no solo al usuario), para saber de qué curso es.
+- [x] La entrega incluye enlace al repositorio Git (obligatorio), comentario y la versión del juego y entorno que usé.
+- [x] Se valida que el enlace sea una URL de un servicio Git.
+- [x] El alumno ve el estado: `enviada`, `en revisión`, `aprobada`, `requiere cambios`.
 
 Depende de: [EM-061](#em-061)
+
+Nota: El grupo de una entrega se obtiene de su inscripción cuando exista EM-050. Los servicios Git aceptados son el setting `GIT_REPOSITORY_HOSTS`. Cada entrega guarda sus envíos (`SubmissionAttempt`); en esta historia solo se envía una vez y el reenvío es [EM-073](#em-073).
 
 #### EM-071
 

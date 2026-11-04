@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ exercise.title }} · {{ course.title }} · EngiMods{% endblock %}
+
+{% block content %}
+  <p>
+    <a href="{% url 'courses:lesson_detail' course.slug exercise.lesson.pk %}">{{ exercise.lesson.title }}</a>
+    · {{ course.title }}
+  </p>
+  <h1>{{ exercise.title }}</h1>
+
+  <h2>{% translate "Instrucciones" %}</h2>
+  {{ exercise.instructions_html }}
+
+  {% if submission %}
+    <h2>{% translate "Tu entrega" %}</h2>
+    <p><strong>{% translate "Estado" %}: {{ submission.get_status_display }}</strong></p>
+    {% if attempt %}
+      <dl>
+        <dt>{% translate "Repositorio" %}</dt>
+        <dd><a href="{{ attempt.repository_url }}" rel="noopener noreferrer">{{ attempt.repository_url }}</a></dd>
+        <dt>{% translate "Probado con" %}</dt>
+        <dd>{{ attempt.game_version.number }} + {{ attempt.modding_environment.name }} {{ attempt.modding_environment.version }}</dd>
+        <dt>{% translate "Enviada el" %}</dt>
+        <dd>{{ attempt.submitted_at|date:"j \d\e F \d\e Y, H:i" }}</dd>
+        {% if attempt.comment %}
+          <dt>{% translate "Comentario" %}</dt>
+          <dd>{{ attempt.comment|linebreaksbr }}</dd>
+        {% endif %}
+      </dl>
+    {% endif %}
+  {% elif form %}
+    <h2>{% translate "Enviar tu entrega" %}</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">{% translate "Enviar entrega" %}</button>
+    </form>
+  {% endif %}
+
+  <p><a href="{% url 'submissions:my_submissions' %}">{% translate "Ver todas mis entregas" %}</a></p>
+{% endblock %}
