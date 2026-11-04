@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Juegos" %} · EngiMods{% endblock %}
+
+{% block content %}
+  <h1>{% translate "Juegos" %}</h1>
+  <ul>
+    {% for game in games %}
+      <li><a href="{{ game.get_absolute_url }}">{{ game.name }}</a></li>
+    {% empty %}
+      <li>{% translate "Todavía no hay juegos disponibles." %}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

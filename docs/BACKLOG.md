@@ -157,7 +157,7 @@ Hecho el 3/11/2026:
 | [EM-007](#em-007) | [#7](https://github.com/Alexis01000011/EngiMods/issues/7) | Almacenamiento de archivos subidos | E0 | Could | 3 | 2 | EM-005 | Pendiente |
 | [EM-008](#em-008) | [#8](https://github.com/Alexis01000011/EngiMods/issues/8) | Correo transaccional en producción | E0 | Must | 3 | 2 | EM-005 | Pendiente |
 | [EM-009](#em-009) | [#9](https://github.com/Alexis01000011/EngiMods/issues/9) | Cuenta de Stripe en modo prueba conectada | E0 | Must | 2 | 1 | EM-001 | Pendiente |
-| [EM-010](#em-010) | [#10](https://github.com/Alexis01000011/EngiMods/issues/10) | Registrar juegos en el catálogo | E1 | Must | 2 | 2 | EM-003 | Pendiente |
+| [EM-010](#em-010) | [#10](https://github.com/Alexis01000011/EngiMods/issues/10) | Registrar juegos en el catálogo | E1 | Must | 2 | 2 | EM-003 | Hecho |
 | [EM-011](#em-011) | [#11](https://github.com/Alexis01000011/EngiMods/issues/11) | Registrar versiones del juego y entornos de modding | E1 | Must | 3 | 3 | EM-010 | Pendiente |
 | [EM-012](#em-012) | [#12](https://github.com/Alexis01000011/EngiMods/issues/12) | Página pública de cada juego | E1 | Must | 3 | 4 | EM-011, EM-020 | Pendiente |
 | [EM-013](#em-013) | [#13](https://github.com/Alexis01000011/EngiMods/issues/13) | Filtrar cursos por juego | E1 | Should | 2 | 5 | EM-012 | Pendiente |
@@ -367,16 +367,16 @@ Juegos soportados, sus versiones y entornos de modding. Es lo que permite decir 
 
 **Registrar juegos en el catálogo**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 2 · Issue: [#10](https://github.com/Alexis01000011/EngiMods/issues/10)
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 2 · Estado: Hecho · Issue: [#10](https://github.com/Alexis01000011/EngiMods/issues/10)
 
 > Como **administrador**, quiero registrar los juegos para los que EngiMods ofrece contenido, para poder ofrecer cursos de varios juegos desde una sola plataforma.
 
 Criterios de aceptación:
 
-- [ ] Desde el admin puedo crear un juego con nombre, slug, descripción corta, sitio oficial y logo opcional.
-- [ ] Mientras no exista EM-007, el logo se guarda como URL y no como archivo subido (en el hosting, los archivos subidos se pierden al volver a desplegar).
-- [ ] Un juego tiene estado `activo` u `oculto`; los ocultos no aparecen en páginas públicas.
-- [ ] El slug es único y se usa en las URLs públicas.
+- [x] Desde el admin puedo crear un juego con nombre, slug, descripción corta, sitio oficial y logo opcional.
+- [x] Mientras no exista EM-007, el logo se guarda como URL y no como archivo subido (en el hosting, los archivos subidos se pierden al volver a desplegar).
+- [x] Un juego tiene estado `activo` u `oculto`; los ocultos no aparecen en páginas públicas.
+- [x] El slug es único y se usa en las URLs públicas.
 
 Depende de: [EM-003](#em-003)
 

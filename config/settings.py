@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     # Apps del proyecto (ver docs/arquitectura.md para qué es dueña cada una)
     "core",
     "accounts",
+    "catalog",
 ]
 
 # Modelo de usuario propio (EM-003): el correo es el identificador.
