@@ -16,12 +16,13 @@ Los precios, cupos y plazos son **hipótesis a validar en un piloto**, no datos.
 
 ## 2. Estado actual (noviembre 2026)
 
-- Hechas en `main`: EM-001 (base Django), EM-002 (CI) y EM-003 (modelo de usuario personalizado).
-- Existen `core` (inicio provisional y `/health/`) y `accounts` (usuario por correo y admin). La primera migración propia es `accounts.0001_initial`; `AUTH_USER_MODEL` ya apunta a `accounts.User`.
+- Hechas en `main`: EM-001 (base Django), EM-002 (CI), EM-003 (usuario), EM-009 (configuración de Stripe en prueba), EM-010 (juegos), EM-011 (versiones y entornos), EM-033 (privacidad y consentimiento) y EM-035 (rol de tutor). El detalle y los criterios están en `docs/BACKLOG.md`.
+- Existen `core` (inicio, `/health/` y textos legales), `accounts` (usuario, tutor y consentimiento) y `catalog` (juegos, versiones y entornos). Todavía no hay cursos, registro público, inscripciones ni cobros.
 - **EM-003 ya no bloquea otras apps.** Si tu base local se creó antes de esa historia y solo contiene datos de desarrollo prescindibles, recréala con el esquema nuevo. No borres bases compartidas ni datos que necesites conservar.
 - **Antes de tomar trabajo:** consulta el estado y las dependencias en `docs/BACKLOG.md`, las asignaciones en GitHub Issues y los PR abiertos. EM-035 ya tiene la issue #68 y EM-036 la #69; no las dupliques.
-- Para configurar Stripe sigue la documentación del PR de EM-009 cuando esté integrado. Las llaves de prueba las proporciona quien administra la cuenta del equipo, por un canal privado.
-- **Decisiones que requieren al equipo:** estilos (EM-004), hosting (EM-005), correo y dominio (EM-008), juego inicial y días de acceso (EM-020), y textos legales (EM-033/EM-036). Las decisiones técnicas se preparan con `proponer-adr`; no se eligen al implementar otra historia.
+- Para configurar Stripe sigue `docs/stripe.md`. Las llaves de prueba las proporciona quien administra la cuenta del equipo, por un canal privado. EM-009 configura las llaves; el Checkout y el webhook se implementan en EM-042 y EM-043.
+- El código de privacidad ya permite capturar el aviso y consultar su versión vigente. El equipo aún debe aportar el texto y definir al responsable legal; sin una versión vigente, `/privacidad/` responde 404. No cargues un aviso inventado para llenar la pantalla.
+- Los ADR 0002 (estilos), 0003 (hosting) y 0004 (correo) son propuestas. Integrar sus documentos no equivale a aceptar sus recomendaciones. EM-004, EM-005 y EM-008 esperan esas decisiones; EM-020 espera el juego inicial y los días de acceso. No tomes una historia con `decision-pendiente` como si estuviera lista.
 - **Hay un recorte vigente para la entrega de semestre** (hasta alrededor del 1 de diciembre de 2026). El objetivo es Misión Cero de punta a punta en staging. Solo se toman historias de ese recorte; ver la sección "Recorte para la entrega de semestre" en `docs/BACKLOG.md`.
 - Decidido: Misión Cero es autoguiada (sin grupo), el acceso al contenido es por tiempo y el tutor trabaja en pantallas propias, no en el admin. Ver `docs/arquitectura.md`.
 - Decisiones abiertas que no debes inventar: hosting, proveedor de correo, enfoque de estilos (Tailwind u otro), juegos con los que arranca el piloto, días de acceso, textos legales. Ver la sección final de `docs/BACKLOG.md`.
@@ -91,6 +92,7 @@ Cada historia tiene un ID `EM-###`, una sección en `docs/BACKLOG.md` y una GitH
 
 ## 6. Convenciones de código
 
+- **Redacción:** conserva el español directo y el estilo del repositorio. En documentación y mensajes, escribe las referencias como `AGENTS.md, sección 6`.
 - **Idioma:** identificadores de código en inglés (modelos, funciones, variables). Todo lo que ve el usuario (plantillas, mensajes, correos, `verbose_name`) en español de México. Envuelve los textos visibles con `gettext_lazy as _` para no cerrar la puerta a otro idioma.
 - **Modelos:** `TextChoices` para estados; dinero en centavos enteros MXN; `settings.AUTH_USER_MODEL` para referirse al usuario; `__str__` en cada modelo; registrar en el admin con `list_display` y filtros útiles.
 - **Datos de negocio como datos:** precios, cupos, plazos, enlaces de Discord y textos legales se capturan en la base de datos o en settings, nunca como constantes en código.
