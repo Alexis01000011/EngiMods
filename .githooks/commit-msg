@@ -1,0 +1,19 @@
+#!/bin/sh
+# Revisa que el mensaje empiece con el ID de la historia (AGENTS.md, sección 5).
+set -eu
+
+first=$(sed -n '/^#/d;/^[[:space:]]*$/d;p;q' "$1")
+
+if printf '%s\n' "$first" |
+  grep -qE '^(EM-[0-9]{3}(, EM-[0-9]{3})*|Docs|Herramientas): [^ ]|^(Merge|Revert|fixup!|squash!|amend!) '; then
+  exit 0
+fi
+
+cat >&2 <<'EOF'
+commit-msg: el mensaje debe empezar con el ID de la historia, en español e imperativo:
+  EM-043: verifica la firma del webhook
+Si no es de una historia, usa uno de estos prefijos:
+  Docs: aclara el flujo de revisión            (solo documentación)
+  Herramientas: agrega el chequeo del backlog  (CI, hooks, skills, scripts)
+EOF
+exit 1

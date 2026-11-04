@@ -9,6 +9,7 @@ Catálogo completo de lo que se va a construir en la plataforma. Generado el 3 d
 - **Prioridad (MoSCoW) dentro del release R1 (piloto):** `Must` sin esto no hay piloto; `Should` importante pero el piloto puede correr sin ello; `Could` solo si sobra tiempo. `Later` es post-piloto (R2).
 - **Puntos:** estimación inicial de complejidad relativa (1, 2, 3, 5, 8). Son una propuesta para arrancar, no una medición; el equipo las ajusta en refinamiento.
 - **Ola:** orden sugerido según dependencias. Todo lo de una misma ola se puede trabajar en paralelo cuando la ola anterior está lista. Ola 0 es lo que ya está hecho.
+- **Partes generadas:** las olas, el índice, el resumen por épica y el orden sugerido se calculan con `uv run python scripts/backlog.py --write` a partir de la sección de cada historia. No se editan a mano.
 - **Recorte de semestre:** mientras esté vigente, solo se toman historias del recorte: primero el bloque A, luego el B y luego el C. Ver la sección [Recorte para la entrega de semestre](#recorte-para-la-entrega-de-semestre).
 - **Fuera de este backlog:** la creación del contenido de los cursos (escribir y probar lecciones para cada juego) es trabajo del equipo de contenido, no de la plataforma.
 

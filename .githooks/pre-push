@@ -1,0 +1,21 @@
+#!/bin/sh
+# Antes de cada push. Las pruebas no corren aquí; las corre la CI en el PR.
+set -eu
+
+fail() {
+  printf 'pre-push: %s\n' "$1" >&2
+  exit 1
+}
+
+while read -r _local_ref _local_sha remote_ref _remote_sha; do
+  if [ "$remote_ref" = "refs/heads/main" ]; then
+    fail "no se hace push directo a main. Sube tu rama y abre un PR (AGENTS.md, sección 5)."
+  fi
+done
+
+if command -v uv >/dev/null 2>&1; then
+  SECRET_KEY=${SECRET_KEY:-solo-para-pre-push} uv run python manage.py makemigrations --check --dry-run ||
+    fail "faltan migraciones. Corre: uv run python manage.py makemigrations"
+else
+  echo "pre-push: uv no está instalado; me salto el chequeo de migraciones (la CI lo revisará)." >&2
+fi

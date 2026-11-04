@@ -45,11 +45,14 @@ Está en `AGENTS.md`, sección 7. Es la misma para personas y agentes.
 
 - El agente trabaja para una persona; la issue se asigna a esa persona.
 - Al empezar una sesión, el agente lee `AGENTS.md` (Claude Code lo recibe por `CLAUDE.md`).
-- Pídele al agente una historia concreta por ID: "Implementa EM-010 siguiendo AGENTS.md".
+- Pídele al agente una historia concreta por ID: "Implementa EM-010 siguiendo AGENTS.md", o usa la skill: `/tomar-historia EM-010` en Claude Code, `$tomar-historia EM-010` en Codex. Las demás skills y los hooks están en `AGENTS.md`, sección 10.
 - Revisa el PR del agente como revisarías el de una persona. Que la CI pase no es suficiente.
 
 ## Agregar o cambiar historias
 
+La skill `cambiar-backlog` hace estos pasos.
+
 1. Edita `docs/BACKLOG.md`: usa el siguiente ID libre de la épica, con el mismo formato (historia, criterios, depende de, notas).
-2. Crea la issue con la plantilla "Historia" y el mismo ID en el título.
-3. Si cambian criterios de una historia existente, actualiza también su issue.
+2. Corre `uv run python scripts/backlog.py --write`: recalcula las olas, el índice, el resumen y el orden sugerido, y revisa el recorte de semestre. La CI corre el mismo chequeo.
+3. Crea la issue con la plantilla "Historia" y el mismo ID en el título.
+4. Si cambian criterios de una historia existente, actualiza también su issue.
