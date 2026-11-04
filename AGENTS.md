@@ -151,9 +151,9 @@ El repo trae skills y hooks que funcionan igual en Claude Code y en Codex.
 | `revisar-pr` | Revisar un PR contra sus criterios, la Definition of Done y las reglas |
 | `cambiar-backlog` | Cambiar `docs/BACKLOG.md` sin desincronizar índice, olas, recorte e issues |
 | `proponer-adr` | Preparar una decisión técnica o de proveedor para que el equipo la tome |
-| `disenar-pantalla` | Diseñar, maquetar o revisar una pantalla con la identidad visual de `DESIGN.md` (pendiente de instalar; ver abajo) |
+| `disenar-pantalla` | Diseñar, maquetar o revisar una pantalla con la identidad visual de `DESIGN.md` |
 
-**Skill de UI/UX pendiente de instalar.** `disenar-pantalla` se creó en la rama `ux-ui-estilos-design-md`, junto con la nueva versión de `DESIGN.md`. Hasta que esa rama se mezcle a `main` y hagas `git pull`, tu copia no la tiene: si no existe `.claude/skills/disenar-pantalla/`, no la busques ni la inventes. Lee `DESIGN.md` directamente y avísale a tu humano que la skill llegará con ese PR. Al llegar no hay que instalar nada más: en Claude Code carga sola, y en Codex basta con que exista el enlace `.agents/skills/disenar-pantalla`. Como `DESIGN.md` sigue en Propuesta (ADR 0002), la skill sirve para bocetos y propuestas, y en las plantillas solo pide HTML semántico; no agregues estilos a producción hasta que el equipo acepte el ADR.
+**Sobre `disenar-pantalla`.** Si tu copia no tiene `.claude/skills/disenar-pantalla/`, actualízala con `git pull` de `main`; no hay que instalar nada más. Mientras `DESIGN.md` siga en Propuesta (ADR 0002), úsala para bocetos y propuestas: en las plantillas solo pide HTML semántico, sin estilos de producción.
 
 Cada skill vive en `.claude/skills/<nombre>/` (archivos normales, para que funcione en Windows). `.agents/skills/<nombre>` es un enlace simbólico para Codex. Para agregar una, crea su carpeta y el enlace: `ln -s ../../.claude/skills/<nombre> .agents/skills/<nombre>`. La CI revisa que el enlace exista.
 
