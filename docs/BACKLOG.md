@@ -18,27 +18,27 @@ Catálogo completo de lo que se va a construir en la plataforma. Generado el 3 d
 | Épica | Nombre | Historias R1 | Puntos R1 (Must) | Puntos R1 (total) | Historias R2 |
 |---|---|---|---|---|---|
 | E0 | Fundaciones técnicas | 9 | 18 | 23 | 0 |
-| E1 | Catálogo de juegos y versiones | 5 | 8 | 15 | 0 |
+| E1 | Catálogo de juegos y versiones | 6 | 8 | 17 | 0 |
 | E2 | Cursos y contenido | 5 | 12 | 15 | 0 |
 | E3 | Cuentas y datos personales | 7 | 13 | 18 | 0 |
 | E4 | Landing y venta | 10 | 21 | 31 | 0 |
 | E5 | Grupos (cohortes) | 4 | 5 | 10 | 0 |
-| E6 | Experiencia de aprendizaje | 4 | 8 | 11 | 0 |
-| E7 | Entregas y revisión | 7 | 13 | 21 | 0 |
+| E6 | Experiencia de aprendizaje | 5 | 13 | 16 | 0 |
+| E7 | Entregas y revisión | 8 | 15 | 23 | 0 |
 | E8 | Comunidad y comunicación | 3 | 1 | 7 | 0 |
 | E9 | Operación y métricas del piloto | 4 | 5 | 9 | 0 |
 | E10 | Post-piloto | 0 | 0 | 0 | 9 |
-| | **Total** | **58** | **104** | **160** | **9** |
+| | **Total** | **61** | **111** | **169** | **9** |
 
 ## Recorte para la entrega de semestre
 
-Propuesto el 3 de noviembre de 2026. Quedan unas 4 semanas, hasta alrededor del 1 de diciembre, y el equipo son 3 personas con agentes de código. R1 completo son 160 puntos; este recorte toma 76 en el bloque principal.
+Propuesto el 3 de noviembre de 2026. Quedan unas 4 semanas, hasta alrededor del 1 de diciembre, y el equipo son 3 personas con agentes de código. R1 completo son 169 puntos; este recorte toma 83 en el bloque principal.
 
 **Objetivo:** el ciclo completo de Misión Cero funcionando en staging con Stripe en modo prueba. Un visitante llega a la landing, ve el curso, se registra, paga, queda inscrito, sigue las lecciones con su versión probada y entrega su ejercicio. Un tutor lo revisa con rúbrica desde su pantalla.
 
 **Por qué Misión Cero y no el curso de seis semanas:** el curso dura más que el tiempo que queda, así que no se puede operar dentro del semestre. Misión Cero es autoguiada: no necesita grupos, cupos ni reservas de plaza. Además es lo primero que el piloto mide (ver `docs/negocio.md`).
 
-### Bloque A: ciclo completo en staging (76 pts)
+### Bloque A: ciclo completo en staging (83 pts)
 
 | Ola | Historias | Pts |
 |---|---|---|
@@ -48,14 +48,15 @@ Propuesto el 3 de noviembre de 2026. Quedan unas 4 semanas, hasta alrededor del 
 | 4 | [EM-021](#em-021) Módulos y lecciones, [EM-031](#em-031) Inicio de sesión, [EM-040](#em-040) Landing, [EM-053](#em-053) Inscripciones | 12 |
 | 5 | [EM-041](#em-041) Detalle del curso, [EM-042](#em-042) Checkout, [EM-060](#em-060) Panel del alumno, [EM-061](#em-061) Ver lección | 14 |
 | 6 | [EM-043](#em-043) Webhook de Stripe, [EM-062](#em-062) Lección completada, [EM-070](#em-070) Enviar entrega | 10 |
-| 7 | [EM-071](#em-071) Cola de revisión, [EM-072](#em-072) Revisar con rúbrica | 8 |
+| 7 | [EM-064](#em-064) Pantallas del alumno, [EM-071](#em-071) Cola de revisión, [EM-072](#em-072) Revisar con rúbrica | 13 |
+| 8 | [EM-077](#em-077) Pantallas del tutor | 2 |
 
 Calendario sugerido. Si la fecha de entrega es otra, se ajusta.
 
 - Semana 1 (3 al 6 de noviembre): olas 1 y 2, y las decisiones que las bloquean (ver Riesgos).
 - Semana 2 (9 al 13): olas 3 y 4.
 - Semana 3 (17 al 20; el 16 es día festivo): olas 5 y 6.
-- Semana 4 (23 al 27): ola 7 y bloque B.
+- Semana 4 (23 al 27): olas 7 y 8, y bloque B.
 - Del 30 de noviembre al 1 de diciembre: margen para estabilizar y preparar la entrega.
 
 ### Bloque B: abrir Misión Cero a personas reales (9 pts)
@@ -69,15 +70,16 @@ Solo si el equipo va a recibir alumnos o dinero reales antes de la entrega:
 
 Además hay que resolver decisiones que no son código: textos legales revisados, precio con o sin IVA, responsable legal y Stripe en modo real.
 
-### Bloque C: si sobra tiempo (15 pts, en este orden)
+### Bloque C: si sobra tiempo (17 pts, en este orden)
 
 1. [EM-024](#em-024) Lección de muestra.
 2. [EM-046](#em-046) Lista de espera por juego.
 3. [EM-093](#em-093) Encuesta de cierre.
 4. [EM-012](#em-012) Página de cada juego.
-5. [EM-006](#em-006) Datos de ejemplo.
-6. [EM-023](#em-023) Recursos por lección.
-7. [EM-032](#em-032) Perfil del alumno.
+5. [EM-015](#em-015) Catálogo y textos legales con la identidad visual.
+6. [EM-006](#em-006) Datos de ejemplo.
+7. [EM-023](#em-023) Recursos por lección.
+8. [EM-032](#em-032) Perfil del alumno.
 
 Mientras tanto, la plantilla del proyecto se enlaza dentro del texto de la lección.
 
@@ -124,6 +126,8 @@ Hecho el 3/11/2026:
 - Milestone `Semestre` con las 28 issues de los bloques A y B.
 - Cuerpo actualizado en las 30 issues cuyos criterios cambiaron en el recorte.
 
+El 4/11/2026 se agregó la deuda de diseño de las pantallas hechas antes de aceptar el ADR 0002: [EM-064](#em-064) (#98) y [EM-077](#em-077) (#99) al bloque A y a la milestone `Semestre`, y [EM-015](#em-015) (#100) al bloque C.
+
 ## Orden sugerido para R1 (olas por dependencias)
 
 **Ola 0 (hecho):** [EM-001](#em-001) Base del proyecto Django (Must), [EM-002](#em-002) Integración continua en GitHub Actions (Must)
@@ -134,15 +138,15 @@ Hecho el 3/11/2026:
 
 **Ola 3:** [EM-011](#em-011) Registrar versiones del juego y entornos de modding (Must), [EM-020](#em-020) Modelo de curso (Must), [EM-030](#em-030) Registro con correo y verificación (Must), [EM-036](#em-036) Términos y condiciones y política de devolución (Must), [EM-046](#em-046) Lista de espera e interés por juego (Should)
 
-**Ola 4:** [EM-012](#em-012) Página pública de cada juego (Must), [EM-021](#em-021) Módulos y lecciones con versión probada (Must), [EM-031](#em-031) Inicio de sesión, cierre y recuperación de contraseña (Must), [EM-032](#em-032) Perfil del alumno (Should), [EM-040](#em-040) Landing de EngiMods (Must), [EM-050](#em-050) Crear grupos de un curso (Must), [EM-053](#em-053) Inscripciones e inscripción manual por administrador (Must)
+**Ola 4:** [EM-012](#em-012) Página pública de cada juego (Must), [EM-015](#em-015) Catálogo de juegos y textos legales con la identidad visual (Should), [EM-021](#em-021) Módulos y lecciones con versión probada (Must), [EM-031](#em-031) Inicio de sesión, cierre y recuperación de contraseña (Must), [EM-032](#em-032) Perfil del alumno (Should), [EM-040](#em-040) Landing de EngiMods (Must), [EM-050](#em-050) Crear grupos de un curso (Must), [EM-053](#em-053) Inscripciones e inscripción manual por administrador (Must)
 
 **Ola 5:** [EM-006](#em-006) Datos de ejemplo para desarrollo (Should), [EM-013](#em-013) Filtrar cursos por juego (Should), [EM-014](#em-014) Marcar contenido pendiente de revalidar al salir una nueva versión (Should), [EM-023](#em-023) Recursos descargables y plantillas por lección (Must), [EM-034](#em-034) Solicitar baja de la cuenta y de los datos (Could), [EM-041](#em-041) Página de detalle del curso (Must), [EM-042](#em-042) Pago con Stripe Checkout (Must), [EM-060](#em-060) Panel del alumno: mis cursos (Must), [EM-061](#em-061) Ver una lección (Must), [EM-081](#em-081) Avisos del curso (Should)
 
 **Ola 6:** [EM-022](#em-022) Vista previa de lecciones para tutores (Should), [EM-024](#em-024) Lección de muestra gratuita (Must), [EM-043](#em-043) Webhook de Stripe que confirma el pago e inscribe (Must), [EM-045](#em-045) Cupo máximo por grupo (Must), [EM-049](#em-049) Códigos de descuento (Could), [EM-051](#em-051) Liberar contenido por semana (Should), [EM-052](#em-052) Calendario de clínicas grupales (Should), [EM-062](#em-062) Marcar lección como completada (Must), [EM-063](#em-063) Guía de laboratorio local por juego (Should), [EM-070](#em-070) Enviar una entrega (Must), [EM-080](#em-080) Acceso al Discord del grupo (Must), [EM-082](#em-082) Aviso de nueva versión del juego a alumnos afectados (Could), [EM-093](#em-093) Encuesta de cierre del curso (Should)
 
-**Ola 7:** [EM-044](#em-044) Correo de confirmación de compra (Must), [EM-047](#em-047) Registrar devoluciones (Should), [EM-048](#em-048) Pago en efectivo en OXXO (Could), [EM-071](#em-071) Cola de revisión con alerta de 24 horas (Must), [EM-072](#em-072) Revisar con rúbrica (Must), [EM-075](#em-075) Entregar archivo .zip (Could), [EM-090](#em-090) Admin configurado para operar el piloto (Must)
+**Ola 7:** [EM-044](#em-044) Correo de confirmación de compra (Must), [EM-047](#em-047) Registrar devoluciones (Should), [EM-048](#em-048) Pago en efectivo en OXXO (Could), [EM-064](#em-064) Pantallas del alumno con la identidad visual (Must), [EM-071](#em-071) Cola de revisión con alerta de 24 horas (Must), [EM-072](#em-072) Revisar con rúbrica (Must), [EM-075](#em-075) Entregar archivo .zip (Could), [EM-090](#em-090) Admin configurado para operar el piloto (Must)
 
-**Ola 8:** [EM-073](#em-073) Reenviar entrega tras cambios (Must), [EM-074](#em-074) Notificaciones de entregas por correo (Should), [EM-076](#em-076) Proyecto final con checklist de publicación (Should), [EM-091](#em-091) Métricas del piloto (Must), [EM-092](#em-092) Exportar datos operativos a CSV (Should)
+**Ola 8:** [EM-073](#em-073) Reenviar entrega tras cambios (Must), [EM-074](#em-074) Notificaciones de entregas por correo (Should), [EM-076](#em-076) Proyecto final con checklist de publicación (Should), [EM-077](#em-077) Pantallas del tutor con la identidad visual (Must), [EM-091](#em-091) Métricas del piloto (Must), [EM-092](#em-092) Exportar datos operativos a CSV (Should)
 
 ## Índice
 
@@ -162,6 +166,7 @@ Hecho el 3/11/2026:
 | [EM-012](#em-012) | [#12](https://github.com/Alexis01000011/EngiMods/issues/12) | Página pública de cada juego | E1 | Must | 3 | 4 | EM-011, EM-020 | Pendiente |
 | [EM-013](#em-013) | [#13](https://github.com/Alexis01000011/EngiMods/issues/13) | Filtrar cursos por juego | E1 | Should | 2 | 5 | EM-012 | Pendiente |
 | [EM-014](#em-014) | [#14](https://github.com/Alexis01000011/EngiMods/issues/14) | Marcar contenido pendiente de revalidar al salir una nueva versión | E1 | Should | 5 | 5 | EM-021, EM-035 | Pendiente |
+| [EM-015](#em-015) | [#100](https://github.com/Alexis01000011/EngiMods/issues/100) | Catálogo de juegos y textos legales con la identidad visual | E1 | Should | 2 | 4 | EM-004, EM-010, EM-033, EM-036 | Pendiente |
 | [EM-020](#em-020) | [#15](https://github.com/Alexis01000011/EngiMods/issues/15) | Modelo de curso | E2 | Must | 3 | 3 | EM-010 | Hecho |
 | [EM-021](#em-021) | [#16](https://github.com/Alexis01000011/EngiMods/issues/16) | Módulos y lecciones con versión probada | E2 | Must | 5 | 4 | EM-020, EM-011 | Hecho |
 | [EM-022](#em-022) | [#17](https://github.com/Alexis01000011/EngiMods/issues/17) | Vista previa de lecciones para tutores | E2 | Should | 3 | 6 | EM-021, EM-061 | Pendiente |
@@ -192,6 +197,7 @@ Hecho el 3/11/2026:
 | [EM-061](#em-061) | [#40](https://github.com/Alexis01000011/EngiMods/issues/40) | Ver una lección | E6 | Must | 3 | 5 | EM-021, EM-053 | Hecho |
 | [EM-062](#em-062) | [#41](https://github.com/Alexis01000011/EngiMods/issues/41) | Marcar lección como completada | E6 | Must | 2 | 6 | EM-061, EM-060 | Hecho |
 | [EM-063](#em-063) | [#42](https://github.com/Alexis01000011/EngiMods/issues/42) | Guía de laboratorio local por juego | E6 | Should | 3 | 6 | EM-011, EM-060, EM-035 | Pendiente |
+| [EM-064](#em-064) | [#98](https://github.com/Alexis01000011/EngiMods/issues/98) | Pantallas del alumno con la identidad visual | E6 | Must | 5 | 7 | EM-004, EM-041, EM-062, EM-070 | Pendiente |
 | [EM-070](#em-070) | [#43](https://github.com/Alexis01000011/EngiMods/issues/43) | Enviar una entrega | E7 | Must | 3 | 6 | EM-061 | Hecho |
 | [EM-071](#em-071) | [#44](https://github.com/Alexis01000011/EngiMods/issues/44) | Cola de revisión con alerta de 24 horas | E7 | Must | 3 | 7 | EM-070, EM-035 | Hecho |
 | [EM-072](#em-072) | [#45](https://github.com/Alexis01000011/EngiMods/issues/45) | Revisar con rúbrica | E7 | Must | 5 | 7 | EM-070, EM-035 | Pendiente |
@@ -199,6 +205,7 @@ Hecho el 3/11/2026:
 | [EM-074](#em-074) | [#47](https://github.com/Alexis01000011/EngiMods/issues/47) | Notificaciones de entregas por correo | E7 | Should | 2 | 8 | EM-072, EM-008 | Pendiente |
 | [EM-075](#em-075) | [#48](https://github.com/Alexis01000011/EngiMods/issues/48) | Entregar archivo .zip | E7 | Could | 3 | 7 | EM-070, EM-007 | Pendiente |
 | [EM-076](#em-076) | [#49](https://github.com/Alexis01000011/EngiMods/issues/49) | Proyecto final con checklist de publicación | E7 | Should | 3 | 8 | EM-072 | Pendiente |
+| [EM-077](#em-077) | [#99](https://github.com/Alexis01000011/EngiMods/issues/99) | Pantallas del tutor con la identidad visual | E7 | Must | 2 | 8 | EM-004, EM-071 | Pendiente |
 | [EM-080](#em-080) | [#50](https://github.com/Alexis01000011/EngiMods/issues/50) | Acceso al Discord del grupo | E8 | Must | 1 | 6 | EM-050, EM-060 | Pendiente |
 | [EM-081](#em-081) | [#51](https://github.com/Alexis01000011/EngiMods/issues/51) | Avisos del curso | E8 | Should | 3 | 5 | EM-050, EM-008, EM-035 | Pendiente |
 | [EM-082](#em-082) | [#52](https://github.com/Alexis01000011/EngiMods/issues/52) | Aviso de nueva versión del juego a alumnos afectados | E8 | Could | 3 | 6 | EM-014, EM-081 | Pendiente |
@@ -280,7 +287,7 @@ Criterios de aceptación:
 
 Depende de: [EM-001](#em-001)
 
-Nota: El ADR 0002 se aceptó el 4/11/2026: Tailwind CSS v4 con `django-tailwind-cli` y la identidad de `DESIGN.md`. El HTML sin clases ya toma los estilos base; llevar cada pantalla existente a su anatomía de la skill `disenar-pantalla` queda para la historia que la toque.
+Nota: El ADR 0002 se aceptó el 4/11/2026: Tailwind CSS v4 con `django-tailwind-cli` y la identidad de `DESIGN.md`. El HTML sin clases ya toma los estilos base; llevar las pantallas existentes a su anatomía de la skill `disenar-pantalla` quedó en [EM-064](#em-064), [EM-077](#em-077) y [EM-015](#em-015).
 
 #### EM-005
 
@@ -450,6 +457,23 @@ Criterios de aceptación:
 Depende de: [EM-021](#em-021), [EM-035](#em-035)
 
 Nota: Es el diferenciador de la propuesta de valor ("ejemplos con versión comprobada"). Su costo real es de operación: alguien tiene que volver a probar.
+
+#### EM-015
+
+**Catálogo de juegos y textos legales con la identidad visual**
+
+Tipo: Técnica · Prioridad: Should · Release: R1 · Puntos: 2 · Ola: 4 · Issue: [#100](https://github.com/Alexis01000011/EngiMods/issues/100)
+
+Criterios de aceptación:
+
+- [ ] `catalog/game_list.html` y `catalog/game_detail.html` siguen la anatomía "Catálogo de juegos y detalle de juego" de la skill `disenar-pantalla`: tarjetas sin logo ni arte del juego, versiones en `badge-tested`, entornos como `chip`s y, en el detalle, la tabla de versiones con desplazamiento horizontal propio en teléfono.
+- [ ] `core/legal_text.html` sigue la anatomía "Textos legales": columna `reading-max`, título `title-md`, fecha de vigencia en muted y texto en `reading-md`.
+- [ ] Solo cambia la presentación: vistas, URLs y reglas de acceso quedan igual y las pruebas existentes pasan sin cambiar lo que verifican.
+- [ ] Solo usa clases que salen de `DESIGN.md`, sin `style=` en línea, y se ve bien a 360, 768 y 1280 px sin desplazamiento horizontal de la página.
+
+Depende de: [EM-004](#em-004), [EM-010](#em-010), [EM-033](#em-033), [EM-036](#em-036)
+
+Nota: Deuda de diseño aprobada el 4/11/2026. Estas pantallas se hicieron en HTML sin clases mientras el ADR 0002 estuvo en Propuesta. Si alguien toma antes [EM-012](#em-012), esa historia hace `game_detail.html` con `DESIGN.md` y esa plantilla sale de aquí.
 
 ### E2 Cursos y contenido
 
@@ -988,6 +1012,26 @@ Depende de: [EM-011](#em-011), [EM-060](#em-060), [EM-035](#em-035)
 
 Nota: El lienzo pone "ayudar con la instalación" como actividad clave y señala el abandono al encontrar errores como parte del problema.
 
+#### EM-064
+
+**Pantallas del alumno con la identidad visual**
+
+Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 5 · Ola: 7 · Issue: [#98](https://github.com/Alexis01000011/EngiMods/issues/98)
+
+Criterios de aceptación:
+
+- [ ] `courses/lesson_detail.html` sigue la anatomía "Lección" de la skill `disenar-pantalla` (`referencia/leccion.html`): temario plegable en teléfono y lateral en escritorio con la lección actual marcada con `aria-current="page"` y el avance, ruta, título y `dek`, sello `tested-stamp` (o `badge-untested` si no hay versión probada), contenido en `reading-lg` y cierre con el botón de terminar y la lección anterior.
+- [ ] `courses/course_detail.html` sigue la anatomía "Detalle del curso": etiqueta, título, `badge-tested`, temario en `card`s por módulo y caja de inscripción.
+- [ ] `enrollments/my_courses.html` sigue la anatomía "Mi panel": rejilla de `card`s con `progress-bar`, fecha de acceso, botón principal solo en la primera tarjeta y estado vacío.
+- [ ] `submissions/submit.html` y `submissions/my_submissions.html` siguen las anatomías "Formularios" y "Mi panel (lista)": `label-md`, `input-field`, errores con `input-field-error` y `message-error`, y estados con `badge-*` con palabras.
+- [ ] Las piezas de la anatomía que piden datos que los modelos no tienen ("Al terminar podrás", quién escribió y revisó la lección y cuándo, nombre del tutor) se omiten; no se ponen con texto fijo.
+- [ ] Solo cambia la presentación: vistas, URLs, permisos y reglas de acceso quedan igual y las pruebas existentes pasan sin cambiar lo que verifican. Hay pruebas nuevas para lo que cambie de estructura (por ejemplo, `aria-current` en la lección actual y el sello correcto según la versión probada).
+- [ ] Solo usa clases que salen de `DESIGN.md`, sin `style=` en línea, y se ve bien a 360, 768 y 1280 px sin desplazamiento horizontal de la página.
+
+Depende de: [EM-004](#em-004), [EM-041](#em-041), [EM-062](#em-062), [EM-070](#em-070)
+
+Nota: Deuda de diseño aprobada el 4/11/2026. Las pantallas de EM-041, EM-060, EM-061, EM-062 y EM-070 se hicieron en HTML sin clases mientras el ADR 0002 estuvo en Propuesta; `base.html` les da estilos base, pero no la forma de `DESIGN.md`. La landing (`templates/core/home.html`) es el ejemplo de cómo se escriben las clases. Si el sello, los chips o la tarjeta de curso se repiten en tres o más plantillas, van como `{% include %}` en `templates/components/`. Agregar campos para las piezas que se omiten sería una historia aparte, con migración.
+
 ### E7 Entregas y revisión
 
 Envío de ejercicios y proyecto final, cola de revisión y rúbrica. Es el diferenciador principal frente a tutoriales sueltos.
@@ -1116,6 +1160,22 @@ Criterios de aceptación:
 Depende de: [EM-072](#em-072)
 
 Nota: Es la evidencia directa de la hipótesis: "más personas terminarán y publicarán su primer mod funcional".
+
+#### EM-077
+
+**Pantallas del tutor con la identidad visual**
+
+Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 8 · Issue: [#99](https://github.com/Alexis01000011/EngiMods/issues/99)
+
+Criterios de aceptación:
+
+- [ ] `submissions/tutor_queue.html` y `submissions/tutor_review.html` siguen la anatomía "Vista del tutor" de la skill `disenar-pantalla`: estructura común sin `sidebar`, entregas como tabla o `card`s con estado en `badge-*` con palabras ("Por revisar", "Revisada"), plazo restante en `chip` y `button-primary` "Revisar" solo en la más urgente.
+- [ ] Solo cambia la presentación: vistas, URLs, permisos y reglas de acceso quedan igual y las pruebas existentes pasan sin cambiar lo que verifican.
+- [ ] Solo usa clases que salen de `DESIGN.md`, sin `style=` en línea, y se ve bien a 360, 768 y 1280 px sin desplazamiento horizontal de la página.
+
+Depende de: [EM-004](#em-004), [EM-071](#em-071)
+
+Nota: Deuda de diseño aprobada el 4/11/2026. Las pantallas de EM-071 se hicieron en HTML sin clases mientras el ADR 0002 estuvo en Propuesta. [EM-072](#em-072) también cambia `tutor_review.html`: si se toma antes, esa historia hace su pantalla con `DESIGN.md` y esa plantilla sale de aquí.
 
 ### E8 Comunidad y comunicación
 
