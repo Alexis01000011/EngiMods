@@ -312,3 +312,24 @@ def test_panel_does_not_count_progress_of_other_students(
     LessonProgress.objects.create(enrollment=other_enrollment, lesson=lessons[0])
     client.force_login(student)
     assert "Avance: 0 %" in client.get(PANEL).content.decode()
+
+
+# Pantalla según DESIGN.md (EM-064)
+
+
+def test_panel_shows_completed_lessons_count_and_progress_bar(client, enrollment, student, lessons):
+    LessonProgress.objects.create(enrollment=enrollment, lesson=lessons[0])
+    client.force_login(student)
+    content = client.get(PANEL).content.decode()
+    assert "1 de 4 lecciones" in content
+    assert '<progress value="25" max="100"' in content
+
+
+def test_panel_only_first_course_has_primary_button(client, enrollment, student, game, lessons):
+    other_course = make_course(game, "curso-b")
+    enroll(student, other_course)
+    make_lesson(Module.objects.create(course=other_course, title="M", order=1), "Única", 1)
+    client.force_login(student)
+    content = client.get(PANEL).content.decode()
+    assert content.count('class="button-primary') == 1
+    assert content.count('class="button-secondary') == 1

@@ -1,0 +1,32 @@
+{% load i18n %}{# Temario de la lección: se incluye en el panel plegable (teléfono) y en el lateral (escritorio). #}
+<div class="flex flex-col gap-5">
+  {% regroup lessons by module as syllabus %}
+  {% for group in syllabus %}
+    <section aria-label="{{ group.grouper.title }}" class="flex flex-col gap-0.5">
+      <p class="m-0 px-sm pb-xs text-eyebrow uppercase text-ink-muted">{{ group.grouper.title }}</p>
+      <ol class="m-0 list-none p-0">
+        {% for item in group.list %}
+          <li class="m-0">
+            <a href="{% url 'courses:lesson_detail' course.slug item.pk %}"{% if item.pk == lesson.pk %} aria-current="page"{% endif %} class="flex min-h-touch-target items-center gap-3 rounded-md border border-transparent px-sm py-1.5 text-ink no-underline hover:bg-surface-chip hover:text-ink aria-[current=page]:border-divider aria-[current=page]:bg-surface">
+              {% if item.pk == lesson.pk %}
+                <span aria-hidden="true" class="relative flex size-10 flex-none items-center justify-center overflow-hidden rounded-[10px] bg-primary-soft font-mono text-code-sm text-on-primary-soft">{{ item.number|stringformat:"02d" }}{% if item.pk in completed_ids %}<span class="absolute bottom-0 left-0 h-[3px] w-full bg-primary"></span>{% endif %}</span>
+              {% elif item.pk in completed_ids %}
+                <span aria-hidden="true" class="relative flex size-10 flex-none items-center justify-center overflow-hidden rounded-[10px] bg-surface font-mono text-code-sm text-ink-muted">{{ item.number|stringformat:"02d" }}<span class="absolute bottom-0 left-0 h-[3px] w-full bg-primary"></span></span>
+              {% else %}
+                <span aria-hidden="true" class="relative flex size-10 flex-none items-center justify-center overflow-hidden rounded-[10px] bg-progress-track font-mono text-code-sm text-ink-muted">{{ item.number|stringformat:"02d" }}</span>
+              {% endif %}
+              <span class="flex min-w-0 flex-col">
+                <span class="text-body-sm {% if item.pk == lesson.pk %}font-semibold{% else %}font-medium{% endif %}">{{ item.title }}</span>
+                {% if item.pk == lesson.pk %}
+                  <span class="text-label-sm text-ink-muted">{% blocktranslate with minutes=item.estimated_minutes %}Estás aquí · {{ minutes }} min{% endblocktranslate %}</span>
+                {% elif item.pk in completed_ids %}
+                  <span class="text-label-sm text-ink-muted">{% translate "Completada" %}</span>
+                {% endif %}
+              </span>
+            </a>
+          </li>
+        {% endfor %}
+      </ol>
+    </section>
+  {% endfor %}
+</div>

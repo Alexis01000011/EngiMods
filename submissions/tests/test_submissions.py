@@ -216,7 +216,7 @@ def test_submit_page_shows_instructions_and_form(
     assert response.status_code == 200
     assert "Crea un repositorio." in content
     assert "<script>alert(1)</script>" not in content
-    assert "Enviar entrega" in content
+    assert "Enviar mi entrega" in content
 
 
 def test_lesson_without_exercise_returns_404(client, enrollment, student, lesson):
@@ -488,7 +488,7 @@ def test_submit_page_shows_submission_instead_of_form(
     content = client.get(submit_url(lesson)).content.decode()
     assert REPO in content
     assert "1.2 + Loader 0.9" in content
-    assert "Enviar entrega" not in content
+    assert "Enviar mi entrega" not in content
 
 
 def test_student_with_expired_access_still_sees_own_submission(
@@ -500,7 +500,7 @@ def test_student_with_expired_access_still_sees_own_submission(
     response = client.get(submit_url(lesson))
     assert response.status_code == 200
     assert "Estado: Aprobada" in response.content.decode()
-    assert "Enviar entrega" not in response.content.decode()
+    assert "Enviar mi entrega" not in response.content.decode()
 
 
 def test_my_submissions_only_lists_own(client, student, course, exercise, version, environment):
@@ -521,7 +521,7 @@ def test_other_student_does_not_see_submission(
     client.force_login(other)
     content = client.get(submit_url(lesson)).content.decode()
     assert REPO not in content
-    assert "Enviar entrega" in content
+    assert "Enviar mi entrega" in content
 
 
 def test_my_submissions_requires_login(client):
@@ -541,3 +541,46 @@ def test_admin_lists_submissions(admin_client, enrollment, exercise, version, en
     assert "Tu primer mod" in response.content.decode()
     detail = admin_client.get(reverse("admin:submissions_submission_change", args=[submission.pk]))
     assert REPO in detail.content.decode()
+
+
+# Pantalla según DESIGN.md (EM-064)
+
+
+def test_form_errors_are_summarized_and_linked_to_fields(
+    client, enrollment, student, exercise, lesson, version, environment
+):
+    client.force_login(student)
+    response = client.post(submit_url(lesson), {"repository_url": "no-es-url"})
+    content = response.content.decode()
+    assert "No se pudo enviar." in content
+    # Django apunta aria-describedby a <campo>_error; el contenedor del error lleva ese id.
+    assert 'aria-describedby="id_repository_url_error"' in content
+    assert 'id="id_repository_url_error"' in content
+
+
+@pytest.mark.parametrize(
+    ("status", "colors"),
+    [
+        (Submission.Status.SUBMITTED, "bg-surface-chip text-ink-muted"),
+        (Submission.Status.IN_REVIEW, "bg-primary-container text-on-primary-container"),
+        (Submission.Status.APPROVED, "bg-tested-container text-tested"),
+        (Submission.Status.CHANGES_REQUESTED, "bg-revalidate-container text-revalidate"),
+    ],
+)
+def test_status_badge_uses_its_state_colors(
+    client, enrollment, student, exercise, version, environment, status, colors
+):
+    make_submission(enrollment, exercise, version, environment, status=status)
+    client.force_login(student)
+    assert colors in client.get(reverse("submissions:my_submissions")).content.decode()
+
+
+def test_submit_page_says_review_deadline_from_settings(
+    client, enrollment, student, exercise, lesson, settings
+):
+    settings.REVIEW_DEADLINE_HOURS = 48
+    client.force_login(student)
+    assert (
+        "Tu tutor lo revisa en menos de 48 horas."
+        in client.get(submit_url(lesson)).content.decode()
+    )

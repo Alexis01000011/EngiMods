@@ -24,6 +24,8 @@ def add_progress(enrollment):
     lessons = course_lessons(enrollment.course)
     done = set(enrollment.lesson_progress.values_list("lesson_id", flat=True))
     completed = sum(1 for lesson in lessons if lesson.pk in done)
+    enrollment.completed_count = completed
+    enrollment.lesson_count = len(lessons)
     # Se redondea hacia abajo: 100 % solo cuando están todas.
     enrollment.progress_percent = completed * 100 // len(lessons) if lessons else 0
     enrollment.all_done = bool(lessons) and completed == len(lessons)
@@ -39,7 +41,7 @@ def my_courses(request):
     """Panel del alumno: sus cursos con acceso vigente y los vencidos, solo los propios."""
     enrollments = Enrollment.objects.filter(
         user=request.user, status=Enrollment.Status.ACTIVE
-    ).select_related("course")
+    ).select_related("course__game")
     active = list(enrollments.with_access().order_by("-enrolled_at", "-pk"))
 
     # Un curso con una inscripción vigente no aparece también como vencido, ni se repite.

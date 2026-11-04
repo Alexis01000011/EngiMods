@@ -4,20 +4,22 @@
 {% block title %}{% translate "Mis entregas" %} · EngiMods{% endblock %}
 
 {% block content %}
-  <p><a href="{% url 'enrollments:my_courses' %}">{% translate "Mi panel" %}</a></p>
-  <h1>{% translate "Mis entregas" %}</h1>
+  <header class="flex flex-col gap-xs">
+    <p class="m-0 text-label-sm"><a href="{% url 'enrollments:my_courses' %}" class="text-ink-muted hover:text-ink">{% translate "Mi panel" %}</a></p>
+    <h1 class="m-0 text-title-md">{% translate "Mis entregas" %}</h1>
+  </header>
+
   {% if submissions %}
-    <ul>
+    <ul class="m-0 mt-lg grid list-none grid-cols-[repeat(auto-fill,minmax(min(100%,320px),1fr))] gap-md p-0">
       {% for submission in submissions %}
-        <li>
-          <a href="{% url 'submissions:submit' submission.exercise.lesson.pk %}">{{ submission.exercise.title }}</a>
-          · {{ submission.exercise.lesson.module.course.title }}
-          <br>
-          {% translate "Estado" %}: <strong>{{ submission.get_status_display }}</strong>
+        <li class="m-0 flex flex-col gap-sm rounded-lg border border-divider bg-surface p-lg">
+          <p class="m-0 text-label-sm text-ink-muted">{{ submission.exercise.lesson.module.course.title }}</p>
+          <h2 class="m-0 text-headline-sm"><a href="{% url 'submissions:submit' submission.exercise.lesson.pk %}" class="text-ink no-underline hover:underline">{{ submission.exercise.title }}</a></h2>
+          {% include "components/submission_status.html" %}
         </li>
       {% endfor %}
     </ul>
   {% else %}
-    <p>{% translate "Todavía no has enviado ninguna entrega." %}</p>
+    <p class="mt-lg rounded-lg border border-dashed border-outline bg-surface p-lg">{% translate "Todavía no has enviado ninguna entrega." %}</p>
   {% endif %}
 {% endblock %}

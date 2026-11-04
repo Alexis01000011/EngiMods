@@ -4,52 +4,99 @@
 {% block title %}{{ course.title }} · EngiMods{% endblock %}
 
 {% block content %}
-  <p>
-    {% if game_is_public %}
-      <a href="{% url 'catalog:game_detail' course.game.slug %}">{{ course.game.name }}</a>
-    {% else %}
-      {{ course.game.name }}
-    {% endif %}
-  </p>
-  <h1>{{ course.title }}</h1>
-  <p>{{ course.get_kind_display }} · {{ course.get_level_display }}</p>
-  {{ course.description|linebreaks }}
+  <div class="lg:grid lg:grid-cols-[minmax(0,1fr)_var(--spacing-sidebar)] lg:items-start lg:gap-xl">
+    <div class="min-w-0 max-w-reading-max">
+      <header class="flex flex-col gap-sm">
+        <p class="m-0 text-label-sm text-ink-muted">
+          {% if game_is_public %}
+            <a href="{% url 'catalog:game_detail' course.game.slug %}" class="text-ink-muted hover:text-ink">{{ course.game.name }}</a>
+          {% else %}
+            {{ course.game.name }}
+          {% endif %}
+          · {{ course.get_kind_display }}
+        </p>
+        <h1 class="m-0">{{ course.title }}</h1>
+        <ul class="m-0 mt-xs flex list-none flex-wrap items-center gap-sm p-0">
+          <li class="m-0">
+            {% if latest_test %}
+              <p class="m-0 inline-flex items-center gap-1.5 rounded-full bg-tested-container px-3 py-1.5 font-mono text-code-sm text-tested">
+                <svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5l3 3 7-7"/></svg>
+                {% blocktranslate with game=latest_test.game_version.game.name version=latest_test.game_version.number environment=latest_test.modding_environment.name environment_version=latest_test.modding_environment.version %}Probado con {{ game }} {{ version }} + {{ environment }} {{ environment_version }}{% endblocktranslate %}
+              </p>
+            {% else %}
+              <p class="m-0 inline-flex items-center gap-1.5 rounded-full bg-surface-chip px-3 py-1.5 font-mono text-code-sm text-ink-muted">
+                <svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8h8"/></svg>
+                {% translate "Sin versión probada" %}
+              </p>
+            {% endif %}
+          </li>
+          <li class="m-0 inline-flex min-h-8 items-center rounded-full bg-surface-chip px-3 text-label-sm text-ink-soft">{{ course.get_level_display }}</li>
+        </ul>
+      </header>
 
-  <h2>{% translate "Lo que necesitas" %}</h2>
-  {{ course.requirements|linebreaks }}
+      <div class="mt-lg font-serif text-reading-md">
+        {{ course.description|linebreaks }}
+      </div>
 
-  <h2>{% translate "Duración y acceso" %}</h2>
-  <ul>
-    <li>{% blocktranslate count weeks=course.duration_weeks %}Duración: {{ weeks }} semana.{% plural %}Duración: {{ weeks }} semanas.{% endblocktranslate %}</li>
-    <li>{% blocktranslate count days=course.access_days %}Acceso al contenido: {{ days }} día.{% plural %}Acceso al contenido: {{ days }} días.{% endblocktranslate %}</li>
-  </ul>
+      <section aria-labelledby="temario">
+        <h2 id="temario">{% translate "Temario" %}</h2>
+        {% if modules %}
+          <ol class="m-0 flex list-none flex-col gap-md p-0">
+            {% for module in modules %}
+              <li class="m-0 rounded-lg border border-divider bg-surface p-lg">
+                <h3 class="m-0 mb-md">{{ module.title }}</h3>
+                {% if module.lessons.all %}
+                  <ol class="m-0 flex list-none flex-col gap-sm p-0">
+                    {% for lesson in module.lessons.all %}
+                      <li class="m-0 flex items-center gap-3">
+                        <span aria-hidden="true" class="flex size-10 flex-none items-center justify-center rounded-[10px] bg-progress-track font-mono text-code-sm text-ink-muted">{{ lesson.number|stringformat:"02d" }}</span>
+                        <span class="flex min-w-0 flex-col">
+                          <span class="text-body-md"><a href="{% url 'courses:lesson_detail' course.slug lesson.pk %}">{{ lesson.title }}</a></span>
+                          <span class="text-label-sm text-ink-muted">{% blocktranslate with minutes=lesson.estimated_minutes %}{{ minutes }} min{% endblocktranslate %}</span>
+                        </span>
+                      </li>
+                    {% endfor %}
+                  </ol>
+                {% else %}
+                  <p class="m-0 text-body-sm text-ink-muted">{% translate "Las lecciones de este módulo aún no están publicadas." %}</p>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ol>
+        {% else %}
+          <p class="rounded-lg border border-dashed border-outline bg-surface p-lg">{% translate "El temario aún no está publicado." %}</p>
+        {% endif %}
+      </section>
 
-  <h2>{% translate "Temario" %}</h2>
-  {% for module in modules %}
-    <h3>{{ module.title }}</h3>
-    {% if module.lessons.all %}
-      <ol>
-        {% for lesson in module.lessons.all %}
-          <li><a href="{% url 'courses:lesson_detail' course.slug lesson.pk %}">{{ lesson.title }}</a></li>
-        {% endfor %}
-      </ol>
-    {% else %}
-      <p>{% translate "Las lecciones de este módulo aún no están publicadas." %}</p>
-    {% endif %}
-  {% empty %}
-    <p>{% translate "El temario aún no está publicado." %}</p>
-  {% endfor %}
+      <section aria-labelledby="lo-que-necesitas">
+        <h2 id="lo-que-necesitas">{% translate "Lo que necesitas" %}</h2>
+        {{ course.requirements|linebreaks }}
+      </section>
+    </div>
 
-  <h2>{% translate "Precio" %}</h2>
-  <p><strong>MXN {{ price|floatformat:2 }}</strong></p>
+    <aside aria-labelledby="inscripcion" class="mt-xl flex flex-col gap-md rounded-lg border border-divider bg-surface p-lg lg:sticky lg:top-lg lg:mt-0">
+      <h2 id="inscripcion" class="m-0 font-sans text-eyebrow uppercase text-ink-muted">{% translate "Inscripción" %}</h2>
+      <p class="m-0 font-serif text-title-md">MXN {{ price|floatformat:2 }}</p>
+      <ul class="m-0 flex list-none flex-col gap-sm p-0">
+        <li class="m-0 flex items-start gap-sm">
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" class="mt-0.5 flex-none text-tested"><path d="M3 8.5l3 3 7-7"/></svg>
+          <span>{% blocktranslate count weeks=course.duration_weeks %}Duración: {{ weeks }} semana.{% plural %}Duración: {{ weeks }} semanas.{% endblocktranslate %}</span>
+        </li>
+        <li class="m-0 flex items-start gap-sm">
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" class="mt-0.5 flex-none text-tested"><path d="M3 8.5l3 3 7-7"/></svg>
+          <span>{% blocktranslate count days=course.access_days %}Acceso al contenido: {{ days }} día.{% plural %}Acceso al contenido: {{ days }} días.{% endblocktranslate %}</span>
+        </li>
+      </ul>
 
-  <section id="politica-de-devolucion">
-    <h2>{% translate "Política de devolución" %}</h2>
-    {% if has_terms %}
-      <p><a href="{% url 'core:terms' %}">{% translate "Lee los términos y condiciones y la política de devolución antes de pagar." %}</a></p>
-    {% else %}
-      <p><strong>{% translate "Texto provisional." %}</strong> {% translate "La política de devolución todavía está pendiente de publicarse." %}</p>
-    {% endif %}
-  </section>
-  {# EM-042 pondrá aquí el botón de pago, después de la política de devolución. #}
+      <section id="politica-de-devolucion" aria-labelledby="politica-titulo" class="border-t border-divider pt-md">
+        <h3 id="politica-titulo" class="m-0 mb-xs font-sans text-label-md">{% translate "Política de devolución" %}</h3>
+        {% if has_terms %}
+          <p class="m-0 text-body-sm text-ink-muted">※ <a href="{% url 'core:terms' %}">{% translate "Lee los términos y condiciones y la política de devolución antes de pagar." %}</a></p>
+        {% else %}
+          <p class="m-0 text-body-sm text-ink-muted">※ <strong>{% translate "Texto provisional." %}</strong> {% translate "La política de devolución todavía está pendiente de publicarse." %}</p>
+        {% endif %}
+      </section>
+      {# EM-042 pondrá aquí el botón de pago, después de la política de devolución. #}
+    </aside>
+  </div>
 {% endblock %}

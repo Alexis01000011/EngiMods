@@ -4,49 +4,119 @@
 {% block title %}{{ lesson.title }} · {{ course.title }} · EngiMods{% endblock %}
 
 {% block content %}
-  <p><a href="{% url 'courses:course_detail' course.slug %}">{{ course.title }}</a> · {{ lesson.module.title }}</p>
-  <h1>{{ lesson.title }}</h1>
-  <p>{% blocktranslate with minutes=lesson.estimated_minutes %}Duración estimada: {{ minutes }} min.{% endblocktranslate %}</p>
-  {% if test %}
-    <p><strong>{% blocktranslate with game=test.game_version.game.name version=test.game_version.number environment=test.modding_environment.name environment_version=test.modding_environment.version %}Probado con {{ game }} {{ version }} + {{ environment }} {{ environment_version }}{% endblocktranslate %}</strong></p>
-  {% else %}
-    <p><strong>{% translate "Esta lección no tiene una versión probada registrada." %}</strong></p>
-  {% endif %}
+  <div class="lg:grid lg:grid-cols-[var(--spacing-sidebar)_minmax(0,1fr)] lg:items-start lg:gap-xl">
+    <aside aria-label="{% translate 'Temario' %}" class="mb-lg lg:sticky lg:top-lg lg:mb-0">
+      <details class="m-0 rounded-lg bg-surface-sunken lg:hidden">
+        <summary class="flex min-h-13 cursor-pointer list-none items-center justify-between gap-3 px-md [&::-webkit-details-marker]:hidden">
+          <span class="flex flex-col py-sm">
+            <span class="text-label-md">{% blocktranslate with course=course.title number=lesson.number total=lessons|length %}{{ course }} · lección {{ number }} de {{ total }}{% endblocktranslate %}</span>
+            {% if enrollment %}
+              <span class="text-label-sm text-ink-muted">{% blocktranslate with done=completed_count total=lessons|length %}{{ done }} de {{ total }} completas{% endblocktranslate %}</span>
+            {% endif %}
+          </span>
+          <span class="text-body-sm text-primary">{% translate "Temario" %}</span>
+        </summary>
+        <div class="px-sm pb-sm">
+          {% include "courses/syllabus.html" %}
+        </div>
+      </details>
 
-  {{ lesson.content_html }}
+      <div class="hidden rounded-lg bg-surface-sunken p-md lg:block">
+        <div class="flex flex-col gap-xs px-sm pb-md">
+          <p class="m-0 font-serif text-headline-sm">{{ course.title }}</p>
+          {% if enrollment %}
+            <p class="m-0 text-label-sm text-ink-muted">{% blocktranslate with total=lessons|length count done=completed_count %}{{ done }} lección completa de {{ total }}{% plural %}{{ done }} lecciones completas de {{ total }}{% endblocktranslate %}</p>
+            <progress value="{{ completed_count }}" max="{{ lessons|length }}" aria-label="{% translate 'Avance del curso' %}" class="mt-xs block h-1.5 w-full appearance-none overflow-hidden rounded-[3px] bg-progress-track [&::-moz-progress-bar]:bg-primary [&::-webkit-progress-bar]:bg-progress-track [&::-webkit-progress-value]:bg-primary">{{ completed_count }} / {{ lessons|length }}</progress>
+          {% endif %}
+        </div>
+        {% include "courses/syllabus.html" %}
+      </div>
+    </aside>
 
-  {% if exercise %}
-    <section>
-      <h2>{% blocktranslate with title=exercise.title %}Ejercicio: {{ title }}{% endblocktranslate %}</h2>
-      {% if submission %}
-        <p>{% blocktranslate with status=submission.get_status_display %}Tu entrega: {{ status }}.{% endblocktranslate %}
-          <a href="{% url 'submissions:submit' lesson.pk %}">{% translate "Ver mi entrega" %}</a></p>
-      {% elif enrollment %}
-        <p><a href="{% url 'submissions:submit' lesson.pk %}">{% translate "Ver instrucciones y enviar mi entrega" %}</a></p>
-      {% endif %}
-    </section>
-  {% endif %}
+    <article class="min-w-0 max-w-reading-max">
+      <header class="flex flex-col gap-sm">
+        <p class="m-0 text-label-sm text-ink-muted"><a href="{% url 'courses:course_detail' course.slug %}" class="text-ink-muted hover:text-ink">{{ course.title }}</a> · {{ lesson.module.title }} · {% blocktranslate with number=lesson.number total=lessons|length %}Lección {{ number }} de {{ total }}{% endblocktranslate %}</p>
+        <div class="flex items-start gap-lg">
+          <h1 class="m-0 min-w-0 flex-1">{{ lesson.title }}</h1>
+          {% if test %}
+            <div aria-hidden="true" class="hidden size-28 flex-none -rotate-6 flex-col items-center justify-center gap-0.5 rounded-full border-2 border-tested px-2 text-center text-tested sm:flex">
+              <span class="text-eyebrow uppercase">{% translate "Probado" %}</span>
+              <span class="w-15 border-t border-current"></span>
+              <span class="font-mono text-code-sm leading-tight [overflow-wrap:anywhere]">{{ test.game_version.number }}</span>
+              <span class="font-mono text-code-sm leading-tight [overflow-wrap:anywhere]">{{ test.modding_environment.name }} {{ test.modding_environment.version }}</span>
+            </div>
+          {% endif %}
+        </div>
+      </header>
 
-  {% if enrollment %}
-    <form method="post" action="{% url 'enrollments:toggle_lesson' lesson.pk %}">
-      {% csrf_token %}
-      {% if completed %}
-        <p>{% translate "Marcaste esta lección como completada." %}</p>
-        <button type="submit">{% translate "Desmarcar como completada" %}</button>
-      {% else %}
-        <button type="submit">{% translate "Marcar como completada" %}</button>
-      {% endif %}
-    </form>
-  {% endif %}
+      <ul class="m-0 mt-md flex list-none flex-wrap gap-sm border-y border-divider p-0 py-md">
+        <li class="m-0">
+          {% if test %}
+            <p class="m-0 inline-flex items-center gap-1.5 rounded-full bg-tested-container px-3 py-1.5 font-mono text-code-sm text-tested">
+              <svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5l3 3 7-7"/></svg>
+              {% blocktranslate with game=test.game_version.game.name version=test.game_version.number environment=test.modding_environment.name environment_version=test.modding_environment.version %}Probado con {{ game }} {{ version }} + {{ environment }} {{ environment_version }}{% endblocktranslate %}
+            </p>
+          {% else %}
+            <p class="m-0 inline-flex items-center gap-1.5 rounded-full bg-surface-chip px-3 py-1.5 font-mono text-code-sm text-ink-muted">
+              <svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8h8"/></svg>
+              {% translate "Esta lección no tiene una versión probada registrada." %}
+            </p>
+          {% endif %}
+        </li>
+        <li class="m-0 inline-flex min-h-8 items-center rounded-full bg-surface-chip px-3 text-label-sm text-ink-soft">{% blocktranslate with minutes=lesson.estimated_minutes %}{{ minutes }} min de lectura{% endblocktranslate %}</li>
+        {% if exercise %}
+          <li class="m-0 inline-flex min-h-8 items-center rounded-full bg-surface-chip px-3 text-label-sm text-ink-soft">{% blocktranslate with title=exercise.title %}Entrega: {{ title }}{% endblocktranslate %}</li>
+        {% endif %}
+      </ul>
 
-  <nav aria-label="{% translate 'Navegación entre lecciones' %}">
-    <ul>
-      {% if previous_lesson %}
-        <li><a rel="prev" href="{% url 'courses:lesson_detail' course.slug previous_lesson.pk %}">{% translate "Lección anterior" %}: {{ previous_lesson.title }}</a></li>
+      <div class="mt-xl font-serif text-reading-md sm:text-reading-lg">
+        {{ lesson.content_html }}
+      </div>
+
+      {% if exercise %}
+        <section aria-labelledby="ejercicio" class="mt-xl flex flex-col gap-sm rounded-lg border border-divider bg-surface p-lg">
+          <h2 id="ejercicio" class="m-0 text-headline-sm">{% blocktranslate with title=exercise.title %}Ejercicio: {{ title }}{% endblocktranslate %}</h2>
+          {% if submission %}
+            <p class="m-0">{% blocktranslate with status=submission.get_status_display %}Tu entrega: {{ status }}.{% endblocktranslate %}</p>
+            <p class="m-0"><a href="{% url 'submissions:submit' lesson.pk %}">{% translate "Ver mi entrega" %}</a></p>
+          {% elif enrollment %}
+            <p class="m-0"><a href="{% url 'submissions:submit' lesson.pk %}">{% translate "Ver instrucciones y enviar mi entrega" %}</a></p>
+          {% endif %}
+        </section>
       {% endif %}
-      {% if next_lesson %}
-        <li><a rel="next" href="{% url 'courses:lesson_detail' course.slug next_lesson.pk %}">{% translate "Lección siguiente" %}: {{ next_lesson.title }}</a></li>
+
+      <p class="my-xl font-serif text-reading-md italic text-ink-soft">{% translate "Si algo no sale a la primera, es parte de aprender." %}</p>
+
+      {% if enrollment %}
+        <form method="post" action="{% url 'enrollments:toggle_lesson' lesson.pk %}" class="m-0 mb-md flex flex-col gap-sm sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+          {% csrf_token %}
+          {% if completed %}
+            <p class="m-0 inline-flex items-center gap-1.5 text-label-md text-tested">
+              <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5l3 3 7-7"/></svg>
+              {% translate "Marcaste esta lección como completada." %}
+            </p>
+            <button type="submit" class="button-quiet">{% translate "Desmarcar como completada" %}</button>
+          {% else %}
+            <p class="m-0 text-body-sm text-ink-muted">{% translate "¿Terminaste? Márcala para llevar tu avance." %}</p>
+            <button type="submit" class="button-primary w-full sm:w-auto">{% translate "Marcar como completada" %}</button>
+          {% endif %}
+        </form>
       {% endif %}
-    </ul>
-  </nav>
+
+      <nav aria-label="{% translate 'Navegación entre lecciones' %}" class="flex flex-col gap-md">
+        {% if next_lesson %}
+          <div class="flex flex-col gap-md rounded-lg border border-divider bg-surface px-lg py-5 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+            <p class="m-0 flex flex-col gap-0.5">
+              <span class="text-label-sm text-ink-muted">{% translate "Siguiente lección" %}</span>
+              <span class="font-serif text-headline-sm">{{ next_lesson.title }}</span>
+            </p>
+            <a rel="next" href="{% url 'courses:lesson_detail' course.slug next_lesson.pk %}" class="{% if enrollment and completed %}button-primary{% else %}button-secondary{% endif %} w-full sm:w-auto">{% translate "Ir a la siguiente lección" %}</a>
+          </div>
+        {% endif %}
+        {% if previous_lesson %}
+          <p class="m-0 text-body-sm"><a rel="prev" href="{% url 'courses:lesson_detail' course.slug previous_lesson.pk %}" class="inline-flex min-h-touch-target items-center no-underline hover:underline"><span aria-hidden="true">←&nbsp;</span>{% translate "Lección anterior" %}: {{ previous_lesson.title }}</a></p>
+        {% endif %}
+      </nav>
+    </article>
+  </div>
 {% endblock %}
