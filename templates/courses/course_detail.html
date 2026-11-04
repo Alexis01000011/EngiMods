@@ -30,7 +30,7 @@
     {% if module.lessons.all %}
       <ol>
         {% for lesson in module.lessons.all %}
-          <li>{{ lesson.title }}</li>
+          <li><a href="{% url 'courses:lesson_detail' course.slug lesson.pk %}">{{ lesson.title }}</a></li>
         {% endfor %}
       </ol>
     {% else %}

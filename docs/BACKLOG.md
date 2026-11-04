@@ -189,7 +189,7 @@ Hecho el 3/11/2026:
 | [EM-052](#em-052) | [#37](https://github.com/Alexis01000011/EngiMods/issues/37) | Calendario de clínicas grupales | E5 | Should | 2 | 6 | EM-050, EM-060, EM-035 | Pendiente |
 | [EM-053](#em-053) | [#38](https://github.com/Alexis01000011/EngiMods/issues/38) | Inscripciones e inscripción manual por administrador | E5 | Must | 2 | 4 | EM-020, EM-003 | Hecho |
 | [EM-060](#em-060) | [#39](https://github.com/Alexis01000011/EngiMods/issues/39) | Panel del alumno: mis cursos | E6 | Must | 3 | 5 | EM-053 | Hecho |
-| [EM-061](#em-061) | [#40](https://github.com/Alexis01000011/EngiMods/issues/40) | Ver una lección | E6 | Must | 3 | 5 | EM-021, EM-053 | Pendiente |
+| [EM-061](#em-061) | [#40](https://github.com/Alexis01000011/EngiMods/issues/40) | Ver una lección | E6 | Must | 3 | 5 | EM-021, EM-053 | Hecho |
 | [EM-062](#em-062) | [#41](https://github.com/Alexis01000011/EngiMods/issues/41) | Marcar lección como completada | E6 | Must | 2 | 6 | EM-061, EM-060 | Pendiente |
 | [EM-063](#em-063) | [#42](https://github.com/Alexis01000011/EngiMods/issues/42) | Guía de laboratorio local por juego | E6 | Should | 3 | 6 | EM-011, EM-060, EM-035 | Pendiente |
 | [EM-070](#em-070) | [#43](https://github.com/Alexis01000011/EngiMods/issues/43) | Enviar una entrega | E7 | Must | 3 | 6 | EM-061 | Pendiente |
@@ -937,17 +937,19 @@ Nota: Los criterios de los enlaces al Discord del grupo y a las clínicas se mov
 
 **Ver una lección**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 5 · Issue: [#40](https://github.com/Alexis01000011/EngiMods/issues/40)
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 5 · Estado: Hecho · Issue: [#40](https://github.com/Alexis01000011/EngiMods/issues/40)
 
 > Como **alumno inscrito**, quiero leer una lección con su versión probada y sus recursos, para aprender y trabajar con confianza en que el ejemplo funciona.
 
 Criterios de aceptación:
 
-- [ ] Solo la ven alumnos con acceso vigente al curso (EM-053), tutores y administradores, o cualquiera si es muestra.
-- [ ] Muestra la etiqueta `Probado con <juego> <versión> + <entorno> <versión>`.
-- [ ] Navegación a lección anterior y siguiente.
+- [x] Solo la ven alumnos con acceso vigente al curso (EM-053), tutores y administradores.
+- [x] Muestra la etiqueta `Probado con <juego> <versión> + <entorno> <versión>`.
+- [x] Navegación a lección anterior y siguiente.
 
 Depende de: [EM-021](#em-021), [EM-053](#em-053)
+
+Nota: El acceso sin cuenta a las lecciones de muestra lo agrega [EM-024](#em-024) en esta misma vista.
 
 #### EM-062
 

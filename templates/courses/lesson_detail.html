@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ lesson.title }} · {{ course.title }} · EngiMods{% endblock %}
+
+{% block content %}
+  <p><a href="{% url 'courses:course_detail' course.slug %}">{{ course.title }}</a> · {{ lesson.module.title }}</p>
+  <h1>{{ lesson.title }}</h1>
+  <p>{% blocktranslate with minutes=lesson.estimated_minutes %}Duración estimada: {{ minutes }} min.{% endblocktranslate %}</p>
+  {% if test %}
+    <p><strong>{% blocktranslate with game=test.game_version.game.name version=test.game_version.number environment=test.modding_environment.name environment_version=test.modding_environment.version %}Probado con {{ game }} {{ version }} + {{ environment }} {{ environment_version }}{% endblocktranslate %}</strong></p>
+  {% else %}
+    <p><strong>{% translate "Esta lección no tiene una versión probada registrada." %}</strong></p>
+  {% endif %}
+
+  {{ lesson.content_html }}
+
+  <nav aria-label="{% translate 'Navegación entre lecciones' %}">
+    <ul>
+      {% if previous_lesson %}
+        <li><a rel="prev" href="{% url 'courses:lesson_detail' course.slug previous_lesson.pk %}">{% translate "Lección anterior" %}: {{ previous_lesson.title }}</a></li>
+      {% endif %}
+      {% if next_lesson %}
+        <li><a rel="next" href="{% url 'courses:lesson_detail' course.slug next_lesson.pk %}">{% translate "Lección siguiente" %}: {{ next_lesson.title }}</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+{% endblock %}
