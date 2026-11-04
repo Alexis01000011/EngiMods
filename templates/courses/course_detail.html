@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ course.title }} · EngiMods{% endblock %}
+
+{% block content %}
+  <p>
+    {% if game_is_public %}
+      <a href="{% url 'catalog:game_detail' course.game.slug %}">{{ course.game.name }}</a>
+    {% else %}
+      {{ course.game.name }}
+    {% endif %}
+  </p>
+  <h1>{{ course.title }}</h1>
+  <p>{{ course.get_kind_display }} · {{ course.get_level_display }}</p>
+  {{ course.description|linebreaks }}
+
+  <h2>{% translate "Lo que necesitas" %}</h2>
+  {{ course.requirements|linebreaks }}
+
+  <h2>{% translate "Duración y acceso" %}</h2>
+  <ul>
+    <li>{% blocktranslate count weeks=course.duration_weeks %}Duración: {{ weeks }} semana.{% plural %}Duración: {{ weeks }} semanas.{% endblocktranslate %}</li>
+    <li>{% blocktranslate count days=course.access_days %}Acceso al contenido: {{ days }} día.{% plural %}Acceso al contenido: {{ days }} días.{% endblocktranslate %}</li>
+  </ul>
+
+  <h2>{% translate "Temario" %}</h2>
+  {% for module in modules %}
+    <h3>{{ module.title }}</h3>
+    {% if module.lessons.all %}
+      <ol>
+        {% for lesson in module.lessons.all %}
+          <li>{{ lesson.title }}</li>
+        {% endfor %}
+      </ol>
+    {% else %}
+      <p>{% translate "Las lecciones de este módulo aún no están publicadas." %}</p>
+    {% endif %}
+  {% empty %}
+    <p>{% translate "El temario aún no está publicado." %}</p>
+  {% endfor %}
+
+  <h2>{% translate "Precio" %}</h2>
+  <p><strong>MXN {{ price|floatformat:2 }}</strong></p>
+
+  <section id="politica-de-devolucion">
+    <h2>{% translate "Política de devolución" %}</h2>
+    <p><strong>{% translate "Texto provisional." %}</strong> {% translate "La política de devolución todavía está pendiente de publicarse." %}</p>
+  </section>
+  {# EM-042 pondrá aquí el botón de pago, después de la política de devolución. #}
+{% endblock %}
