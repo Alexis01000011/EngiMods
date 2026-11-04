@@ -134,8 +134,8 @@ def check_segment(tokens, cwd):
         return None
     if tokens[:3] == ["gh", "pr", "merge"]:
         return (
-            "Bloqueado: los PR los mezcla una persona después de la revisión, no el agente "
-            "(AGENTS.md, sección 8). Avísale a tu humano que el PR está listo."
+            "Bloqueado: los PR los mezcla una persona, no el agente (AGENTS.md, sección 8). "
+            "Avísale a tu humano que el PR está listo."
         )
     if tokens[0] == "git":
         return check_git(tokens[1:], cwd)

@@ -111,7 +111,7 @@ La persona 3 queda libre en las olas 3 y 7. Ahí puede tomar EM-036 y EM-044 del
   1. EM-040 se reduce a una sección de la página de inicio.
   2. EM-072 queda sin calificación por criterio: solo comentario y decisión.
   3. EM-031 queda sin recuperación de contraseña.
-- **La ruta crítica tiene 7 pasos en serie:** EM-003 → EM-010 → EM-020 → EM-021 → EM-061 → EM-070 → EM-071/EM-072. Cada paso espera la revisión de otra persona, así que los PR de esa ruta se revisan el mismo día.
+- **La ruta crítica tiene 7 pasos en serie:** EM-003 → EM-010 → EM-020 → EM-021 → EM-061 → EM-070 → EM-071/EM-072. Cada paso espera a que el anterior esté en `main`; si un PR de esa ruta se pide a revisión, que se revise el mismo día.
 - **Hay decisiones que bloquean la semana 1:** el enfoque de estilos (EM-004), el hosting (EM-005), el proveedor de correo y el dominio (EM-008), el juego de Misión Cero y cuántos días dura el acceso (EM-020). Hosting, dominio y correo deben caber en los MXN 1,500 del piloto.
 - **El contenido no está en los puntos.** Para la demostración hace falta Misión Cero escrita y probada en al menos un juego, y la escribe el mismo equipo. Conviene reservarle tiempo desde la semana 2.
 - **Un posible acelerador:** `django-allauth` cubriría buena parte de EM-003, EM-030 y EM-031 (correo como identificador, verificación y recuperación). Es una dependencia nueva, así que necesita un ADR y la decisión del equipo.

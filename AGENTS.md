@@ -83,7 +83,7 @@ Cada historia tiene un ID `EM-###`, una sección en `docs/BACKLOG.md` y una GitH
 4. **Rama** desde `main` actualizado: `em-0XX-descripcion-corta` (por ejemplo `em-043-webhook-stripe`).
 5. **Implementa solo esa historia**, cumpliendo todos sus criterios de aceptación. Si descubres trabajo extra, no lo metas: propón una historia nueva en el PR.
 6. **Commits** en español, en imperativo y con el ID: `EM-043: verifica la firma del webhook`. Lo que no es de una historia empieza con `Docs:` (documentación) o `Herramientas:` (CI, hooks, skills, scripts).
-7. **PR** con título `EM-0XX: <título de la historia>`, `Closes #<número>` en la descripción y la plantilla de PR llena (criterios marcados uno por uno). Otra persona del equipo revisa y aprueba. Se mezcla con *squash*.
+7. **PR** con título `EM-0XX: <título de la historia>`, `Closes #<número>` en la descripción y la plantilla de PR llena (criterios marcados uno por uno). Se sugiere que otra persona del equipo lo revise antes de mezclarlo, pero no es obligatorio. Se mezcla con *squash*.
 8. **En el mismo PR, actualiza `docs/BACKLOG.md`:** marca la historia como hecha (`Estado: Hecho` antes de `Issue:` y criterios en `[x]`) y corre `uv run python scripts/backlog.py --write`. Si cambiaron el alcance o los criterios, actualiza también su sección.
 
 ## 6. Convenciones de código
@@ -111,14 +111,13 @@ Una historia está terminada cuando:
 - [ ] No hay secretos, llaves ni datos personales reales en el código, fixtures o commits.
 - [ ] Si agregó variables de entorno, están en `.env.example` con comentario.
 - [ ] Si tomó una decisión de arquitectura o de proveedor, hay un ADR en `docs/decisiones/`.
-- [ ] Otra persona del equipo revisó y aprobó el PR.
 
 ## 8. Lo que un agente no debe hacer
 
 - No inventes reglas de negocio, precios, políticas de devolución, textos legales ni datos de costos. Si una historia necesita uno de estos datos y no está definido, déjalo configurable y pregúntale a tu humano. En el PR, marca qué quedó como supuesto.
 - No elijas proveedores (hosting, correo, almacenamiento) ni el enfoque de estilos por tu cuenta: proponlo con un ADR y que el equipo decida.
 - No trabajes en más de una historia por PR ni hagas refactors no pedidos en código de otras historias.
-- No hagas push directo a `main`, no fuerces push sobre ramas ajenas y no mezcles tus propios PR sin revisión.
+- No hagas push directo a `main`, no fuerces push sobre ramas ajenas y no mezcles PR: eso lo decide tu humano.
 - No subas `.env`, `db.sqlite3`, `media/` ni llaves de Stripe (aunque sean de prueba).
 - No escribas lógica específica de un juego.
 
