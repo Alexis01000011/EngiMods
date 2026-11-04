@@ -29,7 +29,7 @@ gh pr checks <n>
 4. **Reglas del modelo** (`AGENTS.md` sección 6 y `docs/arquitectura.md`): `AUTH_USER_MODEL`, dinero en centavos, `TextChoices`, `PROTECT` en pagos e inscripciones, datos de negocio como datos, nada específico de un juego, textos en español con `gettext_lazy`.
 5. **Migraciones.** Solo de las apps de la historia y ninguna migración de `main` editada. Si otro PR abierto toca la misma app, avisa del posible choque de numeración.
 6. **Seguridad.** Markdown sanitizado, webhooks que verifican firma, nada de llaves ni datos de pago en logs, nada de `.env`, llaves o datos personales reales en código o fixtures.
-7. **Definition of Done** (`AGENTS.md` sección 7): plantilla de PR llena, `.env.example` al día, ADR si hubo decisión técnica o de proveedor, backlog actualizado si cambió el alcance.
+7. **Definition of Done** (`AGENTS.md` sección 7): plantilla de PR llena, `.env.example` al día, ADR si hubo decisión técnica o de proveedor, la historia marcada como hecha en `docs/BACKLOG.md` (`Estado: Hecho` y criterios en `[x]`) y su sección actualizada si cambió el alcance.
 8. **Supuestos.** Un precio, texto legal, plazo o regla de negocio inventados son bloqueantes. Deben quedar configurables y listados en el PR.
 
 ## 3. Reportar

@@ -26,4 +26,4 @@ Closes #<número de issue>
 - [ ] Sin secretos ni datos personales reales
 - [ ] `.env.example` actualizado si hay variables nuevas
 - [ ] ADR si hubo decisión técnica o de proveedor
-- [ ] `docs/BACKLOG.md` actualizado si cambió el alcance
+- [ ] Historia marcada como hecha en `docs/BACKLOG.md` (y su sección actualizada si cambió el alcance)

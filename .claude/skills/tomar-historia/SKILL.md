@@ -53,6 +53,7 @@ Si la historia tiene pantallas, ábrelas con `uv run python manage.py runserver`
 
 ## 5. Entregar
 
+- Marca la historia como hecha en `docs/BACKLOG.md`, en el mismo PR: `Estado: Hecho` antes de `Issue:`, criterios en `[x]` y `uv run python scripts/backlog.py --write`. Así, al mezclarse el PR, la issue se cierra y el backlog ya lo dice. Si al actualizar tu rama hay conflicto en el índice del backlog, quédate con cualquiera de las dos versiones y vuelve a correr el script: el índice se regenera desde las secciones.
 - Commits en español e imperativo con el ID: `EM-0XX: agrega el modelo de inscripción`.
 - `git push -u origin em-0XX-descripcion-corta`.
 - Llena `.github/pull_request_template.md` en un archivo temporal y crea el PR:

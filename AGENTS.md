@@ -84,7 +84,7 @@ Cada historia tiene un ID `EM-###`, una sección en `docs/BACKLOG.md` y una GitH
 5. **Implementa solo esa historia**, cumpliendo todos sus criterios de aceptación. Si descubres trabajo extra, no lo metas: propón una historia nueva en el PR.
 6. **Commits** en español, en imperativo y con el ID: `EM-043: verifica la firma del webhook`. Lo que no es de una historia empieza con `Docs:` (documentación) o `Herramientas:` (CI, hooks, skills, scripts).
 7. **PR** con título `EM-0XX: <título de la historia>`, `Closes #<número>` en la descripción y la plantilla de PR llena (criterios marcados uno por uno). Otra persona del equipo revisa y aprueba. Se mezcla con *squash*.
-8. Si el alcance o los criterios cambian, actualiza la sección de la historia en `docs/BACKLOG.md` **en el mismo PR**.
+8. **En el mismo PR, actualiza `docs/BACKLOG.md`:** marca la historia como hecha (`Estado: Hecho` antes de `Issue:` y criterios en `[x]`) y corre `uv run python scripts/backlog.py --write`. Si cambiaron el alcance o los criterios, actualiza también su sección.
 
 ## 6. Convenciones de código
 
@@ -104,6 +104,7 @@ Cada historia tiene un ID `EM-###`, una sección en `docs/BACKLOG.md` y una GitH
 Una historia está terminada cuando:
 
 - [ ] Cumple todos sus criterios de aceptación de `docs/BACKLOG.md`.
+- [ ] Está marcada como hecha en `docs/BACKLOG.md`, en el mismo PR.
 - [ ] Tiene pruebas para el comportamiento nuevo, incluidos los casos de permisos.
 - [ ] Pasa la CI: `ruff check`, `ruff format --check`, `makemigrations --check` y `pytest`.
 - [ ] Las pantallas nuevas están en español y se ven bien en teléfono.
