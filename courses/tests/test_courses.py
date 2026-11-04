@@ -51,6 +51,10 @@ def course_form_data(game, **overrides):
         "price_cents": 50000,
         "access_days": 90,
         "status": Course.Status.PUBLISHED,
+        "modules-TOTAL_FORMS": 0,
+        "modules-INITIAL_FORMS": 0,
+        "modules-MIN_NUM_FORMS": 0,
+        "modules-MAX_NUM_FORMS": 1000,
     }
     return data | overrides
 
