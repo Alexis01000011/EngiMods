@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Componentes · EngiMods (referencia)</title>
+  <!-- Solo para ver la referencia igual que los bocetos. En producción las fuentes se sirven desde static/. -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+  <link rel="stylesheet" href="engimods.css">
+  <style>
+    main { max-width: 72rem; margin: 0 auto; padding: var(--spacing-xl) var(--spacing-gutter) var(--spacing-xxl); display: flex; flex-direction: column; gap: var(--spacing-xl); }
+    .ref-section { display: flex; flex-direction: column; gap: var(--spacing-md); }
+    .ref-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: var(--spacing-lg); }
+    .ref-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    .ref-token { font: 500 0.75rem/1.3 var(--font-mono); color: var(--color-ink-muted); }
+    .ref-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
+    .ref-swatch { border: 1px solid var(--color-divider); border-radius: var(--rounded-md); overflow: hidden; background: var(--color-surface); }
+    .ref-swatch > div { height: 56px; border-bottom: 1px solid var(--color-divider); }
+    .ref-swatch > p { margin: 0; padding: 8px 10px; }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="em-nav" aria-label="Principal">
+      <a class="em-wordmark" href="#">EngiMods</a>
+      <div class="em-nav__links"><a href="#">Juegos</a><a href="#">Mi panel</a></div>
+      <button class="em-button em-button--quiet em-button--icon em-nav__menu" type="button" aria-label="Abrir menú"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2 4h12M2 8h12M2 12h12"/></svg></button>
+    </nav>
+  </header>
+
+  <main>
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <p class="em-meta">Referencia de la skill disenar-pantalla · valores de DESIGN.md</p>
+      <h1 class="em-title">Componentes de EngiMods</h1>
+      <p class="em-dek">Cada pieza con sus estados. Si una pantalla nueva necesita algo que no está aquí, se agrega primero a DESIGN.md.</p>
+    </div>
+
+    <section class="ref-section" aria-labelledby="c-color">
+      <h2 class="em-headline" id="c-color">Color</h2>
+      <div class="ref-swatches">
+        <div class="ref-swatch"><div style="background: var(--color-primary)"></div><p class="ref-token">primary</p></div>
+        <div class="ref-swatch"><div style="background: var(--color-primary-hover)"></div><p class="ref-token">primary-hover</p></div>
+        <div class="ref-swatch"><div style="background: var(--color-primary-container)"></div><p class="ref-token">primary-container</p></div>
+        <div class="ref-swatch"><div style="background: var(--color-primary-soft)"></div><p class="ref-token">primary-soft</p></div>
+        <div class="ref-swatch"><div style="background: var(--color-ink)"></div><p class="ref-token">ink</p></div>
+        <div class="ref-swatch"><div style="background: var(--color-ink-soft)"></div><p class="ref-token">ink-soft</p></div>
+        <div class="ref-swatch"><div style="background: var(--color-ink-muted)"></div><p class="ref-token">ink-muted</p></div>
+        <div class="ref-swatch"><div style="background: var(--color-background)"></div><p class="ref-token">background</p></div>
+        <div class="ref-swatch"><div style="background: var(--color-surface)"></div><p class="ref-token">surface</p></div>
+        <div class="ref-swatch"><div style="background: var(--color-surface-sunken)"></div><p class="ref-token">surface-sunken</p></div>
+        <div class="ref-swatch"><div style="background: var(--color-surface-chip)"></div><p class="ref-token">surface-chip</p></div>
+        <div class="ref-swatch"><div style="background: var(--color-divider)"></div><p class="ref-token">divider</p></div>
+        <div class="ref-swatch"><div style="background: var(--color-outline)"></div><p class="ref-token">outline</p></div>
+        <div class="ref-swatch"><div style="background: var(--color-tested)"></div><p class="ref-token">tested</p></div>
+        <div class="ref-swatch"><div style="background: var(--color-revalidate)"></div><p class="ref-token">revalidate</p></div>
+        <div class="ref-swatch"><div style="background: var(--color-error)"></div><p class="ref-token">error</p></div>
+      </div>
+    </section>
+
+    <section class="ref-section" aria-labelledby="c-type">
+      <h2 class="em-headline" id="c-type">Tipografía</h2>
+      <div class="em-card" style="display: flex; flex-direction: column; gap: 14px">
+        <span class="ref-token">title-lg / title-md · Source Serif 4</span><span class="em-title">Configura tu repositorio</span>
+        <span class="ref-token">dek · cursiva</span><span class="em-dek">Un lugar seguro para equivocarte.</span>
+        <span class="ref-token">headline-md</span><span class="em-headline">Crea el repositorio</span>
+        <span class="ref-token">headline-sm</span><span class="em-headline-sm">Tu primer comando</span>
+        <span class="ref-token">reading-lg</span><span style="font: 400 1.25rem/1.75 var(--font-serif)">Git guarda cada versión de tu trabajo para que puedas experimentar sin miedo.</span>
+        <span class="ref-token">body-md · Plus Jakarta Sans</span><span>Tu tutor lo revisa en menos de 24 horas.</span>
+        <span class="ref-token">eyebrow</span><span class="em-eyebrow">Al terminar podrás</span>
+        <span class="ref-token">code-md · JetBrains Mono</span><code style="font: 400 0.9375rem/1.7 var(--font-mono)">git commit -m "Inicia el mod"</code>
+      </div>
+    </section>
+
+    <section class="ref-section" aria-labelledby="c-buttons">
+      <h2 class="em-headline" id="c-buttons">Botones y chips</h2>
+      <div class="ref-grid">
+        <div class="em-card" style="display: flex; flex-direction: column; gap: 14px">
+          <span class="ref-token">button-primary · uno por pantalla</span>
+          <div class="ref-row"><a class="em-button em-button--primary" href="#">Inscribirme y pagar</a></div>
+          <span class="ref-token">button-secondary · button-quiet</span>
+          <div class="ref-row"><a class="em-button em-button--secondary" href="#">Ver temario</a><button class="em-button em-button--quiet" type="button">Copiar</button></div>
+        </div>
+        <div class="em-card" style="display: flex; flex-direction: column; gap: 14px">
+          <span class="ref-token">chip · datos cortos, no se tocan</span>
+          <div class="em-chips"><span class="em-chip">25 min</span><span class="em-chip">Necesitas: Git y una terminal</span><span class="em-chip">Práctica autoguiada</span></div>
+          <span class="ref-token">progress-bar</span>
+          <div class="ref-row"><span class="em-meta">3 de 9</span><div class="em-progress" role="progressbar" aria-label="Avance" aria-valuemin="0" aria-valuemax="9" aria-valuenow="3"><span style="width: 33%"></span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ref-section" aria-labelledby="c-version">
+      <h2 class="em-headline" id="c-version">Versión probada</h2>
+      <div class="ref-grid">
+        <div class="em-card ref-row" style="gap: 24px">
+          <div class="em-stamp" role="img" aria-label="Sello: probado con Juego 1.4 y Loader 0.9"><span class="em-stamp__label">PROBADO</span><span class="em-stamp__rule"></span><span class="em-stamp__version">Juego 1.4</span><span class="em-stamp__version">Loader 0.9</span></div>
+          <span class="ref-token">tested-stamp · junto al título de la lección</span>
+        </div>
+        <div class="em-card" style="display: flex; flex-direction: column; align-items: flex-start; gap: 12px">
+          <span class="em-badge em-badge--tested"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 8.5l3 3 7-7"/></svg>Probado con Juego 1.4 + Loader 0.9</span>
+          <span class="em-badge em-badge--revalidate"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 4v5M8 11.5v.5"/><circle cx="8" cy="8" r="6.5"/></svg>Pendiente de revalidar · Juego 1.5</span>
+          <span class="em-badge em-badge--untested"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8h8"/></svg>Sin versión probada</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="ref-section" aria-labelledby="c-messages">
+      <h2 class="em-headline" id="c-messages">Mensajes</h2>
+      <div class="ref-grid">
+        <div role="status" class="em-message em-message--success"><strong>Listo.</strong> Recibimos tu entrega; tu tutor la revisa en menos de 24 horas.</div>
+        <div class="em-message em-message--info"><strong>Aviso.</strong> Salió Juego 1.5; estamos revalidando esta lección.</div>
+        <div class="em-message em-message--warning"><strong>Tu acceso termina pronto.</strong> Te quedan [DÍAS] días para terminar Misión Cero.</div>
+        <div role="alert" class="em-message em-message--error"><strong>No se pudo guardar.</strong> Revisa el enlace e inténtalo otra vez.</div>
+      </div>
+    </section>
+
+    <section class="ref-section" aria-labelledby="c-forms">
+      <h2 class="em-headline" id="c-forms">Formularios</h2>
+      <form class="em-card" style="display: flex; flex-direction: column; gap: 20px; max-width: 32rem" onsubmit="return false">
+        <div class="em-field">
+          <label for="f-repo">Enlace a tu repositorio</label>
+          <input id="f-repo" type="url" placeholder="https://github.com/tu-usuario/mi-mod" aria-describedby="f-repo-help">
+          <span class="em-field__help" id="f-repo-help">Debe ser público o compartido con tu tutor.</span>
+        </div>
+        <div class="em-field em-field--error">
+          <label for="f-mail">Correo</label>
+          <input id="f-mail" type="email" value="alumno@" aria-invalid="true" aria-describedby="f-mail-err">
+          <span class="em-field__error" id="f-mail-err"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="flex: none; margin-top: 3px"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4M8 11v.5"/></svg>Escribe un correo completo, por ejemplo nombre@dominio.mx.</span>
+        </div>
+        <div class="em-field">
+          <label for="f-note">Notas para tu tutor <span class="em-muted" style="font-weight: 400">(opcional)</span></label>
+          <textarea id="f-note"></textarea>
+        </div>
+        <div><button class="em-button em-button--primary" type="submit">Enviar mi entrega</button></div>
+      </form>
+    </section>
+
+    <section class="ref-section" aria-labelledby="c-cards">
+      <h2 class="em-headline" id="c-cards">Tarjetas y estado vacío</h2>
+      <div class="ref-grid">
+        <article class="em-card" style="display: flex; flex-direction: column; gap: 12px">
+          <span class="em-meta">Juego · Práctica autoguiada</span>
+          <h3 class="em-headline-sm">Misión Cero</h3>
+          <div class="ref-row" style="justify-content: space-between"><span class="em-meta">3 de 9 lecciones</span><span class="em-meta">Acceso hasta el [FECHA]</span></div>
+          <div class="em-progress" role="progressbar" aria-label="Avance en Misión Cero" aria-valuemin="0" aria-valuemax="9" aria-valuenow="3"><span style="width: 33%"></span></div>
+          <span class="em-badge em-badge--revalidate" style="align-self: flex-start">1 lección pendiente de revalidar</span>
+          <a class="em-button em-button--primary" href="#">Continuar: Configura tu repositorio</a>
+        </article>
+        <article class="em-card em-card--empty" style="display: flex; flex-direction: column; gap: 12px">
+          <h3 class="em-headline-sm">Aún no tienes cursos</h3>
+          <p style="margin: 0" class="em-muted">Empieza con Misión Cero para crear tu primer mod.</p>
+          <a class="em-button em-button--secondary" href="#" style="align-self: flex-start">Ver Misión Cero</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="ref-section" aria-labelledby="c-reading">
+      <h2 class="em-headline" id="c-reading">Piezas de lectura</h2>
+      <div style="max-width: var(--spacing-reading-max); display: flex; flex-direction: column; gap: 20px">
+        <section class="em-outcomes" aria-labelledby="r-logras"><h3 class="em-eyebrow" id="r-logras">Al terminar podrás</h3><ul><li>Crear un repositorio para tu mod.</li><li>Compartir el enlace con tu tutor.</li></ul></section>
+        <div class="em-byline"><span class="em-avatar" aria-hidden="true">TN</span><div class="em-byline__who"><span class="em-byline__name">[Nombre del tutor]</span><span class="em-meta">Escribió y revisó esta lección el 3 nov 2026</span></div><span class="em-chip">25 min de lectura</span></div>
+        <p class="em-note" style="margin: 0">※ Si ya usas Git en otros proyectos, puedes pasar directo a la siguiente sección.</p>
+        <div class="em-tip"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M7.5 15h5M8 17.5h4M10 2.5a5 5 0 0 0-3 9c.6.5 1 1.2 1 2V14h4v-.5c0-.8.4-1.5 1-2a5 5 0 0 0-3-9z"/></svg><span><strong>Consejo:</strong> escribe el mensaje de commit como una instrucción.</span></div>
+        <div class="em-code"><div class="em-code__header"><span>Terminal</span><button class="em-code__copy" type="button">Copiar</button></div><pre><code>git init
+git add .
+git commit -m "Inicia el mod"</code></pre></div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
