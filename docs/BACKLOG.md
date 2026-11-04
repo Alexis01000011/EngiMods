@@ -162,7 +162,7 @@ Hecho el 3/11/2026:
 | [EM-012](#em-012) | [#12](https://github.com/Alexis01000011/EngiMods/issues/12) | Página pública de cada juego | E1 | Must | 3 | 4 | EM-011, EM-020 | Pendiente |
 | [EM-013](#em-013) | [#13](https://github.com/Alexis01000011/EngiMods/issues/13) | Filtrar cursos por juego | E1 | Should | 2 | 5 | EM-012 | Pendiente |
 | [EM-014](#em-014) | [#14](https://github.com/Alexis01000011/EngiMods/issues/14) | Marcar contenido pendiente de revalidar al salir una nueva versión | E1 | Should | 5 | 5 | EM-021, EM-035 | Pendiente |
-| [EM-020](#em-020) | [#15](https://github.com/Alexis01000011/EngiMods/issues/15) | Modelo de curso | E2 | Must | 3 | 3 | EM-010 | Pendiente |
+| [EM-020](#em-020) | [#15](https://github.com/Alexis01000011/EngiMods/issues/15) | Modelo de curso | E2 | Must | 3 | 3 | EM-010 | Hecho |
 | [EM-021](#em-021) | [#16](https://github.com/Alexis01000011/EngiMods/issues/16) | Módulos y lecciones con versión probada | E2 | Must | 5 | 4 | EM-020, EM-011 | Pendiente |
 | [EM-022](#em-022) | [#17](https://github.com/Alexis01000011/EngiMods/issues/17) | Vista previa de lecciones para tutores | E2 | Should | 3 | 6 | EM-021, EM-061 | Pendiente |
 | [EM-023](#em-023) | [#18](https://github.com/Alexis01000011/EngiMods/issues/18) | Recursos descargables y plantillas por lección | E2 | Must | 2 | 5 | EM-021, EM-053 | Pendiente |
@@ -457,18 +457,18 @@ Estructura de cursos, módulos, lecciones y recursos descargables, para cualquie
 
 **Modelo de curso**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 3 · Issue: [#15](https://github.com/Alexis01000011/EngiMods/issues/15)
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 3 · Estado: Hecho · Issue: [#15](https://github.com/Alexis01000011/EngiMods/issues/15)
 
 > Como **administrador**, quiero crear cursos asociados a un juego, para ofrecer tanto la práctica corta (Misión Cero) como el curso de seis semanas.
 
 Criterios de aceptación:
 
-- [ ] Un curso tiene: título, slug, juego, tipo, nivel, descripción, requisitos, duración en semanas y estado (`borrador` o `publicado`).
-- [ ] El tipo es `práctica corta` (autoguiada: sin grupo, fechas ni cupo, como Misión Cero) o `curso` (por grupos, como el curso de seis semanas).
-- [ ] El slug del curso es único en toda la plataforma.
-- [ ] El precio se captura en el curso (MXN, entero en centavos) y no está escrito en código.
-- [ ] El curso define cuántos días dura el acceso: desde la inscripción en una práctica corta, desde el fin del grupo en un curso. Es un dato, no una constante.
-- [ ] Solo los cursos publicados aparecen en páginas públicas.
+- [x] Un curso tiene: título, slug, juego, tipo, nivel, descripción, requisitos, duración en semanas y estado (`borrador` o `publicado`).
+- [x] El tipo es `práctica corta` (autoguiada: sin grupo, fechas ni cupo, como Misión Cero) o `curso` (por grupos, como el curso de seis semanas).
+- [x] El slug del curso es único en toda la plataforma.
+- [x] El precio se captura en el curso (MXN, entero en centavos) y no está escrito en código.
+- [x] El curso define cuántos días dura el acceso: desde la inscripción en una práctica corta, desde el fin del grupo en un curso. Es un dato, no una constante.
+- [x] Solo los cursos publicados aparecen en páginas públicas.
 
 Depende de: [EM-010](#em-010)
 
