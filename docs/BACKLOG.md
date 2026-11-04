@@ -156,7 +156,7 @@ Hecho el 3/11/2026:
 | [EM-006](#em-006) | [#6](https://github.com/Alexis01000011/EngiMods/issues/6) | Datos de ejemplo para desarrollo | E0 | Should | 2 | 5 | EM-003, EM-011, EM-021 | Pendiente |
 | [EM-007](#em-007) | [#7](https://github.com/Alexis01000011/EngiMods/issues/7) | Almacenamiento de archivos subidos | E0 | Could | 3 | 2 | EM-005 | Pendiente |
 | [EM-008](#em-008) | [#8](https://github.com/Alexis01000011/EngiMods/issues/8) | Correo transaccional en producción | E0 | Must | 3 | 2 | EM-005 | Pendiente |
-| [EM-009](#em-009) | [#9](https://github.com/Alexis01000011/EngiMods/issues/9) | Cuenta de Stripe en modo prueba conectada | E0 | Must | 2 | 1 | EM-001 | Pendiente |
+| [EM-009](#em-009) | [#9](https://github.com/Alexis01000011/EngiMods/issues/9) | Cuenta de Stripe en modo prueba conectada | E0 | Must | 2 | 1 | EM-001 | Hecho |
 | [EM-010](#em-010) | [#10](https://github.com/Alexis01000011/EngiMods/issues/10) | Registrar juegos en el catálogo | E1 | Must | 2 | 2 | EM-003 | Pendiente |
 | [EM-011](#em-011) | [#11](https://github.com/Alexis01000011/EngiMods/issues/11) | Registrar versiones del juego y entornos de modding | E1 | Must | 3 | 3 | EM-010 | Pendiente |
 | [EM-012](#em-012) | [#12](https://github.com/Alexis01000011/EngiMods/issues/12) | Página pública de cada juego | E1 | Must | 3 | 4 | EM-011, EM-020 | Pendiente |
@@ -349,13 +349,13 @@ Depende de: [EM-005](#em-005)
 
 **Cuenta de Stripe en modo prueba conectada**
 
-Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 1 · Issue: [#9](https://github.com/Alexis01000011/EngiMods/issues/9)
+Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 1 · Estado: Hecho · Issue: [#9](https://github.com/Alexis01000011/EngiMods/issues/9)
 
 Criterios de aceptación:
 
-- [ ] Llaves de prueba de Stripe leídas de variables de entorno (`STRIPE_SECRET_KEY`, `STRIPE_PUBLISHABLE_KEY`, `STRIPE_WEBHOOK_SECRET`).
-- [ ] Instrucciones en `docs/stripe.md` para probar webhooks en local con Stripe CLI.
-- [ ] Ninguna llave real en el repositorio ni en los logs.
+- [x] Llaves de prueba de Stripe leídas de variables de entorno (`STRIPE_SECRET_KEY`, `STRIPE_PUBLISHABLE_KEY`, `STRIPE_WEBHOOK_SECRET`).
+- [x] Instrucciones en `docs/stripe.md` para probar webhooks en local con Stripe CLI.
+- [x] Ninguna llave real en el repositorio ni en los logs.
 
 Depende de: [EM-001](#em-001)
 

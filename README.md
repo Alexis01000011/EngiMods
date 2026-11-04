@@ -32,4 +32,5 @@ Abre http://localhost:8000. Pruebas: `uv run pytest`. Lint y formato: `uv run ru
 - [`docs/arquitectura.md`](docs/arquitectura.md): apps, modelos y reglas.
 - [`docs/negocio.md`](docs/negocio.md): modelo de negocio e hipótesis.
 - [`docs/flujo-de-trabajo.md`](docs/flujo-de-trabajo.md): sprints, etiquetas y criterios.
+- [`docs/stripe.md`](docs/stripe.md): Stripe en modo prueba y webhooks en local.
 - [`docs/decisiones/`](docs/decisiones/): decisiones técnicas (ADR).
