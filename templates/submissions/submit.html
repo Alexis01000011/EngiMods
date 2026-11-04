@@ -4,40 +4,80 @@
 {% block title %}{{ exercise.title }} · {{ course.title }} · EngiMods{% endblock %}
 
 {% block content %}
-  <p>
-    <a href="{% url 'courses:lesson_detail' course.slug exercise.lesson.pk %}">{{ exercise.lesson.title }}</a>
-    · {{ course.title }}
-  </p>
-  <h1>{{ exercise.title }}</h1>
+  <div class="max-w-reading-max">
+    <header class="flex flex-col gap-sm">
+      <p class="m-0 text-label-sm text-ink-muted"><a href="{% url 'courses:lesson_detail' course.slug exercise.lesson.pk %}" class="text-ink-muted hover:text-ink">{{ exercise.lesson.title }}</a> · {{ course.title }}</p>
+      <h1 class="m-0">{{ exercise.title }}</h1>
+      {% if review_hours %}
+        <p class="m-0 font-serif text-dek italic text-ink-soft">{% blocktranslate count hours=review_hours %}Tu tutor lo revisa en menos de {{ hours }} hora.{% plural %}Tu tutor lo revisa en menos de {{ hours }} horas.{% endblocktranslate %}</p>
+      {% endif %}
+    </header>
 
-  <h2>{% translate "Instrucciones" %}</h2>
-  {{ exercise.instructions_html }}
+    <section aria-labelledby="instrucciones">
+      <h2 id="instrucciones">{% translate "Instrucciones" %}</h2>
+      <div class="font-serif text-reading-md">
+        {{ exercise.instructions_html }}
+      </div>
+    </section>
 
-  {% if submission %}
-    <h2>{% translate "Tu entrega" %}</h2>
-    <p><strong>{% translate "Estado" %}: {{ submission.get_status_display }}</strong></p>
-    {% if attempt %}
-      <dl>
-        <dt>{% translate "Repositorio" %}</dt>
-        <dd><a href="{{ attempt.repository_url }}" rel="noopener noreferrer">{{ attempt.repository_url }}</a></dd>
-        <dt>{% translate "Probado con" %}</dt>
-        <dd>{{ attempt.game_version.number }} + {{ attempt.modding_environment.name }} {{ attempt.modding_environment.version }}</dd>
-        <dt>{% translate "Enviada el" %}</dt>
-        <dd>{{ attempt.submitted_at|date:"j \d\e F \d\e Y, H:i" }}</dd>
-        {% if attempt.comment %}
-          <dt>{% translate "Comentario" %}</dt>
-          <dd>{{ attempt.comment|linebreaksbr }}</dd>
+    {% if submission %}
+      <section aria-labelledby="tu-entrega" class="mt-xl flex flex-col gap-md rounded-lg border border-divider bg-surface p-lg">
+        <h2 id="tu-entrega" class="m-0 text-headline-sm">{% translate "Tu entrega" %}</h2>
+        {% include "components/submission_status.html" %}
+        {% if attempt %}
+          <dl class="m-0">
+            <dt>{% translate "Repositorio" %}</dt>
+            <dd class="[overflow-wrap:anywhere]"><a href="{{ attempt.repository_url }}" rel="noopener noreferrer">{{ attempt.repository_url }}</a></dd>
+            <dt>{% translate "Probado con" %}</dt>
+            <dd class="font-mono text-code-sm text-tested">{{ attempt.game_version.number }} + {{ attempt.modding_environment.name }} {{ attempt.modding_environment.version }}</dd>
+            <dt>{% translate "Enviada el" %}</dt>
+            <dd>{{ attempt.submitted_at|date:"j \d\e F \d\e Y, H:i" }}</dd>
+            {% if attempt.comment %}
+              <dt>{% translate "Comentario" %}</dt>
+              <dd>{{ attempt.comment|linebreaksbr }}</dd>
+            {% endif %}
+          </dl>
         {% endif %}
-      </dl>
+      </section>
+    {% elif form %}
+      <section aria-labelledby="envia">
+        <h2 id="envia">{% translate "Envía tu entrega" %}</h2>
+        {% if form.errors %}
+          <div role="alert" class="mb-lg rounded-lg bg-error-container p-md text-error">
+            <p class="m-0"><strong>{% translate "No se pudo enviar." %}</strong> {% translate "Revisa los campos marcados y vuelve a intentarlo." %}</p>
+            {% for error in form.non_field_errors %}
+              <p class="m-0 mt-xs">{{ error }}</p>
+            {% endfor %}
+          </div>
+        {% endif %}
+        <form method="post" class="flex flex-col gap-lg">
+          {% csrf_token %}
+          {% for field in form %}
+            <div class="flex flex-col [&_[aria-invalid=true]]:border-2 [&_[aria-invalid=true]]:border-error">
+              {{ field.label_tag }}
+              {{ field }}
+              {% if field.help_text %}
+                <span class="helptext" id="{{ field.auto_id }}_helptext">{{ field.help_text }}</span>
+              {% endif %}
+              {% if field.errors %}
+                <div id="{{ field.auto_id }}_error">
+                  {% for error in field.errors %}
+                    <p class="m-0 mt-1.5 flex items-start gap-1.5 text-body-sm text-error">
+                      <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" class="mt-0.5 flex-none"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4M8 11v.5"/></svg>
+                      <span>{{ error }}</span>
+                    </p>
+                  {% endfor %}
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+          <div>
+            <button type="submit" class="button-primary w-full sm:w-auto">{% translate "Enviar mi entrega" %}</button>
+          </div>
+        </form>
+      </section>
     {% endif %}
-  {% elif form %}
-    <h2>{% translate "Enviar tu entrega" %}</h2>
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit">{% translate "Enviar entrega" %}</button>
-    </form>
-  {% endif %}
 
-  <p><a href="{% url 'submissions:my_submissions' %}">{% translate "Ver todas mis entregas" %}</a></p>
+    <p class="mt-xl text-body-sm"><a href="{% url 'submissions:my_submissions' %}">{% translate "Ver todas mis entregas" %}</a></p>
+  </div>
 {% endblock %}

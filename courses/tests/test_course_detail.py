@@ -1,10 +1,12 @@
+from datetime import date
+
 import pytest
 from django.urls import reverse
 from django.utils import timezone
 
-from catalog.models import Game
+from catalog.models import Game, GameVersion, ModdingEnvironment
 from core.models import LegalText
-from courses.models import Course, Lesson, Module
+from courses.models import Course, Lesson, LessonTest, Module
 
 pytestmark = pytest.mark.django_db
 
@@ -160,3 +162,41 @@ def test_syllabus_lesson_links_are_shown_to_anonymous(client, course):
     lesson = make_lesson(module, "L", 1)
     html = client.get(url(course)).content.decode()
     assert reverse("courses:lesson_detail", args=[course.slug, lesson.pk]) in html
+
+
+# Pantalla según DESIGN.md (EM-064)
+
+
+def test_shows_untested_badge_without_lesson_tests(client, course):
+    assert "Sin versión probada" in client.get(url(course)).content.decode()
+
+
+def test_shows_most_recent_lesson_test(client, course, game):
+    module = Module.objects.create(course=course, title="Semana 1", order=1)
+    lesson = make_lesson(module, "Lección publicada", 1)
+    version = GameVersion.objects.create(game=game, number="2.0", release_date=date(2026, 9, 1))
+    environment = ModdingEnvironment.objects.create(game=game, name="Loader", version="1.1")
+    LessonTest.objects.create(
+        lesson=lesson,
+        game_version=version,
+        modding_environment=environment,
+        tested_on=date(2026, 11, 1),
+    )
+    html = client.get(url(course)).content.decode()
+    assert "Probado con Juego de prueba 2.0 + Loader 1.1" in html
+    assert "Sin versión probada" not in html
+
+
+def test_syllabus_numbers_lessons_across_modules(client, course):
+    first = Module.objects.create(course=course, title="Semana 1", order=1)
+    second = Module.objects.create(course=course, title="Semana 2", order=2)
+    make_lesson(first, "Uno", 1)
+    make_lesson(second, "Dos", 1)
+    html = client.get(url(course)).content.decode()
+    assert ">01<" in html
+    assert ">02<" in html
+
+
+def test_course_page_has_no_primary_button_before_checkout(client, course):
+    # El botón de pago llega con EM-042; mientras tanto no hay acción principal.
+    assert "button-primary" not in client.get(url(course)).content.decode()

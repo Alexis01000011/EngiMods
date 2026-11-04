@@ -4,60 +4,76 @@
 {% block title %}{% translate "Mi panel" %} · EngiMods{% endblock %}
 
 {% block content %}
-  <h1>{% translate "Mi panel" %}</h1>
+  <header class="flex flex-col gap-xs">
+    <h1 class="m-0 text-title-md">{% translate "Mis cursos" %}</h1>
+    {% if active or expired %}
+      <p class="m-0 text-body-sm text-ink-muted">{% translate "Sigue donde te quedaste." %} <a href="{% url 'submissions:my_submissions' %}">{% translate "Mis entregas" %}</a></p>
+    {% endif %}
+  </header>
 
   {% if active or expired %}
-    <p><a href="{% url 'submissions:my_submissions' %}">{% translate "Mis entregas" %}</a></p>
-    <h2>{% translate "Mis cursos" %}</h2>
     {% if active %}
-      <ul>
+      <ul class="m-0 mt-lg grid list-none grid-cols-[repeat(auto-fill,minmax(min(100%,320px),1fr))] gap-md p-0">
         {% for enrollment in active %}
-          <li>
-            <a href="{% url 'courses:course_detail' enrollment.course.slug %}">{{ enrollment.course.title }}</a>
-            <br>
-            {% blocktranslate with date=enrollment.access_ends_at|date:"j \d\e F \d\e Y" %}Acceso hasta el {{ date }}.{% endblocktranslate %}
-            <br>
-            {% blocktranslate with percent=enrollment.progress_percent %}Avance: {{ percent }} %{% endblocktranslate %}
-            <br>
-            {% if enrollment.next_lesson %}
-              <a href="{% url 'courses:lesson_detail' enrollment.course.slug enrollment.next_lesson.pk %}">{% translate "Siguiente lección" %}: {{ enrollment.next_lesson.title }}</a>
-            {% elif enrollment.all_done %}
-              {% translate "Completaste todas las lecciones." %}
-            {% elif not enrollment.has_lessons %}
-              {% translate "Este curso aún no tiene lecciones." %}
-            {% endif %}
+          <li class="m-0 flex flex-col gap-sm rounded-lg border border-divider bg-surface p-lg">
+            <p class="m-0 text-label-sm text-ink-muted">{{ enrollment.course.game.name }} · {{ enrollment.course.get_kind_display }}</p>
+            <h2 class="m-0 text-headline-sm"><a href="{% url 'courses:course_detail' enrollment.course.slug %}" class="text-ink no-underline hover:underline">{{ enrollment.course.title }}</a></h2>
+            <div class="flex flex-col gap-xs">
+              <progress value="{{ enrollment.progress_percent }}" max="100" aria-label="{% blocktranslate with title=enrollment.course.title %}Avance en {{ title }}{% endblocktranslate %}" class="block h-1.5 w-full appearance-none overflow-hidden rounded-[3px] bg-progress-track [&::-moz-progress-bar]:bg-primary [&::-webkit-progress-bar]:bg-progress-track [&::-webkit-progress-value]:bg-primary">{{ enrollment.progress_percent }} %</progress>
+              <p class="m-0 text-label-sm text-ink-muted">{% blocktranslate with percent=enrollment.progress_percent %}Avance: {{ percent }} %{% endblocktranslate %}{% if enrollment.lesson_count %} · {% blocktranslate with done=enrollment.completed_count total=enrollment.lesson_count %}{{ done }} de {{ total }} lecciones{% endblocktranslate %}{% endif %}</p>
+            </div>
+            <p class="m-0 text-body-sm text-ink-muted">{% blocktranslate with date=enrollment.access_ends_at|date:"j \d\e F \d\e Y" %}Acceso hasta el {{ date }}.{% endblocktranslate %}</p>
+            <div class="mt-auto pt-sm">
+              {% if enrollment.next_lesson %}
+                <a href="{% url 'courses:lesson_detail' enrollment.course.slug enrollment.next_lesson.pk %}" class="{% if forloop.first %}button-primary{% else %}button-secondary{% endif %} w-full py-2.5 text-center sm:w-auto">{% translate "Siguiente lección" %}: {{ enrollment.next_lesson.title }}</a>
+              {% elif enrollment.all_done %}
+                <p class="m-0 inline-flex items-center gap-1.5 text-label-md text-tested">
+                  <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5l3 3 7-7"/></svg>
+                  {% translate "Completaste todas las lecciones." %}
+                </p>
+              {% elif not enrollment.has_lessons %}
+                <p class="m-0 text-body-sm text-ink-muted">{% translate "Este curso aún no tiene lecciones." %}</p>
+              {% endif %}
+            </div>
           </li>
         {% endfor %}
       </ul>
     {% else %}
-      <p>{% translate "No tienes cursos con acceso vigente." %}</p>
+      <p class="mt-lg rounded-lg border border-dashed border-outline bg-surface p-lg">{% translate "No tienes cursos con acceso vigente." %}</p>
     {% endif %}
 
     {% if expired %}
-      <h2>{% translate "Cursos con acceso vencido" %}</h2>
-      <ul>
-        {% for enrollment in expired %}
-          <li>
-            {{ enrollment.course.title }} <strong>({% translate "Vencido" %})</strong>
-            <br>
-            {% blocktranslate with date=enrollment.access_ends_at|date:"j \d\e F \d\e Y" %}El acceso terminó el {{ date }}.{% endblocktranslate %}
-            <br>
-            {% blocktranslate with percent=enrollment.progress_percent %}Avance: {{ percent }} %{% endblocktranslate %}
+      <section aria-labelledby="vencidos">
+        <h2 id="vencidos">{% translate "Cursos con acceso vencido" %}</h2>
+        <ul class="m-0 grid list-none grid-cols-[repeat(auto-fill,minmax(min(100%,320px),1fr))] gap-md p-0">
+          {% for enrollment in expired %}
+            <li class="m-0 flex flex-col gap-sm rounded-lg border border-divider bg-surface p-lg">
+              <p class="m-0 text-label-sm text-ink-muted">{{ enrollment.course.game.name }} · {{ enrollment.course.get_kind_display }}</p>
+              <h3 class="m-0">{{ enrollment.course.title }}</h3>
+              <p class="m-0 inline-flex items-center self-start rounded-full bg-surface-chip px-3 py-1.5 font-mono text-code-sm text-ink-muted">{% translate "Vencido" %}</p>
+              <p class="m-0 text-body-sm text-ink-muted">{% blocktranslate with date=enrollment.access_ends_at|date:"j \d\e F \d\e Y" %}El acceso terminó el {{ date }}.{% endblocktranslate %}</p>
+              <p class="m-0 text-label-sm text-ink-muted">{% blocktranslate with percent=enrollment.progress_percent %}Avance: {{ percent }} %{% endblocktranslate %}{% if enrollment.lesson_count %} · {% blocktranslate with done=enrollment.completed_count total=enrollment.lesson_count %}{{ done }} de {{ total }} lecciones{% endblocktranslate %}{% endif %}</p>
+            </li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% endif %}
+  {% else %}
+    <p class="mt-lg rounded-lg border border-dashed border-outline bg-surface p-lg">{% translate "Todavía no tienes cursos. Estos son los cursos disponibles." %}</p>
+    {% if catalog %}
+      <ul class="m-0 grid list-none grid-cols-[repeat(auto-fill,minmax(min(100%,320px),1fr))] gap-md p-0">
+        {% for course in catalog %}
+          <li class="m-0 flex flex-col gap-sm rounded-lg border border-divider bg-surface p-lg">
+            <p class="m-0 text-label-sm text-ink-muted">{{ course.game.name }} · {{ course.get_kind_display }}</p>
+            <h2 class="m-0 text-headline-sm">{{ course.title }}</h2>
+            <div class="mt-auto pt-sm">
+              <a href="{% url 'courses:course_detail' course.slug %}" class="button-secondary">{% translate "Ver el curso" %}<span class="sr-only">: {{ course.title }}</span></a>
+            </div>
           </li>
         {% endfor %}
       </ul>
+    {% else %}
+      <p class="text-body-sm text-ink-muted">{% translate "Aún no hay cursos publicados." %}</p>
     {% endif %}
-  {% else %}
-    <p>{% translate "Todavía no tienes cursos. Estos son los cursos disponibles." %}</p>
-    {% for course in catalog %}
-      {% if forloop.first %}<ul>{% endif %}
-      <li>
-        <a href="{% url 'courses:course_detail' course.slug %}">{{ course.title }}</a>
-        · {{ course.game.name }} · {{ course.get_kind_display }}
-      </li>
-      {% if forloop.last %}</ul>{% endif %}
-    {% empty %}
-      <p>{% translate "Aún no hay cursos publicados." %}</p>
-    {% endfor %}
   {% endif %}
 {% endblock %}

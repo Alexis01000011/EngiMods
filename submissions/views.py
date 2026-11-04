@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.db import transaction
@@ -65,6 +66,7 @@ def submit(request, lesson_pk):
             "form": form,
             "submission": submission,
             "attempt": attempt,
+            "review_hours": settings.REVIEW_DEADLINE_HOURS,
         },
     )
 

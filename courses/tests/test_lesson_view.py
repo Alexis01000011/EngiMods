@@ -7,7 +7,7 @@ from django.utils import timezone
 
 from catalog.models import Game, GameVersion, ModdingEnvironment
 from courses.models import Course, Lesson, LessonTest, Module
-from enrollments.models import Enrollment
+from enrollments.models import Enrollment, LessonProgress
 
 pytestmark = pytest.mark.django_db
 
@@ -216,4 +216,57 @@ def test_navigation_follows_syllabus_across_modules_and_skips_drafts(client, cou
 
     html_d = client.get(url(d)).content.decode()
     assert url(c) in html_d
-    assert "Lección siguiente" not in html_d
+    assert 'rel="next"' not in html_d
+
+
+# Pantalla según DESIGN.md (EM-064)
+
+
+def test_syllabus_marks_current_lesson_and_completed_ones(client, course, module, student):
+    first = make_lesson(module, "Primera", 1)
+    current = make_lesson(module, "Actual", 2)
+    enrollment = Enrollment.objects.get(user=student, course=course)
+    LessonProgress.objects.create(enrollment=enrollment, lesson=first)
+    html = client.get(url(current)).content.decode()
+    # El temario se pinta dos veces (plegable en teléfono y lateral en escritorio).
+    assert html.count(f'href="{url(current)}" aria-current="page"') == 2
+    assert f'href="{url(first)}" aria-current' not in html
+    assert "Completada" in html
+    assert "Lección 2 de 2" in html
+    assert "1 de 2 completas" in html
+
+
+def test_tested_lesson_shows_stamp(client, game, lesson, student):
+    record_test(lesson, game, "1.2.0", "3.4", date(2026, 11, 1))
+    html = client.get(url(lesson)).content.decode()
+    assert ">Probado</span>" in html
+
+
+def test_untested_lesson_has_no_stamp(client, lesson, student):
+    assert ">Probado</span>" not in client.get(url(lesson)).content.decode()
+
+
+def test_one_primary_button_moves_to_next_lesson_after_completing(client, course, module, student):
+    current = make_lesson(module, "Actual", 1)
+    following = make_lesson(module, "Siguiente", 2)
+    next_link = f'rel="next" href="{url(following)}" class="button-primary'
+
+    html = client.get(url(current)).content.decode()
+    assert html.count("button-primary") == 1
+    assert next_link not in html
+
+    enrollment = Enrollment.objects.get(user=student, course=course)
+    LessonProgress.objects.create(enrollment=enrollment, lesson=current)
+    html = client.get(url(current)).content.decode()
+    assert html.count("button-primary") == 1
+    assert next_link in html
+
+
+def test_tutor_sees_lesson_without_primary_button(client, lesson):
+    tutor = make_user("tutor@example.com")
+    tutor.is_tutor = True
+    tutor.save()
+    client.force_login(tutor)
+    html = client.get(url(lesson)).content.decode()
+    assert "Lección uno" in html
+    assert "button-primary" not in html
