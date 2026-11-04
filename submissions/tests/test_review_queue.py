@@ -382,9 +382,14 @@ def test_queue_shows_remaining_time_and_status(client, tutor, make_submission):
     assert "Estado: Enviada" in content
 
 
-def test_review_page_has_one_primary_button_until_taken(client, tutor, make_submission):
+def test_review_page_has_one_primary_button(client, tutor, make_submission):
     submission = make_submission()
     client.force_login(tutor)
-    assert client.get(review_url(submission)).content.decode().count('class="button-primary') == 1
+    content = client.get(review_url(submission)).content.decode()
+    assert content.count('class="button-primary') == 1
+    assert "Tomar la revisión" in content
     client.post(start_url(submission))
-    assert "button-primary" not in client.get(review_url(submission)).content.decode()
+    # Ya tomada, el único botón principal es el de enviar la revisión (EM-072).
+    content = client.get(review_url(submission)).content.decode()
+    assert content.count('class="button-primary') == 1
+    assert "Enviar la revisión" in content

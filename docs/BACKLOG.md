@@ -200,7 +200,7 @@ El 4/11/2026 se agregó la deuda de diseño de las pantallas hechas antes de ace
 | [EM-064](#em-064) | [#98](https://github.com/Alexis01000011/EngiMods/issues/98) | Pantallas del alumno con la identidad visual | E6 | Must | 5 | 7 | EM-004, EM-041, EM-062, EM-070 | Hecho |
 | [EM-070](#em-070) | [#43](https://github.com/Alexis01000011/EngiMods/issues/43) | Enviar una entrega | E7 | Must | 3 | 6 | EM-061 | Hecho |
 | [EM-071](#em-071) | [#44](https://github.com/Alexis01000011/EngiMods/issues/44) | Cola de revisión con alerta de 24 horas | E7 | Must | 3 | 7 | EM-070, EM-035 | Hecho |
-| [EM-072](#em-072) | [#45](https://github.com/Alexis01000011/EngiMods/issues/45) | Revisar con rúbrica | E7 | Must | 5 | 7 | EM-070, EM-035 | Pendiente |
+| [EM-072](#em-072) | [#45](https://github.com/Alexis01000011/EngiMods/issues/45) | Revisar con rúbrica | E7 | Must | 5 | 7 | EM-070, EM-035 | Hecho |
 | [EM-073](#em-073) | [#46](https://github.com/Alexis01000011/EngiMods/issues/46) | Reenviar entrega tras cambios | E7 | Must | 2 | 8 | EM-072 | Pendiente |
 | [EM-074](#em-074) | [#47](https://github.com/Alexis01000011/EngiMods/issues/47) | Notificaciones de entregas por correo | E7 | Should | 2 | 8 | EM-072, EM-008 | Pendiente |
 | [EM-075](#em-075) | [#48](https://github.com/Alexis01000011/EngiMods/issues/48) | Entregar archivo .zip | E7 | Could | 3 | 7 | EM-070, EM-007 | Pendiente |
@@ -1082,15 +1082,15 @@ Nota: La cola vive en `/tutoria/entregas/` y el plazo es el setting `REVIEW_DEAD
 
 **Revisar con rúbrica**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 5 · Ola: 7 · Issue: [#45](https://github.com/Alexis01000011/EngiMods/issues/45)
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 5 · Ola: 7 · Estado: Hecho · Issue: [#45](https://github.com/Alexis01000011/EngiMods/issues/45)
 
 > Como **tutor**, quiero revisar una entrega con una rúbrica y comentarios, para dar retroalimentación consistente y de ingeniería, no solo "funciona o no funciona".
 
 Criterios de aceptación:
 
-- [ ] Cada ejercicio tiene una rúbrica con criterios (por ejemplo: funciona en la versión declarada, estructura, uso de Git, pruebas, documentación).
-- [ ] En una pantalla propia del tutor, el tutor califica cada criterio, deja comentario general y decide `aprobada` o `requiere cambios`.
-- [ ] El alumno ve la revisión completa.
+- [x] Cada ejercicio tiene una rúbrica con criterios (por ejemplo: funciona en la versión declarada, estructura, uso de Git, pruebas, documentación).
+- [x] En una pantalla propia del tutor, el tutor califica cada criterio, deja comentario general y decide `aprobada` o `requiere cambios`.
+- [x] El alumno ve la revisión completa.
 
 Depende de: [EM-070](#em-070), [EM-035](#em-035)
 

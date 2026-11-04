@@ -1,17 +1,21 @@
-"""Pantallas del tutor para revisar entregas, fuera del admin (EM-071)."""
+"""Pantallas del tutor para revisar entregas, fuera del admin (EM-071 y EM-072)."""
 
 from datetime import timedelta
 
 from django.conf import settings
+from django.contrib import messages
+from django.core.exceptions import PermissionDenied
 from django.db import transaction
 from django.db.models import Max, Prefetch
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
+from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
 
 from accounts.permissions import tutor_required
 
-from .models import Submission, SubmissionAttempt
+from .forms import ReviewForm
+from .models import Review, ReviewScore, Submission, SubmissionAttempt
 
 PENDING = (Submission.Status.SUBMITTED, Submission.Status.IN_REVIEW)
 
@@ -54,7 +58,7 @@ def queue(request):
 
 @tutor_required
 def review(request, pk):
-    """Detalle de una entrega para revisarla. La rúbrica y la decisión llegan con EM-072."""
+    """Detalle de una entrega. Quien tomó la revisión la califica con la rúbrica (EM-072)."""
     submission = get_object_or_404(
         Submission.objects.select_related(
             "enrollment__user", "enrollment__course", "exercise__lesson"
@@ -62,11 +66,68 @@ def review(request, pk):
         pk=pk,
     )
     attempt = submission.attempts.all()[0] if submission.attempts.all() else None
+    criteria = list(submission.exercise.rubric_criteria.all())
+    can_review = (
+        submission.status == Submission.Status.IN_REVIEW
+        and attempt is not None
+        and attempt.reviewer_id == request.user.pk
+    )
+    form = None
+    if can_review:
+        data = request.POST if request.method == "POST" else None
+        form = ReviewForm(data, criteria=criteria)
+        if request.method == "POST" and form.is_valid():
+            if save_review(submission.pk, request.user, form):
+                messages.success(
+                    request, _("Listo. Guardamos la revisión y el alumno ya puede verla.")
+                )
+                return redirect("reviews:queue")
+            return redirect("reviews:review", pk)
+    elif request.method == "POST":
+        raise PermissionDenied(_("Solo el tutor que tomó la revisión puede enviarla."))
+
     return render(
         request,
         "submissions/tutor_review.html",
-        {"submission": submission, "attempt": attempt},
+        {
+            "submission": submission,
+            "attempt": attempt,
+            "criteria": criteria,
+            "form": form,
+            "review": Review.objects.with_scores().filter(attempt=attempt).first()
+            if attempt
+            else None,
+        },
     )
+
+
+def save_review(submission_pk, reviewer, form):
+    """Guarda la revisión y cierra la entrega con la decisión. False si alguien se adelantó."""
+    with transaction.atomic():
+        submission = Submission.objects.select_for_update().get(pk=submission_pk)
+        attempt = submission.attempts.order_by("-submitted_at", "-pk").first()
+        if (
+            submission.status != Submission.Status.IN_REVIEW
+            or attempt is None
+            or attempt.reviewer_id != reviewer.pk
+            or Review.objects.filter(attempt=attempt).exists()
+        ):
+            return False
+        review = Review(
+            attempt=attempt,
+            reviewer=reviewer,
+            decision=form.cleaned_data["decision"],
+            comment=form.cleaned_data["comment"],
+        )
+        review.full_clean()
+        review.save()
+        for criterion, level in form.scores():
+            score = ReviewScore(review=review, criterion=criterion, level=level)
+            score.full_clean()
+            score.save()
+        submission.status = review.decision
+        submission.save(update_fields=["status"])
+    return True
 
 
 @tutor_required

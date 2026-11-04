@@ -1,0 +1,10 @@
+{# Errores de un campo con ícono y texto (DESIGN.md › input-field-error). Recibe `field`. #}{% if field.errors %}
+  <div id="{{ field.auto_id }}_error">
+    {% for error in field.errors %}
+      <p class="m-0 mt-1.5 flex items-start gap-1.5 text-body-sm text-error">
+        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" class="mt-0.5 flex-none"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4M8 11v.5"/></svg>
+        <span>{{ error }}</span>
+      </p>
+    {% endfor %}
+  </div>
+{% endif %}

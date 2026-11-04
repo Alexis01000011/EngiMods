@@ -1,0 +1,33 @@
+{% load i18n %}{# Revisión completa de un envío (EM-072): quién y cuándo, comentario general y nivel por criterio. Recibe `review` y `heading`. #}
+<section aria-labelledby="revision" class="mt-xl flex flex-col gap-md rounded-lg border border-divider bg-surface p-lg">
+  <h2 id="revision" class="m-0 text-headline-sm">{{ heading }}</h2>
+  {% translate "Tu tutor" as fallback_name %}
+  <p class="m-0 text-body-sm text-ink-muted [overflow-wrap:anywhere]">{% blocktranslate trimmed with name=review.reviewer.display_name|default:fallback_name date=review.reviewed_at|date:"j \d\e F \d\e Y" %}Revisó {{ name }} el {{ date }}.{% endblocktranslate %}</p>
+  <p class="m-0 inline-flex items-center gap-1.5 self-start rounded-full px-3 py-1.5 font-mono text-code-sm {% if review.decision == 'approved' %}bg-tested-container text-tested{% else %}bg-revalidate-container text-revalidate{% endif %}">{% translate "Decisión" %}: {{ review.get_decision_display }}</p>
+
+  <div>
+    <h3 class="m-0 font-sans text-label-md">{% translate "Comentario general" %}</h3>
+    <div class="mt-xs font-serif text-reading-md [overflow-wrap:anywhere]">{{ review.comment|linebreaks }}</div>
+  </div>
+
+  {% with scores=review.scores.all %}
+    {% if scores %}
+      <div>
+        <h3 class="m-0 font-sans text-label-md">{% translate "Rúbrica" %}</h3>
+        <ul class="m-0 mt-xs flex list-none flex-col p-0">
+          {% for score in scores %}
+            <li class="m-0 flex flex-col gap-xs border-t border-divider py-sm sm:flex-row sm:items-start sm:justify-between sm:gap-md">
+              <div>
+                <p class="m-0 text-label-md">{{ score.criterion.title }}</p>
+                {% if score.criterion.description %}
+                  <p class="m-0 text-body-sm text-ink-muted">{{ score.criterion.description }}</p>
+                {% endif %}
+              </div>
+              <p class="m-0 inline-flex flex-none items-center self-start rounded-full px-3 py-1.5 font-mono text-code-sm {% if score.level == 'meets' %}bg-tested-container text-tested{% else %}bg-revalidate-container text-revalidate{% endif %}">{{ score.get_level_display }}</p>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  {% endwith %}
+</section>

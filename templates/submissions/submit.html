@@ -39,6 +39,10 @@
           </dl>
         {% endif %}
       </section>
+      {% if review %}
+        {% translate "La revisión de tu tutor" as heading %}
+        {% include "components/review_summary.html" with review=review heading=heading %}
+      {% endif %}
     {% elif form %}
       <section aria-labelledby="envia">
         <h2 id="envia">{% translate "Envía tu entrega" %}</h2>
