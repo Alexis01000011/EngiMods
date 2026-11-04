@@ -3,6 +3,8 @@ from decimal import Decimal
 from django.db.models import Prefetch
 from django.shortcuts import get_object_or_404, render
 
+from catalog.models import Game
+
 from .models import Course, Lesson, Module
 
 
@@ -15,6 +17,8 @@ def course_detail(request, slug):
         "courses/course_detail.html",
         {
             "course": course,
+            # Un juego oculto no tiene página pública; no se enlaza.
+            "game_is_public": course.game.status == Game.Status.ACTIVE,
             "modules": modules,
             "price": Decimal(course.price_cents) / 100,
         },

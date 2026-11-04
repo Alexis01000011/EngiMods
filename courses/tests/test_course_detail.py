@@ -112,3 +112,18 @@ def test_refund_policy_is_provisional(client, course):
 
 def test_anonymous_can_view(client, course):
     assert client.get(url(course)).status_code == 200
+
+
+def test_links_to_active_game(client, course):
+    html = client.get(url(course)).content.decode()
+    assert reverse("catalog:game_detail", args=[course.game.slug]) in html
+
+
+def test_hidden_game_is_not_linked(client, course):
+    course.game.status = Game.Status.HIDDEN
+    course.game.save()
+    response = client.get(url(course))
+    assert response.status_code == 200
+    html = response.content.decode()
+    assert "Juego de prueba" in html
+    assert reverse("catalog:game_detail", args=[course.game.slug]) not in html
