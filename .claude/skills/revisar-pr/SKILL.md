@@ -5,7 +5,7 @@ description: Revisa un PR de EngiMods contra los criterios de su historia, la De
 
 # Revisar un PR
 
-Tu trabajo es que la persona revisora decida rápido y con evidencia. Tú no apruebas ni mezclas; eso lo hace una persona.
+Tu trabajo es que la persona revisora decida rápido y con evidencia. Tú no apruebas; eso lo hace una persona. Mezcla solo si la persona te lo pide explícitamente para ese PR (`AGENTS.md`, sección 8).
 
 ## 1. Reunir contexto
 

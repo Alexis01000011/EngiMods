@@ -61,4 +61,4 @@ Si la historia tiene pantallas, ábrelas con `uv run python manage.py runserver`
   - `Closes #<n>`.
   - Copia los criterios del backlog y marca cada uno con la prueba que lo cubre.
   - En "Supuestos y pendientes" lista los datos de negocio que dejaste configurables y lo que no pudiste verificar.
-- No mezcles el PR. Avísale a la persona que está listo; ella decide si lo mezcla o si primero se lo pide revisar a alguien del equipo (sugerido; puede usar la skill `revisar-pr`).
+- No mezcles el PR por tu cuenta. Avísale a la persona que está listo; ella decide si se mezcla ya o si primero se lo pide revisar a alguien del equipo (sugerido; puede usar la skill `revisar-pr`). Si te pide explícitamente mezclarlo, revisa que la CI esté en verde (`gh pr checks <n>`) y usa `gh pr merge <n> --squash --delete-branch`.

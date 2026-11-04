@@ -117,7 +117,7 @@ Una historia está terminada cuando:
 - No inventes reglas de negocio, precios, políticas de devolución, textos legales ni datos de costos. Si una historia necesita uno de estos datos y no está definido, déjalo configurable y pregúntale a tu humano. En el PR, marca qué quedó como supuesto.
 - No elijas proveedores (hosting, correo, almacenamiento) ni el enfoque de estilos por tu cuenta: proponlo con un ADR y que el equipo decida.
 - No trabajes en más de una historia por PR ni hagas refactors no pedidos en código de otras historias.
-- No hagas push directo a `main`, no fuerces push sobre ramas ajenas y no mezcles PR: eso lo decide tu humano.
+- No hagas push directo a `main`, no fuerces push sobre ramas ajenas y no mezcles un PR salvo que tu humano te lo pida explícitamente para ese PR. Si te lo pide, revisa que la CI esté en verde y usa `gh pr merge <número> --squash --delete-branch`.
 - No subas `.env`, `db.sqlite3`, `media/` ni llaves de Stripe (aunque sean de prueba).
 - No escribas lógica específica de un juego.
 
@@ -155,7 +155,7 @@ Cada skill vive en `.claude/skills/<nombre>/` (archivos normales, para que funci
   - Corren ruff antes del commit y el chequeo de migraciones antes del push. Las pruebas solo corren en la CI.
   - Exigen el formato del mensaje de commit (sección 5).
 - **Hooks de agente** (`scripts/agent_hook.py`, conectados en `.claude/settings.json` y `.codex/hooks.json`):
-  - Bloquean `--no-verify`, desactivar los git hooks, `git push --force` (sí permiten `--force-with-lease`), el push a `main` y `gh pr merge`.
+  - Bloquean `--no-verify`, desactivar los git hooks, `git push --force` (sí permiten `--force-with-lease`) y el push a `main`.
   - Bloquean editar `uv.lock`, `.env` y migraciones que ya están en `main`.
   - Al iniciar sesión le dan al agente la rama, su historia y avisos de configuración.
 
