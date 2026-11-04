@@ -1,4 +1,4 @@
-<!doctype html>
+{% load i18n %}<!doctype html>
 <html lang="es-MX">
 <head>
   <meta charset="utf-8">
@@ -9,5 +9,10 @@
   <main>
     {% block content %}{% endblock %}
   </main>
+  <footer>
+    {% if has_terms %}
+      <p><a href="{% url 'core:terms' %}">{% translate "Términos y condiciones y política de devolución" %}</a></p>
+    {% endif %}
+  </footer>
 </body>
 </html>
