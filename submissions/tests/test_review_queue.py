@@ -229,7 +229,7 @@ def test_overdue_submissions_are_marked(client, tutor, make_submission):
     assert flags == {"Atrasada": True, "A tiempo": False}
     content = response.content.decode()
     assert content.count("Fuera de plazo") == 1
-    assert content.count('style="color: #b00020"') == 1
+    assert content.count("bg-error-container") == 1
     assert "Plazo de revisión: 24 horas." in content
 
 
@@ -358,3 +358,33 @@ def test_queue_shows_send_time(client, tutor, make_submission):
     content = client.get(QUEUE).content.decode()
     assert "Enviada el" in content
     assert "hace 3" in content
+
+
+# Pantalla según DESIGN.md (EM-077)
+
+
+def test_only_most_urgent_submission_has_primary_button(client, tutor, make_submission):
+    make_submission("Reciente", hours_ago=1)
+    make_submission("Antigua", hours_ago=10)
+    client.force_login(tutor)
+    content = client.get(QUEUE).content.decode()
+    assert content.count('class="button-primary') == 1
+    assert content.count('class="button-secondary') == 1
+    # La más urgente es la más vieja, que va primero.
+    assert content.index("button-primary") < content.index("Reciente")
+
+
+def test_queue_shows_remaining_time_and_status(client, tutor, make_submission):
+    make_submission("A tiempo", hours_ago=1)
+    client.force_login(tutor)
+    content = client.get(QUEUE).content.decode()
+    assert "Quedan 22" in content
+    assert "Estado: Enviada" in content
+
+
+def test_review_page_has_one_primary_button_until_taken(client, tutor, make_submission):
+    submission = make_submission()
+    client.force_login(tutor)
+    assert client.get(review_url(submission)).content.decode().count('class="button-primary') == 1
+    client.post(start_url(submission))
+    assert "button-primary" not in client.get(review_url(submission)).content.decode()

@@ -44,6 +44,7 @@ def queue(request):
     for submission in submissions:
         submission.attempt = submission.attempts.all()[0]
         submission.overdue = now - submission.last_submitted_at > deadline
+        submission.due_at = submission.last_submitted_at + deadline
     return render(
         request,
         "submissions/tutor_queue.html",
