@@ -7,5 +7,6 @@ urlpatterns = [
     path("cursos/", include("courses.urls")),
     path("mi-panel/", include("enrollments.urls")),
     path("mi-panel/entregas/", include("submissions.urls")),
+    path("tutoria/entregas/", include("submissions.tutor_urls")),
     path("", include("core.urls")),
 ]

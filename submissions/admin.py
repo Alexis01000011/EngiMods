@@ -5,7 +5,16 @@ from .models import Submission, SubmissionAttempt
 
 class SubmissionAttemptInline(admin.StackedInline):
     model = SubmissionAttempt
-    fields = ("repository_url", "comment", "game_version", "modding_environment", "submitted_at")
+    fields = (
+        "repository_url",
+        "comment",
+        "game_version",
+        "modding_environment",
+        "submitted_at",
+        "reviewer",
+        "review_started_at",
+    )
+    raw_id_fields = ("reviewer",)
     extra = 0
 
 

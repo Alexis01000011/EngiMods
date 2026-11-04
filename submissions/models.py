@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
@@ -81,6 +82,16 @@ class SubmissionAttempt(models.Model):
         verbose_name=_("entorno de modding"),
     )
     submitted_at = models.DateTimeField(_("fecha de envío"), default=timezone.now)
+    # Quién tomó la revisión de este envío y cuándo (EM-071). Un reenvío (EM-073) es otro envío.
+    reviewer = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+        related_name="reviewed_attempts",
+        verbose_name=_("tutor que revisa"),
+    )
+    review_started_at = models.DateTimeField(_("inicio de la revisión"), null=True, blank=True)
 
     class Meta:
         ordering = ("-submitted_at", "-pk")

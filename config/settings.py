@@ -107,6 +107,10 @@ GIT_REPOSITORY_HOSTS = env.list(
     "GIT_REPOSITORY_HOSTS", default=["github.com", "gitlab.com", "bitbucket.org", "codeberg.org"]
 )
 
+# Plazo de revisión de una entrega, en horas (EM-071). Las que lo pasan se marcan en la cola.
+# Es la promesa de 24 horas del piloto; cambiarla aquí no requiere tocar código.
+REVIEW_DEADLINE_HOURS = env.int("REVIEW_DEADLINE_HOURS", default=24)
+
 # Stripe (EM-009). En desarrollo y staging solo llaves de prueba (sk_test_, pk_test_).
 # Vacías por defecto para que el proyecto arranque sin cuenta de Stripe.
 # Django oculta en las páginas de error los settings cuyo nombre contiene KEY o SECRET.

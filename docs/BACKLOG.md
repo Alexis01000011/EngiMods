@@ -193,7 +193,7 @@ Hecho el 3/11/2026:
 | [EM-062](#em-062) | [#41](https://github.com/Alexis01000011/EngiMods/issues/41) | Marcar lección como completada | E6 | Must | 2 | 6 | EM-061, EM-060 | Hecho |
 | [EM-063](#em-063) | [#42](https://github.com/Alexis01000011/EngiMods/issues/42) | Guía de laboratorio local por juego | E6 | Should | 3 | 6 | EM-011, EM-060, EM-035 | Pendiente |
 | [EM-070](#em-070) | [#43](https://github.com/Alexis01000011/EngiMods/issues/43) | Enviar una entrega | E7 | Must | 3 | 6 | EM-061 | Hecho |
-| [EM-071](#em-071) | [#44](https://github.com/Alexis01000011/EngiMods/issues/44) | Cola de revisión con alerta de 24 horas | E7 | Must | 3 | 7 | EM-070, EM-035 | Pendiente |
+| [EM-071](#em-071) | [#44](https://github.com/Alexis01000011/EngiMods/issues/44) | Cola de revisión con alerta de 24 horas | E7 | Must | 3 | 7 | EM-070, EM-035 | Hecho |
 | [EM-072](#em-072) | [#45](https://github.com/Alexis01000011/EngiMods/issues/45) | Revisar con rúbrica | E7 | Must | 5 | 7 | EM-070, EM-035 | Pendiente |
 | [EM-073](#em-073) | [#46](https://github.com/Alexis01000011/EngiMods/issues/46) | Reenviar entrega tras cambios | E7 | Must | 2 | 8 | EM-072 | Pendiente |
 | [EM-074](#em-074) | [#47](https://github.com/Alexis01000011/EngiMods/issues/47) | Notificaciones de entregas por correo | E7 | Should | 2 | 8 | EM-072, EM-008 | Pendiente |
@@ -856,6 +856,7 @@ Criterios de aceptación:
 - [ ] Solo se puede pagar un grupo en `inscripción abierta`.
 - [ ] La inscripción puede llevar grupo (opcional, solo en cursos por grupos) y cuenta para su cupo. En un curso por grupos, la fecha de fin de acceso se cuenta desde que termina el grupo, no desde la inscripción.
 - [ ] Las entregas (EM-070) muestran el grupo de su inscripción, para saber de qué grupo es cada entrega.
+- [ ] En la cola de revisión (EM-071), cada tutor ve solo las entregas de sus grupos.
 - [ ] La página del curso (EM-041) muestra las fechas del próximo grupo; si el grupo está lleno, no ofrece pagar (y ofrece la lista de espera cuando exista EM-046).
 
 Depende de: [EM-020](#em-020), [EM-003](#em-003)
@@ -1013,21 +1014,23 @@ Nota: El grupo de una entrega se obtiene de su inscripción cuando exista EM-050
 
 **Cola de revisión con alerta de 24 horas**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 7 · Issue: [#44](https://github.com/Alexis01000011/EngiMods/issues/44)
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 7 · Estado: Hecho · Issue: [#44](https://github.com/Alexis01000011/EngiMods/issues/44)
 
 > Como **tutor**, quiero ver las entregas pendientes ordenadas por antigüedad, para cumplir la revisión en 24 horas que prometemos.
 
 Criterios de aceptación:
 
-- [ ] Pantalla propia del tutor (no el admin) con las entregas pendientes, de la más vieja a la más nueva.
-- [ ] Mientras no haya grupos (EM-050), todos los tutores ven todas las entregas. Con grupos, cada tutor ve las de sus grupos.
-- [ ] Las que pasan del plazo de revisión se marcan en rojo. El plazo es un setting (24 horas por defecto), no una constante.
-- [ ] Al abrir la revisión de una entrega, pasa a `en revisión` y la cola muestra qué tutor la tiene.
-- [ ] Se registra la hora de envío y la hora de revisión.
+- [x] Pantalla propia del tutor (no el admin) con las entregas pendientes, de la más vieja a la más nueva.
+- [x] Mientras no haya grupos (EM-050), todos los tutores ven todas las entregas.
+- [x] Las que pasan del plazo de revisión se marcan en rojo. El plazo es un setting (24 horas por defecto), no una constante.
+- [x] Al abrir la revisión de una entrega, pasa a `en revisión` y la cola muestra qué tutor la tiene.
+- [x] Se registra la hora de envío y la hora de revisión.
 
 Depende de: [EM-070](#em-070), [EM-035](#em-035)
 
 Nota: Las 24 horas son una promesa del lienzo. Si el piloto muestra que no se cumple, hay que cambiar la promesa o el cupo.
+
+Nota: La cola vive en `/tutoria/entregas/` y el plazo es el setting `REVIEW_DEADLINE_HOURS`. La hora de revisión registrada es cuándo el tutor abre la revisión (`SubmissionAttempt.review_started_at`); la de la revisión terminada llega con [EM-072](#em-072). Que cada tutor vea solo las entregas de sus grupos se movió a [EM-050](#em-050).
 
 #### EM-072
 
