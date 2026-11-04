@@ -205,7 +205,7 @@ El 4/11/2026 se agregó la deuda de diseño de las pantallas hechas antes de ace
 | [EM-074](#em-074) | [#47](https://github.com/Alexis01000011/EngiMods/issues/47) | Notificaciones de entregas por correo | E7 | Should | 2 | 8 | EM-072, EM-008 | Pendiente |
 | [EM-075](#em-075) | [#48](https://github.com/Alexis01000011/EngiMods/issues/48) | Entregar archivo .zip | E7 | Could | 3 | 7 | EM-070, EM-007 | Pendiente |
 | [EM-076](#em-076) | [#49](https://github.com/Alexis01000011/EngiMods/issues/49) | Proyecto final con checklist de publicación | E7 | Should | 3 | 8 | EM-072 | Pendiente |
-| [EM-077](#em-077) | [#99](https://github.com/Alexis01000011/EngiMods/issues/99) | Pantallas del tutor con la identidad visual | E7 | Must | 2 | 8 | EM-004, EM-071 | Pendiente |
+| [EM-077](#em-077) | [#99](https://github.com/Alexis01000011/EngiMods/issues/99) | Pantallas del tutor con la identidad visual | E7 | Must | 2 | 8 | EM-004, EM-071 | Hecho |
 | [EM-080](#em-080) | [#50](https://github.com/Alexis01000011/EngiMods/issues/50) | Acceso al Discord del grupo | E8 | Must | 1 | 6 | EM-050, EM-060 | Pendiente |
 | [EM-081](#em-081) | [#51](https://github.com/Alexis01000011/EngiMods/issues/51) | Avisos del curso | E8 | Should | 3 | 5 | EM-050, EM-008, EM-035 | Pendiente |
 | [EM-082](#em-082) | [#52](https://github.com/Alexis01000011/EngiMods/issues/52) | Aviso de nueva versión del juego a alumnos afectados | E8 | Could | 3 | 6 | EM-014, EM-081 | Pendiente |
@@ -1165,13 +1165,13 @@ Nota: Es la evidencia directa de la hipótesis: "más personas terminarán y pub
 
 **Pantallas del tutor con la identidad visual**
 
-Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 8 · Issue: [#99](https://github.com/Alexis01000011/EngiMods/issues/99)
+Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 8 · Estado: Hecho · Issue: [#99](https://github.com/Alexis01000011/EngiMods/issues/99)
 
 Criterios de aceptación:
 
-- [ ] `submissions/tutor_queue.html` y `submissions/tutor_review.html` siguen la anatomía "Vista del tutor" de la skill `disenar-pantalla`: estructura común sin `sidebar`, entregas como tabla o `card`s con estado en `badge-*` con palabras ("Por revisar", "Revisada"), plazo restante en `chip` y `button-primary` "Revisar" solo en la más urgente.
-- [ ] Solo cambia la presentación: vistas, URLs, permisos y reglas de acceso quedan igual y las pruebas existentes pasan sin cambiar lo que verifican.
-- [ ] Solo usa clases que salen de `DESIGN.md`, sin `style=` en línea, y se ve bien a 360, 768 y 1280 px sin desplazamiento horizontal de la página.
+- [x] `submissions/tutor_queue.html` y `submissions/tutor_review.html` siguen la anatomía "Vista del tutor" de la skill `disenar-pantalla`: estructura común sin `sidebar`, entregas como tabla o `card`s con estado en `badge-*` con palabras ("Por revisar", "Revisada"), plazo restante en `chip` y `button-primary` "Revisar" solo en la más urgente.
+- [x] Solo cambia la presentación: URLs, permisos y reglas de acceso quedan igual; la vista de la cola solo agrega cuándo vence cada entrega, para el plazo restante. Las pruebas existentes pasan sin cambiar lo que verifican.
+- [x] Solo usa clases que salen de `DESIGN.md`, sin `style=` en línea, y se ve bien a 360, 768 y 1280 px sin desplazamiento horizontal de la página.
 
 Depende de: [EM-004](#em-004), [EM-071](#em-071)
 
