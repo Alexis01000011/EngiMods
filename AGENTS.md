@@ -56,6 +56,7 @@ Para agregar una dependencia: `uv add <paquete>` (o `uv add --dev <paquete>`). J
 ```
 AGENTS.md            este archivo (fuente de verdad para agentes)
 CLAUDE.md            importa este archivo para Claude Code
+DESIGN.md            identidad visual (propuesta, ADR 0002)
 README.md            arranque rápido para personas
 config/              settings.py, urls.py, wsgi/asgi
 core/                app base (inicio, health, utilidades compartidas)
@@ -136,6 +137,7 @@ Una historia está terminada cuando:
 | Por qué existe el producto y qué debe validar | `docs/negocio.md` |
 | Sprints, etiquetas, Definition of Ready | `docs/flujo-de-trabajo.md` |
 | Por qué se decidió algo técnico | `docs/decisiones/` |
+| Cómo se ve una pantalla | `DESIGN.md` (propuesta) y la skill `disenar-pantalla` |
 
 ## 10. Skills y hooks
 
@@ -149,6 +151,9 @@ El repo trae skills y hooks que funcionan igual en Claude Code y en Codex.
 | `revisar-pr` | Revisar un PR contra sus criterios, la Definition of Done y las reglas |
 | `cambiar-backlog` | Cambiar `docs/BACKLOG.md` sin desincronizar índice, olas, recorte e issues |
 | `proponer-adr` | Preparar una decisión técnica o de proveedor para que el equipo la tome |
+| `disenar-pantalla` | Diseñar, maquetar o revisar una pantalla con la identidad visual de `DESIGN.md` (pendiente de instalar; ver abajo) |
+
+**Skill de UI/UX pendiente de instalar.** `disenar-pantalla` se creó en la rama `ux-ui-estilos-design-md`, junto con la nueva versión de `DESIGN.md`. Hasta que esa rama se mezcle a `main` y hagas `git pull`, tu copia no la tiene: si no existe `.claude/skills/disenar-pantalla/`, no la busques ni la inventes. Lee `DESIGN.md` directamente y avísale a tu humano que la skill llegará con ese PR. Al llegar no hay que instalar nada más: en Claude Code carga sola, y en Codex basta con que exista el enlace `.agents/skills/disenar-pantalla`. Como `DESIGN.md` sigue en Propuesta (ADR 0002), la skill sirve para bocetos y propuestas, y en las plantillas solo pide HTML semántico; no agregues estilos a producción hasta que el equipo acepte el ADR.
 
 Cada skill vive en `.claude/skills/<nombre>/` (archivos normales, para que funcione en Windows). `.agents/skills/<nombre>` es un enlace simbólico para Codex. Para agregar una, crea su carpeta y el enlace: `ln -s ../../.claude/skills/<nombre> .agents/skills/<nombre>`. La CI revisa que el enlace exista.
 
