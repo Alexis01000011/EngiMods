@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ submission.exercise.title }} · {% translate "Revisión" %} · EngiMods{% endblock %}
+
+{% block content %}
+  <p><a href="{% url 'reviews:queue' %}">{% translate "Entregas por revisar" %}</a></p>
+  <h1>{{ submission.exercise.title }}</h1>
+  <p>{{ submission.enrollment.user }} · {{ submission.enrollment.course.title }} · {{ submission.exercise.lesson.title }}</p>
+  <p><strong>{% translate "Estado" %}: {{ submission.get_status_display }}</strong></p>
+
+  {% if attempt %}
+    <dl>
+      <dt>{% translate "Repositorio" %}</dt>
+      <dd><a href="{{ attempt.repository_url }}" rel="noopener noreferrer">{{ attempt.repository_url }}</a></dd>
+      <dt>{% translate "Probado con" %}</dt>
+      <dd>{{ attempt.game_version.number }} + {{ attempt.modding_environment.name }} {{ attempt.modding_environment.version }}</dd>
+      <dt>{% translate "Enviada el" %}</dt>
+      <dd>{{ attempt.submitted_at|date:"j \d\e F \d\e Y, H:i" }}</dd>
+      {% if attempt.comment %}
+        <dt>{% translate "Comentario del alumno" %}</dt>
+        <dd>{{ attempt.comment|linebreaksbr }}</dd>
+      {% endif %}
+      {% if attempt.reviewer %}
+        <dt>{% translate "Revisa" %}</dt>
+        <dd>{{ attempt.reviewer }}</dd>
+        <dt>{% translate "Revisión iniciada el" %}</dt>
+        <dd>{{ attempt.review_started_at|date:"j \d\e F \d\e Y, H:i" }}</dd>
+      {% endif %}
+    </dl>
+
+    {% if submission.status == "submitted" %}
+      <form method="post" action="{% url 'reviews:start_review' submission.pk %}">
+        {% csrf_token %}
+        <button type="submit">{% translate "Tomar la revisión" %}</button>
+      </form>
+    {% endif %}
+  {% endif %}
+{% endblock %}

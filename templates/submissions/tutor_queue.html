@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Entregas por revisar" %} · EngiMods{% endblock %}
+
+{% block content %}
+  <h1>{% translate "Entregas por revisar" %}</h1>
+  <p>{% blocktranslate count hours=deadline_hours %}Plazo de revisión: {{ hours }} hora.{% plural %}Plazo de revisión: {{ hours }} horas.{% endblocktranslate %}
+    {% translate "De la más vieja a la más nueva." %}</p>
+
+  {% if submissions %}
+    <ol>
+      {% for submission in submissions %}
+        <li{% if submission.overdue %} style="color: #b00020"{% endif %}>
+          {% if submission.overdue %}<strong>{% translate "Fuera de plazo" %}</strong> · {% endif %}
+          <a href="{% url 'reviews:review' submission.pk %}"{% if submission.overdue %} style="color: inherit"{% endif %}>{{ submission.exercise.title }}</a>
+          · {{ submission.enrollment.user }} · {{ submission.enrollment.course.title }}
+          <br>
+          {% blocktranslate with date=submission.last_submitted_at|date:"j \d\e F, H:i" ago=submission.last_submitted_at|timesince %}Enviada el {{ date }} (hace {{ ago }}).{% endblocktranslate %}
+          <br>
+          {% if submission.attempt.reviewer %}
+            {% blocktranslate with tutor=submission.attempt.reviewer status=submission.get_status_display %}{{ status }} · la tiene {{ tutor }}.{% endblocktranslate %}
+          {% else %}
+            {% translate "Sin tutor asignado." %}
+            <form method="post" action="{% url 'reviews:start_review' submission.pk %}">
+              {% csrf_token %}
+              <button type="submit">{% translate "Abrir revisión" %}</button>
+            </form>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ol>
+  {% else %}
+    <p>{% translate "No hay entregas pendientes." %}</p>
+  {% endif %}
+{% endblock %}
