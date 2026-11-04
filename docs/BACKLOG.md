@@ -172,7 +172,7 @@ Hecho el 3/11/2026:
 | [EM-032](#em-032) | [#22](https://github.com/Alexis01000011/EngiMods/issues/22) | Perfil del alumno | E3 | Should | 2 | 4 | EM-030, EM-010 | Pendiente |
 | [EM-033](#em-033) | [#23](https://github.com/Alexis01000011/EngiMods/issues/23) | Aviso de privacidad y consentimiento | E3 | Must | 2 | 2 | EM-003 | Pendiente |
 | [EM-034](#em-034) | [#24](https://github.com/Alexis01000011/EngiMods/issues/24) | Solicitar baja de la cuenta y de los datos | E3 | Could | 3 | 5 | EM-032 | Pendiente |
-| [EM-035](#em-035) | [#68](https://github.com/Alexis01000011/EngiMods/issues/68) | Rol de tutor | E3 | Must | 2 | 2 | EM-003 | Pendiente |
+| [EM-035](#em-035) | [#68](https://github.com/Alexis01000011/EngiMods/issues/68) | Rol de tutor | E3 | Must | 2 | 2 | EM-003 | Hecho |
 | [EM-036](#em-036) | [#69](https://github.com/Alexis01000011/EngiMods/issues/69) | Términos y condiciones y política de devolución | E3 | Must | 2 | 3 | EM-033 | Pendiente |
 | [EM-040](#em-040) | [#25](https://github.com/Alexis01000011/EngiMods/issues/25) | Landing de EngiMods | E4 | Must | 3 | 4 | EM-004, EM-020 | Pendiente |
 | [EM-041](#em-041) | [#26](https://github.com/Alexis01000011/EngiMods/issues/26) | Página de detalle del curso | E4 | Must | 3 | 5 | EM-020, EM-021 | Pendiente |
@@ -629,13 +629,13 @@ Depende de: [EM-032](#em-032)
 
 **Rol de tutor**
 
-Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 2 · Issue: [#68](https://github.com/Alexis01000011/EngiMods/issues/68)
+Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 2 · Estado: Hecho · Issue: [#68](https://github.com/Alexis01000011/EngiMods/issues/68)
 
 Criterios de aceptación:
 
-- [ ] Desde el admin se puede marcar o desmarcar a un usuario como tutor.
-- [ ] `accounts` ofrece una forma única de proteger las pantallas del tutor (por ejemplo un decorador y un mixin); las historias de tutor la usan en lugar de revisar permisos cada una a su manera.
-- [ ] Quien no es tutor recibe 403 en esas pantallas. El superusuario siempre pasa.
+- [x] Desde el admin se puede marcar o desmarcar a un usuario como tutor.
+- [x] `accounts` ofrece una forma única de proteger las pantallas del tutor (por ejemplo un decorador y un mixin); las historias de tutor la usan en lugar de revisar permisos cada una a su manera.
+- [x] Quien no es tutor recibe 403 en esas pantallas. El superusuario siempre pasa.
 
 Depende de: [EM-003](#em-003)
 
