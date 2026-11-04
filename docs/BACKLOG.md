@@ -172,7 +172,7 @@ El 4/11/2026 se agregó la deuda de diseño de las pantallas hechas antes de ace
 | [EM-022](#em-022) | [#17](https://github.com/Alexis01000011/EngiMods/issues/17) | Vista previa de lecciones para tutores | E2 | Should | 3 | 6 | EM-021, EM-061 | Pendiente |
 | [EM-023](#em-023) | [#18](https://github.com/Alexis01000011/EngiMods/issues/18) | Recursos descargables y plantillas por lección | E2 | Must | 2 | 5 | EM-021, EM-053 | Pendiente |
 | [EM-024](#em-024) | [#19](https://github.com/Alexis01000011/EngiMods/issues/19) | Lección de muestra gratuita | E2 | Must | 2 | 6 | EM-021, EM-061 | Pendiente |
-| [EM-030](#em-030) | [#20](https://github.com/Alexis01000011/EngiMods/issues/20) | Registro con correo y verificación | E3 | Must | 5 | 3 | EM-003, EM-004, EM-033 | Pendiente |
+| [EM-030](#em-030) | [#20](https://github.com/Alexis01000011/EngiMods/issues/20) | Registro con correo y verificación | E3 | Must | 5 | 3 | EM-003, EM-004, EM-033 | Hecho |
 | [EM-031](#em-031) | [#21](https://github.com/Alexis01000011/EngiMods/issues/21) | Inicio de sesión, cierre y recuperación de contraseña | E3 | Must | 2 | 4 | EM-030 | Pendiente |
 | [EM-032](#em-032) | [#22](https://github.com/Alexis01000011/EngiMods/issues/22) | Perfil del alumno | E3 | Should | 2 | 4 | EM-030, EM-010 | Pendiente |
 | [EM-033](#em-033) | [#23](https://github.com/Alexis01000011/EngiMods/issues/23) | Aviso de privacidad y consentimiento | E3 | Must | 2 | 2 | EM-003 | Hecho |
@@ -573,16 +573,16 @@ Registro, acceso, perfil y cumplimiento de privacidad.
 
 **Registro con correo y verificación**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 5 · Ola: 3 · Issue: [#20](https://github.com/Alexis01000011/EngiMods/issues/20)
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 5 · Ola: 3 · Estado: Hecho · Issue: [#20](https://github.com/Alexis01000011/EngiMods/issues/20)
 
 > Como **visitante**, quiero crear una cuenta con mi correo y contraseña, para poder inscribirme y guardar mi avance.
 
 Criterios de aceptación:
 
-- [ ] Formulario de registro con correo, nombre a mostrar y contraseña.
-- [ ] Se envía un correo con enlace de verificación; sin verificar no se puede pagar.
-- [ ] Correo duplicado muestra un error claro sin revelar datos de otra cuenta.
-- [ ] Incluye la aceptación del aviso de privacidad (EM-033).
+- [x] Formulario de registro con correo, nombre a mostrar y contraseña.
+- [x] Se envía un correo con enlace de verificación; sin verificar no se puede pagar.
+- [x] Correo duplicado muestra un error claro sin revelar datos de otra cuenta.
+- [x] Incluye la aceptación del aviso de privacidad (EM-033).
 
 Depende de: [EM-003](#em-003), [EM-004](#em-004), [EM-033](#em-033)
 
