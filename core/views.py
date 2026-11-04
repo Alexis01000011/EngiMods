@@ -21,3 +21,11 @@ def privacy(request):
     if legal_text is None:
         raise Http404(_("Todavía no hay un aviso de privacidad vigente."))
     return render(request, "core/legal_text.html", {"legal_text": legal_text})
+
+
+def terms(request):
+    """Términos y política de devolución vigentes. El texto se captura en el admin (LegalText)."""
+    legal_text = LegalText.objects.current(LegalText.Kind.TERMS)
+    if legal_text is None:
+        raise Http404(_("Todavía no hay términos y condiciones vigentes."))
+    return render(request, "core/legal_text.html", {"legal_text": legal_text})

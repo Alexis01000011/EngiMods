@@ -173,7 +173,7 @@ Hecho el 3/11/2026:
 | [EM-033](#em-033) | [#23](https://github.com/Alexis01000011/EngiMods/issues/23) | Aviso de privacidad y consentimiento | E3 | Must | 2 | 2 | EM-003 | Hecho |
 | [EM-034](#em-034) | [#24](https://github.com/Alexis01000011/EngiMods/issues/24) | Solicitar baja de la cuenta y de los datos | E3 | Could | 3 | 5 | EM-032 | Pendiente |
 | [EM-035](#em-035) | [#68](https://github.com/Alexis01000011/EngiMods/issues/68) | Rol de tutor | E3 | Must | 2 | 2 | EM-003 | Hecho |
-| [EM-036](#em-036) | [#69](https://github.com/Alexis01000011/EngiMods/issues/69) | Términos y condiciones y política de devolución | E3 | Must | 2 | 3 | EM-033 | Pendiente |
+| [EM-036](#em-036) | [#69](https://github.com/Alexis01000011/EngiMods/issues/69) | Términos y condiciones y política de devolución | E3 | Must | 2 | 3 | EM-033 | Hecho |
 | [EM-040](#em-040) | [#25](https://github.com/Alexis01000011/EngiMods/issues/25) | Landing de EngiMods | E4 | Must | 3 | 4 | EM-004, EM-020 | Pendiente |
 | [EM-041](#em-041) | [#26](https://github.com/Alexis01000011/EngiMods/issues/26) | Página de detalle del curso | E4 | Must | 3 | 5 | EM-020, EM-021 | Hecho |
 | [EM-042](#em-042) | [#27](https://github.com/Alexis01000011/EngiMods/issues/27) | Pago con Stripe Checkout | E4 | Must | 5 | 5 | EM-009, EM-030, EM-053 | Pendiente |
@@ -188,7 +188,7 @@ Hecho el 3/11/2026:
 | [EM-051](#em-051) | [#36](https://github.com/Alexis01000011/EngiMods/issues/36) | Liberar contenido por semana | E5 | Should | 3 | 6 | EM-050, EM-061, EM-035 | Pendiente |
 | [EM-052](#em-052) | [#37](https://github.com/Alexis01000011/EngiMods/issues/37) | Calendario de clínicas grupales | E5 | Should | 2 | 6 | EM-050, EM-060, EM-035 | Pendiente |
 | [EM-053](#em-053) | [#38](https://github.com/Alexis01000011/EngiMods/issues/38) | Inscripciones e inscripción manual por administrador | E5 | Must | 2 | 4 | EM-020, EM-003 | Hecho |
-| [EM-060](#em-060) | [#39](https://github.com/Alexis01000011/EngiMods/issues/39) | Panel del alumno: mis cursos | E6 | Must | 3 | 5 | EM-053 | Pendiente |
+| [EM-060](#em-060) | [#39](https://github.com/Alexis01000011/EngiMods/issues/39) | Panel del alumno: mis cursos | E6 | Must | 3 | 5 | EM-053 | Hecho |
 | [EM-061](#em-061) | [#40](https://github.com/Alexis01000011/EngiMods/issues/40) | Ver una lección | E6 | Must | 3 | 5 | EM-021, EM-053 | Hecho |
 | [EM-062](#em-062) | [#41](https://github.com/Alexis01000011/EngiMods/issues/41) | Marcar lección como completada | E6 | Must | 2 | 6 | EM-061, EM-060 | Pendiente |
 | [EM-063](#em-063) | [#42](https://github.com/Alexis01000011/EngiMods/issues/42) | Guía de laboratorio local por juego | E6 | Should | 3 | 6 | EM-011, EM-060, EM-035 | Pendiente |
@@ -645,14 +645,14 @@ Nota: El tutor trabaja en pantallas propias, no en el admin (decisión del 3/11/
 
 **Términos y condiciones y política de devolución**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 3 · Issue: [#69](https://github.com/Alexis01000011/EngiMods/issues/69)
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 3 · Estado: Hecho · Issue: [#69](https://github.com/Alexis01000011/EngiMods/issues/69)
 
 > Como **visitante**, quiero leer los términos de compra y la política de devolución antes de pagar, para saber a qué me comprometo y cómo pedir un reembolso.
 
 Criterios de aceptación:
 
-- [ ] Página pública `/terminos/` con términos y política de devolución, usando el mismo texto legal versionado de EM-033.
-- [ ] La página del curso (EM-041) y el pie de página la enlazan.
+- [x] Página pública `/terminos/` con términos y política de devolución, usando el mismo texto legal versionado de EM-033.
+- [x] La página del curso (EM-041) y el pie de página la enlazan.
 
 Depende de: [EM-033](#em-033)
 
@@ -887,6 +887,7 @@ Criterios de aceptación:
 
 - [ ] El tutor registra sesiones con fecha, hora (zona horaria de México), tema y enlace.
 - [ ] El alumno las ve en su panel, ordenadas y con las pasadas marcadas.
+- [ ] El enlace a las clínicas aparece en el panel del alumno (EM-060) cuando su curso es por grupos y hay clínicas.
 
 Depende de: [EM-050](#em-050), [EM-060](#em-060), [EM-035](#em-035)
 
@@ -918,18 +919,19 @@ Lo que ve y hace el alumno inscrito: lecciones, progreso y laboratorio local.
 
 **Panel del alumno: mis cursos**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 5 · Issue: [#39](https://github.com/Alexis01000011/EngiMods/issues/39)
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 5 · Estado: Hecho · Issue: [#39](https://github.com/Alexis01000011/EngiMods/issues/39)
 
 > Como **alumno**, quiero ver mis cursos inscritos con mi avance, para retomar donde me quedé.
 
 Criterios de aceptación:
 
-- [ ] Lista de mis cursos con acceso vigente, con la fecha de fin de acceso y un enlace para entrar al curso.
-- [ ] Los cursos con acceso vencido se muestran aparte, marcados como vencidos.
-- [ ] Si el curso es por grupos, enlaces al Discord del grupo (EM-080) y a las clínicas (EM-052) cuando existan.
-- [ ] Si no tengo cursos, se muestra el catálogo.
+- [x] Lista de mis cursos con acceso vigente, con la fecha de fin de acceso y un enlace para entrar al curso.
+- [x] Los cursos con acceso vencido se muestran aparte, marcados como vencidos.
+- [x] Si no tengo cursos, se muestra el catálogo.
 
 Depende de: [EM-053](#em-053)
+
+Nota: Los criterios de los enlaces al Discord del grupo y a las clínicas se movieron a [EM-080](#em-080) y [EM-052](#em-052), porque dependen de modelos que aún no existen. El avance por curso lo agrega [EM-062](#em-062). El panel vive en `/mi-panel/`; entrar al curso lleva a su página de detalle y, sin página de listado de cursos, el "catálogo" es la lista de cursos publicados dentro del propio panel. Las inscripciones canceladas no se muestran.
 
 #### EM-061
 
@@ -1121,7 +1123,7 @@ Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 1 · Ola:
 
 Criterios de aceptación:
 
-- [ ] El enlace se muestra solo a inscritos del grupo, en el panel y en el correo de confirmación.
+- [ ] El enlace se muestra solo a inscritos del grupo, en el panel (EM-060) y en el correo de confirmación.
 
 Depende de: [EM-050](#em-050), [EM-060](#em-060)
 

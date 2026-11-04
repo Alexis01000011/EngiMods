@@ -128,3 +128,68 @@ def test_un_alumno_no_entra_al_admin_de_textos_legales(client):
     client.force_login(alumno)
     response = client.get(reverse("admin:core_legaltext_changelist"))
     assert response.status_code == 302
+
+
+TERMS = LegalText.Kind.TERMS
+
+
+def _terms(version, days_from_today=0, body="Texto de prueba de los términos."):
+    return LegalText.objects.create(
+        kind=TERMS,
+        version=version,
+        body=body,
+        effective_date=timezone.localdate() + timedelta(days=days_from_today),
+    )
+
+
+def test_la_url_de_terminos_esta_en_espanol():
+    assert reverse("core:terms") == "/terminos/"
+
+
+def test_terminos_muestra_la_version_vigente_a_un_visitante(client):
+    _terms("1.0", days_from_today=-30, body="Términos anteriores.")
+    _terms("1.1", days_from_today=-1, body="Términos de prueba vigentes.")
+    _terms("2.0", days_from_today=10, body="Términos que aún no rigen.")
+    _privacy("9.9", body="Aviso de privacidad ajeno.")
+
+    response = client.get(reverse("core:terms"))
+
+    assert response.status_code == 200
+    content = response.content.decode()
+    assert "Términos y condiciones y política de devolución" in content
+    assert "Versión 1.1" in content
+    assert "Términos de prueba vigentes." in content
+    assert "Términos anteriores." not in content
+    assert "Términos que aún no rigen." not in content
+    assert "Aviso de privacidad ajeno." not in content
+
+
+def test_terminos_sin_version_vigente_da_404(client):
+    assert client.get(reverse("core:terms")).status_code == 404
+    _terms("1.0", days_from_today=5)
+    assert client.get(reverse("core:terms")).status_code == 404
+
+
+def test_el_pie_enlaza_a_terminos_solo_si_hay_version_vigente(client):
+    enlace = f'href="{reverse("core:terms")}"'
+    assert enlace not in client.get(reverse("core:home")).content.decode()
+    _terms("1.0")
+    assert enlace in client.get(reverse("core:home")).content.decode()
+
+
+def test_el_admin_permite_capturar_terminos(client):
+    admin_user = get_user_model().objects.create_superuser(
+        email="admin@x.com", password="x", display_name="A"
+    )
+    client.force_login(admin_user)
+    response = client.post(
+        reverse("admin:core_legaltext_add"),
+        {
+            "kind": TERMS,
+            "version": "1.0",
+            "body": "Texto capturado en el admin.",
+            "effective_date": timezone.localdate().isoformat(),
+        },
+    )
+    assert response.status_code == 302
+    assert LegalText.objects.current(TERMS).body == "Texto capturado en el admin."

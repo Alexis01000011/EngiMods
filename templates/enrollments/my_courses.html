@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Mi panel" %} · EngiMods{% endblock %}
+
+{% block content %}
+  <h1>{% translate "Mi panel" %}</h1>
+
+  {% if active or expired %}
+    <h2>{% translate "Mis cursos" %}</h2>
+    {% if active %}
+      <ul>
+        {% for enrollment in active %}
+          <li>
+            <a href="{% url 'courses:course_detail' enrollment.course.slug %}">{{ enrollment.course.title }}</a>
+            <br>
+            {% blocktranslate with date=enrollment.access_ends_at|date:"j \d\e F \d\e Y" %}Acceso hasta el {{ date }}.{% endblocktranslate %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>{% translate "No tienes cursos con acceso vigente." %}</p>
+    {% endif %}
+
+    {% if expired %}
+      <h2>{% translate "Cursos con acceso vencido" %}</h2>
+      <ul>
+        {% for enrollment in expired %}
+          <li>
+            {{ enrollment.course.title }} <strong>({% translate "Vencido" %})</strong>
+            <br>
+            {% blocktranslate with date=enrollment.access_ends_at|date:"j \d\e F \d\e Y" %}El acceso terminó el {{ date }}.{% endblocktranslate %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% else %}
+    <p>{% translate "Todavía no tienes cursos. Estos son los cursos disponibles." %}</p>
+    {% for course in catalog %}
+      {% if forloop.first %}<ul>{% endif %}
+      <li>
+        <a href="{% url 'courses:course_detail' course.slug %}">{{ course.title }}</a>
+        · {{ course.game.name }} · {{ course.get_kind_display }}
+      </li>
+      {% if forloop.last %}</ul>{% endif %}
+    {% empty %}
+      <p>{% translate "Aún no hay cursos publicados." %}</p>
+    {% endfor %}
+  {% endif %}
+{% endblock %}
