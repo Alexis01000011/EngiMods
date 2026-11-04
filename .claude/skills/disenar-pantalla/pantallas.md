@@ -29,6 +29,17 @@ La pantalla canónica. Es exactamente `referencia/leccion.html`.
 9. **Frase de acompañamiento** en cursiva con enlace al tutor.
 10. **Cierre**: tarjeta "Siguiente lección" con `button-primary` "Terminé esta lección · seguir" y, abajo, el enlace "← [lección anterior]". En teléfono, el botón ocupa todo el ancho.
 
+## Landing (`core:home`)
+
+La puerta de entrada. Dice qué es EngiMods y lleva a Misión Cero. Es `templates/core/home.html`.
+
+1. **Encabezado**, en una columna de `reading-max`: `eyebrow` ("Academia de modding en español"), título y `dek` en cursiva. Sin imagen, sin degradado y sin arte de un juego.
+2. **Llamados:** `button-primary` hacia la práctica corta. Si solo hay una, lleva a su página ("Empieza con [título]"); si hay varias, a la lista de cursos. `button-secondary` hacia el curso por grupos ("Conoce el grupo piloto"). Si no hay curso por grupos publicado, una línea muted que lo dice. En teléfono, los botones ocupan todo el ancho.
+3. **Cómo aprendes aquí:** cuatro `card`s (una columna en teléfono, dos desde 640 px) con la propuesta de valor: ruta en español, ejercicios pequeños, versión comprobada y revisión de lo que construyes. El plazo de revisión sale de settings (`REVIEW_DEADLINE_HOURS`), no se escribe a mano.
+4. **Cursos** (`id="cursos"`): primero las prácticas cortas. Cada `card`: juego y tipo en `label-sm` muted, título `headline-sm`, descripción corta, `chip`s (nivel, duración, acceso), `badge-tested` con la prueba más reciente de sus lecciones publicadas (o `badge-untested`), precio y `button-secondary` "Ver el curso".
+5. **Juegos:** `card` por juego activo con su nombre como dato (sin logo), descripción, `chip` en monoespaciada con la versión actual y `chip` con sus cursos publicados. El nombre enlaza a la página del juego.
+6. **Estados vacíos:** sin cursos, una tarjeta punteada que lo dice; sin juegos, una frase.
+
 ## Detalle del curso (`courses:course_detail`)
 
 Es donde se decide el pago: todo lo que da confianza va aquí, a la vista.

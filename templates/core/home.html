@@ -1,7 +1,117 @@
 {% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}EngiMods · {% translate "Aprende a crear mods con ingeniería de software" %}{% endblock %}
 
 {% block content %}
-  <h1>EngiMods</h1>
-  <p>Aprende a crear mods de videojuegos con ingeniería de software.</p>
-  <p>Sitio en construcción.</p>
+  <section aria-labelledby="propuesta" class="flex max-w-reading-max flex-col gap-md pt-lg">
+    <p class="m-0 font-sans text-eyebrow uppercase text-ink-muted">{% translate "Academia de modding en español" %}</p>
+    <h1 id="propuesta" class="m-0">{% translate "Aprende a crear mods como se construye el software" %}</h1>
+    <p class="m-0 font-serif text-dek italic text-ink-soft">{% translate "Construyes tu propio mod, paso a paso, con lo que usa un equipo de ingeniería: Git, pruebas y documentación. Un tutor revisa lo que entregas." %}</p>
+
+    <div class="mt-sm flex flex-col gap-sm sm:flex-row sm:flex-wrap sm:items-center">
+      {% if practices|length == 1 %}
+        {% with practice=practices.0 %}
+          <a href="{% url 'courses:course_detail' practice.slug %}" class="button-primary">{% blocktranslate with title=practice.title %}Empieza con {{ title }}{% endblocktranslate %}</a>
+        {% endwith %}
+      {% elif practices %}
+        <a href="#cursos" class="button-primary">{% translate "Elige tu práctica para empezar" %}</a>
+      {% endif %}
+
+      {% if group_courses|length == 1 %}
+        {% with group_course=group_courses.0 %}
+          <a href="{% url 'courses:course_detail' group_course.slug %}" class="button-secondary">{% translate "Conoce el grupo piloto" %}</a>
+        {% endwith %}
+      {% elif group_courses %}
+        <a href="#cursos" class="button-secondary">{% translate "Conoce los grupos piloto" %}</a>
+      {% endif %}
+    </div>
+
+    {% if not practices and not group_courses %}
+      <p class="m-0 text-body-sm text-ink-muted">{% translate "Estamos preparando los primeros cursos. Vuelve pronto." %}</p>
+    {% elif not group_courses %}
+      <p class="m-0 text-body-sm text-ink-muted">{% translate "El grupo piloto todavía no abre inscripciones." %}</p>
+    {% endif %}
+  </section>
+
+  <section aria-labelledby="como-aprendes">
+    <h2 id="como-aprendes">{% translate "Cómo aprendes aquí" %}</h2>
+    <ul class="m-0 grid list-none grid-cols-1 gap-md p-0 sm:grid-cols-2">
+      <li class="m-0 flex flex-col gap-xs rounded-lg border border-divider bg-surface p-lg">
+        <h3 class="m-0">{% translate "Una ruta en español" %}</h3>
+        <p class="m-0">{% translate "Lecciones en orden, de tu primer repositorio a publicar una versión de tu mod." %}</p>
+      </li>
+      <li class="m-0 flex flex-col gap-xs rounded-lg border border-divider bg-surface p-lg">
+        <h3 class="m-0">{% translate "Ejercicios pequeños" %}</h3>
+        <p class="m-0">{% translate "Cada paso termina en algo que puedes probar en el juego. Avanzas a tu ritmo." %}</p>
+      </li>
+      <li class="m-0 flex flex-col gap-xs rounded-lg border border-divider bg-surface p-lg">
+        <h3 class="m-0">{% translate "Versión comprobada" %}</h3>
+        <p class="m-0">{% translate "Cada lección dice con qué versión del juego y del entorno la probamos. Si sale una nueva, la marcamos para revisarla." %}</p>
+      </li>
+      <li class="m-0 flex flex-col gap-xs rounded-lg border border-divider bg-surface p-lg">
+        <h3 class="m-0">{% translate "Revisión de lo que construyes" %}</h3>
+        <p class="m-0">{% if not review_hours %}{% translate "Un tutor revisa tus entregas y te deja comentarios para mejorar." %}{% else %}{% blocktranslate count hours=review_hours %}Un tutor revisa tus entregas en menos de {{ hours }} hora y te deja comentarios para mejorar.{% plural %}Un tutor revisa tus entregas en menos de {{ hours }} horas y te deja comentarios para mejorar.{% endblocktranslate %}{% endif %}</p>
+      </li>
+    </ul>
+  </section>
+
+  <section id="cursos" aria-labelledby="cursos-titulo">
+    <h2 id="cursos-titulo">{% translate "Cursos" %}</h2>
+    {% if courses %}
+      <ul class="m-0 grid list-none grid-cols-1 gap-md p-0 md:grid-cols-2">
+        {% for course in courses %}
+          <li class="m-0 flex flex-col gap-sm rounded-lg border border-divider bg-surface p-lg">
+            <p class="m-0 text-label-sm text-ink-muted">{{ course.game.name }} · {{ course.get_kind_display }}</p>
+            <h3 class="m-0">{{ course.title }}</h3>
+            <p class="m-0">{{ course.description|truncatewords:30 }}</p>
+            <ul class="m-0 flex list-none flex-wrap gap-sm p-0">
+              <li class="m-0 inline-flex min-h-8 items-center rounded-full bg-surface-chip px-3 text-label-sm text-ink-soft">{{ course.get_level_display }}</li>
+              <li class="m-0 inline-flex min-h-8 items-center rounded-full bg-surface-chip px-3 text-label-sm text-ink-soft">{% blocktranslate count weeks=course.duration_weeks %}{{ weeks }} semana{% plural %}{{ weeks }} semanas{% endblocktranslate %}</li>
+              <li class="m-0 inline-flex min-h-8 items-center rounded-full bg-surface-chip px-3 text-label-sm text-ink-soft">{% blocktranslate count days=course.access_days %}Acceso por {{ days }} día{% plural %}Acceso por {{ days }} días{% endblocktranslate %}</li>
+            </ul>
+            {% if course.latest_test %}
+              <p class="m-0 inline-flex items-center gap-1.5 self-start rounded-full bg-tested-container px-3 py-1.5 font-mono text-code-sm text-tested">
+                <svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5l3 3 7-7"/></svg>
+                {% blocktranslate with game=course.latest_test.game_version.game.name version=course.latest_test.game_version.number environment=course.latest_test.modding_environment.name environment_version=course.latest_test.modding_environment.version %}Probado con {{ game }} {{ version }} + {{ environment }} {{ environment_version }}{% endblocktranslate %}
+              </p>
+            {% else %}
+              <p class="m-0 inline-flex items-center gap-1.5 self-start rounded-full bg-surface-chip px-3 py-1.5 font-mono text-code-sm text-ink-muted">
+                <svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8h8"/></svg>
+                {% translate "Sin versión probada" %}
+              </p>
+            {% endif %}
+            <div class="mt-auto flex flex-wrap items-center justify-between gap-sm pt-sm">
+              <p class="m-0 font-serif text-headline-sm">MXN {{ course.price|floatformat:"2g" }}</p>
+              <a href="{% url 'courses:course_detail' course.slug %}" class="button-secondary">{% translate "Ver el curso" %}<span class="sr-only">: {{ course.title }}</span></a>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="rounded-lg border border-dashed border-outline bg-surface p-lg">{% translate "Aún no hay cursos publicados. Estamos preparando los primeros." %}</p>
+    {% endif %}
+  </section>
+
+  <section aria-labelledby="juegos">
+    <h2 id="juegos">{% translate "Juegos" %}</h2>
+    {% if games %}
+      <ul class="m-0 grid list-none grid-cols-1 gap-md p-0 sm:grid-cols-2 lg:grid-cols-3">
+        {% for game in games %}
+          <li class="m-0 flex flex-col gap-sm rounded-lg border border-divider bg-surface p-lg">
+            <h3 class="m-0"><a href="{{ game.get_absolute_url }}" class="text-ink no-underline hover:underline">{{ game.name }}</a></h3>
+            <p class="m-0">{{ game.description }}</p>
+            <ul class="m-0 mt-auto flex list-none flex-wrap gap-sm p-0">
+              {% if game.current %}
+                <li class="m-0 inline-flex min-h-8 items-center rounded-full bg-surface-chip px-3 font-mono text-code-sm text-ink-soft">{% blocktranslate with version=game.current.0.number %}Versión actual: {{ version }}{% endblocktranslate %}</li>
+              {% endif %}
+              <li class="m-0 inline-flex min-h-8 items-center rounded-full bg-surface-chip px-3 text-label-sm text-ink-soft">{% blocktranslate count total=game.published_courses %}{{ total }} curso{% plural %}{{ total }} cursos{% endblocktranslate %}</li>
+            </ul>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>{% translate "Pronto anunciaremos los primeros juegos." %}</p>
+    {% endif %}
+  </section>
 {% endblock %}
