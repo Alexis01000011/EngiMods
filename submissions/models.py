@@ -113,3 +113,91 @@ class SubmissionAttempt(models.Model):
             errors["modding_environment"] = _("El entorno no es del juego del curso.")
         if errors:
             raise ValidationError(errors)
+
+
+class ReviewQuerySet(models.QuerySet):
+    def with_scores(self):
+        """Con el tutor y la calificación de cada criterio, para mostrar la revisión completa."""
+        return self.select_related("reviewer").prefetch_related(
+            models.Prefetch("scores", ReviewScore.objects.select_related("criterion"))
+        )
+
+
+class Review(models.Model):
+    """Revisión de un envío con rúbrica, comentario general y decisión (EM-072)."""
+
+    # La decisión es uno de los dos estados finales de la entrega.
+    class Decision(models.TextChoices):
+        APPROVED = Submission.Status.APPROVED.value, Submission.Status.APPROVED.label
+        CHANGES_REQUESTED = (
+            Submission.Status.CHANGES_REQUESTED.value,
+            Submission.Status.CHANGES_REQUESTED.label,
+        )
+
+    attempt = models.OneToOneField(
+        SubmissionAttempt,
+        on_delete=models.PROTECT,
+        related_name="review",
+        verbose_name=_("envío"),
+    )
+    reviewer = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.PROTECT,
+        related_name="reviews",
+        verbose_name=_("tutor"),
+    )
+    decision = models.CharField(_("decisión"), max_length=20, choices=Decision)
+    comment = models.TextField(_("comentario general"))
+    reviewed_at = models.DateTimeField(_("fecha de revisión"), default=timezone.now)
+
+    objects = ReviewQuerySet.as_manager()
+
+    class Meta:
+        ordering = ("-reviewed_at", "-pk")
+        verbose_name = _("revisión")
+        verbose_name_plural = _("revisiones")
+
+    def __str__(self):
+        return f"{self.attempt} · {self.get_decision_display()}"
+
+
+class ReviewScore(models.Model):
+    """Calificación de un criterio de la rúbrica dentro de una revisión."""
+
+    class Level(models.TextChoices):
+        MEETS = "meets", _("Cumple")
+        PARTIAL = "partial", _("Cumple en parte")
+        NOT_YET = "not_yet", _("Aún no cumple")
+
+    review = models.ForeignKey(
+        Review, on_delete=models.CASCADE, related_name="scores", verbose_name=_("revisión")
+    )
+    # PROTECT: un criterio ya calificado no se borra, para no perder la revisión.
+    criterion = models.ForeignKey(
+        "courses.RubricCriterion",
+        on_delete=models.PROTECT,
+        related_name="scores",
+        verbose_name=_("criterio"),
+    )
+    level = models.CharField(_("calificación"), max_length=20, choices=Level)
+
+    class Meta:
+        ordering = ("criterion__order", "criterion__pk")
+        verbose_name = _("calificación por criterio")
+        verbose_name_plural = _("calificaciones por criterio")
+        constraints = [
+            models.UniqueConstraint(
+                fields=("review", "criterion"), name="unique_score_per_criterion"
+            )
+        ]
+
+    def __str__(self):
+        return f"{self.criterion.title} · {self.get_level_display()}"
+
+    def clean(self):
+        super().clean()
+        if self.review_id and self.criterion_id:
+            if self.criterion.exercise_id != self.review.attempt.submission.exercise_id:
+                raise ValidationError(
+                    {"criterion": _("El criterio no es de la rúbrica de este ejercicio.")}
+                )

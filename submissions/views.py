@@ -9,7 +9,7 @@ from courses.models import Course, Exercise, Lesson
 from enrollments.models import Enrollment
 
 from .forms import SubmissionAttemptForm
-from .models import Submission
+from .models import Review, Submission
 
 
 def find_submission(user, exercise, enrollment):
@@ -66,6 +66,10 @@ def submit(request, lesson_pk):
             "form": form,
             "submission": submission,
             "attempt": attempt,
+            # La revisión del tutor, con su rúbrica (EM-072). Solo de la entrega propia.
+            "review": Review.objects.with_scores().filter(attempt=attempt).first()
+            if attempt
+            else None,
             "review_hours": settings.REVIEW_DEADLINE_HOURS,
         },
     )

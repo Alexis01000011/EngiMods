@@ -42,5 +42,59 @@
         {% endif %}
       </section>
     {% endif %}
+
+    {% if review %}
+      {% translate "La revisión" as heading %}
+      {% include "components/review_summary.html" with review=review heading=heading %}
+    {% elif form %}
+      <section aria-labelledby="califica" class="mt-xl">
+        <h2 id="califica" class="m-0 text-headline-sm">{% translate "Califica la entrega" %}</h2>
+        <p class="mt-xs text-body-sm text-ink-muted">{% translate "Elige un nivel en cada criterio, deja un comentario general y decide. El alumno ve la revisión completa." %}</p>
+
+        {% if not criteria %}
+          <div role="status" class="mb-lg rounded-lg bg-revalidate-container p-md text-revalidate">
+            <p class="m-0"><strong>{% translate "Aviso." %}</strong> {% translate "Este ejercicio todavía no tiene rúbrica. Puedes enviar el comentario y la decisión; para calificar por criterio, captura la rúbrica del ejercicio en el admin." %}</p>
+          </div>
+        {% endif %}
+
+        {% if form.errors %}
+          <div role="alert" class="mb-lg rounded-lg bg-error-container p-md text-error">
+            <p class="m-0"><strong>{% translate "No se pudo guardar." %}</strong> {% translate "Revisa los campos marcados y vuelve a intentarlo." %}</p>
+          </div>
+        {% endif %}
+
+        <form method="post" class="flex flex-col gap-lg">
+          {% csrf_token %}
+          {% for field in form %}
+            {% if field.name == "comment" %}
+              <div class="flex flex-col [&_[aria-invalid=true]]:border-2 [&_[aria-invalid=true]]:border-error">
+                {{ field.label_tag }}
+                {{ field }}
+                <span class="helptext" id="{{ field.auto_id }}_helptext">{{ field.help_text }}</span>
+                {% include "components/field_errors.html" %}
+              </div>
+            {% else %}
+              <fieldset class="m-0 flex flex-col border-0 p-0"{% if field.help_text %} aria-describedby="{{ field.auto_id }}_helptext"{% endif %}>
+                <legend class="p-0 text-label-md">{{ field.label }}</legend>
+                {% if field.help_text %}
+                  <span class="helptext" id="{{ field.auto_id }}_helptext">{{ field.help_text }}</span>
+                {% endif %}
+                <div class="mt-xs flex flex-col sm:flex-row sm:flex-wrap sm:gap-x-lg">
+                  {% for radio in field %}
+                    <label for="{{ radio.id_for_label }}" class="flex min-h-touch-target items-center gap-sm text-body-md">{{ radio.tag }} {{ radio.choice_label }}</label>
+                  {% endfor %}
+                </div>
+                {% include "components/field_errors.html" %}
+              </fieldset>
+            {% endif %}
+          {% endfor %}
+          <div>
+            <button type="submit" class="button-primary w-full sm:w-auto">{% translate "Enviar la revisión" %}</button>
+          </div>
+        </form>
+      </section>
+    {% elif submission.status == "in_review" %}
+      <p class="mt-lg text-body-sm text-ink-muted">{% translate "Solo el tutor que tomó la revisión puede calificarla." %}</p>
+    {% endif %}
   </div>
 {% endblock %}
