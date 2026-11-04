@@ -1,0 +1,12 @@
+{% load i18n %}{% autoescape off %}{% blocktranslate with name=user.display_name %}Hola, {{ name }}:{% endblocktranslate %}
+
+{% translate "Gracias por crear tu cuenta en EngiMods. Abre este enlace para verificar tu correo:" %}
+
+{{ verify_url }}
+
+{% blocktranslate count hours=hours %}El enlace vence en {{ hours }} hora. Necesitas tu correo verificado para pagar un curso.{% plural %}El enlace vence en {{ hours }} horas. Necesitas tu correo verificado para pagar un curso.{% endblocktranslate %}
+
+{% translate "Si no creaste esta cuenta, ignora este correo." %}
+
+EngiMods
+{% endautoescape %}
