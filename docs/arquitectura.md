@@ -37,6 +37,7 @@ LegalText 1──* PrivacyConsent ──> User, o correo si es lista de espera
 ## Reglas del modelo de datos
 
 - **Multi-juego desde el modelo.** Nada se escribe pensando en un juego en particular. Si algo depende del juego (versiones, entorno, guía de laboratorio), se modela como dato del catálogo.
+- **Versiones y compatibilidad:** `GameVersion` identifica una versión por juego y número libre (no se exige SemVer). Solo puede haber una marcada como actual por juego; para cambiarla se desmarca la anterior antes de marcar la nueva. `ModdingEnvironment` identifica un entorno por juego, nombre y versión, y declara varias `compatible_versions` del mismo juego. El admin valida esa coherencia y la asociación con `add()`/`set()` también la comprueba. Al editar el juego de una versión o entorno con compatibilidades, `full_clean()` impide dejar enlaces de otro juego; las importaciones deben validar los modelos y usar el gestor de la relación, no escribir directamente en su tabla intermedia.
 - **Dinero:** enteros en centavos de MXN (`price_cents`, `amount_cents`). Nunca `float`.
 - **Precios, cupos y textos de negocio son datos**, no constantes en código. Están en hipótesis y van a cambiar.
 - **Fechas:** `USE_TZ = True`, zona `America/Mexico_City`. Guardar siempre fechas con zona.
