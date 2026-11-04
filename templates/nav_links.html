@@ -1,0 +1,13 @@
+{% load i18n %}{% comment %}
+  Enlaces de la barra de navegación. base.html los incluye dos veces: en línea en escritorio
+  y dentro del menú en teléfono. EM-031 agrega "Entrar" y "Salir".
+{% endcomment %}
+{% with section=request.resolver_match.namespace %}
+  <li><a href="{% url 'catalog:game_list' %}" class="flex min-h-touch-target items-center rounded-md px-3 text-label-md no-underline hover:bg-surface-chip aria-[current=page]:underline aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-8"{% if section == "catalog" %} aria-current="page"{% endif %}>{% translate "Juegos" %}</a></li>
+  {% if user.is_authenticated %}
+    <li><a href="{% url 'enrollments:my_courses' %}" class="flex min-h-touch-target items-center rounded-md px-3 text-label-md no-underline hover:bg-surface-chip aria-[current=page]:underline aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-8"{% if section == "enrollments" or section == "submissions" %} aria-current="page"{% endif %}>{% translate "Mi panel" %}</a></li>
+    {% if user.is_tutor or user.is_superuser %}
+      <li><a href="{% url 'reviews:queue' %}" class="flex min-h-touch-target items-center rounded-md px-3 text-label-md no-underline hover:bg-surface-chip aria-[current=page]:underline aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-8"{% if section == "reviews" %} aria-current="page"{% endif %}>{% translate "Tutoría" %}</a></li>
+    {% endif %}
+  {% endif %}
+{% endwith %}

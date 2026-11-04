@@ -6,6 +6,7 @@ description = "Academia en línea para aprender a crear mods de videojuegos con 
 dependencies = [
     "django>=5.2,<5.3",
     "django-environ>=0.12",
+    "django-tailwind-cli>=4.8.2",
     "markdown>=3.11",
     "nh3>=0.3",
 ]

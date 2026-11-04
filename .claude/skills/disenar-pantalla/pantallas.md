@@ -11,7 +11,7 @@ contenido        según el tipo de pantalla
 pie              enlaces a términos y aviso de privacidad, en body-sm
 ```
 
-- Fuera de un curso, el contenido se centra hasta 72 rem con margen de 16 px.
+- Fuera de un curso, el contenido se centra hasta `page-max` (72 rem) con margen de 16 px. `base.html` ya pone la barra, los mensajes, ese contenedor y el pie.
 - Dentro de un curso (lección, entrega), el escritorio usa tres zonas: `sidebar` · lección · "En esta lección". Ver `referencia/leccion.html`.
 
 ## Lección (`courses:lesson_detail`)

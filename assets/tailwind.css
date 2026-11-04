@@ -1,0 +1,426 @@
+/*
+  Estilos de EngiMods (EM-004, ADR 0002).
+
+  Este archivo es la fuente. `uv run python manage.py tailwind build` lo compila en
+  static/css/tailwind.css, que no se sube al repositorio.
+
+  El bloque @theme copia los valores de DESIGN.md. Si cambias uno, cambia el otro en el
+  mismo PR: core/tests/test_design_tokens.py revisa que coincidan. Se borran los valores
+  de Tailwind para colores, fuentes, tamaños de texto, esquinas y sombras, así que solo
+  existen las clases de DESIGN.md (`bg-primary`, `text-ink-muted`, `rounded-lg`, `p-md`…).
+*/
+
+@import "tailwindcss" source(none);
+@source "../templates";
+
+/* Fuentes con licencia SIL OFL, servidas desde static/fonts (ver los -OFL.txt). */
+@font-face {
+  font-family: "Source Serif 4";
+  font-style: normal;
+  font-weight: 200 900;
+  font-display: swap;
+  src: url("../fonts/source-serif-4-latin-wght-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Source Serif 4";
+  font-style: italic;
+  font-weight: 200 900;
+  font-display: swap;
+  src: url("../fonts/source-serif-4-latin-wght-italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("../fonts/plus-jakarta-sans-latin-wght-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+  src: url("../fonts/jetbrains-mono-latin-wght-normal.woff2") format("woff2");
+}
+
+@theme {
+  /* DESIGN.md › colors */
+  --color-*: initial;
+  --color-primary: #B83A0B;
+  --color-primary-hover: #8F2D08;
+  --color-on-primary: #FFFFFF;
+  --color-primary-container: #FDF0E6;
+  --color-on-primary-container: #5C2A10;
+  --color-primary-soft: #F1D9CC;
+  --color-on-primary-soft: #8F2D08;
+  --color-ink: #2A2621;
+  --color-ink-soft: #4A443C;
+  --color-ink-muted: #6B645B;
+  --color-background: #FBF8F3;
+  --color-surface: #FFFFFF;
+  --color-surface-sunken: #F5F0E8;
+  --color-surface-chip: #F3EEE5;
+  --color-progress-track: #ECE4D8;
+  --color-divider: #E6DFD4;
+  --color-outline: #8C8276;
+  --color-code-background: #2A2621;
+  --color-code-text: #F3EEE5;
+  --color-code-muted: #CFC5B8;
+  --color-code-divider: #423B34;
+  --color-tested: #17663F;
+  --color-tested-container: #E3F3EA;
+  --color-revalidate: #7A4F00;
+  --color-revalidate-container: #FFF1CC;
+  --color-error: #B00F3A;
+  --color-error-container: #FDE7EC;
+
+  /* DESIGN.md › typography: la familia va aparte (`font-serif text-title-lg`). */
+  --font-*: initial;
+  --font-serif: "Source Serif 4", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --text-*: initial;
+  --text-title-lg: 2.75rem;
+  --text-title-lg--font-weight: 700;
+  --text-title-lg--line-height: 1.15;
+  --text-title-lg--letter-spacing: -0.015em;
+  --text-title-md: 2.125rem;
+  --text-title-md--font-weight: 700;
+  --text-title-md--line-height: 1.15;
+  --text-title-md--letter-spacing: -0.015em;
+  --text-headline-md: 1.75rem;
+  --text-headline-md--font-weight: 700;
+  --text-headline-md--line-height: 1.3;
+  --text-headline-sm: 1.375rem;
+  --text-headline-sm--font-weight: 600;
+  --text-headline-sm--line-height: 1.35;
+  --text-dek: 1.3125rem;
+  --text-dek--font-weight: 400;
+  --text-dek--line-height: 1.5;
+  --text-reading-lg: 1.25rem;
+  --text-reading-lg--font-weight: 400;
+  --text-reading-lg--line-height: 1.75;
+  --text-reading-md: 1.1875rem;
+  --text-reading-md--font-weight: 400;
+  --text-reading-md--line-height: 1.7;
+  --text-wordmark: 1.4375rem;
+  --text-wordmark--font-weight: 700;
+  --text-wordmark--line-height: 1.2;
+  --text-body-md: 1rem;
+  --text-body-md--font-weight: 400;
+  --text-body-md--line-height: 1.6;
+  --text-body-sm: 0.875rem;
+  --text-body-sm--font-weight: 400;
+  --text-body-sm--line-height: 1.5;
+  --text-label-md: 0.9375rem;
+  --text-label-md--font-weight: 600;
+  --text-label-md--line-height: 1.25;
+  --text-label-sm: 0.8125rem;
+  --text-label-sm--font-weight: 500;
+  --text-label-sm--line-height: 1.35;
+  --text-eyebrow: 0.75rem;
+  --text-eyebrow--font-weight: 700;
+  --text-eyebrow--line-height: 1.3;
+  --text-eyebrow--letter-spacing: 0.06em;
+  --text-code-md: 0.9375rem;
+  --text-code-md--font-weight: 400;
+  --text-code-md--line-height: 1.7;
+  --text-code-sm: 0.8125rem;
+  --text-code-sm--font-weight: 500;
+  --text-code-sm--line-height: 1.3;
+
+  /* DESIGN.md › rounded */
+  --radius-*: initial;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-full: 999px;
+
+  /* DESIGN.md › spacing. La escala numérica de Tailwind (p-4 = 16 px) sigue disponible. */
+  --container-*: initial;
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 40px;
+  --spacing-xxl: 64px;
+  --spacing-gutter: 16px;
+  --spacing-touch-target: 44px;
+  --spacing-reading-max: 42.5rem;
+  --spacing-page-max: 72rem;
+  --spacing-sidebar: 18rem;
+  --spacing-aside: 16rem;
+  --spacing-nav-height: 64px;
+
+  /* DESIGN.md › Elevation & Depth: plano, sin sombras. */
+  --shadow-*: initial;
+  --inset-shadow-*: initial;
+  --drop-shadow-*: initial;
+  --text-shadow-*: initial;
+}
+
+/* Botones de DESIGN.md › components. Sirven en <button> y en <a>. */
+@utility button-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  min-height: 48px;
+  padding-inline: 22px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-full);
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  font-family: var(--font-sans);
+  font-size: var(--text-label-md);
+  font-weight: var(--text-label-md--font-weight);
+  line-height: var(--text-label-md--line-height);
+  text-decoration-line: none;
+  cursor: pointer;
+  transition: background-color 150ms, color 150ms;
+  &:hover {
+    background-color: var(--color-primary-hover);
+    color: var(--color-on-primary);
+  }
+}
+
+@utility button-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  min-height: var(--spacing-touch-target);
+  padding-inline: 20px;
+  border: 1px solid var(--color-outline);
+  border-radius: var(--radius-full);
+  background-color: var(--color-surface);
+  color: var(--color-primary);
+  font-family: var(--font-sans);
+  font-size: var(--text-label-md);
+  font-weight: var(--text-label-md--font-weight);
+  line-height: var(--text-label-md--line-height);
+  text-decoration-line: none;
+  cursor: pointer;
+  transition: background-color 150ms, color 150ms;
+  &:hover {
+    color: var(--color-primary-hover);
+  }
+}
+
+@utility button-quiet {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  min-height: var(--spacing-touch-target);
+  padding-inline: 14px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-full);
+  background-color: var(--color-surface-chip);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-label-md);
+  font-weight: var(--text-label-md--font-weight);
+  line-height: var(--text-label-md--line-height);
+  text-decoration-line: none;
+  cursor: pointer;
+  transition: background-color 150ms, color 150ms;
+  &:hover {
+    background-color: var(--color-progress-track);
+  }
+}
+
+/*
+  Estilos de los elementos HTML, para que una plantilla con HTML semántico y sin clases
+  ya siga DESIGN.md. Las clases de cada pantalla siempre ganan sobre estas reglas.
+*/
+@layer base {
+  html {
+    background-color: var(--color-background);
+  }
+
+  body {
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-body-md);
+    line-height: var(--text-body-md--line-height);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-serif);
+    text-wrap: balance;
+  }
+  h1 {
+    @apply text-title-md sm:text-title-lg;
+  }
+  h2 {
+    @apply text-headline-md;
+  }
+  h3,
+  h4 {
+    @apply text-headline-sm;
+  }
+
+  a {
+    color: var(--color-primary);
+    text-decoration-line: underline;
+    text-underline-offset: 3px;
+  }
+  a:hover {
+    color: var(--color-primary-hover);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  /* Espacio entre bloques del contenido. */
+  main :is(h1, h2, h3, h4, p, ul, ol, dl, pre, table, form, blockquote, details, figure, hr) {
+    margin-block: 0 var(--spacing-md);
+  }
+  main h2 {
+    margin-top: --spacing(12);
+  }
+  main :is(h3, h4) {
+    margin-top: var(--spacing-lg);
+  }
+  main ul {
+    list-style-type: disc;
+    padding-left: var(--spacing-lg);
+  }
+  main ol {
+    list-style-type: decimal;
+    padding-left: var(--spacing-lg);
+  }
+  main nav :is(ul, ol) {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  main li + li {
+    margin-top: var(--spacing-xs);
+  }
+  main dt {
+    color: var(--color-ink-muted);
+    font-size: var(--text-label-sm);
+    font-weight: var(--text-label-sm--font-weight);
+    line-height: var(--text-label-sm--line-height);
+  }
+  main dd {
+    margin: 2px 0 var(--spacing-sm);
+  }
+  main hr {
+    border-color: var(--color-divider);
+  }
+  main blockquote {
+    padding-left: var(--spacing-md);
+    border-left: 2px solid var(--color-divider);
+    color: var(--color-ink-soft);
+  }
+
+  /* Las tablas se desplazan solas; la página nunca se mueve a los lados. */
+  main table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  main :is(th, td) {
+    padding: var(--spacing-sm) var(--spacing-md) var(--spacing-sm) 0;
+    border-bottom: 1px solid var(--color-divider);
+    text-align: left;
+    vertical-align: top;
+  }
+  main th {
+    color: var(--color-ink-muted);
+    font-size: var(--text-label-sm);
+    font-weight: var(--text-label-md--font-weight);
+  }
+
+  /* DESIGN.md › code-inline y code-block */
+  :not(pre) > code {
+    padding: 2px var(--spacing-xs);
+    border-radius: 4px;
+    background-color: var(--color-surface-chip);
+    font-size: 0.875em;
+    font-weight: var(--text-code-sm--font-weight);
+  }
+  pre {
+    padding: 18px 20px;
+    overflow-x: auto;
+    border-radius: var(--radius-lg);
+    background-color: var(--color-code-background);
+    color: var(--color-code-text);
+    font-size: var(--text-code-md);
+    line-height: var(--text-code-md--line-height);
+  }
+
+  /* DESIGN.md › input-field. Texto a 16 px para que el teléfono no haga zoom. */
+  label {
+    font-size: var(--text-label-md);
+    font-weight: var(--text-label-md--font-weight);
+    line-height: var(--text-label-md--line-height);
+  }
+  input:not([type="checkbox"], [type="radio"], [type="hidden"], [type="submit"], [type="button"], [type="reset"], [type="file"]),
+  select,
+  textarea {
+    display: block;
+    width: 100%;
+    min-height: 48px;
+    margin-top: 6px;
+    padding-inline: 14px;
+    border: 1px solid var(--color-outline);
+    border-radius: var(--radius-md);
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    font-size: var(--text-body-md);
+  }
+  textarea {
+    min-height: 120px;
+    padding-block: 12px;
+  }
+  [type="checkbox"],
+  [type="radio"] {
+    accent-color: var(--color-primary);
+  }
+  [aria-invalid="true"] {
+    border-width: 2px;
+    border-color: var(--color-error);
+  }
+  .helptext {
+    display: block;
+    margin-top: 6px;
+    color: var(--color-ink-muted);
+    font-size: var(--text-body-sm);
+    line-height: var(--text-body-sm--line-height);
+  }
+  .errorlist {
+    margin: 6px 0;
+    padding: 0;
+    list-style: none;
+    color: var(--color-error);
+    font-size: var(--text-body-sm);
+    line-height: var(--text-body-sm--line-height);
+  }
+
+  /* Un <button> sin clases es secundario: el principal se marca con `button-primary`. */
+  button,
+  [type="submit"],
+  [type="button"],
+  [type="reset"] {
+    @apply button-secondary;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+}

@@ -9,9 +9,7 @@ La identidad visual vive en `DESIGN.md`, en la raíz. Esta skill explica cómo a
 
 ## Antes de empezar
 
-1. **Revisa el estado.** `DESIGN.md` y el ADR 0002 (`docs/decisiones/0002-estilos-frontend.md`) dicen si la propuesta ya se aceptó y con qué se implementan los estilos (Tailwind, CSS propio u otro).
-   - **Propuesta, sin aceptar:** puedes hacer bocetos, maquetas y propuestas con esta skill. En las plantillas de una historia, escribe HTML semántico con la anatomía de `pantallas.md`, para que el estilo se aplique después sin reescribir. No agregues CSS, dependencias ni fuentes a `static/` por tu cuenta: eso es de EM-004.
-   - **Aceptada:** sigue `DESIGN.md` en cada pantalla, con el enfoque que diga el ADR.
+1. **Revisa el estado.** El ADR 0002 (`docs/decisiones/0002-estilos-frontend.md`) se aceptó el 2026-11-04: toda pantalla sigue `DESIGN.md` y los estilos se escriben con clases de Tailwind (ver "Con Tailwind", abajo). Si un ADR posterior lo reemplaza, sigue ese.
 2. **Lee `DESIGN.md` completo.** Los valores (YAML) mandan; el texto dice cuándo usar cada uno. No copies valores de memoria ni de bocetos viejos.
 3. **Abre la referencia en el navegador:** `referencia/leccion.html` (la lección completa, escritorio y teléfono) y `referencia/componentes.html` (cada componente con sus estados). Son la forma canónica; si tu pantalla se ve distinta, revisa por qué.
 4. **Ubica tu pantalla en `pantallas.md`** y usa su anatomía. Si no aparece, toma la más parecida y dilo en el PR.
@@ -19,6 +17,17 @@ La identidad visual vive en `DESIGN.md`, en la raíz. Esta skill explica cómo a
 ## Al construir
 
 - **Valores, no números sueltos.** Todo color, tamaño, espacio y esquina sale de un token de `DESIGN.md`. Si necesitas uno que no existe, no lo inventes en la plantilla: propón agregarlo a `DESIGN.md` en el PR.
+- **Con Tailwind.** El bloque `@theme` de `assets/tailwind.css` copia los valores de `DESIGN.md`, así que cada token es una clase:
+
+  | En `DESIGN.md` | En la plantilla |
+  |---|---|
+  | `colors.primary`, `colors.ink-muted` | `bg-primary`, `text-ink-muted`, `border-divider` |
+  | `typography.title-lg`, `typography.label-sm` | `font-serif text-title-lg`, `font-sans text-label-sm`: la familia va aparte, según el token |
+  | `rounded.lg` | `rounded-lg` |
+  | `spacing.md`, `spacing.reading-max` | `p-md`, `gap-md`, `mt-lg`, `max-w-reading-max`, `min-h-touch-target` |
+  | `button-primary`, `button-secondary`, `button-quiet` | clases con el mismo nombre, en `<button>` o en `<a>` |
+
+  La escala numérica de Tailwind (`px-5` = 20 px) queda para medidas de un componente que no tienen token. Los colores, tamaños de texto, esquinas y sombras propios de Tailwind no existen (`bg-blue-500` o `text-sm` no generan nada). `base.html` ya pone la barra, los mensajes, el contenedor y el pie, y el HTML sin clases (títulos, párrafos, listas, tablas, formularios, código, botones secundarios) ya sigue `DESIGN.md`: agrega clases solo para lo que la pantalla necesita. Para verla, `uv run python manage.py tailwind runserver`.
 - **Una sola pieza nueva a la vez.** Si la pantalla necesita un componente que no está en `DESIGN.md`, arma con los existentes. Si de verdad hace falta uno nuevo, descríbelo en `DESIGN.md` (YAML y texto) y agrégalo a `referencia/componentes.html` en el mismo cambio.
 - **Teléfono primero.** Diseña a 360 px y luego amplía. Revisa 360, 768 y 1280 px.
 - **HTML real y accesible:** `<button>`, `<a href>`, `<label>` unido a su `<input>`, `aria-current="page"` en la ubicación actual, `role="progressbar"` con `aria-valuenow`, `aria-label` en botones con solo ícono, íconos decorativos con `aria-hidden="true"`. Nada de `onclick` en un `<div>`.
@@ -56,8 +65,8 @@ Reglas: español de México; frases cortas; un dato exacto vale más que un adje
 - [ ] Hay estado vacío, de error y de carga cuando aplica.
 - [ ] Sin sombras, degradados, emojis ni arte de un juego.
 
-Si cambiaste `DESIGN.md` o `referencia/engimods.css`, corre `uv run python .claude/skills/disenar-pantalla/revisar_tokens.py`: compara los colores, esquinas y espacios de los dos archivos y falla si no coinciden. Si existe el linter oficial (`npx @google/design.md lint DESIGN.md`), córrelo también.
+Si cambiaste un valor de `DESIGN.md`, cámbialo también en `assets/tailwind.css` y en `referencia/engimods.css`. `core/tests/test_design_tokens.py` (en `pytest`) compara `DESIGN.md` con el tema de Tailwind, y `uv run python .claude/skills/disenar-pantalla/revisar_tokens.py` lo compara con la hoja de referencia. Si existe el linter oficial (`npx @google/design.md lint DESIGN.md`), córrelo también.
 
 ## Al revisar un PR con pantallas
 
-Usa la lista anterior. Reporta cada diferencia con el token o la regla de `DESIGN.md` que no se cumple y, si se puede, la línea de la plantilla. Una pantalla que funciona pero se ve distinta no está terminada: la Definition of Done pide que "se vea bien en teléfono" y, una vez aceptado el ADR 0002, que siga `DESIGN.md`.
+Usa la lista anterior. Reporta cada diferencia con el token o la regla de `DESIGN.md` que no se cumple y, si se puede, la línea de la plantilla. Una pantalla que funciona pero se ve distinta no está terminada: la Definition of Done pide que siga `DESIGN.md` y se vea bien en teléfono.

@@ -15,10 +15,10 @@ uv sync
 git config core.hooksPath .githooks       # activa los git hooks del repo
 cp .env.example .env
 uv run python manage.py migrate
-uv run python manage.py runserver
+uv run python manage.py tailwind runserver
 ```
 
-Abre http://localhost:8000. Pruebas: `uv run pytest`. Lint y formato: `uv run ruff check . && uv run ruff format .`.
+Abre http://localhost:8000. `tailwind runserver` levanta Django y recompila los estilos al guardar. La primera vez descarga el CLI de Tailwind (unos 100 MB), así que necesita internet y puede tardar unos minutos. Si prefieres `runserver`, compila antes con `uv run python manage.py tailwind build`. Para desplegar, corre `tailwind build` antes de `collectstatic`. La identidad visual está en [`DESIGN.md`](DESIGN.md). Pruebas: `uv run pytest`. Lint y formato: `uv run ruff check . && uv run ruff format .`.
 
 ## Cómo colaborar
 

@@ -151,7 +151,7 @@ Hecho el 3/11/2026:
 | [EM-001](#em-001) | [#1](https://github.com/Alexis01000011/EngiMods/issues/1) | Base del proyecto Django | E0 | Must | 2 | 0 | - | Hecho |
 | [EM-002](#em-002) | [#2](https://github.com/Alexis01000011/EngiMods/issues/2) | Integración continua en GitHub Actions | E0 | Must | 1 | 0 | EM-001 | Hecho |
 | [EM-003](#em-003) | [#3](https://github.com/Alexis01000011/EngiMods/issues/3) | Modelo de usuario personalizado | E0 | Must | 2 | 1 | EM-001 | Hecho |
-| [EM-004](#em-004) | [#4](https://github.com/Alexis01000011/EngiMods/issues/4) | Plantilla base y sistema de estilos | E0 | Must | 3 | 1 | EM-001 | Pendiente |
+| [EM-004](#em-004) | [#4](https://github.com/Alexis01000011/EngiMods/issues/4) | Plantilla base y sistema de estilos | E0 | Must | 3 | 1 | EM-001 | Hecho |
 | [EM-005](#em-005) | [#5](https://github.com/Alexis01000011/EngiMods/issues/5) | Despliegue a un entorno de pruebas (staging) | E0 | Must | 5 | 1 | EM-001 | Pendiente |
 | [EM-006](#em-006) | [#6](https://github.com/Alexis01000011/EngiMods/issues/6) | Datos de ejemplo para desarrollo | E0 | Should | 2 | 5 | EM-003, EM-011, EM-021 | Pendiente |
 | [EM-007](#em-007) | [#7](https://github.com/Alexis01000011/EngiMods/issues/7) | Almacenamiento de archivos subidos | E0 | Could | 3 | 2 | EM-005 | Pendiente |
@@ -270,15 +270,17 @@ Nota: Bloquea casi todo lo demás. Cambiar el modelo de usuario después de tene
 
 **Plantilla base y sistema de estilos**
 
-Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 1 · Issue: [#4](https://github.com/Alexis01000011/EngiMods/issues/4)
+Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 1 · Estado: Hecho · Issue: [#4](https://github.com/Alexis01000011/EngiMods/issues/4)
 
 Criterios de aceptación:
 
-- [ ] `templates/base.html` con navegación, pie de página y mensajes de Django.
-- [ ] Se decide y documenta en `docs/decisiones/` el enfoque de estilos (por ejemplo Tailwind o CSS propio) con su razón.
-- [ ] La plantilla se ve bien en pantalla de teléfono (360 px de ancho) y de escritorio.
+- [x] `templates/base.html` con navegación, pie de página y mensajes de Django.
+- [x] Se decide y documenta en `docs/decisiones/` el enfoque de estilos (por ejemplo Tailwind o CSS propio) con su razón.
+- [x] La plantilla se ve bien en pantalla de teléfono (360 px de ancho) y de escritorio.
 
 Depende de: [EM-001](#em-001)
+
+Nota: El ADR 0002 se aceptó el 4/11/2026: Tailwind CSS v4 con `django-tailwind-cli` y la identidad de `DESIGN.md`. El HTML sin clases ya toma los estilos base; llevar cada pantalla existente a su anatomía de la skill `disenar-pantalla` queda para la historia que la toque.
 
 #### EM-005
 
@@ -1361,6 +1363,10 @@ Decidido el 3/11/2026 (ya reflejado en las historias):
 - **El acceso al contenido es por tiempo:** vence a los días que define cada curso. Las actualizaciones posteriores serían la membresía (EM-100).
 - **El tutor trabaja en pantallas propias,** no en el admin (EM-035, EM-071, EM-072, EM-090). El contenido sí se captura en el admin.
 
+Decidido el 4/11/2026:
+
+- **Estilos del frontend:** Tailwind CSS v4 con `django-tailwind-cli`, la identidad visual de `DESIGN.md` y las fuentes servidas desde `static/` (ADR 0002, EM-004).
+
 Sigue abierto:
 
 - **Cuántos días dura el acceso,** en Misión Cero y en el curso. Es un dato de cada curso (EM-020).
@@ -1372,7 +1378,6 @@ Sigue abierto:
 - **Comisión de Stripe.** El lienzo usa 3.6 % + MXN 3 por pago antes de IVA (consulta del 28/09/2026). Verificar de nuevo en la página oficial antes de abrir ventas.
 - **Pago sin tarjeta (OXXO).** Supuesto: parte del público no tiene tarjeta. EM-048 queda como Could hasta tener evidencia.
 - **Hosting y correo.** Sin elegir. EM-005 y EM-008 piden documentar costo con fuente y fecha; el gasto total del piloto está topado en MXN 1,500 según el lienzo.
-- **Estilos del frontend.** Sin decidir (EM-004).
 - **Aviso de privacidad, términos y política de devolución.** Los textos son entregables del equipo y deben revisarse contra la ley mexicana vigente. La plataforma solo los muestra y registra aceptación.
 - **Facturación (CFDI).** No está claro si hace falta desde el piloto. Validar con un contador (EM-107).
 - **¿Hace falta la plataforma para el piloto?** Un grupo de ocho personas se podría operar con un enlace de pago, Discord y un formulario. Construir la plataforma tiene valor propio (es parte de la clase y del producto), pero el piloto no debería esperar a que esté completa: EM-053 (inscripción manual) existe para eso.

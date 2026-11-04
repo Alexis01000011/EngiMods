@@ -2,9 +2,9 @@
   Hoja de referencia de la identidad visual de EngiMods.
 
   Es una REFERENCIA para bocetos, maquetas y para comparar pantallas; no es el CSS
-  de producción. Cómo se implementan los estilos en el sitio lo decide el ADR 0002
-  (EM-004). Los valores salen de DESIGN.md: si cambias uno aquí, cámbialo allá y
-  corre revisar_tokens.py.
+  de producción. El sitio usa Tailwind CSS (ADR 0002) con assets/tailwind.css. Los
+  valores salen de DESIGN.md: si cambias uno aquí, cámbialo allá y en
+  assets/tailwind.css, y corre revisar_tokens.py.
 
   Fuentes: en producción se sirven desde static/ (licencia SIL OFL). Aquí se usan
   las instaladas o el respaldo del sistema; las páginas de referencia las piden a
@@ -62,6 +62,7 @@
   --spacing-gutter: 16px;
   --spacing-touch-target: 44px;
   --spacing-reading-max: 42.5rem;
+  --spacing-page-max: 72rem;
   --spacing-sidebar: 18rem;
   --spacing-aside: 16rem;
   --spacing-nav-height: 64px;
