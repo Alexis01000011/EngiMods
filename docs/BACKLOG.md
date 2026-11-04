@@ -175,7 +175,7 @@ Hecho el 3/11/2026:
 | [EM-035](#em-035) | [#68](https://github.com/Alexis01000011/EngiMods/issues/68) | Rol de tutor | E3 | Must | 2 | 2 | EM-003 | Hecho |
 | [EM-036](#em-036) | [#69](https://github.com/Alexis01000011/EngiMods/issues/69) | Términos y condiciones y política de devolución | E3 | Must | 2 | 3 | EM-033 | Pendiente |
 | [EM-040](#em-040) | [#25](https://github.com/Alexis01000011/EngiMods/issues/25) | Landing de EngiMods | E4 | Must | 3 | 4 | EM-004, EM-020 | Pendiente |
-| [EM-041](#em-041) | [#26](https://github.com/Alexis01000011/EngiMods/issues/26) | Página de detalle del curso | E4 | Must | 3 | 5 | EM-020, EM-021 | Pendiente |
+| [EM-041](#em-041) | [#26](https://github.com/Alexis01000011/EngiMods/issues/26) | Página de detalle del curso | E4 | Must | 3 | 5 | EM-020, EM-021 | Hecho |
 | [EM-042](#em-042) | [#27](https://github.com/Alexis01000011/EngiMods/issues/27) | Pago con Stripe Checkout | E4 | Must | 5 | 5 | EM-009, EM-030, EM-053 | Pendiente |
 | [EM-043](#em-043) | [#28](https://github.com/Alexis01000011/EngiMods/issues/28) | Webhook de Stripe que confirma el pago e inscribe | E4 | Must | 5 | 6 | EM-042, EM-053 | Pendiente |
 | [EM-044](#em-044) | [#29](https://github.com/Alexis01000011/EngiMods/issues/29) | Correo de confirmación de compra | E4 | Must | 2 | 7 | EM-043, EM-008 | Pendiente |
@@ -535,7 +535,7 @@ Criterios de aceptación:
 
 - [ ] Una lección puede marcarse como `muestra`.
 - [ ] Las lecciones de muestra se ven sin cuenta y sin pago, en la misma vista de lección de EM-061.
-- [ ] La página del curso enlaza a su lección de muestra.
+- [ ] La página del curso (EM-041) enlaza a su lección de muestra.
 
 Depende de: [EM-021](#em-021), [EM-061](#em-061)
 
@@ -684,20 +684,20 @@ Depende de: [EM-004](#em-004), [EM-020](#em-020)
 
 **Página de detalle del curso**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 5 · Issue: [#26](https://github.com/Alexis01000011/EngiMods/issues/26)
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 5 · Estado: Hecho · Issue: [#26](https://github.com/Alexis01000011/EngiMods/issues/26)
 
 > Como **visitante**, quiero ver el temario, precio, requisitos, duración y política de devolución de un curso antes de pagar, para saber exactamente qué compro.
 
 Criterios de aceptación:
 
-- [ ] Muestra temario (módulos y títulos de lecciones publicadas), precio en MXN, requisitos (computadora, juego, programación básica), duración y cuántos días dura el acceso.
-- [ ] La política de devolución es visible antes del botón de pago. Mientras EM-036 no esté hecha, se usa un texto provisional marcado como tal.
-- [ ] Si el curso es por grupos (EM-050), muestra las fechas del próximo grupo; si el grupo está lleno, no ofrece pagar (y ofrece la lista de espera cuando exista EM-046).
-- [ ] Si existe una lección de muestra (EM-024), la enlaza.
+- [x] Muestra temario (módulos y títulos de lecciones publicadas), precio en MXN, requisitos (computadora, juego, programación básica), duración y cuántos días dura el acceso.
+- [x] La política de devolución es visible antes del botón de pago. Mientras EM-036 no esté hecha, se usa un texto provisional marcado como tal.
 
 Depende de: [EM-020](#em-020), [EM-021](#em-021)
 
 Nota: El lienzo pide "precio, requisitos y devolución claros antes del pago".
+
+Nota: Los criterios de fechas del próximo grupo y grupo lleno se movieron a [EM-050](#em-050), y el del enlace a la lección de muestra a [EM-024](#em-024), porque dependen de modelos que aún no existen. El botón de pago lo pone EM-042 después de la política de devolución.
 
 #### EM-042
 
@@ -852,6 +852,7 @@ Criterios de aceptación:
 - [ ] Un grupo tiene curso, nombre, fecha de inicio, fecha de fin, cupo, tutor(es), enlace de Discord y estado (`inscripción abierta`, `en curso`, `cerrado`).
 - [ ] Solo los cursos de tipo `curso` tienen grupos; las prácticas cortas son autoguiadas.
 - [ ] Solo se puede pagar un grupo en `inscripción abierta`.
+- [ ] La página del curso (EM-041) muestra las fechas del próximo grupo; si el grupo está lleno, no ofrece pagar (y ofrece la lista de espera cuando exista EM-046).
 
 Depende de: [EM-020](#em-020), [EM-003](#em-003)
 
