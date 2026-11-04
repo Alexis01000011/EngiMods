@@ -197,7 +197,7 @@ El 4/11/2026 se agregó la deuda de diseño de las pantallas hechas antes de ace
 | [EM-061](#em-061) | [#40](https://github.com/Alexis01000011/EngiMods/issues/40) | Ver una lección | E6 | Must | 3 | 5 | EM-021, EM-053 | Hecho |
 | [EM-062](#em-062) | [#41](https://github.com/Alexis01000011/EngiMods/issues/41) | Marcar lección como completada | E6 | Must | 2 | 6 | EM-061, EM-060 | Hecho |
 | [EM-063](#em-063) | [#42](https://github.com/Alexis01000011/EngiMods/issues/42) | Guía de laboratorio local por juego | E6 | Should | 3 | 6 | EM-011, EM-060, EM-035 | Pendiente |
-| [EM-064](#em-064) | [#98](https://github.com/Alexis01000011/EngiMods/issues/98) | Pantallas del alumno con la identidad visual | E6 | Must | 5 | 7 | EM-004, EM-041, EM-062, EM-070 | Pendiente |
+| [EM-064](#em-064) | [#98](https://github.com/Alexis01000011/EngiMods/issues/98) | Pantallas del alumno con la identidad visual | E6 | Must | 5 | 7 | EM-004, EM-041, EM-062, EM-070 | Hecho |
 | [EM-070](#em-070) | [#43](https://github.com/Alexis01000011/EngiMods/issues/43) | Enviar una entrega | E7 | Must | 3 | 6 | EM-061 | Hecho |
 | [EM-071](#em-071) | [#44](https://github.com/Alexis01000011/EngiMods/issues/44) | Cola de revisión con alerta de 24 horas | E7 | Must | 3 | 7 | EM-070, EM-035 | Hecho |
 | [EM-072](#em-072) | [#45](https://github.com/Alexis01000011/EngiMods/issues/45) | Revisar con rúbrica | E7 | Must | 5 | 7 | EM-070, EM-035 | Pendiente |
@@ -1016,21 +1016,21 @@ Nota: El lienzo pone "ayudar con la instalación" como actividad clave y señala
 
 **Pantallas del alumno con la identidad visual**
 
-Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 5 · Ola: 7 · Issue: [#98](https://github.com/Alexis01000011/EngiMods/issues/98)
+Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 5 · Ola: 7 · Estado: Hecho · Issue: [#98](https://github.com/Alexis01000011/EngiMods/issues/98)
 
 Criterios de aceptación:
 
-- [ ] `courses/lesson_detail.html` sigue la anatomía "Lección" de la skill `disenar-pantalla` (`referencia/leccion.html`): temario plegable en teléfono y lateral en escritorio con la lección actual marcada con `aria-current="page"` y el avance, ruta, título y `dek`, sello `tested-stamp` (o `badge-untested` si no hay versión probada), contenido en `reading-lg` y cierre con el botón de terminar y la lección anterior.
-- [ ] `courses/course_detail.html` sigue la anatomía "Detalle del curso": etiqueta, título, `badge-tested`, temario en `card`s por módulo y caja de inscripción.
-- [ ] `enrollments/my_courses.html` sigue la anatomía "Mi panel": rejilla de `card`s con `progress-bar`, fecha de acceso, botón principal solo en la primera tarjeta y estado vacío.
-- [ ] `submissions/submit.html` y `submissions/my_submissions.html` siguen las anatomías "Formularios" y "Mi panel (lista)": `label-md`, `input-field`, errores con `input-field-error` y `message-error`, y estados con `badge-*` con palabras.
-- [ ] Las piezas de la anatomía que piden datos que los modelos no tienen ("Al terminar podrás", quién escribió y revisó la lección y cuándo, nombre del tutor) se omiten; no se ponen con texto fijo.
-- [ ] Solo cambia la presentación: vistas, URLs, permisos y reglas de acceso quedan igual y las pruebas existentes pasan sin cambiar lo que verifican. Hay pruebas nuevas para lo que cambie de estructura (por ejemplo, `aria-current` en la lección actual y el sello correcto según la versión probada).
-- [ ] Solo usa clases que salen de `DESIGN.md`, sin `style=` en línea, y se ve bien a 360, 768 y 1280 px sin desplazamiento horizontal de la página.
+- [x] `courses/lesson_detail.html` sigue la anatomía "Lección" de la skill `disenar-pantalla` (`referencia/leccion.html`): temario plegable en teléfono y lateral en escritorio con la lección actual marcada con `aria-current="page"` y el avance, ruta, título, sello `tested-stamp` (o `badge-untested` si no hay versión probada), contenido en `reading-lg` y cierre con el botón de terminar y la lección anterior.
+- [x] `courses/course_detail.html` sigue la anatomía "Detalle del curso": etiqueta, título, `badge-tested`, temario en `card`s por módulo y caja de inscripción.
+- [x] `enrollments/my_courses.html` sigue la anatomía "Mi panel": rejilla de `card`s con `progress-bar`, fecha de acceso, botón principal solo en la primera tarjeta y estado vacío.
+- [x] `submissions/submit.html` y `submissions/my_submissions.html` siguen las anatomías "Formularios" y "Mi panel (lista)": `label-md`, `input-field`, errores con `input-field-error` y `message-error`, y estados con `badge-*` con palabras.
+- [x] Las piezas de la anatomía que piden datos que los modelos no tienen (`dek`, "Al terminar podrás", quién escribió y revisó la lección y cuándo, nombre del tutor) se omiten; no se ponen con texto fijo.
+- [x] Solo cambia la presentación: URLs, permisos y reglas de acceso quedan igual; las vistas solo agregan al contexto lo que la pantalla muestra (temario, avance, prueba más reciente del curso, plazo de revisión). Las pruebas existentes pasan sin cambiar lo que verifican. Hay pruebas nuevas para lo que cambie de estructura (por ejemplo, `aria-current` en la lección actual y el sello correcto según la versión probada).
+- [x] Solo usa clases que salen de `DESIGN.md`, sin `style=` en línea, y se ve bien a 360, 768 y 1280 px sin desplazamiento horizontal de la página.
 
 Depende de: [EM-004](#em-004), [EM-041](#em-041), [EM-062](#em-062), [EM-070](#em-070)
 
-Nota: Deuda de diseño aprobada el 4/11/2026. Las pantallas de EM-041, EM-060, EM-061, EM-062 y EM-070 se hicieron en HTML sin clases mientras el ADR 0002 estuvo en Propuesta; `base.html` les da estilos base, pero no la forma de `DESIGN.md`. La landing (`templates/core/home.html`) es el ejemplo de cómo se escriben las clases. Si el sello, los chips o la tarjeta de curso se repiten en tres o más plantillas, van como `{% include %}` en `templates/components/`. Agregar campos para las piezas que se omiten sería una historia aparte, con migración.
+Nota: Deuda de diseño aprobada el 4/11/2026. Las pantallas de EM-041, EM-060, EM-061, EM-062 y EM-070 se hicieron en HTML sin clases mientras el ADR 0002 estuvo en Propuesta; `base.html` les da estilos base, pero no la forma de `DESIGN.md`. La landing (`templates/core/home.html`) es el ejemplo de cómo se escriben las clases. Si el sello, los chips o la tarjeta de curso se repiten en tres o más plantillas, van como `{% include %}` en `templates/components/`. Agregar campos para las piezas que se omiten sería una historia aparte, con migración. El índice "En esta lección" queda fuera: el Markdown no genera `id` en los títulos y la tercera columna no cabe en `page-max` junto al temario y la columna de lectura; la ficha (prueba, duración, entrega) va como chips bajo el título, como en tableta.
 
 ### E7 Entregas y revisión
 
