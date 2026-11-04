@@ -91,7 +91,7 @@ Todo lo demás de R1 queda fuera, Must incluidas:
 - Archivos: EM-007, EM-075.
 - Resto: EM-013, EM-022, EM-034, EM-063, EM-074, EM-076, EM-090, EM-092.
 
-Sobre EM-090: cada historia ya registra sus modelos en el admin (`AGENTS.md` §6), y el rol de tutor pasó a EM-035.
+Sobre EM-090: cada historia ya registra sus modelos en el admin (`AGENTS.md` sección 6), y el rol de tutor pasó a EM-035.
 
 ### Reparto sugerido
 
