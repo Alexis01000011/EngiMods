@@ -22,16 +22,17 @@ Los precios, cupos y plazos son **hipótesis a validar en un piloto**, no datos.
 - **Antes de tomar trabajo:** consulta el estado y las dependencias en `docs/BACKLOG.md`, las asignaciones en GitHub Issues y los PR abiertos. EM-035 ya tiene la issue #68 y EM-036 la #69; no las dupliques.
 - Para configurar Stripe sigue `docs/stripe.md`. Las llaves de prueba las proporciona quien administra la cuenta del equipo, por un canal privado. EM-009 configura las llaves; el Checkout y el webhook se implementan en EM-042 y EM-043.
 - El código de privacidad ya permite capturar el aviso y consultar su versión vigente. El equipo aún debe aportar el texto y definir al responsable legal; sin una versión vigente, `/privacidad/` responde 404. No cargues un aviso inventado para llenar la pantalla.
-- Los ADR 0002 (estilos), 0003 (hosting) y 0004 (correo) son propuestas. Integrar sus documentos no equivale a aceptar sus recomendaciones. EM-004, EM-005 y EM-008 esperan esas decisiones; EM-020 espera el juego inicial y los días de acceso. No tomes una historia con `decision-pendiente` como si estuviera lista.
+- El ADR 0002 (estilos) está aceptado: Tailwind CSS con la identidad visual de `DESIGN.md` (sección 6). Los ADR 0003 (hosting) y 0004 (correo) son propuestas; integrar sus documentos no equivale a aceptar sus recomendaciones. EM-005 y EM-008 esperan esas decisiones; EM-020 espera el juego inicial y los días de acceso. No tomes una historia con `decision-pendiente` como si estuviera lista.
 - **Hay un recorte vigente para la entrega de semestre** (hasta alrededor del 1 de diciembre de 2026). El objetivo es Misión Cero de punta a punta en staging. Solo se toman historias de ese recorte; ver la sección "Recorte para la entrega de semestre" en `docs/BACKLOG.md`.
 - Decidido: Misión Cero es autoguiada (sin grupo), el acceso al contenido es por tiempo y el tutor trabaja en pantallas propias, no en el admin. Ver `docs/arquitectura.md`.
-- Decisiones abiertas que no debes inventar: hosting, proveedor de correo, enfoque de estilos (Tailwind u otro), juegos con los que arranca el piloto, días de acceso, textos legales. Ver la sección final de `docs/BACKLOG.md`.
+- Decisiones abiertas que no debes inventar: hosting, proveedor de correo, juegos con los que arranca el piloto, días de acceso, textos legales. Ver la sección final de `docs/BACKLOG.md`.
 
 ## 3. Stack y comandos
 
 - Python 3.12+, **Django 5.2 LTS**, gestionado con **uv** (`pyproject.toml` + `uv.lock`).
 - `django-environ` para configuración; SQLite en desarrollo, PostgreSQL en producción vía `DATABASE_URL`.
 - Plantillas de Django renderizadas en el servidor. Sin frontend separado.
+- Estilos con **Tailwind CSS v4** vía `django-tailwind-cli`, sin Node (ADR 0002). El CSS fuente es `assets/tailwind.css`; el compilado no se sube al repositorio.
 - Pruebas con `pytest` + `pytest-django`. Lint y formato con `ruff`.
 - CI en GitHub Actions (`.github/workflows/ci.yml`).
 
@@ -39,7 +40,8 @@ Los precios, cupos y plazos son **hipótesis a validar en un piloto**, no datos.
 uv sync                                   # instala dependencias (crea .venv)
 cp .env.example .env                      # solo la primera vez
 uv run python manage.py migrate
-uv run python manage.py runserver
+uv run python manage.py tailwind runserver   # servidor con estilos (compila el CSS al guardar)
+uv run python manage.py tailwind build       # o compila una vez y usa runserver
 
 uv run pytest                             # pruebas
 uv run ruff check . --fix                 # lint
@@ -56,12 +58,13 @@ Para agregar una dependencia: `uv add <paquete>` (o `uv add --dev <paquete>`). J
 ```
 AGENTS.md            este archivo (fuente de verdad para agentes)
 CLAUDE.md            importa este archivo para Claude Code
-DESIGN.md            identidad visual (propuesta, ADR 0002)
+DESIGN.md            identidad visual (ADR 0002)
 README.md            arranque rápido para personas
 config/              settings.py, urls.py, wsgi/asgi
 core/                app base (inicio, health, utilidades compartidas)
 templates/           plantillas globales (base.html) y por app (templates/<app>/)
-static/              archivos estáticos globales
+assets/              CSS fuente de Tailwind (tailwind.css), con los valores de DESIGN.md
+static/              archivos estáticos globales (fuentes; el CSS compilado se genera aquí)
 docs/
   BACKLOG.md         product backlog completo: historias, criterios, prioridad, dependencias
   arquitectura.md    mapa de apps, modelos previstos y reglas del modelo de datos
@@ -99,7 +102,7 @@ Cada historia tiene un ID `EM-###`, una sección en `docs/BACKLOG.md` y una GitH
 - **Datos de negocio como datos:** precios, cupos, plazos, enlaces de Discord y textos legales se capturan en la base de datos o en settings, nunca como constantes en código.
 - **Vistas:** vistas basadas en funciones o clases, lo que sea más simple. Protege con `login_required` y verifica permisos (inscrito, tutor del grupo) en cada vista que muestre contenido de pago.
 - **URLs** públicas en español (`/juegos/`, `/cursos/`, `/mi-panel/`), con `app_name` y `reverse()`.
-- **Plantillas** en `templates/<app>/` extendiendo `base.html`.
+- **Plantillas** en `templates/<app>/` extendiendo `base.html`. Siguen `DESIGN.md` con las clases de Tailwind que salen de sus valores (`bg-primary`, `font-serif text-title-lg`, `rounded-lg`, `p-md`); usa la skill `disenar-pantalla`. Sin `style=` en línea ni colores, tamaños o fuentes que no estén en `DESIGN.md`.
 - **Pruebas** en `<app>/tests/test_*.py`. Cada criterio de aceptación que sea comportamiento debe tener al menos una prueba. Prueba permisos (quién no debe ver algo).
 - **Migraciones:** solo en las apps que toca tu historia. Nunca edites una migración que ya está en `main`. Si al actualizar tu rama hay conflicto de migraciones, borra tus migraciones no mezcladas y vuelve a generarlas.
 - **Seguridad:** el contenido Markdown se sanitiza al renderizar; webhooks verifican firma; nunca registres llaves ni datos de pago en logs.
@@ -113,7 +116,7 @@ Una historia está terminada cuando:
 - [ ] Está marcada como hecha en `docs/BACKLOG.md`, en el mismo PR.
 - [ ] Tiene pruebas para el comportamiento nuevo, incluidos los casos de permisos.
 - [ ] Pasa la CI: `ruff check`, `ruff format --check`, `makemigrations --check` y `pytest`.
-- [ ] Las pantallas nuevas están en español y se ven bien en teléfono.
+- [ ] Las pantallas nuevas están en español, siguen `DESIGN.md` y se ven bien en teléfono.
 - [ ] No hay secretos, llaves ni datos personales reales en el código, fixtures o commits.
 - [ ] Si agregó variables de entorno, están en `.env.example` con comentario.
 - [ ] Si tomó una decisión de arquitectura o de proveedor, hay un ADR en `docs/decisiones/`.
@@ -137,7 +140,7 @@ Una historia está terminada cuando:
 | Por qué existe el producto y qué debe validar | `docs/negocio.md` |
 | Sprints, etiquetas, Definition of Ready | `docs/flujo-de-trabajo.md` |
 | Por qué se decidió algo técnico | `docs/decisiones/` |
-| Cómo se ve una pantalla | `DESIGN.md` (propuesta) y la skill `disenar-pantalla` |
+| Cómo se ve una pantalla | `DESIGN.md` y la skill `disenar-pantalla` |
 
 ## 10. Skills y hooks
 
@@ -153,7 +156,7 @@ El repo trae skills y hooks que funcionan igual en Claude Code y en Codex.
 | `proponer-adr` | Preparar una decisión técnica o de proveedor para que el equipo la tome |
 | `disenar-pantalla` | Diseñar, maquetar o revisar una pantalla con la identidad visual de `DESIGN.md` |
 
-**Sobre `disenar-pantalla`.** Si tu copia no tiene `.claude/skills/disenar-pantalla/`, actualízala con `git pull` de `main`; no hay que instalar nada más. Mientras `DESIGN.md` siga en Propuesta (ADR 0002), úsala para bocetos y propuestas: en las plantillas solo pide HTML semántico, sin estilos de producción.
+**Sobre `disenar-pantalla`.** Si tu copia no tiene `.claude/skills/disenar-pantalla/`, actualízala con `git pull` de `main`; no hay que instalar nada más. Úsala antes de crear o cambiar cualquier plantilla.
 
 Cada skill vive en `.claude/skills/<nombre>/` (archivos normales, para que funcione en Windows). `.agents/skills/<nombre>` es un enlace simbólico para Codex. Para agregar una, crea su carpeta y el enlace: `ln -s ../../.claude/skills/<nombre> .agents/skills/<nombre>`. La CI revisa que el enlace exista.
 

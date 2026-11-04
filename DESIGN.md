@@ -124,6 +124,7 @@ spacing:
   gutter: 16px
   touch-target: 44px
   reading-max: 42.5rem
+  page-max: 72rem
   sidebar: 18rem
   aside: 16rem
   nav-height: 64px
@@ -326,7 +327,7 @@ components:
 
 # DESIGN.md de EngiMods
 
-Estado: **propuesta**, ligada al [ADR 0002](docs/decisiones/0002-estilos-frontend.md). Mientras el equipo no la acepte, no es obligatoria para EM-004 ni para ninguna pantalla.
+Estado: **aceptada** el 2026-11-04 con el [ADR 0002](docs/decisiones/0002-estilos-frontend.md). Toda pantalla la sigue. Los estilos se implementan con Tailwind CSS: los valores de arriba están copiados en el bloque `@theme` de `assets/tailwind.css`, y cada token es una clase (`bg-primary`, `font-serif text-title-lg`, `rounded-lg`, `p-md`). Si cambias un valor aquí, cámbialo también allá y en `referencia/engimods.css`.
 
 Este archivo sigue el formato [DESIGN.md](https://github.com/google-labs-code/design.md) de Google Labs (versión `alpha`): los valores exactos están arriba, en YAML, y el texto explica cuándo y por qué se usan. Los títulos de sección van en inglés porque así los reconoce el formato; el contenido va en español. Si un valor y el texto no coinciden, manda el valor y se corrige el texto.
 
@@ -394,7 +395,7 @@ Pensado primero para 360 px; el escritorio se arma con tres zonas.
 - **Escritorio (1024 px o más) dentro de un curso:** temario a la izquierda ({spacing.sidebar}, fondo {colors.surface-sunken}), lección al centro (máximo {spacing.reading-max}, unos 680 px) y, a la derecha, el índice "En esta lección" con la ficha de la lección ({spacing.aside}).
 - **Entre 640 y 1023 px:** la columna derecha baja debajo del encabezado de la lección y el temario se pliega arriba.
 - **Teléfono:** una sola columna con margen de {spacing.gutter}. El temario es un panel plegable arriba de la lección, la ficha se vuelve chips debajo del título y los botones de avance ocupan todo el ancho.
-- **Fuera de un curso** (catálogo, detalle del curso, Mi panel, formularios): contenido centrado hasta 72 rem, sin temario.
+- **Fuera de un curso** (catálogo, detalle del curso, Mi panel, formularios): contenido centrado hasta {spacing.page-max}, sin temario.
 - La barra de navegación mide {spacing.nav-height}: el nombre EngiMods a la izquierda, el avance del curso al centro cuando estás dentro de uno y los enlaces a la derecha.
 - Escala de espacio de 4 en 4: {spacing.xs}, {spacing.sm}, {spacing.md}, {spacing.lg}, {spacing.xl} y {spacing.xxl}. Entre secciones de una lección, 48 px; alrededor de la lección, {spacing.xxl} arriba y 96 px abajo en escritorio.
 - Todo lo que se toca mide al menos {spacing.touch-target}.

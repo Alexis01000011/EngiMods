@@ -1,7 +1,7 @@
 # 0002. Estilos del frontend
 
-- Estado: Propuesta
-- Fecha: 2026-11-03 (actualizada el 2026-11-04)
+- Estado: Aceptada
+- Fecha: 2026-11-03 (actualizada y aceptada el 2026-11-04)
 - Historia: EM-004
 
 ## Contexto
@@ -70,22 +70,23 @@ no una medición de horas del equipo.
 
 ## Decisión
 
-**Recomendación (propuesta por Alexis el 2026-11-04): Tailwind CSS v4 con
-`django-tailwind-cli` y un `DESIGN.md` en la raíz del repositorio.**
+**Aceptada por el equipo el 2026-11-04: Tailwind CSS v4 con `django-tailwind-cli`,
+la identidad visual de `DESIGN.md` y las fuentes servidas desde `static/`.** Alexis
+la propuso ese mismo día; el equipo confirmó el enfoque, la identidad y las fuentes.
 
-- `DESIGN.md` describe la identidad visual. Desde el 2026-11-04 es la de un buen
-  libro de texto, cálido y bien hecho, con la estructura de una documentación
-  técnica: papel crema, lectura con serifa, un solo acento terracota para lo que
-  se toca, el sello "Probado" junto a cada lección y quién la escribió y revisó.
-  Sale de una exploración de tres direcciones (libro de texto, documentación y
-  ruta de aprendizaje) que Alexis combinó. Igual que la versión anterior (fondo
-  claro, índigo y fuentes del sistema), pasa el linter oficial
-  (`@google/design.md` 0.4.0) sin errores ni advertencias (2026-11-04).
-- La nueva identidad usa tres familias con licencia SIL OFL (Source Serif 4,
-  Plus Jakarta Sans y JetBrains Mono). La propuesta es servirlas desde
-  `static/` y no desde Google Fonts, para no mandar datos de los visitantes a
-  terceros (ver el aviso de privacidad, EM-033). Esto agrega archivos de fuente
-  al sitio; hay que medir su peso en EM-004.
+- `DESIGN.md` describe la identidad visual: la de un buen libro de texto, cálido y
+  bien hecho, con la estructura de una documentación técnica: papel crema, lectura
+  con serifa, un solo acento terracota para lo que se toca, el sello "Probado" junto
+  a cada lección y quién la escribió y revisó. Sale de una exploración de tres
+  direcciones (libro de texto, documentación y ruta de aprendizaje) que Alexis
+  combinó. Pasa el linter oficial (`@google/design.md` 0.4.0) sin errores ni
+  advertencias.
+- Las tres familias tienen licencia SIL OFL (Source Serif 4, Plus Jakarta Sans y
+  JetBrains Mono) y se sirven desde `static/fonts/`, no desde Google Fonts, para no
+  mandar datos de los visitantes a terceros (ver el aviso de privacidad, EM-033).
+  Son las versiones variables con el subconjunto latino de Fontsource (5.3.x):
+  cuatro archivos `woff2` (serifa normal y cursiva, sans y mono) que suman 170 KB.
+  El navegador solo descarga los que usa la página.
 - La skill `disenar-pantalla` (`.claude/skills/disenar-pantalla/`) explica cómo
   aplicar `DESIGN.md` a cualquier pantalla y trae una lección y una galería de
   componentes de referencia.
@@ -95,45 +96,43 @@ no una medición de horas del equipo.
 - `django-tailwind-cli` evita Node, funciona en Windows y en Arch, y deja la
   compilación dentro de `manage.py`.
 
-Esta recomendación reemplaza la anterior, que era CSS propio pequeño. CSS propio
-sigue siendo la opción con menos piezas, y `DESIGN.md` serviría igual con él.
-Lo que cambia la balanza es que hay varias personas y agentes creando pantallas
-en paralelo: con utilidades, el sistema queda en las clases y no en reglas CSS
-que se pueden duplicar o contradecir.
+CSS propio era la opción con menos piezas, y `DESIGN.md` serviría igual con él. Lo
+que cambió la balanza es que hay varias personas y agentes creando pantallas en
+paralelo: con utilidades, el sistema queda en las clases y no en reglas CSS que se
+pueden duplicar o contradecir.
 
-**Falta la decisión del equipo.** Este ADR no autoriza implementar un enfoque ni
-marca EM-004 como hecha. No sustituye la revisión visual de cada pantalla.
+Esta decisión no sustituye la revisión visual de cada pantalla.
 
 ## Consecuencias
 
-Si se acepta, EM-004:
+EM-004 lo implementa así:
 
-- Agregará `django-tailwind-cli` con `uv add`, con `TAILWIND_CLI_VERSION` fijada
-  en una versión concreta y no en `latest`.
-- Pondrá el CSS fuente fuera de `static/` y su bloque `@theme` con los valores de
-  `DESIGN.md`, e ignorará en git la carpeta del binario descargado
-  (`.django_tailwind_cli/`).
-- Implementará navegación, pie, mensajes y estilos siguiendo `DESIGN.md`, y
-  verificará 360 px y escritorio, teclado, contraste y estados de error.
-- Agregará a `AGENTS.md` que las pantallas siguen `DESIGN.md`, para que Claude y
-  Codex lo lean antes de tocar plantillas.
+- Agrega `django-tailwind-cli` con `uv add` y fija `TAILWIND_CLI_VERSION` en
+  `4.3.4`, no en `latest`. La suma SHA-256 del binario para Linux x64 coincidió con
+  la que publica Tailwind en esa versión (revisado el 2026-11-04).
+- El CSS fuente vive en `assets/tailwind.css`, fuera de `static/`. Su bloque
+  `@theme` copia los valores de `DESIGN.md` y borra los de Tailwind (colores,
+  fuentes, tamaños de texto, esquinas y sombras), así que solo existen las clases
+  del sistema. `core/tests/test_design_tokens.py` falla si el tema y `DESIGN.md` no
+  coinciden. Git ignora `.django_tailwind_cli/` y el CSS compilado.
+- `base.html` trae navegación, pie y mensajes, y el CSS da estilo al HTML semántico
+  sin clases, para que las pantallas que ya existían sigan legibles. Se revisó a
+  360 y 1280 px, con teclado.
+- `AGENTS.md` dice que las pantallas siguen `DESIGN.md`.
 
 También cambia el trabajo diario:
 
 - Para ver los estilos en desarrollo hay que correr
   `uv run python manage.py tailwind runserver` en lugar de `runserver`, o
-  `tailwind build` una vez. La primera vez descarga el binario, así que
-  requiere internet. Hay que documentarlo en el README.
+  `tailwind build` una vez. La primera vez descarga el binario (unos 100 MB), así
+  que requiere internet y puede tardar minutos. Está en el README.
 - El CSS compilado no se sube al repositorio, para que los PR en paralelo no
   choquen en un archivo generado. El despliegue (ADR 0003) deberá correr
   `tailwind build` antes de `collectstatic`.
 - Las pruebas y la CI no necesitan el CSS compilado.
 - El binario se descarga de GitHub sin verificación de sumas de comprobación,
-  según la documentación del paquete. Fijar la versión limita ese riesgo.
+  según la documentación del paquete. Fijar la versión limita ese riesgo; al
+  subirla, conviene comparar la suma con la del release.
 - `DESIGN.md` está en `alpha` y su formato puede cambiar. En el peor caso queda
-  como documentación de diseño. Mantener el bloque `@theme` igual que
-  `DESIGN.md` es responsabilidad de quien cambie cualquiera de los dos; el CLI
-  de Google puede regenerarlo.
-
-Si el equipo prefiere CSS propio, `DESIGN.md` se conserva y sus valores pasan a
-variables CSS en un archivo de `static/`, sin compilación.
+  como documentación de diseño. Quien cambie un valor de `DESIGN.md` o del bloque
+  `@theme` cambia el otro en el mismo PR; la prueba lo recuerda.
