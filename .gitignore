@@ -12,3 +12,7 @@ htmlcov/
 .DS_Store
 .idea/
 .vscode/
+
+# Tailwind (ADR 0002): binario descargado y CSS compilado
+.django_tailwind_cli/
+static/css/tailwind.css

@@ -22,7 +22,7 @@ Closes #<número de issue>
 
 - [ ] Pruebas para el comportamiento nuevo, incluidos permisos
 - [ ] CI en verde
-- [ ] Textos en español y vista en teléfono revisada
+- [ ] Textos en español, pantallas según `DESIGN.md` y vista en teléfono revisada
 - [ ] Sin secretos ni datos personales reales
 - [ ] `.env.example` actualizado si hay variables nuevas
 - [ ] ADR si hubo decisión técnica o de proveedor

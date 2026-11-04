@@ -1,18 +1,58 @@
-{% load i18n %}<!doctype html>
+{% load i18n tailwind_cli %}<!doctype html>
 <html lang="es-MX">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}EngiMods{% endblock %}</title>
+  {% tailwind_css %}
 </head>
-<body>
-  <main>
+<body class="flex min-h-dvh flex-col">
+  <a href="#contenido" class="sr-only focus:not-sr-only focus:absolute focus:left-md focus:top-md focus:z-10 focus:button-secondary">{% translate "Saltar al contenido" %}</a>
+
+  <header class="border-b border-divider">
+    <nav aria-label="{% translate 'Principal' %}" class="mx-auto flex min-h-nav-height max-w-page-max items-center justify-between gap-md px-gutter md:px-lg">
+      <a href="{% url 'core:home' %}" class="font-serif text-wordmark text-ink no-underline hover:text-ink">EngiMods</a>
+      <ul class="hidden items-center gap-xs md:flex">
+        {% include "nav_links.html" %}
+      </ul>
+      <details class="relative md:hidden">
+        <summary class="button-quiet w-touch-target list-none px-0 [&::-webkit-details-marker]:hidden">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+          <span class="sr-only">{% translate "Menú" %}</span>
+        </summary>
+        <ul class="absolute right-0 top-full z-10 mt-sm flex w-56 flex-col rounded-lg border border-divider bg-surface p-sm">
+          {% include "nav_links.html" %}
+        </ul>
+      </details>
+    </nav>
+  </header>
+
+  {% if messages %}
+    <section aria-label="{% translate 'Mensajes' %}" class="mx-auto mt-lg flex w-full max-w-page-max flex-col gap-sm px-gutter md:px-lg">
+      {% for message in messages %}
+        <p class="m-0 rounded-lg p-md {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}bg-tested-container text-tested{% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}bg-revalidate-container text-revalidate{% elif message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}bg-error-container text-error{% else %}bg-primary-container text-on-primary-container{% endif %}">{{ message }}</p>
+      {% endfor %}
+    </section>
+  {% endif %}
+
+  <main id="contenido" tabindex="-1" class="mx-auto w-full max-w-page-max flex-1 px-gutter pb-xxl pt-xl focus:outline-none md:px-lg">
     {% block content %}{% endblock %}
   </main>
-  <footer>
-    {% if has_terms %}
-      <p><a href="{% url 'core:terms' %}">{% translate "Términos y condiciones y política de devolución" %}</a></p>
-    {% endif %}
+
+  <footer class="border-t border-divider">
+    <div class="mx-auto flex max-w-page-max flex-col gap-xs px-gutter py-lg text-body-sm text-ink-muted md:flex-row md:items-center md:justify-between md:px-lg">
+      <p class="m-0">EngiMods</p>
+      {% if has_terms or has_privacy %}
+        <ul class="flex flex-wrap gap-x-md">
+          {% if has_terms %}
+            <li><a href="{% url 'core:terms' %}" class="inline-flex min-h-touch-target items-center">{% translate "Términos y condiciones y política de devolución" %}</a></li>
+          {% endif %}
+          {% if has_privacy %}
+            <li><a href="{% url 'core:privacy' %}" class="inline-flex min-h-touch-target items-center">{% translate "Aviso de privacidad" %}</a></li>
+          {% endif %}
+        </ul>
+      {% endif %}
+    </div>
   </footer>
 </body>
 </html>

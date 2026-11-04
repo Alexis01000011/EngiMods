@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_tailwind_cli",
     # Apps del proyecto (ver docs/arquitectura.md para qué es dueña cada una)
     "core",
     "accounts",
@@ -91,6 +92,12 @@ USE_TZ = True
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+# Estilos con Tailwind CSS (ADR 0002). `manage.py tailwind build` compila assets/tailwind.css
+# en static/css/tailwind.css, que no se sube al repositorio. La versión del CLI queda fija para
+# que todos compilen igual; el binario se descarga la primera vez en .django_tailwind_cli/.
+TAILWIND_CLI_VERSION = "4.3.4"
+TAILWIND_CLI_SRC_CSS = "assets/tailwind.css"
 
 MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"
