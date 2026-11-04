@@ -2,8 +2,6 @@
 
 Instrucciones para cualquier agente de código (Claude Code, Codex u otro) y para cualquier persona que llegue a este repositorio. Léelo completo antes de tocar código. Con este archivo debes poder empezar a trabajar sin más contexto; los detalles largos están en `docs/`.
 
-> **Pendiente urgente (3/11/2026).** A la issue de EM-020 (#15) le falta la etiqueta `decision-pendiente`. Siguen abiertos el juego de Misión Cero y cuántos días dura el acceso, y EM-020 está en la ruta crítica del recorte de semestre. Quien lea esto primero pone la etiqueta (`gh issue edit 15 --add-label decision-pendiente`) y borra este aviso en un PR `Docs:`. Si eres un agente, díselo a tu humano al inicio de la sesión y ofrécete a hacerlo.
-
 ## 1. Qué es EngiMods
 
 Academia en línea, en español, para aprender a **crear mods de videojuegos aplicando ingeniería de software**: arquitectura, Git, pruebas, calidad, documentación, publicación y mantenimiento. No es un curso para copiar código: el alumno construye su propio mod y un tutor revisa lo que entrega.
@@ -18,9 +16,12 @@ Los precios, cupos y plazos son **hipótesis a validar en un piloto**, no datos.
 
 ## 2. Estado actual (noviembre 2026)
 
-- Hechas: EM-001 (base Django) y EM-002 (CI).
-- Solo existe la app `core` (inicio provisional y `/health/`). No hay modelos ni migraciones propias todavía.
-- **Lo siguiente es EM-003 (modelo de usuario personalizado).** Hasta que esté en `main`, no crees modelos con relación al usuario ni migraciones en otras apps. Si corriste `migrate` antes de EM-003, borra tu `db.sqlite3` local después de que se mezcle.
+- Hechas en `main`: EM-001 (base Django), EM-002 (CI) y EM-003 (modelo de usuario personalizado).
+- Existen `core` (inicio provisional y `/health/`) y `accounts` (usuario por correo y admin). La primera migración propia es `accounts.0001_initial`; `AUTH_USER_MODEL` ya apunta a `accounts.User`.
+- **EM-003 ya no bloquea otras apps.** Si tu base local se creó antes de esa historia y solo contiene datos de desarrollo prescindibles, recréala con el esquema nuevo. No borres bases compartidas ni datos que necesites conservar.
+- **Antes de tomar trabajo:** consulta el estado y las dependencias en `docs/BACKLOG.md`, las asignaciones en GitHub Issues y los PR abiertos. EM-035 ya tiene la issue #68 y EM-036 la #69; no las dupliques.
+- Para configurar Stripe sigue la documentación del PR de EM-009 cuando esté integrado. Las llaves de prueba las proporciona quien administra la cuenta del equipo, por un canal privado.
+- **Decisiones que requieren al equipo:** estilos (EM-004), hosting (EM-005), correo y dominio (EM-008), juego inicial y días de acceso (EM-020), y textos legales (EM-033/EM-036). Las decisiones técnicas se preparan con `proponer-adr`; no se eligen al implementar otra historia.
 - **Hay un recorte vigente para la entrega de semestre** (hasta alrededor del 1 de diciembre de 2026). El objetivo es Misión Cero de punta a punta en staging. Solo se toman historias de ese recorte; ver la sección "Recorte para la entrega de semestre" en `docs/BACKLOG.md`.
 - Decidido: Misión Cero es autoguiada (sin grupo), el acceso al contenido es por tiempo y el tutor trabaja en pantallas propias, no en el admin. Ver `docs/arquitectura.md`.
 - Decisiones abiertas que no debes inventar: hosting, proveedor de correo, enfoque de estilos (Tailwind u otro), juegos con los que arranca el piloto, días de acceso, textos legales. Ver la sección final de `docs/BACKLOG.md`.
