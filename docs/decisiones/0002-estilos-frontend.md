@@ -73,10 +73,23 @@ no una medición de horas del equipo.
 **Recomendación (propuesta por Alexis el 2026-11-04): Tailwind CSS v4 con
 `django-tailwind-cli` y un `DESIGN.md` en la raíz del repositorio.**
 
-- `DESIGN.md` describe la identidad visual como la documentación oficial de un
-  kit de desarrollo de mods: fondo claro, un solo acento índigo, fuentes del
-  sistema y el sello "Probado con" siempre visible. Pasa el linter oficial
-  (`@google/design.md` 0.4.0) sin errores ni advertencias.
+- `DESIGN.md` describe la identidad visual. Desde el 2026-11-04 es la de un buen
+  libro de texto, cálido y bien hecho, con la estructura de una documentación
+  técnica: papel crema, lectura con serifa, un solo acento terracota para lo que
+  se toca, el sello "Probado" junto a cada lección y quién la escribió y revisó.
+  Sale de una exploración de tres direcciones (libro de texto, documentación y
+  ruta de aprendizaje) que Alexis combinó. La versión anterior (fondo claro,
+  índigo y fuentes del sistema) pasaba el linter oficial (`@google/design.md`
+  0.4.0); esta versión **aún no se ha pasado por el linter** y hay que correrlo
+  antes de aceptarla.
+- La nueva identidad usa tres familias con licencia SIL OFL (Source Serif 4,
+  Plus Jakarta Sans y JetBrains Mono). La propuesta es servirlas desde
+  `static/` y no desde Google Fonts, para no mandar datos de los visitantes a
+  terceros (ver el aviso de privacidad, EM-033). Esto agrega archivos de fuente
+  al sitio; hay que medir su peso en EM-004.
+- La skill `disenar-pantalla` (`.claude/skills/disenar-pantalla/`) explica cómo
+  aplicar `DESIGN.md` a cualquier pantalla y trae una lección y una galería de
+  componentes de referencia.
 - Tailwind convierte esos valores en clases que se usan directamente en las
   plantillas. Así, cada pantalla aplica el mismo sistema sin que alguien tenga
   que mantener a mano una hoja de estilos compartida.
