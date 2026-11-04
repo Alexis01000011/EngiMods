@@ -44,6 +44,7 @@ def parse(text):
             "prio": meta["Prioridad"],
             "pts": int(meta["Puntos"]) if "Puntos" in meta else None,
             "done": meta.get("Estado") == "Hecho",
+            "wave": int(meta["Ola"]) if meta.get("Ola", "").isdigit() else 0,
             "issue": meta["Issue"],
             "deps": re.findall(r"EM-\d+", deps.group(1)) if deps else [],
         }
@@ -51,7 +52,11 @@ def parse(text):
 
 
 def compute_waves(stories):
-    """Ola = 0 si está hecha; si no, 1 + la ola más alta de sus dependencias."""
+    """Ola = 1 + la ola más alta de sus dependencias.
+
+    Una historia hecha conserva la ola que tenía, para que cerrar una historia no
+    renumere las demás ni rompa la tabla del recorte.
+    """
     waves = {}
 
     def wave(sid, stack=()):
@@ -63,7 +68,7 @@ def compute_waves(stories):
         if s["prio"] == "Later":
             waves[sid] = None
         elif s["done"]:
-            waves[sid] = 0
+            waves[sid] = s["wave"]
         else:
             waves[sid] = 1 + max((wave(d, stack + (sid,)) for d in s["deps"]), default=0)
         return waves[sid]
@@ -207,13 +212,14 @@ def check_recorte(text):
     repeated = sorted({s for s in listed if listed.count(s) > 1})
     if repeated:
         errors.append(f"Recorte: historias en más de un lugar: {', '.join(repeated)}")
+    done = {s for s, v in stories.items() if v["done"]}
     pending = {s for s, v in stories.items() if v["prio"] != "Later" and not v["done"]}
     if missing := sorted(pending - set(listed)):
         errors.append(f"Recorte: historias de R1 que no aparecen: {', '.join(missing)}")
-    if extra := sorted(set(listed) - pending):
-        errors.append(f"Recorte: historias que no son de R1 pendientes: {', '.join(extra)}")
+    if extra := sorted(set(listed) - pending - done):
+        errors.append(f"Recorte: historias que no son de R1: {', '.join(extra)}")
 
-    allowed = {s for s, v in stories.items() if v["done"]}
+    allowed = set(done)
     for name in ("A", "B", "C"):
         allowed |= set(blocks[name])
         for sid in blocks[name]:
