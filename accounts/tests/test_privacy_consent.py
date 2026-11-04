@@ -95,3 +95,28 @@ def test_un_alumno_no_ve_los_consentimientos_en_el_admin(client, alumno):
     client.force_login(alumno)
     response = client.get(reverse("admin:accounts_privacyconsent_changelist"))
     assert response.status_code == 302
+
+
+@pytest.mark.parametrize("operation", ["change", "delete"])
+def test_el_admin_no_puede_modificar_ni_borrar_un_consentimiento(
+    admin_client, aviso, alumno, operation
+):
+    consent = PrivacyConsent.objects.create(user=alumno, legal_text=aviso)
+    response = admin_client.post(
+        reverse(f"admin:accounts_privacyconsent_{operation}", args=[consent.pk]),
+        {"post": "yes", "email": "otro@x.com"},
+    )
+    assert response.status_code == 403
+    consent.refresh_from_db()
+    assert consent.user == alumno
+    assert consent.email == ""
+
+
+def test_el_admin_no_puede_borrar_consentimientos_con_acciones(admin_client, aviso, alumno):
+    consent = PrivacyConsent.objects.create(user=alumno, legal_text=aviso)
+    response = admin_client.post(
+        reverse("admin:accounts_privacyconsent_changelist"),
+        {"action": "delete_selected", "_selected_action": [consent.pk], "post": "yes"},
+    )
+    assert response.status_code == 200
+    assert PrivacyConsent.objects.filter(pk=consent.pk).exists()
