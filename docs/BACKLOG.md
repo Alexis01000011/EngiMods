@@ -163,7 +163,7 @@ Hecho el 3/11/2026:
 | [EM-013](#em-013) | [#13](https://github.com/Alexis01000011/EngiMods/issues/13) | Filtrar cursos por juego | E1 | Should | 2 | 5 | EM-012 | Pendiente |
 | [EM-014](#em-014) | [#14](https://github.com/Alexis01000011/EngiMods/issues/14) | Marcar contenido pendiente de revalidar al salir una nueva versión | E1 | Should | 5 | 5 | EM-021, EM-035 | Pendiente |
 | [EM-020](#em-020) | [#15](https://github.com/Alexis01000011/EngiMods/issues/15) | Modelo de curso | E2 | Must | 3 | 3 | EM-010 | Hecho |
-| [EM-021](#em-021) | [#16](https://github.com/Alexis01000011/EngiMods/issues/16) | Módulos y lecciones con versión probada | E2 | Must | 5 | 4 | EM-020, EM-011 | Pendiente |
+| [EM-021](#em-021) | [#16](https://github.com/Alexis01000011/EngiMods/issues/16) | Módulos y lecciones con versión probada | E2 | Must | 5 | 4 | EM-020, EM-011 | Hecho |
 | [EM-022](#em-022) | [#17](https://github.com/Alexis01000011/EngiMods/issues/17) | Vista previa de lecciones para tutores | E2 | Should | 3 | 6 | EM-021, EM-061 | Pendiente |
 | [EM-023](#em-023) | [#18](https://github.com/Alexis01000011/EngiMods/issues/18) | Recursos descargables y plantillas por lección | E2 | Must | 2 | 5 | EM-021, EM-053 | Pendiente |
 | [EM-024](#em-024) | [#19](https://github.com/Alexis01000011/EngiMods/issues/19) | Lección de muestra gratuita | E2 | Must | 2 | 6 | EM-021, EM-061 | Pendiente |
@@ -478,16 +478,16 @@ Nota: Precios del lienzo (MXN 199 Misión Cero, MXN 1,990 curso) son propuestas 
 
 **Módulos y lecciones con versión probada**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 5 · Ola: 4 · Issue: [#16](https://github.com/Alexis01000011/EngiMods/issues/16)
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 5 · Ola: 4 · Estado: Hecho · Issue: [#16](https://github.com/Alexis01000011/EngiMods/issues/16)
 
 > Como **tutor**, quiero organizar un curso en módulos (uno por semana) y lecciones ordenadas, indicando con qué versión del juego y entorno se probó cada lección, para que el alumno siga una ruta clara y confiable.
 
 Criterios de aceptación:
 
-- [ ] Un curso tiene módulos ordenados; un módulo tiene lecciones ordenadas.
-- [ ] La lección tiene título, contenido en Markdown, duración estimada en minutos, orden y estado (`borrador` o `publicada`). Las lecciones en borrador no se muestran a alumnos.
-- [ ] La lección registra `probado con`: versión del juego, entorno de modding y fecha de prueba.
-- [ ] El Markdown se convierte a HTML de forma segura (sin permitir scripts).
+- [x] Un curso tiene módulos ordenados; un módulo tiene lecciones ordenadas.
+- [x] La lección tiene título, contenido en Markdown, duración estimada en minutos, orden y estado (`borrador` o `publicada`). Las lecciones en borrador no se muestran a alumnos.
+- [x] La lección registra `probado con`: versión del juego, entorno de modding y fecha de prueba.
+- [x] El Markdown se convierte a HTML de forma segura (sin permitir scripts).
 
 Depende de: [EM-020](#em-020), [EM-011](#em-011)
 
