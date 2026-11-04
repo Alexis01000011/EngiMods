@@ -290,6 +290,9 @@ components:
     backgroundColor: "{colors.code-background}"
     textColor: "{colors.code-muted}"
     typography: "{typography.label-sm}"
+  code-block-divider:
+    backgroundColor: "{colors.code-divider}"
+    height: 1px
   code-inline:
     backgroundColor: "{colors.surface-chip}"
     textColor: "{colors.ink}"

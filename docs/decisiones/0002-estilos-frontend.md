@@ -78,10 +78,9 @@ no una medición de horas del equipo.
   técnica: papel crema, lectura con serifa, un solo acento terracota para lo que
   se toca, el sello "Probado" junto a cada lección y quién la escribió y revisó.
   Sale de una exploración de tres direcciones (libro de texto, documentación y
-  ruta de aprendizaje) que Alexis combinó. La versión anterior (fondo claro,
-  índigo y fuentes del sistema) pasaba el linter oficial (`@google/design.md`
-  0.4.0); esta versión **aún no se ha pasado por el linter** y hay que correrlo
-  antes de aceptarla.
+  ruta de aprendizaje) que Alexis combinó. Igual que la versión anterior (fondo
+  claro, índigo y fuentes del sistema), pasa el linter oficial
+  (`@google/design.md` 0.4.0) sin errores ni advertencias (2026-11-04).
 - La nueva identidad usa tres familias con licencia SIL OFL (Source Serif 4,
   Plus Jakarta Sans y JetBrains Mono). La propuesta es servirlas desde
   `static/` y no desde Google Fonts, para no mandar datos de los visitantes a
