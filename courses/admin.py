@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
-from .models import Course, Lesson, LessonTest, Module
+from .models import Course, Exercise, Lesson, LessonTest, Module
 
 
 class ModuleInline(admin.TabularInline):
@@ -31,10 +31,16 @@ class LessonTestInline(admin.TabularInline):
     extra = 1
 
 
+class ExerciseInline(admin.StackedInline):
+    model = Exercise
+    fields = ("title", "instructions")
+    extra = 0
+
+
 @admin.register(Lesson)
 class LessonAdmin(admin.ModelAdmin):
     list_display = ("title", "module", "order", "status", "estimated_minutes")
     list_filter = ("status", "module__course")
     search_fields = ("title", "module__title", "module__course__title")
     list_select_related = ("module__course",)
-    inlines = (LessonTestInline,)
+    inlines = (LessonTestInline, ExerciseInline)

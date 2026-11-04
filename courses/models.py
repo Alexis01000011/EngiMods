@@ -212,3 +212,28 @@ class LessonTest(models.Model):
             errors["modding_environment"] = _("Elige un entorno de modding del juego del curso.")
         if errors:
             raise ValidationError(errors)
+
+
+class Exercise(models.Model):
+    """Ejercicio entregable de una lección. El alumno lo entrega con el enlace a su repositorio."""
+
+    lesson = models.OneToOneField(
+        Lesson, on_delete=models.CASCADE, related_name="exercise", verbose_name=_("lección")
+    )
+    title = models.CharField(_("título"), max_length=200)
+    instructions = models.TextField(
+        _("instrucciones"),
+        help_text=_("En Markdown. Al mostrarse se quitan los scripts y el HTML inseguro."),
+    )
+
+    class Meta:
+        ordering = ("lesson__module__course__title", "lesson__module__order", "lesson__order")
+        verbose_name = _("ejercicio")
+        verbose_name_plural = _("ejercicios")
+
+    def __str__(self):
+        return self.title
+
+    @property
+    def instructions_html(self):
+        return render_markdown(self.instructions)

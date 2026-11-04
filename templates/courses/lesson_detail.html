@@ -15,6 +15,18 @@
 
   {{ lesson.content_html }}
 
+  {% if exercise %}
+    <section>
+      <h2>{% blocktranslate with title=exercise.title %}Ejercicio: {{ title }}{% endblocktranslate %}</h2>
+      {% if submission %}
+        <p>{% blocktranslate with status=submission.get_status_display %}Tu entrega: {{ status }}.{% endblocktranslate %}
+          <a href="{% url 'submissions:submit' lesson.pk %}">{% translate "Ver mi entrega" %}</a></p>
+      {% elif enrollment %}
+        <p><a href="{% url 'submissions:submit' lesson.pk %}">{% translate "Ver instrucciones y enviar mi entrega" %}</a></p>
+      {% endif %}
+    </section>
+  {% endif %}
+
   {% if enrollment %}
     <form method="post" action="{% url 'enrollments:toggle_lesson' lesson.pk %}">
       {% csrf_token %}

@@ -11,7 +11,7 @@ from accounts.permissions import has_tutor_access
 from catalog.models import Game
 from enrollments.models import Enrollment, LessonProgress
 
-from .models import Course, Lesson, Module
+from .models import Course, Exercise, Lesson, Module
 
 
 def course_detail(request, slug):
@@ -66,6 +66,10 @@ def lesson_detail(request, slug, pk):
         .order_by("-tested_on", "-pk")
         .first()
     )
+    exercise = Exercise.objects.filter(lesson=lesson).first()
+    submission = None
+    if exercise and enrollment:
+        submission = exercise.submissions.filter(enrollment=enrollment).first()
     return render(
         request,
         "courses/lesson_detail.html",
@@ -75,6 +79,8 @@ def lesson_detail(request, slug, pk):
             "test": test,
             "enrollment": enrollment,
             "completed": completed,
+            "exercise": exercise,
+            "submission": submission,
             "previous_lesson": lessons[position - 1] if position > 0 else None,
             "next_lesson": lessons[position + 1] if position < len(lessons) - 1 else None,
         },

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Mis entregas" %} · EngiMods{% endblock %}
+
+{% block content %}
+  <p><a href="{% url 'enrollments:my_courses' %}">{% translate "Mi panel" %}</a></p>
+  <h1>{% translate "Mis entregas" %}</h1>
+  {% if submissions %}
+    <ul>
+      {% for submission in submissions %}
+        <li>
+          <a href="{% url 'submissions:submit' submission.exercise.lesson.pk %}">{{ submission.exercise.title }}</a>
+          · {{ submission.exercise.lesson.module.course.title }}
+          <br>
+          {% translate "Estado" %}: <strong>{{ submission.get_status_display }}</strong>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>{% translate "Todavía no has enviado ninguna entrega." %}</p>
+  {% endif %}
+{% endblock %}
