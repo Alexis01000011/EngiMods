@@ -18,6 +18,8 @@ class LegalText(models.Model):
 
     class Kind(models.TextChoices):
         PRIVACY = "privacy", _("Aviso de privacidad")
+        # Un solo texto cubre términos y condiciones y política de devolución.
+        TERMS = "terms", _("Términos y condiciones y política de devolución")
 
     kind = models.CharField(_("tipo"), max_length=20, choices=Kind.choices)
     version = models.CharField(_("versión"), max_length=20, help_text=_("Por ejemplo, 1.0."))

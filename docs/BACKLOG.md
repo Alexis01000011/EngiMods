@@ -173,7 +173,7 @@ Hecho el 3/11/2026:
 | [EM-033](#em-033) | [#23](https://github.com/Alexis01000011/EngiMods/issues/23) | Aviso de privacidad y consentimiento | E3 | Must | 2 | 2 | EM-003 | Hecho |
 | [EM-034](#em-034) | [#24](https://github.com/Alexis01000011/EngiMods/issues/24) | Solicitar baja de la cuenta y de los datos | E3 | Could | 3 | 5 | EM-032 | Pendiente |
 | [EM-035](#em-035) | [#68](https://github.com/Alexis01000011/EngiMods/issues/68) | Rol de tutor | E3 | Must | 2 | 2 | EM-003 | Hecho |
-| [EM-036](#em-036) | [#69](https://github.com/Alexis01000011/EngiMods/issues/69) | Términos y condiciones y política de devolución | E3 | Must | 2 | 3 | EM-033 | Pendiente |
+| [EM-036](#em-036) | [#69](https://github.com/Alexis01000011/EngiMods/issues/69) | Términos y condiciones y política de devolución | E3 | Must | 2 | 3 | EM-033 | Hecho |
 | [EM-040](#em-040) | [#25](https://github.com/Alexis01000011/EngiMods/issues/25) | Landing de EngiMods | E4 | Must | 3 | 4 | EM-004, EM-020 | Pendiente |
 | [EM-041](#em-041) | [#26](https://github.com/Alexis01000011/EngiMods/issues/26) | Página de detalle del curso | E4 | Must | 3 | 5 | EM-020, EM-021 | Hecho |
 | [EM-042](#em-042) | [#27](https://github.com/Alexis01000011/EngiMods/issues/27) | Pago con Stripe Checkout | E4 | Must | 5 | 5 | EM-009, EM-030, EM-053 | Pendiente |
@@ -645,14 +645,14 @@ Nota: El tutor trabaja en pantallas propias, no en el admin (decisión del 3/11/
 
 **Términos y condiciones y política de devolución**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 3 · Issue: [#69](https://github.com/Alexis01000011/EngiMods/issues/69)
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 3 · Estado: Hecho · Issue: [#69](https://github.com/Alexis01000011/EngiMods/issues/69)
 
 > Como **visitante**, quiero leer los términos de compra y la política de devolución antes de pagar, para saber a qué me comprometo y cómo pedir un reembolso.
 
 Criterios de aceptación:
 
-- [ ] Página pública `/terminos/` con términos y política de devolución, usando el mismo texto legal versionado de EM-033.
-- [ ] La página del curso (EM-041) y el pie de página la enlazan.
+- [x] Página pública `/terminos/` con términos y política de devolución, usando el mismo texto legal versionado de EM-033.
+- [x] La página del curso (EM-041) y el pie de página la enlazan.
 
 Depende de: [EM-033](#em-033)
 

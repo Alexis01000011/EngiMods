@@ -45,7 +45,11 @@
 
   <section id="politica-de-devolucion">
     <h2>{% translate "Política de devolución" %}</h2>
-    <p><strong>{% translate "Texto provisional." %}</strong> {% translate "La política de devolución todavía está pendiente de publicarse." %}</p>
+    {% if has_terms %}
+      <p><a href="{% url 'core:terms' %}">{% translate "Lee los términos y condiciones y la política de devolución antes de pagar." %}</a></p>
+    {% else %}
+      <p><strong>{% translate "Texto provisional." %}</strong> {% translate "La política de devolución todavía está pendiente de publicarse." %}</p>
+    {% endif %}
   </section>
   {# EM-042 pondrá aquí el botón de pago, después de la política de devolución. #}
 {% endblock %}
