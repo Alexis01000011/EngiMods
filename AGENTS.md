@@ -43,7 +43,7 @@ uv run ruff format .                      # formato
 uv run python manage.py makemigrations --check --dry-run   # que no falten migraciones
 ```
 
-Antes de abrir un PR deben pasar los cuatro comandos de la CI: `ruff check .`, `ruff format --check .`, `makemigrations --check --dry-run` y `pytest`.
+Antes de abrir un PR deben pasar los cuatro comandos de la CI: `ruff check .`, `ruff format --check .`, `makemigrations --check --dry-run` y `pytest`. Si tocaste `docs/BACKLOG.md`, también `uv run python scripts/backlog.py`.
 
 Para agregar una dependencia: `uv add <paquete>` (o `uv add --dev <paquete>`). Justifícala en el PR. No edites `uv.lock` a mano.
 
@@ -63,6 +63,11 @@ docs/
   negocio.md         contexto de negocio, oferta e hipótesis
   flujo-de-trabajo.md  sprints, etiquetas, Definition of Ready, refinamiento
   decisiones/        registros de decisiones (ADR) numerados
+scripts/             backlog.py (chequeo del backlog) y agent_hook.py (hooks de agente)
+.githooks/           git hooks del repo (sección 10)
+.claude/             skills y hooks de Claude Code
+.codex/              hooks de Codex
+.agents/skills/      enlaces a las skills para Codex
 .github/             CI, plantillas de issues y de PR
 ```
 
@@ -77,7 +82,7 @@ Cada historia tiene un ID `EM-###`, una sección en `docs/BACKLOG.md` y una GitH
 3. **Asígnala** a la persona para la que trabajas (`gh issue edit <número> --add-assignee @me`) antes de escribir código. Una persona (y su agente) trabaja en una historia a la vez.
 4. **Rama** desde `main` actualizado: `em-0XX-descripcion-corta` (por ejemplo `em-043-webhook-stripe`).
 5. **Implementa solo esa historia**, cumpliendo todos sus criterios de aceptación. Si descubres trabajo extra, no lo metas: propón una historia nueva en el PR.
-6. **Commits** en español, en imperativo y con el ID: `EM-043: verifica la firma del webhook`.
+6. **Commits** en español, en imperativo y con el ID: `EM-043: verifica la firma del webhook`. Lo que no es de una historia empieza con `Docs:` (documentación) o `Herramientas:` (CI, hooks, skills, scripts).
 7. **PR** con título `EM-0XX: <título de la historia>`, `Closes #<número>` en la descripción y la plantilla de PR llena (criterios marcados uno por uno). Otra persona del equipo revisa y aprueba. Se mezcla con *squash*.
 8. Si el alcance o los criterios cambian, actualiza la sección de la historia en `docs/BACKLOG.md` **en el mismo PR**.
 
@@ -126,3 +131,41 @@ Una historia está terminada cuando:
 | Por qué existe el producto y qué debe validar | `docs/negocio.md` |
 | Sprints, etiquetas, Definition of Ready | `docs/flujo-de-trabajo.md` |
 | Por qué se decidió algo técnico | `docs/decisiones/` |
+
+## 10. Skills y hooks
+
+El repo trae skills y hooks que funcionan igual en Claude Code y en Codex.
+
+**Skills.** En Claude Code se invocan con `/nombre` y en Codex con `$nombre`. También se activan solas cuando la petición encaja.
+
+| Skill | Para qué |
+|---|---|
+| `tomar-historia` | Elegir, reclamar, implementar y entregar una historia (sección 5) |
+| `revisar-pr` | Revisar un PR contra sus criterios, la Definition of Done y las reglas |
+| `cambiar-backlog` | Cambiar `docs/BACKLOG.md` sin desincronizar índice, olas, recorte e issues |
+| `proponer-adr` | Preparar una decisión técnica o de proveedor para que el equipo la tome |
+
+Cada skill vive en `.claude/skills/<nombre>/` (archivos normales, para que funcione en Windows). `.agents/skills/<nombre>` es un enlace simbólico para Codex. Para agregar una, crea su carpeta y el enlace: `ln -s ../../.claude/skills/<nombre> .agents/skills/<nombre>`. La CI revisa que el enlace exista.
+
+**Hooks**, en dos capas:
+
+- **Git hooks** (`.githooks/`), para personas y agentes:
+  - Bloquean el commit y el push a `main`.
+  - Bloquean subir `.env`, `db.sqlite3`, `media/` o llaves de Stripe.
+  - Corren ruff antes del commit y el chequeo de migraciones antes del push. Las pruebas solo corren en la CI.
+  - Exigen el formato del mensaje de commit (sección 5).
+- **Hooks de agente** (`scripts/agent_hook.py`, conectados en `.claude/settings.json` y `.codex/hooks.json`):
+  - Bloquean `--no-verify`, desactivar los git hooks, `git push --force` (sí permiten `--force-with-lease`), el push a `main` y `gh pr merge`.
+  - Bloquean editar `uv.lock`, `.env` y migraciones que ya están en `main`.
+  - Al iniciar sesión le dan al agente la rama, su historia y avisos de configuración.
+
+Si un hook te bloquea, corrige la causa; no lo rodees. Si crees que el hook está mal, díselo a tu humano.
+
+**Activación, una vez por persona y por copia del repo.** Las skills llegan solas con `git pull`; los hooks no:
+
+1. `git config core.hooksPath .githooks`
+2. Tener `uv` instalado. Lo usan los git hooks y, en Claude Code, los hooks de agente.
+3. En Codex: abrir `/hooks` y aprobar los hooks del proyecto. Codex vuelve a pedir la aprobación cada vez que cambian.
+4. En Claude Code no hace falta nada más: los hooks cargan al confiar en la carpeta del proyecto. En Windows necesita Git Bash, que viene con Git for Windows.
+
+**Recordatorio para agentes:** al iniciar sesión debes recibir un bloque que empieza con `[EngiMods] Contexto de la sesión`. Si no llegó, o trae un AVISO, los hooks de esta copia no están completos. Díselo a tu humano una sola vez, al principio, con los pasos de arriba, y recuérdale avisar a quien del equipo no lo haya hecho. Luego sigue con lo que te pidió.

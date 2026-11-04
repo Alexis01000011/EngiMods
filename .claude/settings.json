@@ -1,0 +1,37 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run --no-project -q python \"$CLAUDE_PROJECT_DIR/scripts/agent_hook.py\" session-start",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run --no-project -q python \"$CLAUDE_PROJECT_DIR/scripts/agent_hook.py\" pre-bash",
+            "timeout": 30
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write|MultiEdit|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run --no-project -q python \"$CLAUDE_PROJECT_DIR/scripts/agent_hook.py\" pre-edit",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}

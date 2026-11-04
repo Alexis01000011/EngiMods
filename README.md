@@ -12,6 +12,7 @@ Requisitos: Python 3.12+ y [uv](https://docs.astral.sh/uv/).
 git clone https://github.com/Alexis01000011/EngiMods.git
 cd EngiMods
 uv sync
+git config core.hooksPath .githooks       # activa los git hooks del repo
 cp .env.example .env
 uv run python manage.py migrate
 uv run python manage.py runserver
@@ -21,7 +22,7 @@ Abre http://localhost:8000. Pruebas: `uv run pytest`. Lint y formato: `uv run ru
 
 ## Cómo colaborar
 
-1. Lee [`AGENTS.md`](AGENTS.md): reglas del proyecto para personas y agentes (Claude Code, Codex).
+1. Lee [`AGENTS.md`](AGENTS.md): reglas del proyecto para personas y agentes (Claude Code, Codex). Si usas Codex, abre `/hooks` y aprueba los hooks del proyecto; las skills y hooks están en la sección 10.
 2. Elige una historia en [`docs/BACKLOG.md`](docs/BACKLOG.md) y asígnate su issue.
 3. Rama `em-0XX-descripcion`, PR con `Closes #<issue>`, revisión de otra persona.
 
