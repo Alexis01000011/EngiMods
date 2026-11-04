@@ -52,6 +52,11 @@ class User(AbstractUser):
         max_length=150,
         help_text=_("Así te verán tus tutores y compañeros."),
     )
+    is_tutor = models.BooleanField(
+        _("es tutor"),
+        default=False,
+        help_text=_("Puede acceder a las pantallas de tutoría sin entrar al administrador."),
+    )
 
     USERNAME_FIELD = "email"
     EMAIL_FIELD = "email"

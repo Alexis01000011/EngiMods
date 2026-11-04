@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ game.name }} · EngiMods{% endblock %}
+
+{% block content %}
+  <p><a href="{% url 'catalog:game_list' %}">{% translate "Todos los juegos" %}</a></p>
+  <h1>{{ game.name }}</h1>
+  {% if game.logo_url %}
+    <img src="{{ game.logo_url }}" alt="" width="96" height="96">
+  {% endif %}
+  {{ game.description|linebreaks }}
+  <p><a href="{{ game.official_url }}">{% translate "Sitio oficial" %}</a></p>
+{% endblock %}

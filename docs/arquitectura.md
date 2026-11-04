@@ -4,7 +4,7 @@ Monolito Django con plantillas del lado del servidor. Sin API separada ni fronte
 
 ## Mapa de apps
 
-Cada app es dueña de sus modelos y sus migraciones. Una historia normalmente toca una sola app; si toca otra, el PR lo dice explícitamente. Las apps se crean cuando llega la primera historia que las necesita (solo `core` existe hoy).
+Cada app es dueña de sus modelos y sus migraciones. Una historia normalmente toca una sola app; si toca otra, el PR lo dice explícitamente. Las apps se crean cuando llega la primera historia que las necesita (en `main` existen `core` y `accounts`; consulta el backlog y los PR para el trabajo posterior).
 
 | App | Es dueña de | Modelos previstos | Historias |
 |---|---|---|---|
@@ -37,6 +37,7 @@ LegalText 1──* PrivacyConsent ──> User, o correo si es lista de espera
 ## Reglas del modelo de datos
 
 - **Multi-juego desde el modelo.** Nada se escribe pensando en un juego en particular. Si algo depende del juego (versiones, entorno, guía de laboratorio), se modela como dato del catálogo.
+- **Versiones y compatibilidad:** `GameVersion` identifica una versión por juego y número libre (no se exige SemVer). Solo puede haber una marcada como actual por juego; para cambiarla se desmarca la anterior antes de marcar la nueva. `ModdingEnvironment` identifica un entorno por juego, nombre y versión, y declara varias `compatible_versions` del mismo juego. El admin valida esa coherencia y la asociación con `add()`/`set()` también la comprueba. Al editar el juego de una versión o entorno con compatibilidades, `full_clean()` impide dejar enlaces de otro juego; las importaciones deben validar los modelos y usar el gestor de la relación, no escribir directamente en su tabla intermedia.
 - **Dinero:** enteros en centavos de MXN (`price_cents`, `amount_cents`). Nunca `float`.
 - **Precios, cupos y textos de negocio son datos**, no constantes en código. Están en hipótesis y van a cambiar.
 - **Fechas:** `USE_TZ = True`, zona `America/Mexico_City`. Guardar siempre fechas con zona.
@@ -51,6 +52,13 @@ LegalText 1──* PrivacyConsent ──> User, o correo si es lista de espera
 - **Administrador:** usa el admin de Django, incluido para capturar contenido (cursos, módulos, lecciones).
 - **Tutor:** usuario marcado como tutor (EM-035). Revisa entregas, publica avisos, registra clínicas y revalida lecciones en pantallas propias, fuera del admin, protegidas con lo que ofrece `accounts`. Si además captura contenido, necesita acceso al admin con permisos sobre `courses`.
 - **Alumno:** ve el contenido de un curso solo con acceso vigente (EM-053), salvo las lecciones de muestra.
+
+Las pantallas de tutoría usan `accounts.permissions.tutor_required` en funciones o
+`TutorRequiredMixin` antes de `View` en clases. Ambos aplican `has_tutor_access`:
+solo cuentas activas con `is_tutor` o `is_superuser`; el resto recibe 403, incluidos
+los visitantes sin sesión. `is_staff` por sí solo no concede el rol de tutor y
+`is_tutor` no concede acceso al admin. El administrador cambia el rol desde el
+formulario del usuario y puede filtrar la lista por tutores.
 
 ## URLs públicas
 

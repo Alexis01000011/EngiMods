@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     # Apps del proyecto (ver docs/arquitectura.md para qué es dueña cada una)
     "core",
     "accounts",
+    "catalog",
 ]
 
 # Modelo de usuario propio (EM-003): el correo es el identificador.
@@ -95,3 +96,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Correo: en desarrollo se imprime en consola.
 EMAIL_BACKEND = env("EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend")
 DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default="EngiMods <no-reply@localhost>")
+
+# Stripe (EM-009). En desarrollo y staging solo llaves de prueba (sk_test_, pk_test_).
+# Vacías por defecto para que el proyecto arranque sin cuenta de Stripe.
+# Django oculta en las páginas de error los settings cuyo nombre contiene KEY o SECRET.
+STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY", default="")
+STRIPE_PUBLISHABLE_KEY = env("STRIPE_PUBLISHABLE_KEY", default="")
+STRIPE_WEBHOOK_SECRET = env("STRIPE_WEBHOOK_SECRET", default="")

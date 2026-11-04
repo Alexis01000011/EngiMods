@@ -91,7 +91,7 @@ Todo lo demás de R1 queda fuera, Must incluidas:
 - Archivos: EM-007, EM-075.
 - Resto: EM-013, EM-022, EM-034, EM-063, EM-074, EM-076, EM-090, EM-092.
 
-Sobre EM-090: cada historia ya registra sus modelos en el admin (`AGENTS.md` §6), y el rol de tutor pasó a EM-035.
+Sobre EM-090: cada historia ya registra sus modelos en el admin (`AGENTS.md` sección 6), y el rol de tutor pasó a EM-035.
 
 ### Reparto sugerido
 
@@ -156,9 +156,9 @@ Hecho el 3/11/2026:
 | [EM-006](#em-006) | [#6](https://github.com/Alexis01000011/EngiMods/issues/6) | Datos de ejemplo para desarrollo | E0 | Should | 2 | 5 | EM-003, EM-011, EM-021 | Pendiente |
 | [EM-007](#em-007) | [#7](https://github.com/Alexis01000011/EngiMods/issues/7) | Almacenamiento de archivos subidos | E0 | Could | 3 | 2 | EM-005 | Pendiente |
 | [EM-008](#em-008) | [#8](https://github.com/Alexis01000011/EngiMods/issues/8) | Correo transaccional en producción | E0 | Must | 3 | 2 | EM-005 | Pendiente |
-| [EM-009](#em-009) | [#9](https://github.com/Alexis01000011/EngiMods/issues/9) | Cuenta de Stripe en modo prueba conectada | E0 | Must | 2 | 1 | EM-001 | Pendiente |
-| [EM-010](#em-010) | [#10](https://github.com/Alexis01000011/EngiMods/issues/10) | Registrar juegos en el catálogo | E1 | Must | 2 | 2 | EM-003 | Pendiente |
-| [EM-011](#em-011) | [#11](https://github.com/Alexis01000011/EngiMods/issues/11) | Registrar versiones del juego y entornos de modding | E1 | Must | 3 | 3 | EM-010 | Pendiente |
+| [EM-009](#em-009) | [#9](https://github.com/Alexis01000011/EngiMods/issues/9) | Cuenta de Stripe en modo prueba conectada | E0 | Must | 2 | 1 | EM-001 | Hecho |
+| [EM-010](#em-010) | [#10](https://github.com/Alexis01000011/EngiMods/issues/10) | Registrar juegos en el catálogo | E1 | Must | 2 | 2 | EM-003 | Hecho |
+| [EM-011](#em-011) | [#11](https://github.com/Alexis01000011/EngiMods/issues/11) | Registrar versiones del juego y entornos de modding | E1 | Must | 3 | 3 | EM-010 | Hecho |
 | [EM-012](#em-012) | [#12](https://github.com/Alexis01000011/EngiMods/issues/12) | Página pública de cada juego | E1 | Must | 3 | 4 | EM-011, EM-020 | Pendiente |
 | [EM-013](#em-013) | [#13](https://github.com/Alexis01000011/EngiMods/issues/13) | Filtrar cursos por juego | E1 | Should | 2 | 5 | EM-012 | Pendiente |
 | [EM-014](#em-014) | [#14](https://github.com/Alexis01000011/EngiMods/issues/14) | Marcar contenido pendiente de revalidar al salir una nueva versión | E1 | Should | 5 | 5 | EM-021, EM-035 | Pendiente |
@@ -172,7 +172,7 @@ Hecho el 3/11/2026:
 | [EM-032](#em-032) | [#22](https://github.com/Alexis01000011/EngiMods/issues/22) | Perfil del alumno | E3 | Should | 2 | 4 | EM-030, EM-010 | Pendiente |
 | [EM-033](#em-033) | [#23](https://github.com/Alexis01000011/EngiMods/issues/23) | Aviso de privacidad y consentimiento | E3 | Must | 2 | 2 | EM-003 | Hecho |
 | [EM-034](#em-034) | [#24](https://github.com/Alexis01000011/EngiMods/issues/24) | Solicitar baja de la cuenta y de los datos | E3 | Could | 3 | 5 | EM-032 | Pendiente |
-| [EM-035](#em-035) | [#68](https://github.com/Alexis01000011/EngiMods/issues/68) | Rol de tutor | E3 | Must | 2 | 2 | EM-003 | Pendiente |
+| [EM-035](#em-035) | [#68](https://github.com/Alexis01000011/EngiMods/issues/68) | Rol de tutor | E3 | Must | 2 | 2 | EM-003 | Hecho |
 | [EM-036](#em-036) | [#69](https://github.com/Alexis01000011/EngiMods/issues/69) | Términos y condiciones y política de devolución | E3 | Must | 2 | 3 | EM-033 | Pendiente |
 | [EM-040](#em-040) | [#25](https://github.com/Alexis01000011/EngiMods/issues/25) | Landing de EngiMods | E4 | Must | 3 | 4 | EM-004, EM-020 | Pendiente |
 | [EM-041](#em-041) | [#26](https://github.com/Alexis01000011/EngiMods/issues/26) | Página de detalle del curso | E4 | Must | 3 | 5 | EM-020, EM-021 | Pendiente |
@@ -349,13 +349,13 @@ Depende de: [EM-005](#em-005)
 
 **Cuenta de Stripe en modo prueba conectada**
 
-Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 1 · Issue: [#9](https://github.com/Alexis01000011/EngiMods/issues/9)
+Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 1 · Estado: Hecho · Issue: [#9](https://github.com/Alexis01000011/EngiMods/issues/9)
 
 Criterios de aceptación:
 
-- [ ] Llaves de prueba de Stripe leídas de variables de entorno (`STRIPE_SECRET_KEY`, `STRIPE_PUBLISHABLE_KEY`, `STRIPE_WEBHOOK_SECRET`).
-- [ ] Instrucciones en `docs/stripe.md` para probar webhooks en local con Stripe CLI.
-- [ ] Ninguna llave real en el repositorio ni en los logs.
+- [x] Llaves de prueba de Stripe leídas de variables de entorno (`STRIPE_SECRET_KEY`, `STRIPE_PUBLISHABLE_KEY`, `STRIPE_WEBHOOK_SECRET`).
+- [x] Instrucciones en `docs/stripe.md` para probar webhooks en local con Stripe CLI.
+- [x] Ninguna llave real en el repositorio ni en los logs.
 
 Depende de: [EM-001](#em-001)
 
@@ -367,16 +367,16 @@ Juegos soportados, sus versiones y entornos de modding. Es lo que permite decir 
 
 **Registrar juegos en el catálogo**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 2 · Issue: [#10](https://github.com/Alexis01000011/EngiMods/issues/10)
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 2 · Estado: Hecho · Issue: [#10](https://github.com/Alexis01000011/EngiMods/issues/10)
 
 > Como **administrador**, quiero registrar los juegos para los que EngiMods ofrece contenido, para poder ofrecer cursos de varios juegos desde una sola plataforma.
 
 Criterios de aceptación:
 
-- [ ] Desde el admin puedo crear un juego con nombre, slug, descripción corta, sitio oficial y logo opcional.
-- [ ] Mientras no exista EM-007, el logo se guarda como URL y no como archivo subido (en el hosting, los archivos subidos se pierden al volver a desplegar).
-- [ ] Un juego tiene estado `activo` u `oculto`; los ocultos no aparecen en páginas públicas.
-- [ ] El slug es único y se usa en las URLs públicas.
+- [x] Desde el admin puedo crear un juego con nombre, slug, descripción corta, sitio oficial y logo opcional.
+- [x] Mientras no exista EM-007, el logo se guarda como URL y no como archivo subido (en el hosting, los archivos subidos se pierden al volver a desplegar).
+- [x] Un juego tiene estado `activo` u `oculto`; los ocultos no aparecen en páginas públicas.
+- [x] El slug es único y se usa en las URLs públicas.
 
 Depende de: [EM-003](#em-003)
 
@@ -384,16 +384,16 @@ Depende de: [EM-003](#em-003)
 
 **Registrar versiones del juego y entornos de modding**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 3 · Issue: [#11](https://github.com/Alexis01000011/EngiMods/issues/11)
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 3 · Estado: Hecho · Issue: [#11](https://github.com/Alexis01000011/EngiMods/issues/11)
 
 > Como **administrador**, quiero registrar las versiones de cada juego y los entornos de modding que usamos (loader, SDK o herramienta, con su versión), para que cada lección pueda declarar con qué combinación exacta fue probada.
 
 Criterios de aceptación:
 
-- [ ] Una versión del juego tiene número de versión, fecha de publicación y una marca de `versión actual` (solo una por juego).
-- [ ] Un entorno de modding pertenece a un juego y tiene nombre y versión (por ejemplo un loader, un SDK oficial o una herramienta de la comunidad).
-- [ ] Se puede indicar con qué versiones del juego es compatible cada entorno.
-- [ ] Todo se administra desde el admin con filtros por juego.
+- [x] Una versión del juego tiene número de versión, fecha de publicación y una marca de `versión actual` (solo una por juego).
+- [x] Un entorno de modding pertenece a un juego y tiene nombre y versión (por ejemplo un loader, un SDK oficial o una herramienta de la comunidad).
+- [x] Se puede indicar con qué versiones del juego es compatible cada entorno.
+- [x] Todo se administra desde el admin con filtros por juego.
 
 Depende de: [EM-010](#em-010)
 
@@ -629,13 +629,13 @@ Depende de: [EM-032](#em-032)
 
 **Rol de tutor**
 
-Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 2 · Issue: [#68](https://github.com/Alexis01000011/EngiMods/issues/68)
+Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 2 · Estado: Hecho · Issue: [#68](https://github.com/Alexis01000011/EngiMods/issues/68)
 
 Criterios de aceptación:
 
-- [ ] Desde el admin se puede marcar o desmarcar a un usuario como tutor.
-- [ ] `accounts` ofrece una forma única de proteger las pantallas del tutor (por ejemplo un decorador y un mixin); las historias de tutor la usan en lugar de revisar permisos cada una a su manera.
-- [ ] Quien no es tutor recibe 403 en esas pantallas. El superusuario siempre pasa.
+- [x] Desde el admin se puede marcar o desmarcar a un usuario como tutor.
+- [x] `accounts` ofrece una forma única de proteger las pantallas del tutor (por ejemplo un decorador y un mixin); las historias de tutor la usan en lugar de revisar permisos cada una a su manera.
+- [x] Quien no es tutor recibe 403 en esas pantallas. El superusuario siempre pasa.
 
 Depende de: [EM-003](#em-003)
 
