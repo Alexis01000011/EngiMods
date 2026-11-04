@@ -4,33 +4,53 @@
 {% block title %}{% translate "Entregas por revisar" %} · EngiMods{% endblock %}
 
 {% block content %}
-  <h1>{% translate "Entregas por revisar" %}</h1>
-  <p>{% blocktranslate count hours=deadline_hours %}Plazo de revisión: {{ hours }} hora.{% plural %}Plazo de revisión: {{ hours }} horas.{% endblocktranslate %}
-    {% translate "De la más vieja a la más nueva." %}</p>
+  <header class="flex flex-col gap-xs">
+    <h1 class="m-0 text-title-md">{% translate "Entregas por revisar" %}</h1>
+    <p class="m-0 text-body-sm text-ink-muted">{% blocktranslate count hours=deadline_hours %}Plazo de revisión: {{ hours }} hora.{% plural %}Plazo de revisión: {{ hours }} horas.{% endblocktranslate %}
+      {% translate "De la más vieja a la más nueva." %}</p>
+  </header>
 
   {% if submissions %}
-    <ol>
+    <ol class="m-0 mt-lg flex list-none flex-col gap-md p-0">
       {% for submission in submissions %}
-        <li{% if submission.overdue %} style="color: #b00020"{% endif %}>
-          {% if submission.overdue %}<strong>{% translate "Fuera de plazo" %}</strong> · {% endif %}
-          <a href="{% url 'reviews:review' submission.pk %}"{% if submission.overdue %} style="color: inherit"{% endif %}>{{ submission.exercise.title }}</a>
-          · {{ submission.enrollment.user }} · {{ submission.enrollment.course.title }}
-          <br>
-          {% blocktranslate with date=submission.last_submitted_at|date:"j \d\e F, H:i" ago=submission.last_submitted_at|timesince %}Enviada el {{ date }} (hace {{ ago }}).{% endblocktranslate %}
-          <br>
-          {% if submission.attempt.reviewer %}
-            {% blocktranslate with tutor=submission.attempt.reviewer status=submission.get_status_display %}{{ status }} · la tiene {{ tutor }}.{% endblocktranslate %}
-          {% else %}
-            {% translate "Sin tutor asignado." %}
-            <form method="post" action="{% url 'reviews:start_review' submission.pk %}">
-              {% csrf_token %}
-              <button type="submit">{% translate "Abrir revisión" %}</button>
-            </form>
-          {% endif %}
+        <li class="m-0 flex flex-col gap-sm rounded-lg border border-divider bg-surface p-lg md:flex-row md:items-center md:justify-between md:gap-lg">
+          <div class="flex min-w-0 flex-col gap-sm">
+            <p class="m-0 text-label-sm text-ink-muted [overflow-wrap:anywhere]">{{ submission.enrollment.user }} · {{ submission.enrollment.course.title }}</p>
+            <h2 class="m-0 text-headline-sm"><a href="{% url 'reviews:review' submission.pk %}" class="text-ink no-underline hover:underline">{{ submission.exercise.title }}</a></h2>
+            <ul class="m-0 flex list-none flex-wrap items-center gap-sm p-0">
+              <li class="m-0">{% include "components/submission_status.html" %}</li>
+              <li class="m-0">
+                {% if submission.overdue %}
+                  <span class="inline-flex min-h-8 items-center gap-1.5 rounded-full bg-error-container px-3 text-label-sm text-error">
+                    <svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4M8 11v.5"/></svg>
+                    {% translate "Fuera de plazo" %}
+                  </span>
+                {% else %}
+                  <span class="inline-flex min-h-8 items-center rounded-full bg-surface-chip px-3 text-label-sm text-ink-soft">{% blocktranslate with left=submission.due_at|timeuntil %}Quedan {{ left }}{% endblocktranslate %}</span>
+                {% endif %}
+              </li>
+            </ul>
+            <p class="m-0 text-body-sm text-ink-muted">{% blocktranslate with date=submission.last_submitted_at|date:"j \d\e F, H:i" ago=submission.last_submitted_at|timesince %}Enviada el {{ date }} (hace {{ ago }}).{% endblocktranslate %}</p>
+            {% if submission.attempt.reviewer %}
+              <p class="m-0 text-body-sm text-ink-soft [overflow-wrap:anywhere]">{% blocktranslate with tutor=submission.attempt.reviewer status=submission.get_status_display %}{{ status }} · la tiene {{ tutor }}.{% endblocktranslate %}</p>
+            {% else %}
+              <p class="m-0 text-body-sm text-ink-soft">{% translate "Sin tutor asignado." %}</p>
+            {% endif %}
+          </div>
+          <div class="flex-none">
+            {% if submission.attempt.reviewer %}
+              <a href="{% url 'reviews:review' submission.pk %}" class="{% if forloop.first %}button-primary{% else %}button-secondary{% endif %} w-full md:w-auto">{% translate "Revisar" %}<span class="sr-only">: {{ submission.exercise.title }}</span></a>
+            {% else %}
+              <form method="post" action="{% url 'reviews:start_review' submission.pk %}" class="m-0">
+                {% csrf_token %}
+                <button type="submit" class="{% if forloop.first %}button-primary{% else %}button-secondary{% endif %} w-full md:w-auto">{% translate "Abrir revisión" %}<span class="sr-only">: {{ submission.exercise.title }}</span></button>
+              </form>
+            {% endif %}
+          </div>
         </li>
       {% endfor %}
     </ol>
   {% else %}
-    <p>{% translate "No hay entregas pendientes." %}</p>
+    <p class="mt-lg rounded-lg border border-dashed border-outline bg-surface p-lg">{% translate "No hay entregas pendientes." %}</p>
   {% endif %}
 {% endblock %}
