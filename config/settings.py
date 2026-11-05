@@ -42,6 +42,11 @@ INSTALLED_APPS = [
 # Modelo de usuario propio (EM-003): el correo es el identificador.
 AUTH_USER_MODEL = "accounts.User"
 
+# Inicio y cierre de sesión (EM-031).
+LOGIN_URL = "accounts:login"
+LOGIN_REDIRECT_URL = "enrollments:my_courses"
+LOGOUT_REDIRECT_URL = "core:home"
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",

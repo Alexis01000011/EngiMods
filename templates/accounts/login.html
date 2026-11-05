@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Entra a tu cuenta" %} · EngiMods{% endblock %}
+
+{% block content %}
+  <div class="max-w-reading-max">
+    <header class="flex flex-col gap-sm">
+      <h1 class="m-0">{% translate "Entra a tu cuenta" %}</h1>
+      <p class="m-0 font-serif text-dek italic text-ink-soft">{% translate "Sigue tus cursos y tus entregas donde los dejaste." %}</p>
+    </header>
+
+    <section aria-label="{% translate 'Inicio de sesión' %}" class="mt-xl">
+      {% if form.errors %}
+        <div role="alert" class="mb-lg rounded-lg bg-error-container p-md text-error">
+          <p class="m-0"><strong>{% translate "No pudiste entrar." %}</strong>{% if not form.non_field_errors %} {% translate "Revisa los campos marcados y vuelve a intentarlo." %}{% endif %}</p>
+          {% for error in form.non_field_errors %}
+            <p class="m-0 mt-xs">{{ error }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+      <form method="post" class="flex flex-col gap-lg">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
+        {% for field in form %}
+          <div class="flex flex-col [&_[aria-invalid=true]]:border-2 [&_[aria-invalid=true]]:border-error">
+            {{ field.label_tag }}
+            {{ field }}
+            {% include "components/field_errors.html" %}
+          </div>
+        {% endfor %}
+        <p class="m-0 text-body-sm"><a href="{% url 'accounts:password_reset' %}">{% translate "¿Olvidaste tu contraseña?" %}</a></p>
+        <div>
+          <button type="submit" class="button-primary w-full sm:w-auto">{% translate "Entrar" %}</button>
+        </div>
+      </form>
+      <p class="mt-xl text-body-sm text-ink-muted">{% translate "¿Todavía no tienes cuenta?" %} <a href="{% url 'accounts:register' %}">{% translate "Crea una aquí." %}</a></p>
+    </section>
+  </div>
+{% endblock %}
