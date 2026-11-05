@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Cancelaste el pago" %} · EngiMods{% endblock %}
+
+{% block content %}
+  <div class="max-w-reading-max">
+    <h1 class="text-title-md">{% translate "Cancelaste el pago" %}</h1>
+    <p>{% blocktranslate with title=course.title %}No se hizo ningún cargo. Cuando quieras inscribirte a {{ title }}, puedes volver a intentarlo.{% endblocktranslate %}</p>
+    <p class="mt-lg flex flex-col gap-sm sm:flex-row">
+      <a href="{% url 'payments:checkout' course.slug %}" class="button-secondary w-full sm:w-auto">{% translate "Intentar de nuevo" %}</a>
+      <a href="{% url 'courses:course_detail' course.slug %}" class="button-secondary w-full sm:w-auto">{% translate "Volver al curso" %}</a>
+    </p>
+  </div>
+{% endblock %}
