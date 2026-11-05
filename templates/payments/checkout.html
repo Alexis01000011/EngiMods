@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Confirma tu inscripción" %} · {{ course.title }} · EngiMods{% endblock %}
+
+{% block content %}
+  <div class="max-w-reading-max">
+    <ol aria-label="{% translate 'Pasos para inscribirte' %}" class="m-0 flex list-none gap-md p-0 font-sans text-label-sm text-ink-muted">
+      <li class="m-0 text-ink" aria-current="step">1 {% translate "Revisa" %}</li>
+      <li class="m-0">2 {% translate "Paga" %}</li>
+      <li class="m-0">3 {% translate "Empieza" %}</li>
+    </ol>
+
+    <header class="mt-lg flex flex-col gap-sm">
+      <h1 class="m-0">{% translate "Confirma tu inscripción" %}</h1>
+      <p class="m-0 font-serif text-dek italic text-ink-soft">{% translate "Revisa lo que vas a pagar. El cobro lo hace Stripe, en su página segura." %}</p>
+    </header>
+
+    <section aria-labelledby="resumen" class="mt-xl flex flex-col gap-md rounded-lg border border-divider bg-surface p-lg">
+      <h2 id="resumen" class="m-0 font-sans text-eyebrow uppercase text-ink-muted">{% translate "Resumen" %}</h2>
+      <p class="m-0 font-serif text-title-md">{{ course.title }}</p>
+      <dl class="m-0 flex flex-col gap-sm">
+        <div class="flex justify-between gap-md">
+          <dt class="text-ink-muted">{% translate "Precio" %}</dt>
+          <dd class="m-0 font-sans text-label-md">MXN {{ price|floatformat:2 }}</dd>
+        </div>
+        <div class="flex justify-between gap-md">
+          <dt class="text-ink-muted">{% translate "Acceso" %}</dt>
+          <dd class="m-0 text-right">{% blocktranslate count days=course.access_days %}{{ days }} día desde que se confirma el pago{% plural %}{{ days }} días desde que se confirma el pago{% endblocktranslate %}</dd>
+        </div>
+      </dl>
+      <p class="m-0 text-body-sm text-ink-muted">{% translate "Cuando Stripe confirme el pago, el curso aparece en Mi panel." %}</p>
+    </section>
+
+    <p class="mt-lg text-body-sm text-ink-muted">※
+      {% if has_terms %}
+        <a href="{% url 'core:terms' %}">{% translate "Lee los términos y condiciones y la política de devolución antes de pagar." %}</a>
+      {% else %}
+        <strong>{% translate "Texto provisional." %}</strong> {% translate "La política de devolución todavía está pendiente de publicarse." %}
+      {% endif %}
+    </p>
+
+    {% if blocker == "has_access" %}
+      <div role="status" class="mt-lg rounded-lg bg-primary-container p-md text-on-primary-container">
+        <p class="m-0"><strong>{% translate "Ya tienes acceso." %}</strong> {% translate "Este curso ya está en tu panel; no hace falta pagarlo otra vez." %}</p>
+      </div>
+      <p class="mt-lg flex flex-col gap-sm sm:flex-row">
+        <a href="{% url 'enrollments:my_courses' %}" class="button-primary w-full sm:w-auto">{% translate "Ir a Mi panel" %}</a>
+      </p>
+    {% elif blocker == "cohort_course" %}
+      <div role="status" class="mt-lg rounded-lg bg-primary-container p-md text-on-primary-container">
+        <p class="m-0"><strong>{% translate "Todavía no abre la inscripción." %}</strong> {% translate "Este curso se imparte por grupos y la inscripción abre cuando haya un grupo con fecha." %}</p>
+      </div>
+    {% elif blocker == "unverified_email" %}
+      <div role="alert" class="mt-lg rounded-lg bg-revalidate-container p-md text-revalidate">
+        <p class="m-0"><strong>{% translate "Verifica tu correo para pagar." %}</strong> {% blocktranslate with email=user.email %}Abre el enlace que te enviamos a {{ email }} al crear tu cuenta y vuelve a esta página.{% endblocktranslate %}</p>
+      </div>
+    {% elif blocker == "unavailable" %}
+      <div role="status" class="mt-lg rounded-lg bg-primary-container p-md text-on-primary-container">
+        <p class="m-0"><strong>{% translate "El pago no está disponible por ahora." %}</strong> {% translate "Estamos terminando de configurarlo. Vuelve más tarde." %}</p>
+      </div>
+    {% else %}
+      <form method="post" class="mt-lg flex flex-col gap-sm sm:flex-row">
+        {% csrf_token %}
+        <button type="submit" class="button-primary w-full sm:w-auto">{% translate "Pagar con Stripe" %}</button>
+        <a href="{% url 'courses:course_detail' course.slug %}" class="button-secondary w-full sm:w-auto">{% translate "Volver al curso" %}</a>
+      </form>
+    {% endif %}
+    {% if blocker %}
+      <p class="mt-md"><a href="{% url 'courses:course_detail' course.slug %}" class="button-secondary w-full sm:w-auto">{% translate "Volver al curso" %}</a></p>
+    {% endif %}
+  </div>
+{% endblock %}

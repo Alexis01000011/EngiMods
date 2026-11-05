@@ -96,7 +96,14 @@
           <p class="m-0 text-body-sm text-ink-muted">※ <strong>{% translate "Texto provisional." %}</strong> {% translate "La política de devolución todavía está pendiente de publicarse." %}</p>
         {% endif %}
       </section>
-      {# EM-042 pondrá aquí el botón de pago, después de la política de devolución. #}
+      {% if has_access %}
+        <p class="m-0 text-body-sm text-ink-muted">{% translate "Ya tienes acceso a este curso." %}</p>
+        <a href="{% url 'enrollments:my_courses' %}" class="button-secondary w-full">{% translate "Ir a Mi panel" %}</a>
+      {% elif course.kind == "course" %}
+        <p class="m-0 text-body-sm text-ink-muted">{% translate "Este curso se imparte por grupos. La inscripción abre cuando haya un grupo con fecha." %}</p>
+      {% else %}
+        <a href="{% url 'payments:checkout' course.slug %}" class="button-primary w-full">{% translate "Inscribirme y pagar" %}</a>
+      {% endif %}
     </aside>
   </div>
 {% endblock %}

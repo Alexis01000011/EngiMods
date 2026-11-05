@@ -735,10 +735,10 @@ Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 5 · Ola:
 
 Criterios de aceptación:
 
-- [ ] Al pagar se crea una sesión de Stripe Checkout con el precio del curso guardado en la base de datos.
-- [ ] Se registra un `Pago` en estado `pendiente` ligado al alumno y al curso (y al grupo, si el curso es por grupos). El id de la sesión de Checkout se guarda en el pago y es único.
-- [ ] Páginas de éxito y de cancelación en español.
-- [ ] No se puede pagar un curso al que el alumno ya tiene acceso vigente.
+- [x] Al pagar se crea una sesión de Stripe Checkout con el precio del curso guardado en la base de datos.
+- [x] Se registra un `Pago` en estado `pendiente` ligado al alumno y al curso (y al grupo, si el curso es por grupos). El id de la sesión de Checkout se guarda en el pago y es único.
+- [x] Páginas de éxito y de cancelación en español.
+- [x] No se puede pagar un curso al que el alumno ya tiene acceso vigente.
 - [ ] Probado en modo prueba de Stripe.
 
 Depende de: [EM-009](#em-009), [EM-030](#em-030), [EM-053](#em-053)

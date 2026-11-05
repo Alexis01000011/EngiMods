@@ -197,6 +197,6 @@ def test_syllabus_numbers_lessons_across_modules(client, course):
     assert ">02<" in html
 
 
-def test_course_page_has_no_primary_button_before_checkout(client, course):
-    # El botón de pago llega con EM-042; mientras tanto no hay acción principal.
-    assert "button-primary" not in client.get(url(course)).content.decode()
+def test_course_page_has_one_primary_button_to_pay(client, course):
+    # La única acción principal es el botón de pago (EM-042).
+    assert client.get(url(course)).content.decode().count("button-primary") == 1
