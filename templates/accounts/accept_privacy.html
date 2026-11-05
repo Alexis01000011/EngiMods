@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Actualizamos el aviso de privacidad" %} · EngiMods{% endblock %}
+
+{% block content %}
+  <div class="max-w-reading-max">
+    <header class="flex flex-col gap-sm">
+      <h1 class="m-0">{% translate "Actualizamos el aviso de privacidad" %}</h1>
+      <p class="m-0 font-serif text-dek italic text-ink-soft">{% blocktranslate with version=privacy_notice.version %}Para seguir usando tu cuenta, lee y acepta la versión {{ version }}.{% endblocktranslate %}</p>
+    </header>
+
+    <section aria-label="{% translate 'Aceptar el aviso de privacidad' %}" class="mt-xl">
+      {% if form.errors %}
+        <div role="alert" class="mb-lg rounded-lg bg-error-container p-md text-error">
+          <p class="m-0"><strong>{% translate "Falta un paso." %}</strong> {% translate "Marca la casilla para aceptar el aviso y continuar." %}</p>
+        </div>
+      {% endif %}
+      <form method="post" class="flex flex-col gap-lg">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
+        {% with field=form.accept_privacy %}
+          <div class="flex flex-col gap-sm">
+            {% url "core:privacy" as privacy_url %}
+            <p class="m-0 text-body-sm text-ink-muted">※ <a href="{{ privacy_url }}">{% blocktranslate with version=privacy_notice.version %}Lee el aviso de privacidad (versión {{ version }}).{% endblocktranslate %}</a></p>
+            <div class="flex min-h-touch-target items-start gap-sm [&>input]:mt-0.5 [&>input]:size-5 [&>input]:flex-none">
+              {{ field }}
+              <label for="{{ field.auto_id }}" class="font-sans text-body-md font-normal">{% translate "Leí y acepto el aviso de privacidad." %}</label>
+            </div>
+            {% include "components/field_errors.html" %}
+          </div>
+        {% endwith %}
+        <div>
+          <button type="submit" class="button-primary w-full sm:w-auto">{% translate "Aceptar y continuar" %}</button>
+        </div>
+      </form>
+      <form method="post" action="{% url 'accounts:logout' %}" class="mt-xl flex flex-col gap-sm">
+        {% csrf_token %}
+        <p class="m-0 text-body-sm text-ink-muted">{% translate "Si no estás de acuerdo, puedes cerrar tu sesión." %}</p>
+        <div>
+          <button type="submit" class="button-secondary w-full sm:w-auto">{% translate "Cerrar sesión" %}</button>
+        </div>
+      </form>
+    </section>
+  </div>
+{% endblock %}

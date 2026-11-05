@@ -51,6 +51,7 @@
             <button type="submit" class="button-primary w-full sm:w-auto">{% translate "Crear mi cuenta" %}</button>
           </div>
         </form>
+        <p class="mt-xl text-body-sm text-ink-muted">{% translate "¿Ya tienes cuenta?" %} <a href="{% url 'accounts:login' %}">{% translate "Entra con tu correo." %}</a></p>
       </section>
     {% else %}
       <div role="status" class="mt-xl rounded-lg bg-primary-container p-md text-on-primary-container">

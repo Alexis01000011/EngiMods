@@ -1,6 +1,7 @@
 {% load i18n %}{% comment %}
   Enlaces de la barra de navegación. base.html los incluye dos veces: en línea en escritorio
-  y dentro del menú en teléfono. EM-031 agrega "Entrar" y "Salir".
+  y dentro del menú en teléfono. "Salir" es un formulario POST (EM-031) con aspecto de
+  enlace: así un enlace ajeno no puede cerrar tu sesión.
 {% endcomment %}
 {% with section=request.resolver_match.namespace %}
   <li><a href="{% url 'catalog:game_list' %}" class="flex min-h-touch-target items-center rounded-md px-3 text-label-md no-underline hover:bg-surface-chip aria-[current=page]:underline aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-8"{% if section == "catalog" %} aria-current="page"{% endif %}>{% translate "Juegos" %}</a></li>
@@ -9,7 +10,14 @@
     {% if user.is_tutor or user.is_superuser %}
       <li><a href="{% url 'reviews:queue' %}" class="flex min-h-touch-target items-center rounded-md px-3 text-label-md no-underline hover:bg-surface-chip aria-[current=page]:underline aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-8"{% if section == "reviews" %} aria-current="page"{% endif %}>{% translate "Tutoría" %}</a></li>
     {% endif %}
+    <li>
+      <form method="post" action="{% url 'accounts:logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="flex min-h-touch-target w-full cursor-pointer items-center justify-start rounded-md border-0 bg-transparent px-3 font-sans text-label-md text-primary hover:bg-surface-chip hover:text-primary-hover">{% translate "Salir" %}</button>
+      </form>
+    </li>
   {% else %}
-    <li><a href="{% url 'accounts:register' %}" class="flex min-h-touch-target items-center rounded-md px-3 text-label-md no-underline hover:bg-surface-chip aria-[current=page]:underline aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-8"{% if section == "accounts" %} aria-current="page"{% endif %}>{% translate "Crear cuenta" %}</a></li>
+    <li><a href="{% url 'accounts:login' %}" class="flex min-h-touch-target items-center rounded-md px-3 text-label-md no-underline hover:bg-surface-chip aria-[current=page]:underline aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-8"{% if request.resolver_match.view_name == "accounts:login" %} aria-current="page"{% endif %}>{% translate "Entrar" %}</a></li>
+    <li><a href="{% url 'accounts:register' %}" class="flex min-h-touch-target items-center rounded-md px-3 text-label-md no-underline hover:bg-surface-chip aria-[current=page]:underline aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-8"{% if request.resolver_match.view_name == "accounts:register" %} aria-current="page"{% endif %}>{% translate "Crear cuenta" %}</a></li>
   {% endif %}
 {% endwith %}

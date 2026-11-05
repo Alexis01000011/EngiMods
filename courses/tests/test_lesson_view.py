@@ -89,7 +89,7 @@ def test_url_is_in_spanish(lesson):
 def test_anonymous_is_redirected_to_login(client, lesson):
     response = client.get(url(lesson))
     assert response.status_code == 302
-    assert "login" in response.url
+    assert response.url.startswith(reverse("accounts:login"))
     assert "next=" in response.url
 
 

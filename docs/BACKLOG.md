@@ -173,7 +173,7 @@ El 4/11/2026 se agregó la deuda de diseño de las pantallas hechas antes de ace
 | [EM-023](#em-023) | [#18](https://github.com/Alexis01000011/EngiMods/issues/18) | Recursos descargables y plantillas por lección | E2 | Must | 2 | 5 | EM-021, EM-053 | Pendiente |
 | [EM-024](#em-024) | [#19](https://github.com/Alexis01000011/EngiMods/issues/19) | Lección de muestra gratuita | E2 | Must | 2 | 6 | EM-021, EM-061 | Pendiente |
 | [EM-030](#em-030) | [#20](https://github.com/Alexis01000011/EngiMods/issues/20) | Registro con correo y verificación | E3 | Must | 5 | 3 | EM-003, EM-004, EM-033 | Hecho |
-| [EM-031](#em-031) | [#21](https://github.com/Alexis01000011/EngiMods/issues/21) | Inicio de sesión, cierre y recuperación de contraseña | E3 | Must | 2 | 4 | EM-030 | Pendiente |
+| [EM-031](#em-031) | [#21](https://github.com/Alexis01000011/EngiMods/issues/21) | Inicio de sesión, cierre y recuperación de contraseña | E3 | Must | 2 | 4 | EM-030 | Hecho |
 | [EM-032](#em-032) | [#22](https://github.com/Alexis01000011/EngiMods/issues/22) | Perfil del alumno | E3 | Should | 2 | 4 | EM-030, EM-010 | Pendiente |
 | [EM-033](#em-033) | [#23](https://github.com/Alexis01000011/EngiMods/issues/23) | Aviso de privacidad y consentimiento | E3 | Must | 2 | 2 | EM-003 | Hecho |
 | [EM-034](#em-034) | [#24](https://github.com/Alexis01000011/EngiMods/issues/24) | Solicitar baja de la cuenta y de los datos | E3 | Could | 3 | 5 | EM-032 | Pendiente |
@@ -590,16 +590,16 @@ Depende de: [EM-003](#em-003), [EM-004](#em-004), [EM-033](#em-033)
 
 **Inicio de sesión, cierre y recuperación de contraseña**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 4 · Issue: [#21](https://github.com/Alexis01000011/EngiMods/issues/21)
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 4 · Estado: Hecho · Issue: [#21](https://github.com/Alexis01000011/EngiMods/issues/21)
 
 > Como **alumno**, quiero entrar, salir y recuperar mi contraseña, para acceder a mis cursos sin depender del equipo.
 
 Criterios de aceptación:
 
-- [ ] Inicio de sesión con correo y contraseña.
-- [ ] Recuperación de contraseña por correo con enlace que expira.
-- [ ] Si el aviso de privacidad cambió de versión desde la última aceptación, se pide aceptarlo de nuevo al iniciar sesión (EM-033).
-- [ ] Mensajes y correos en español.
+- [x] Inicio de sesión con correo y contraseña.
+- [x] Recuperación de contraseña por correo con enlace que expira.
+- [x] Si el aviso de privacidad cambió de versión desde la última aceptación, se pide aceptarlo de nuevo al iniciar sesión (EM-033).
+- [x] Mensajes y correos en español.
 
 Depende de: [EM-030](#em-030)
 
