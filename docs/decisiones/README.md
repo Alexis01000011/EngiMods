@@ -28,5 +28,5 @@ Qué se vuelve más fácil, qué se vuelve más difícil y qué queda pendiente.
 
 - [0001. Stack base](0001-stack-base.md)
 - [0002. Estilos del frontend (Aceptada)](0002-estilos-frontend.md)
-- [0003. Hosting de staging (Propuesta)](0003-hosting-staging.md)
+- [0003. Hosting de staging (Aceptada)](0003-hosting-staging.md)
 - [0004. Correo transaccional (Propuesta)](0004-correo-transaccional.md)
