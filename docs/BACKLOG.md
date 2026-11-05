@@ -1427,6 +1427,10 @@ Decidido el 4/11/2026:
 
 - **Estilos del frontend:** Tailwind CSS v4 con `django-tailwind-cli`, la identidad visual de `DESIGN.md` y las fuentes servidas desde `static/` (ADR 0002, EM-004).
 
+Decidido el 5/11/2026:
+
+- **Hosting de staging:** Render gratuito para la web y Neon gratuito para PostgreSQL, a MXN 0 (ADR 0003, EM-005). Los límites de Neon se verifican al hacer EM-005.
+
 Sigue abierto:
 
 - **Cuántos días dura el acceso,** en Misión Cero y en el curso. Es un dato de cada curso (EM-020).
@@ -1437,7 +1441,7 @@ Sigue abierto:
 - **Cupo y promesa de 24 horas.** Ocho plazas y revisión en 24 horas son promesas por validar en el piloto. EM-071 y EM-091 miden si se cumplen.
 - **Comisión de Stripe.** El lienzo usa 3.6 % + MXN 3 por pago antes de IVA (consulta del 28/09/2026). Verificar de nuevo en la página oficial antes de abrir ventas.
 - **Pago sin tarjeta (OXXO).** Supuesto: parte del público no tiene tarjeta. EM-048 queda como Could hasta tener evidencia.
-- **Hosting y correo.** Sin elegir. EM-005 y EM-008 piden documentar costo con fuente y fecha; el gasto total del piloto está topado en MXN 1,500 según el lienzo.
+- **Correo.** Sin elegir. EM-008 pide documentar costo con fuente y fecha; el gasto total del piloto está topado en MXN 1,500 según el lienzo.
 - **Aviso de privacidad, términos y política de devolución.** Los textos son entregables del equipo y deben revisarse contra la ley mexicana vigente. La plataforma solo los muestra y registra aceptación.
 - **Facturación (CFDI).** No está claro si hace falta desde el piloto. Validar con un contador (EM-107).
 - **¿Hace falta la plataforma para el piloto?** Un grupo de ocho personas se podría operar con un enlace de pago, Discord y un formulario. Construir la plataforma tiene valor propio (es parte de la clase y del producto), pero el piloto no debería esperar a que esté completa: EM-053 (inscripción manual) existe para eso.
