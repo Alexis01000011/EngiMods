@@ -26,7 +26,7 @@ tipo de cambio supuesto.
 | Opción | USD/mes y equivalente MXN | Límites y operación |
 |---|---|---|
 | Render con servicios gratuitos | USD 0 / MXN 0 | La web se suspende tras 15 minutos sin tráfico y PostgreSQL gratuito vence a los 30 días. Sirve para explorar; puede interrumpir la demostración y requiere plan de salida antes del vencimiento. |
-| Render gratuito (solo web) con PostgreSQL gratuito de Neon | USD 0 / MXN 0 | La web de Render tiene los mismos límites de la fila anterior, pero la base vive en Neon y no depende del vencimiento de 30 días de Render. La conexión es por `DATABASE_URL`, que el proyecto ya usa. Los límites del plan gratuito de Neon se consultaron el 2026-11-05 y están en Consecuencias; la suspensión por inactividad, la región y el historial de restauración siguen sin verificar. |
+| Render gratuito (solo web) con PostgreSQL gratuito de Neon | USD 0 / MXN 0 | La web de Render tiene los mismos límites de la fila anterior, pero la base vive en Neon y no depende del vencimiento de 30 días de Render. La conexión es por `DATABASE_URL`, que el proyecto ya usa. Los límites del plan gratuito de Neon se consultaron el 2026-11-05 y la suspensión por inactividad, la región y el historial de restauración se verificaron el 2026-11-09; ambos están en Consecuencias. |
 | Render con web y PostgreSQL pagados | USD 13 de base = `13 × T` MXN; para workspace Pro, USD 38 = `38 × T` MXN | Web de 512 MB: USD 7; PostgreSQL de 256 MB: USD 6. Hobby tiene un asiento y cuesta USD 0 de workspace; Pro cuesta USD 25 y admite asientos ilimitados. Son bases, no topes de factura. |
 | Railway | Hobby: mínimo USD 5 = `5 × T` MXN; Pro: mínimo USD 20 = `20 × T` MXN | El mínimo incluye crédito de consumo; CPU, memoria, volumen y salida se cobran por uso y pueden superarlo. Pro anuncia asientos ilimitados. La prueba gratuita ofrece USD 5 por 30 días; no es infraestructura gratuita permanente para el piloto. |
 | Vercel | Sin verificar | Ejecuta Python como funciones sin servidor, no como un proceso de Django que se queda vivo. No incluye PostgreSQL (habría que sumar otro proveedor) ni un paso natural para `migrate`, y el build tendría que compilar Tailwind y correr `collectstatic`. Que el plan gratuito sea solo para uso no comercial está sin verificar; importaría si el piloto cobra dinero real. |
@@ -72,11 +72,14 @@ decidido por el equipo el 2026-11-05.
   al mes por proyecto; 1 GB de almacenamiento por proyecto; tamaños de hasta
   2 CU (8 GB de RAM); miembros de equipo ilimitados. Alcanza para staging: no
   vence y la base de la demostración ocupa muy por debajo de 1 GB.
-  **Sin verificar:** si la base se suspende sola sin tráfico y tras cuánto
-  tiempo, la región y el historial de restauración. Importa porque una base de
-  0.25 CU encendida todo el mes gasta unas 182 CU-hrs (0.25 × 730 h), más que
-  las 100 del plan; al crear el proyecto, comprobar que la suspensión por
-  inactividad esté activa.
+  Importa que la base se suspenda sola: una base de 0.25 CU encendida todo el
+  mes gasta unas 182 CU-hrs (0.25 × 730 h), más que las 100 del plan.
+- **Verificado al crear staging, el 2026-11-09** (EM-005), en la consola de
+  Neon: la base se suspende tras 5 minutos sin actividad (*scale to zero*),
+  activo y no configurable en el plan gratuito; el historial para restaurar a
+  un momento anterior es de 6 horas. La base está en AWS US East 2 (Ohio) y la
+  web de Render en Ohio. Respaldo y restauración probados con `pg_dump` en
+  `docs/despliegue.md`.
 - Una persona designada administra las cuentas de Render y Neon; no se
   comparten contraseñas. Si más personas necesitan acceso, se invitan como
   miembros cuando el plan lo permita.

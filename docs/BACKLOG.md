@@ -156,7 +156,7 @@ El 4/11/2026 se agregó la deuda de diseño de las pantallas hechas antes de ace
 | [EM-002](#em-002) | [#2](https://github.com/Alexis01000011/EngiMods/issues/2) | Integración continua en GitHub Actions | E0 | Must | 1 | 0 | EM-001 | Hecho |
 | [EM-003](#em-003) | [#3](https://github.com/Alexis01000011/EngiMods/issues/3) | Modelo de usuario personalizado | E0 | Must | 2 | 1 | EM-001 | Hecho |
 | [EM-004](#em-004) | [#4](https://github.com/Alexis01000011/EngiMods/issues/4) | Plantilla base y sistema de estilos | E0 | Must | 3 | 1 | EM-001 | Hecho |
-| [EM-005](#em-005) | [#5](https://github.com/Alexis01000011/EngiMods/issues/5) | Despliegue a un entorno de pruebas (staging) | E0 | Must | 5 | 1 | EM-001 | Pendiente |
+| [EM-005](#em-005) | [#5](https://github.com/Alexis01000011/EngiMods/issues/5) | Despliegue a un entorno de pruebas (staging) | E0 | Must | 5 | 1 | EM-001 | Hecho |
 | [EM-006](#em-006) | [#6](https://github.com/Alexis01000011/EngiMods/issues/6) | Datos de ejemplo para desarrollo | E0 | Should | 2 | 5 | EM-003, EM-011, EM-021 | Pendiente |
 | [EM-007](#em-007) | [#7](https://github.com/Alexis01000011/EngiMods/issues/7) | Almacenamiento de archivos subidos | E0 | Could | 3 | 2 | EM-005 | Pendiente |
 | [EM-008](#em-008) | [#8](https://github.com/Alexis01000011/EngiMods/issues/8) | Correo transaccional en producción | E0 | Must | 3 | 2 | EM-005 | Pendiente |
@@ -293,16 +293,16 @@ Nota: El ADR 0002 se aceptó el 4/11/2026: Tailwind CSS v4 con `django-tailwind-
 
 **Despliegue a un entorno de pruebas (staging)**
 
-Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 5 · Ola: 1 · Issue: [#5](https://github.com/Alexis01000011/EngiMods/issues/5)
+Tipo: Técnica · Prioridad: Must · Release: R1 · Puntos: 5 · Ola: 1 · Estado: Hecho · Issue: [#5](https://github.com/Alexis01000011/EngiMods/issues/5)
 
 Criterios de aceptación:
 
-- [ ] Se elige proveedor de hosting y se documenta en `docs/decisiones/` con su costo mensual consultado en la fuente oficial y la fecha de consulta.
-- [ ] Base de datos PostgreSQL, archivos estáticos servidos (por ejemplo con WhiteNoise) y HTTPS.
-- [ ] Los secretos viven en variables de entorno del proveedor, nunca en el repo.
-- [ ] `DEBUG=False` en staging y `manage.py check --deploy` sin advertencias críticas.
-- [ ] El despliegue se puede repetir siguiendo pasos escritos en `docs/despliegue.md`.
-- [ ] `docs/despliegue.md` explica cómo respaldar y restaurar la base de datos, y la restauración se probó una vez.
+- [x] Se elige proveedor de hosting y se documenta en `docs/decisiones/` con su costo mensual consultado en la fuente oficial y la fecha de consulta.
+- [x] Base de datos PostgreSQL, archivos estáticos servidos (por ejemplo con WhiteNoise) y HTTPS.
+- [x] Los secretos viven en variables de entorno del proveedor, nunca en el repo.
+- [x] `DEBUG=False` en staging y `manage.py check --deploy` sin advertencias críticas.
+- [x] El despliegue se puede repetir siguiendo pasos escritos en `docs/despliegue.md`.
+- [x] `docs/despliegue.md` explica cómo respaldar y restaurar la base de datos, y la restauración se probó una vez.
 
 Depende de: [EM-001](#em-001)
 

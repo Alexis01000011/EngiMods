@@ -1,0 +1,37 @@
+# Blueprint de staging en Render (EM-005, ADR 0003). Pasos en docs/despliegue.md.
+# La base de datos no está aquí: vive en Neon y llega por DATABASE_URL.
+services:
+  - type: web
+    name: engimods-staging
+    runtime: python
+    plan: free
+    region: ohio
+    # Sin "branch": se usa la rama elegida al crear el Blueprint (main en uso normal).
+    buildCommand: ./scripts/render-build.sh
+    # Render le pasa a gunicorn el puerto y el log de accesos con GUNICORN_CMD_ARGS; no se
+    # repite --bind aquí para no abrir el mismo puerto dos veces.
+    startCommand: .venv/bin/gunicorn config.wsgi:application
+    healthCheckPath: /health/
+    envVars:
+      - key: DEBUG
+        value: "False"
+      - key: HTTPS_ONLY
+        value: "True"
+      - key: SECRET_KEY
+        generateValue: true
+      # Procesos de gunicorn; dos caben en los 512 MB del plan gratuito.
+      - key: WEB_CONCURRENCY
+        value: "2"
+      # uv usa el Python de Render (versión en .python-version) en vez de descargar otro
+      # fuera de la carpeta del proyecto, que no se conserva después del build.
+      - key: UV_PYTHON_DOWNLOADS
+        value: never
+      # Los valores secretos se capturan en el Dashboard al crear el Blueprint.
+      - key: DATABASE_URL
+        sync: false
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_PUBLISHABLE_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false

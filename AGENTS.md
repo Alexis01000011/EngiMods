@@ -70,8 +70,10 @@ docs/
   arquitectura.md    mapa de apps, modelos previstos y reglas del modelo de datos
   negocio.md         contexto de negocio, oferta e hipótesis
   flujo-de-trabajo.md  sprints, etiquetas, Definition of Ready, refinamiento
+  despliegue.md      staging en Render y Neon: desplegar, respaldar y restaurar
   decisiones/        registros de decisiones (ADR) numerados
-scripts/             backlog.py (chequeo del backlog) y agent_hook.py (hooks de agente)
+scripts/             backlog.py, agent_hook.py (hooks de agente) y render-build.sh (build de staging)
+render.yaml          Blueprint de Render para staging
 .githooks/           git hooks del repo (sección 10)
 .claude/             skills y hooks de Claude Code
 .codex/              hooks de Codex
@@ -140,6 +142,7 @@ Una historia está terminada cuando:
 | Por qué existe el producto y qué debe validar | `docs/negocio.md` |
 | Sprints, etiquetas, Definition of Ready | `docs/flujo-de-trabajo.md` |
 | Por qué se decidió algo técnico | `docs/decisiones/` |
+| Cómo se despliega staging | `docs/despliegue.md` |
 | Cómo se ve una pantalla | `DESIGN.md` y la skill `disenar-pantalla` |
 
 ## 10. Skills y hooks
