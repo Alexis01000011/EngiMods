@@ -22,6 +22,28 @@ DEBUG = env("DEBUG")
 ALLOWED_HOSTS = env("ALLOWED_HOSTS")
 CSRF_TRUSTED_ORIGINS = env("CSRF_TRUSTED_ORIGINS")
 
+# Render publica el dominio del servicio en esta variable (EM-005, ADR 0003); así no hay que
+# copiarlo a mano en ALLOWED_HOSTS.
+if render_host := env("RENDER_EXTERNAL_HOSTNAME", default=""):
+    ALLOWED_HOSTS.append(render_host)
+
+# HTTPS en staging y producción (EM-005). El proveedor termina TLS en su proxy y avisa con
+# X-Forwarded-Proto, que el proxy siempre reescribe. Apagado por defecto para que desarrollo
+# y CI sigan en http.
+HTTPS_ONLY = env.bool("HTTPS_ONLY", default=False)
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https") if HTTPS_ONLY else None
+SECURE_SSL_REDIRECT = HTTPS_ONLY
+# El health check del proveedor puede llegar por http interno.
+SECURE_REDIRECT_EXEMPT = [r"^health/$"]
+SESSION_COOKIE_SECURE = HTTPS_ONLY
+CSRF_COOKIE_SECURE = HTTPS_ONLY
+# Corto mientras el dominio no sea definitivo; se sube cuando lo sea.
+SECURE_HSTS_SECONDS = env.int("SECURE_HSTS_SECONDS", default=3600) if HTTPS_ONLY else 0
+SECURE_HSTS_INCLUDE_SUBDOMAINS = HTTPS_ONLY
+# La lista de precarga de HSTS de los navegadores solo admite dominios propios, no un
+# subdominio del proveedor como el de staging.
+SILENCED_SYSTEM_CHECKS = ["security.W021"]
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -50,6 +72,8 @@ LOGOUT_REDIRECT_URL = "core:home"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    # WhiteNoise sirve los estáticos desde el mismo proceso de Django (EM-005).
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -99,6 +123,13 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
+STORAGES = {
+    "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+    # Comprimidos con gzip y brotli por WhiteNoise. Sin manifiesto: con manifiesto, las
+    # pruebas (que corren con DEBUG=False) exigirían correr collectstatic antes.
+    "staticfiles": {"BACKEND": "whitenoise.storage.CompressedStaticFilesStorage"},
+}
+
 # Estilos con Tailwind CSS (ADR 0002). `manage.py tailwind build` compila assets/tailwind.css
 # en static/css/tailwind.css, que no se sube al repositorio. La versión del CLI queda fija para
 # que todos compilen igual; el binario se descarga la primera vez en .django_tailwind_cli/.
@@ -109,6 +140,16 @@ MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Registros a la consola, donde el proveedor los guarda (EM-005). Sin esto, con DEBUG=False
+# Django no imprime los errores 500.
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {"console": {"class": "logging.StreamHandler"}},
+    "root": {"handlers": ["console"], "level": "WARNING"},
+    "loggers": {"django": {"handlers": ["console"], "level": "INFO", "propagate": False}},
+}
 
 # Correo: en desarrollo se imprime en consola.
 EMAIL_BACKEND = env("EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend")
