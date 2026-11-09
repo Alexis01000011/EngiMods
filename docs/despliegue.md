@@ -88,9 +88,9 @@ pg_restore --dbname='<cadena de la base vacía>' --no-owner --no-acl engimods-st
 
 Para que staging use la base restaurada, cambia `DATABASE_URL` en Render y despliega de nuevo. Para restaurar encima de la base actual, agrega `--clean --if-exists`; borra lo que haya.
 
-Neon también guarda un historial corto de la base para volver a un momento anterior. Su duración en el plan gratuito está sin verificar (ADR 0003), así que no sustituye al respaldo con `pg_dump`.
+Neon también guarda 6 horas de historial en el plan gratuito para volver a un momento anterior (ADR 0003). Sirve para deshacer un error reciente, pero no sustituye al respaldo con `pg_dump`.
 
-**Prueba de restauración:** pendiente; se anota aquí con fecha y resultado.
+**Prueba de restauración (2026-11-09):** respaldo de staging con `pg_dump` 18.6 (unos 100 KB) restaurado con `pg_restore` en una base nueva `restore_test` del mismo proyecto, creada con `psql '<cadena directa>' -c 'create database restore_test'`. Los conteos coincidieron entre la base original y la restaurada: 36 migraciones aplicadas, 1 usuario, 0 juegos y 0 cursos. Después se borró `restore_test` desde la consola de Neon (*Databases*).
 
 ## 7. Comprobaciones
 
@@ -102,5 +102,5 @@ Neon también guarda un historial corto de la base para volver a un momento ante
 
 - La web se suspende tras 15 minutos sin tráfico y la primera visita tarda en despertarla. Antes de una demostración, abre el sitio unos minutos antes.
 - El disco de la web es efímero: nada se guarda ahí. La base está en Neon y las entregas son enlaces a repositorios.
-- Neon suspende la base sin tráfico y la primera consulta la despierta.
+- Neon suspende la base tras 5 minutos sin tráfico (no se puede cambiar en el plan gratuito) y la primera consulta la despierta.
 - Si el piloto recibe alumnos o dinero reales, la web pasa a un plan pagado de Render sin cambiar código (ADR 0003).
