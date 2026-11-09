@@ -53,10 +53,10 @@ stripe login
 Con el servidor corriendo (`uv run python manage.py runserver`), en otra terminal:
 
 ```bash
-stripe listen --forward-to localhost:8000/<ruta-del-webhook>/
+stripe listen --forward-to localhost:8000/pagos/stripe/webhook/
 ```
 
-- La ruta del webhook la define EM-043; cuando exista, usa la de su `urls.py`.
+- El webhook vive en `/pagos/stripe/webhook/` (EM-043). Por ahora solo atiende `checkout.session.completed`; los eventos asíncronos llegan con EM-048.
 - Al arrancar, `stripe listen` imprime un secreto de firma que empieza con `whsec_`. Cópialo en `STRIPE_WEBHOOK_SECRET` de tu `.env` y reinicia el servidor. Ese secreto es de tu máquina y es distinto al del endpoint de staging.
 - Deja `stripe listen` abierto mientras pruebas: si lo cierras, los eventos no llegan.
 
@@ -83,4 +83,4 @@ Usa cualquier fecha futura, cualquier CVC de tres dígitos y cualquier código p
 
 ## 6. Staging
 
-En staging (EM-005) no se usa Stripe CLI: se registra un endpoint en **Desarrolladores → Webhooks** del Dashboard apuntando a la URL pública del webhook, y su secreto de firma se guarda en `STRIPE_WEBHOOK_SECRET` del proveedor de hosting.
+En staging (EM-005) no se usa Stripe CLI: se registra un endpoint en **Desarrolladores → Webhooks** del Dashboard con la URL `https://<dominio-de-staging>/pagos/stripe/webhook/`, suscrito a `checkout.session.completed` (por ahora), y su secreto de firma se guarda en `STRIPE_WEBHOOK_SECRET` del proveedor de hosting.

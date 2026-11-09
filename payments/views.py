@@ -5,10 +5,13 @@ import stripe
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+from django.db import transaction
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext as _
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
 
 from courses.models import Course
 from enrollments.models import Enrollment
@@ -136,3 +139,61 @@ def checkout_cancel(request, slug):
     """Página de regreso si la persona cancela en Stripe."""
     course = get_object_or_404(Course.objects.published(), slug=slug)
     return render(request, "payments/cancel.html", {"course": course})
+
+
+def confirm_payment(session):
+    """Confirma el pago de una sesión pagada e inscribe al alumno. Idempotente."""
+    with transaction.atomic():
+        payment = (
+            Payment.objects.select_for_update()
+            .select_related("user", "course")
+            .filter(stripe_checkout_session_id=session["id"])
+            .first()
+        )
+        if payment is None:
+            # Pasa con los eventos de `stripe trigger`: no son de ningún pago nuestro.
+            logger.warning("Webhook de Stripe: sesión sin pago registrado.")
+            return
+        if payment.status == Payment.Status.PAID:
+            return
+        payment.status = Payment.Status.PAID
+        # Lo que cobró Stripe, no el precio actual del curso.
+        payment.amount_cents = session["amount_total"]
+        payment.save()
+        if has_access(payment.user, payment.course):
+            # Doble pago: el pago queda registrado y no se toca la inscripción vigente.
+            # El equipo decide a mano la devolución (EM-047).
+            logger.warning(
+                "Pago %s confirmado, pero el alumno ya tenía acceso vigente: revisar devolución.",
+                payment.pk,
+            )
+            return
+        enrollment = Enrollment(
+            user=payment.user, course=payment.course, origin=Enrollment.Origin.STRIPE
+        )
+        enrollment.full_clean()
+        enrollment.save()
+
+
+@csrf_exempt
+@require_POST
+def stripe_webhook(request):
+    """Webhook de Stripe (EM-043). Verifica la firma y confirma los pagos."""
+    if not settings.STRIPE_WEBHOOK_SECRET:
+        logger.error("STRIPE_WEBHOOK_SECRET no está configurado; no se puede verificar el webhook.")
+        return HttpResponse(status=500)
+    try:
+        event = stripe.Webhook.construct_event(
+            request.body,
+            request.headers.get("Stripe-Signature", ""),
+            settings.STRIPE_WEBHOOK_SECRET,
+        )
+    except (ValueError, stripe.SignatureVerificationError):
+        return HttpResponse(status=400)
+    session = event["data"]["object"]
+    # Los pagos diferidos (OXXO) llegan como `unpaid` y se confirman con
+    # `checkout.session.async_payment_succeeded` (EM-048, todavía no se maneja).
+    if event["type"] == "checkout.session.completed" and session["payment_status"] == "paid":
+        confirm_payment(session)
+    # 200 para todo evento válido: si no, Stripe reintenta durante días.
+    return HttpResponse(status=200)
