@@ -4,6 +4,7 @@ from decimal import Decimal
 import stripe
 from django.conf import settings
 from django.contrib import messages
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.http import HttpResponse, HttpResponseRedirect
@@ -160,6 +161,9 @@ def confirm_payment(session):
         # Lo que cobró Stripe, no el precio actual del curso.
         payment.amount_cents = session["amount_total"]
         payment.save()
+        # Bloquea al alumno hasta el final: si dos pagos suyos se confirman a la vez, el
+        # segundo espera y ve la inscripción del primero, en vez de crear otra.
+        get_user_model().objects.select_for_update().filter(pk=payment.user_id).first()
         if has_access(payment.user, payment.course):
             # Doble pago: el pago queda registrado y no se toca la inscripción vigente.
             # El equipo decide a mano la devolución (EM-047).
