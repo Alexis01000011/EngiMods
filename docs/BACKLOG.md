@@ -182,7 +182,7 @@ El 4/11/2026 se agregó la deuda de diseño de las pantallas hechas antes de ace
 | [EM-040](#em-040) | [#25](https://github.com/Alexis01000011/EngiMods/issues/25) | Landing de EngiMods | E4 | Must | 3 | 4 | EM-004, EM-020 | Hecho |
 | [EM-041](#em-041) | [#26](https://github.com/Alexis01000011/EngiMods/issues/26) | Página de detalle del curso | E4 | Must | 3 | 5 | EM-020, EM-021 | Hecho |
 | [EM-042](#em-042) | [#27](https://github.com/Alexis01000011/EngiMods/issues/27) | Pago con Stripe Checkout | E4 | Must | 5 | 5 | EM-009, EM-030, EM-053 | Hecho |
-| [EM-043](#em-043) | [#28](https://github.com/Alexis01000011/EngiMods/issues/28) | Webhook de Stripe que confirma el pago e inscribe | E4 | Must | 5 | 6 | EM-042, EM-053 | Pendiente |
+| [EM-043](#em-043) | [#28](https://github.com/Alexis01000011/EngiMods/issues/28) | Webhook de Stripe que confirma el pago e inscribe | E4 | Must | 5 | 6 | EM-042, EM-053 | Hecho |
 | [EM-044](#em-044) | [#29](https://github.com/Alexis01000011/EngiMods/issues/29) | Correo de confirmación de compra | E4 | Must | 2 | 7 | EM-043, EM-008 | Pendiente |
 | [EM-045](#em-045) | [#30](https://github.com/Alexis01000011/EngiMods/issues/30) | Cupo máximo por grupo | E4 | Must | 3 | 6 | EM-042 | Pendiente |
 | [EM-046](#em-046) | [#31](https://github.com/Alexis01000011/EngiMods/issues/31) | Lista de espera e interés por juego | E4 | Should | 2 | 3 | EM-010, EM-033 | Pendiente |
@@ -749,18 +749,18 @@ Nota: Misión Cero es autoguiada, así que el pago no siempre tiene grupo (decis
 
 **Webhook de Stripe que confirma el pago e inscribe**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 5 · Ola: 6 · Issue: [#28](https://github.com/Alexis01000011/EngiMods/issues/28)
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 5 · Ola: 6 · Estado: Hecho · Issue: [#28](https://github.com/Alexis01000011/EngiMods/issues/28)
 
 > Como **sistema**, quiero confirmar el pago al recibir el aviso de Stripe, para que la inscripción dependa del pago real y no de que el alumno regrese a la página de éxito.
 
 Criterios de aceptación:
 
-- [ ] El endpoint verifica la firma del webhook.
-- [ ] Al recibir `checkout.session.completed` con `payment_status = paid`, el pago pasa a `pagado` y se crea la inscripción al curso (y al grupo, si aplica) con su fecha de fin de acceso.
-- [ ] Un `checkout.session.completed` con `payment_status = unpaid` (pagos diferidos como OXXO) no inscribe; esos pagos se confirman con `checkout.session.async_payment_succeeded` (EM-048).
-- [ ] El monto pagado se toma del `amount_total` de la sesión de Stripe, no del precio actual del curso.
-- [ ] Procesar el mismo evento dos veces no duplica nada (idempotente, usando el id de sesión único de EM-042).
-- [ ] Pruebas automatizadas con eventos simulados.
+- [x] El endpoint verifica la firma del webhook.
+- [x] Al recibir `checkout.session.completed` con `payment_status = paid`, el pago pasa a `pagado` y se crea la inscripción al curso (y al grupo, si aplica) con su fecha de fin de acceso.
+- [x] Un `checkout.session.completed` con `payment_status = unpaid` (pagos diferidos como OXXO) no inscribe; esos pagos se confirman con `checkout.session.async_payment_succeeded` (EM-048).
+- [x] El monto pagado se toma del `amount_total` de la sesión de Stripe, no del precio actual del curso.
+- [x] Procesar el mismo evento dos veces no duplica nada (idempotente, usando el id de sesión único de EM-042).
+- [x] Pruebas automatizadas con eventos simulados.
 
 Depende de: [EM-042](#em-042), [EM-053](#em-053)
 
