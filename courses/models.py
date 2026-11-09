@@ -237,3 +237,31 @@ class Exercise(models.Model):
     @property
     def instructions_html(self):
         return render_markdown(self.instructions)
+
+
+class RubricCriterion(models.Model):
+    """Criterio de la rúbrica de un ejercicio. El tutor califica cada uno al revisar (EM-072)."""
+
+    exercise = models.ForeignKey(
+        Exercise,
+        on_delete=models.CASCADE,
+        related_name="rubric_criteria",
+        verbose_name=_("ejercicio"),
+    )
+    title = models.CharField(_("criterio"), max_length=200)
+    description = models.TextField(
+        _("qué se revisa"),
+        blank=True,
+        help_text=_("Lo ve el tutor al calificar y el alumno al leer su revisión."),
+    )
+    order = models.PositiveSmallIntegerField(
+        _("orden"), help_text=_("Los criterios se muestran de menor a mayor.")
+    )
+
+    class Meta:
+        ordering = ("order", "pk")
+        verbose_name = _("criterio de la rúbrica")
+        verbose_name_plural = _("criterios de la rúbrica")
+
+    def __str__(self):
+        return f"{self.exercise} · {self.title}"
