@@ -181,7 +181,7 @@ El 4/11/2026 se agregó la deuda de diseño de las pantallas hechas antes de ace
 | [EM-036](#em-036) | [#69](https://github.com/Alexis01000011/EngiMods/issues/69) | Términos y condiciones y política de devolución | E3 | Must | 2 | 3 | EM-033 | Hecho |
 | [EM-040](#em-040) | [#25](https://github.com/Alexis01000011/EngiMods/issues/25) | Landing de EngiMods | E4 | Must | 3 | 4 | EM-004, EM-020 | Hecho |
 | [EM-041](#em-041) | [#26](https://github.com/Alexis01000011/EngiMods/issues/26) | Página de detalle del curso | E4 | Must | 3 | 5 | EM-020, EM-021 | Hecho |
-| [EM-042](#em-042) | [#27](https://github.com/Alexis01000011/EngiMods/issues/27) | Pago con Stripe Checkout | E4 | Must | 5 | 5 | EM-009, EM-030, EM-053 | Pendiente |
+| [EM-042](#em-042) | [#27](https://github.com/Alexis01000011/EngiMods/issues/27) | Pago con Stripe Checkout | E4 | Must | 5 | 5 | EM-009, EM-030, EM-053 | Hecho |
 | [EM-043](#em-043) | [#28](https://github.com/Alexis01000011/EngiMods/issues/28) | Webhook de Stripe que confirma el pago e inscribe | E4 | Must | 5 | 6 | EM-042, EM-053 | Pendiente |
 | [EM-044](#em-044) | [#29](https://github.com/Alexis01000011/EngiMods/issues/29) | Correo de confirmación de compra | E4 | Must | 2 | 7 | EM-043, EM-008 | Pendiente |
 | [EM-045](#em-045) | [#30](https://github.com/Alexis01000011/EngiMods/issues/30) | Cupo máximo por grupo | E4 | Must | 3 | 6 | EM-042 | Pendiente |
@@ -729,7 +729,7 @@ Nota: Los criterios de fechas del próximo grupo y grupo lleno se movieron a [EM
 
 **Pago con Stripe Checkout**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 5 · Ola: 5 · Issue: [#27](https://github.com/Alexis01000011/EngiMods/issues/27)
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 5 · Ola: 5 · Estado: Hecho · Issue: [#27](https://github.com/Alexis01000011/EngiMods/issues/27)
 
 > Como **alumno con cuenta verificada**, quiero pagar un curso con tarjeta, para inscribirme a un grupo.
 
@@ -739,7 +739,7 @@ Criterios de aceptación:
 - [x] Se registra un `Pago` en estado `pendiente` ligado al alumno y al curso (y al grupo, si el curso es por grupos). El id de la sesión de Checkout se guarda en el pago y es único.
 - [x] Páginas de éxito y de cancelación en español.
 - [x] No se puede pagar un curso al que el alumno ya tiene acceso vigente.
-- [ ] Probado en modo prueba de Stripe.
+- [x] Probado en modo prueba de Stripe.
 
 Depende de: [EM-009](#em-009), [EM-030](#em-030), [EM-053](#em-053)
 
