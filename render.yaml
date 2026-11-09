@@ -8,8 +8,10 @@ services:
     region: ohio
     # Sin "branch": se usa la rama elegida al crear el Blueprint (main en uso normal).
     buildCommand: ./scripts/render-build.sh
-    # gunicorn escucha en el puerto que indica la variable PORT de Render.
+    # Render le pasa a gunicorn el puerto y el log de accesos con GUNICORN_CMD_ARGS; no se
+    # repite --bind aquí para no abrir el mismo puerto dos veces.
     startCommand: .venv/bin/gunicorn config.wsgi:application
+    healthCheckPath: /health/
     envVars:
       - key: DEBUG
         value: "False"

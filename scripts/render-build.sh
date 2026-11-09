@@ -3,9 +3,7 @@
 # Pasos completos en docs/despliegue.md.
 set -o errexit -o nounset -o pipefail
 
-# La imagen de Python de Render trae pip; uv se instala solo si no viene.
-command -v uv >/dev/null || pip install --quiet uv
-
+# Render instala uv cuando el repo tiene uv.lock, y su Python sale de .python-version.
 uv sync --locked --no-dev
 
 # Después de sincronizar se usa el Python de .venv directamente: es el mismo que arranca

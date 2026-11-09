@@ -18,14 +18,14 @@ La configuración del servicio web está en `render.yaml` (Blueprint de Render) 
 
 ## 1. Crear la base en Neon (una vez)
 
-1. En [neon.com](https://neon.com), crea un proyecto `engimods-staging` con PostgreSQL 17 en la región **AWS US East 2 (Ohio)**.
+1. En [neon.com](https://neon.com), crea un proyecto `engimods-staging` con PostgreSQL 17 en la región **AWS US East 2 (Ohio)**. Si Neon pregunta para qué es, elige solo la cadena de conexión (*I just need a database connection string*), no el backend completo. No hace falta el CLI de Neon ni `neon init`: escribiría la cadena en tu `.env` local y tu copia de desarrollo apuntaría a staging.
 2. En **Connect**, desactiva *Connection pooling* y copia la cadena de conexión directa (`postgresql://…?sslmode=require`). Es la que usan Django y `pg_dump`. La conexión con *pooling* pasa por PgBouncer y obliga a cambiar cómo Django usa los cursores; para staging no hace falta.
 3. Revisa que la suspensión por inactividad (*scale to zero*) esté activa, para no gastar las horas de cómputo del plan gratuito (ADR 0003).
 
 ## 2. Crear el servicio en Render (una vez)
 
 1. En [render.com](https://render.com), entra con GitHub y dale acceso al repositorio.
-2. **New → Blueprint**, elige el repositorio y la rama `main`. Render lee `render.yaml` y propone el servicio `engimods-staging`.
+2. **New → Blueprint**, elige el repositorio y la rama `main`. Render lee `render.yaml` y propone el servicio `engimods-staging`. Si alguna vez se crea desde otra rama (por ejemplo, para probar antes de mezclar), se cambia después en **Settings → Build → Source** del servicio.
 3. Render pide los valores marcados como secretos en `render.yaml`:
    - `DATABASE_URL`: la cadena directa de Neon del paso 1.
    - `STRIPE_SECRET_KEY` y `STRIPE_PUBLISHABLE_KEY`: las llaves de prueba (`docs/stripe.md`).
@@ -95,7 +95,8 @@ Neon también guarda un historial corto de la base para volver a un momento ante
 ## 7. Comprobaciones
 
 - `manage.py check --deploy` con la configuración de staging no da advertencias; lo cubre `core/tests/test_deploy_settings.py`. Se silencia `security.W021` (precarga de HSTS) porque la lista de precarga no admite subdominios de `onrender.com`.
-- `/health/` responde por http sin redirigir, para el chequeo del proveedor.
+- `/health/` responde por http sin redirigir. Es el chequeo de salud de Render (`healthCheckPath` en `render.yaml`): si un despliegue nuevo no responde ahí, Render lo cancela y deja la versión anterior.
+- Python sale de `.python-version` (3.12; Render usa el último parche). Sin ese archivo Render usaría su versión por defecto, más nueva. Render instala uv porque el repo tiene `uv.lock`, y le pasa a gunicorn el puerto con `GUNICORN_CMD_ARGS`.
 
 ## 8. Límites del plan gratuito
 
