@@ -9,6 +9,7 @@ Cómo conectar tu copia local a Stripe en modo prueba y cómo recibir webhooks e
 - **Nunca imprimas ni registres en logs** una llave, el secreto del webhook ni datos de tarjeta. Django ya oculta en sus páginas de error los settings cuyo nombre contiene `KEY` o `SECRET`; no lo rodees con `print(settings.STRIPE_SECRET_KEY)` ni nada parecido.
 - El pre-commit del repo bloquea cualquier cosa que parezca una llave de Stripe. Si te bloquea, quita la llave; no lo desactives.
 - Si una llave se filtró, aunque sea de prueba, revócala en el Dashboard (Desarrolladores, Claves de API, "Rotar clave") y avisa al equipo.
+- **Métodos de pago: solo tarjeta y Link.** La API de Stripe ya no deja que el código elija los métodos de pago de Checkout; se activan en el Dashboard (Configuración, Pagos, Métodos de pago), por separado en modo prueba y en modo real. Deja activos solo tarjeta y Link (que paga con una tarjeta guardada) hasta EM-048: OXXO y otros métodos confirman el pago días después, y el webhook (EM-043) tiene que manejarlos antes de activarlos.
 
 ## 1. Obtener las llaves de prueba
 

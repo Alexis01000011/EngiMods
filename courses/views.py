@@ -37,6 +37,9 @@ def course_detail(request, slug):
             "modules": modules,
             "price": Decimal(course.price_cents) / 100,
             "latest_test": latest_tests([course]).get(course.pk),
+            # Quien ya tiene acceso vigente no ve el botón de pago (EM-042).
+            "has_access": request.user.is_authenticated
+            and Enrollment.objects.with_access().filter(user=request.user, course=course).exists(),
         },
     )
 

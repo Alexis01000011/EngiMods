@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Recibimos tu pago" %} · EngiMods{% endblock %}
+
+{% block content %}
+  <div class="max-w-reading-max">
+    <ol aria-label="{% translate 'Pasos para inscribirte' %}" class="m-0 flex list-none gap-md p-0 font-sans text-label-sm text-ink-muted">
+      <li class="m-0">1 {% translate "Revisa" %}</li>
+      <li class="m-0">2 {% translate "Paga" %}</li>
+      <li class="m-0 text-ink" aria-current="step">3 {% translate "Empieza" %}</li>
+    </ol>
+    {% if has_access %}
+      <h1 class="mt-lg text-title-md">{% translate "Listo, ya estás inscrito" %}</h1>
+      <p>{% blocktranslate with title=course.title %}{{ title }} ya está en tu panel. Empieza cuando quieras.{% endblocktranslate %}</p>
+      <p class="mt-lg"><a href="{% url 'enrollments:my_courses' %}" class="button-primary w-full sm:w-auto">{% translate "Ir a Mi panel" %}</a></p>
+    {% elif payment %}
+      <h1 class="mt-lg text-title-md">{% translate "Recibimos tu pago" %}</h1>
+      <p>{% blocktranslate with title=course.title %}Stripe está confirmando el pago de {{ title }}. En cuanto lo confirme, el curso aparece en tu panel; suele tardar unos segundos.{% endblocktranslate %}</p>
+      <p class="text-body-sm text-ink-muted">※ {% translate "Si en unos minutos no lo ves, recarga Mi panel. No pagues otra vez." %}</p>
+      <p class="mt-lg"><a href="{% url 'enrollments:my_courses' %}" class="button-secondary w-full sm:w-auto">{% translate "Ir a Mi panel" %}</a></p>
+    {% else %}
+      <h1 class="mt-lg text-title-md">{% translate "No encontramos ese pago" %}</h1>
+      <p>{% translate "Revisa Mi panel: si el pago se confirmó, el curso ya está ahí." %}</p>
+      <p class="mt-lg"><a href="{% url 'enrollments:my_courses' %}" class="button-secondary w-full sm:w-auto">{% translate "Ir a Mi panel" %}</a></p>
+    {% endif %}
+  </div>
+{% endblock %}
