@@ -103,7 +103,8 @@ def test_pagar_crea_la_sesion_con_el_precio_del_curso(client, fake_stripe, cours
     assert fake_stripe.api_key == "sk_test_prueba"
     [params] = fake_stripe.calls
     assert params["mode"] == "payment"
-    assert params["payment_method_types"] == ["card"]
+    # Stripe rechaza este parámetro; los métodos de pago se eligen en el Dashboard.
+    assert "payment_method_types" not in params
     [item] = params["line_items"]
     assert item["quantity"] == 1
     assert item["price_data"]["currency"] == "mxn"

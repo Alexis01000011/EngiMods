@@ -52,7 +52,8 @@ def create_checkout_session(request, course):
     return client.v1.checkout.sessions.create(
         params={
             "mode": "payment",
-            "payment_method_types": ["card"],
+            # Sin payment_method_types: la API de Stripe ya no lo acepta en Checkout y los
+            # métodos de pago se eligen en el Dashboard (docs/stripe.md, Reglas).
             "line_items": [
                 {
                     "quantity": 1,
