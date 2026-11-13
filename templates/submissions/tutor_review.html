@@ -96,5 +96,10 @@
     {% elif submission.status == "in_review" %}
       <p class="mt-lg text-body-sm text-ink-muted">{% translate "Solo el tutor que tomó la revisión puede calificarla." %}</p>
     {% endif %}
+
+    {% if previous_attempts %}
+      {% translate "Lo que el alumno envió antes y lo que se le pidió en cada revisión." as intro %}
+      {% include "components/submission_history.html" with attempts=previous_attempts intro=intro %}
+    {% endif %}
   </div>
 {% endblock %}

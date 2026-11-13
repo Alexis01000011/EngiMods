@@ -43,9 +43,16 @@
         {% translate "La revisión de tu tutor" as heading %}
         {% include "components/review_summary.html" with review=review heading=heading %}
       {% endif %}
-    {% elif form %}
+    {% endif %}
+
+    {% if form %}
       <section aria-labelledby="envia">
-        <h2 id="envia">{% translate "Envía tu entrega" %}</h2>
+        {% if submission %}
+          <h2 id="envia">{% translate "Reenvía tu entrega" %}</h2>
+          <p class="text-body-sm text-ink-muted">{% translate "Haz los cambios que te pidió tu tutor, súbelos a tu repositorio y vuelve a enviarla. Tus envíos anteriores y sus revisiones se guardan." %}</p>
+        {% else %}
+          <h2 id="envia">{% translate "Envía tu entrega" %}</h2>
+        {% endif %}
         {% if form.errors %}
           <div role="alert" class="mb-lg rounded-lg bg-error-container p-md text-error">
             <p class="m-0"><strong>{% translate "No se pudo enviar." %}</strong> {% translate "Revisa los campos marcados y vuelve a intentarlo." %}</p>
@@ -76,10 +83,15 @@
             </div>
           {% endfor %}
           <div>
-            <button type="submit" class="button-primary w-full sm:w-auto">{% translate "Enviar mi entrega" %}</button>
+            <button type="submit" class="button-primary w-full sm:w-auto">{% if submission %}{% translate "Reenviar mi entrega" %}{% else %}{% translate "Enviar mi entrega" %}{% endif %}</button>
           </div>
         </form>
       </section>
+    {% endif %}
+
+    {% if previous_attempts %}
+      {% translate "Todo lo que has enviado y lo que te dijo tu tutor en cada revisión." as intro %}
+      {% include "components/submission_history.html" with attempts=previous_attempts intro=intro %}
     {% endif %}
 
     <p class="mt-xl text-body-sm"><a href="{% url 'submissions:my_submissions' %}">{% translate "Ver todas mis entregas" %}</a></p>

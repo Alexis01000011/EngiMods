@@ -201,7 +201,7 @@ El 4/11/2026 se agregó la deuda de diseño de las pantallas hechas antes de ace
 | [EM-070](#em-070) | [#43](https://github.com/Alexis01000011/EngiMods/issues/43) | Enviar una entrega | E7 | Must | 3 | 6 | EM-061 | Hecho |
 | [EM-071](#em-071) | [#44](https://github.com/Alexis01000011/EngiMods/issues/44) | Cola de revisión con alerta de 24 horas | E7 | Must | 3 | 7 | EM-070, EM-035 | Hecho |
 | [EM-072](#em-072) | [#45](https://github.com/Alexis01000011/EngiMods/issues/45) | Revisar con rúbrica | E7 | Must | 5 | 7 | EM-070, EM-035 | Hecho |
-| [EM-073](#em-073) | [#46](https://github.com/Alexis01000011/EngiMods/issues/46) | Reenviar entrega tras cambios | E7 | Must | 2 | 8 | EM-072 | Pendiente |
+| [EM-073](#em-073) | [#46](https://github.com/Alexis01000011/EngiMods/issues/46) | Reenviar entrega tras cambios | E7 | Must | 2 | 8 | EM-072 | Hecho |
 | [EM-074](#em-074) | [#47](https://github.com/Alexis01000011/EngiMods/issues/47) | Notificaciones de entregas por correo | E7 | Should | 2 | 8 | EM-072, EM-008 | Pendiente |
 | [EM-075](#em-075) | [#48](https://github.com/Alexis01000011/EngiMods/issues/48) | Entregar archivo .zip | E7 | Could | 3 | 7 | EM-070, EM-007 | Pendiente |
 | [EM-076](#em-076) | [#49](https://github.com/Alexis01000011/EngiMods/issues/49) | Proyecto final con checklist de publicación | E7 | Should | 3 | 8 | EM-072 | Pendiente |
@@ -1100,14 +1100,14 @@ Nota: Se puede construir en paralelo con EM-071: la cola enlaza a esta pantalla,
 
 **Reenviar entrega tras cambios**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 8 · Issue: [#46](https://github.com/Alexis01000011/EngiMods/issues/46)
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 8 · Estado: Hecho · Issue: [#46](https://github.com/Alexis01000011/EngiMods/issues/46)
 
 > Como **alumno**, quiero reenviar mi entrega después de recibir cambios, para mejorar mi trabajo hasta aprobarlo.
 
 Criterios de aceptación:
 
-- [ ] Se conserva el historial de envíos y revisiones de la misma entrega.
-- [ ] El reenvío vuelve a entrar a la cola con su propia hora de envío.
+- [x] Se conserva el historial de envíos y revisiones de la misma entrega.
+- [x] El reenvío vuelve a entrar a la cola con su propia hora de envío.
 
 Depende de: [EM-072](#em-072)
 
