@@ -19,7 +19,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-SKILLS = "tomar-historia, revisar-pr, cambiar-backlog, proponer-adr"
+SKILLS = "tomar-historia, revisar-pr, cambiar-backlog, proponer-adr, disenar-pantalla"
 HOOKS_PATH = ".githooks"
 
 

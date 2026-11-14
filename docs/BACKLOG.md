@@ -32,18 +32,18 @@ Catálogo completo de lo que se va a construir en la plataforma. Generado el 3 d
 
 ## Recorte para la entrega de semestre
 
-Propuesto el 3 de noviembre de 2026. Quedan unas 4 semanas, hasta alrededor del 1 de diciembre, y el equipo son 3 personas con agentes de código. R1 completo son 169 puntos; este recorte toma 83 en el bloque principal.
+Propuesto el 3 de noviembre de 2026. Quedan unas 4 semanas, hasta alrededor del 1 de diciembre, y el equipo son 3 personas con agentes de código. R1 completo son 169 puntos; este recorte toma 80 en el bloque principal (eran 83 hasta que EM-008 salió el 14/11/2026).
 
 **Objetivo:** el ciclo completo de Misión Cero funcionando en staging con Stripe en modo prueba. Un visitante llega a la landing, ve el curso, se registra, paga, queda inscrito, sigue las lecciones con su versión probada y entrega su ejercicio. Un tutor lo revisa con rúbrica desde su pantalla.
 
 **Por qué Misión Cero y no el curso de seis semanas:** el curso dura más que el tiempo que queda, así que no se puede operar dentro del semestre. Misión Cero es autoguiada: no necesita grupos, cupos ni reservas de plaza. Además es lo primero que el piloto mide (ver `docs/negocio.md`).
 
-### Bloque A: ciclo completo en staging (83 pts)
+### Bloque A: ciclo completo en staging (80 pts)
 
 | Ola | Historias | Pts |
 |---|---|---|
 | 1 | [EM-003](#em-003) Usuario, [EM-004](#em-004) Plantilla y estilos, [EM-005](#em-005) Staging, [EM-009](#em-009) Stripe en modo prueba | 12 |
-| 2 | [EM-008](#em-008) Correo, [EM-010](#em-010) Juegos, [EM-033](#em-033) Aviso de privacidad, [EM-035](#em-035) Rol de tutor | 9 |
+| 2 | [EM-010](#em-010) Juegos, [EM-033](#em-033) Aviso de privacidad, [EM-035](#em-035) Rol de tutor | 6 |
 | 3 | [EM-011](#em-011) Versiones y entornos, [EM-020](#em-020) Curso, [EM-030](#em-030) Registro | 11 |
 | 4 | [EM-021](#em-021) Módulos y lecciones, [EM-031](#em-031) Inicio de sesión, [EM-040](#em-040) Landing, [EM-053](#em-053) Inscripciones | 12 |
 | 5 | [EM-041](#em-041) Detalle del curso, [EM-042](#em-042) Checkout, [EM-060](#em-060) Panel del alumno, [EM-061](#em-061) Ver lección | 14 |
@@ -59,12 +59,11 @@ Calendario sugerido. Si la fecha de entrega es otra, se ajusta.
 - Semana 4 (23 al 27): olas 7 y 8, y bloque B.
 - Del 30 de noviembre al 1 de diciembre: margen para estabilizar y preparar la entrega.
 
-### Bloque B: abrir Misión Cero a personas reales (9 pts)
+### Bloque B: abrir Misión Cero a personas reales (7 pts)
 
 Solo si el equipo va a recibir alumnos o dinero reales antes de la entrega:
 
 - [EM-036](#em-036) Términos y política de devolución.
-- [EM-044](#em-044) Correo de confirmación de compra.
 - [EM-073](#em-073) Reenviar entrega tras cambios.
 - [EM-091](#em-091) Métricas del piloto.
 
@@ -87,6 +86,7 @@ Mientras tanto, la plantilla del proyecto se enlaza dentro del texto de la lecci
 
 Todo lo demás de R1 queda fuera, Must incluidas:
 
+- Correo: EM-008, EM-044. Salieron del recorte el 14/11/2026: la entrega de semestre no tendrá alumnos ni pagos reales, y el correo real pide un dominio propio y una API HTTPS (ver la nota de la primera).
 - Grupos y curso de seis semanas: EM-045, EM-050, EM-051, EM-052, EM-080, EM-081.
 - Revalidación por versión: EM-014, EM-082.
 - Otros pagos y devoluciones: EM-047, EM-048, EM-049.
@@ -103,18 +103,18 @@ Cada persona se queda con un área para que choquen menos las migraciones. Es un
 |---|---|---|---|
 | 1 | Cuentas, panel y cola de revisión | EM-003 (1); EM-033 y EM-035 (2); EM-030 (3); EM-031 (4); EM-041 y EM-060 (5); EM-070 (6); EM-071 (7) | 25 |
 | 2 | Catálogo, contenido y lecciones | EM-004 (1); EM-010 (2); EM-011 y EM-020 (3); EM-021 (4); EM-061 (5); EM-062 (6); EM-072 (7) | 26 |
-| 3 | Infraestructura, pagos e inscripciones | EM-005 y EM-009 (1); EM-008 (2); EM-040 y EM-053 (4); EM-042 (5); EM-043 (6) | 25 |
+| 3 | Infraestructura, pagos e inscripciones | EM-005 y EM-009 (1); EM-040 y EM-053 (4); EM-042 (5); EM-043 (6) | 22 |
 
-La persona 3 queda libre en las olas 3 y 7. Ahí puede tomar EM-036 y EM-044 del bloque B, o avanzar el contenido de Misión Cero.
+La persona 3 queda libre en las olas 2, 3 y 7. Ahí puede tomar EM-036 del bloque B, o avanzar el contenido de Misión Cero.
 
 ### Riesgos
 
-- **La velocidad no se conoce.** Al cerrar la semana 1, comparen lo mezclado contra los 21 puntos de las olas 1 y 2. Si va muy por debajo, recorten dentro del bloque A en este orden:
+- **La velocidad no se conoce.** Al cerrar la semana 1, comparen lo mezclado contra los 18 puntos de las olas 1 y 2. Si va muy por debajo, recorten dentro del bloque A en este orden:
   1. EM-040 se reduce a una sección de la página de inicio.
   2. EM-072 queda sin calificación por criterio: solo comentario y decisión.
   3. EM-031 queda sin recuperación de contraseña.
 - **La ruta crítica tiene 7 pasos en serie:** EM-003 → EM-010 → EM-020 → EM-021 → EM-061 → EM-070 → EM-071/EM-072. Cada paso espera a que el anterior esté en `main`; si un PR de esa ruta se pide a revisión, que se revise el mismo día.
-- **Hay decisiones que bloquean la semana 1:** el enfoque de estilos (EM-004), el hosting (EM-005), el proveedor de correo y el dominio (EM-008), el juego de Misión Cero y cuántos días dura el acceso (EM-020). Hosting, dominio y correo deben caber en los MXN 1,500 del piloto.
+- **Hay decisiones que bloquean la semana 1:** el enfoque de estilos (EM-004), el hosting (EM-005), el juego de Misión Cero y cuántos días dura el acceso (EM-020). Hosting, dominio y correo deben caber en los MXN 1,500 del piloto.
 - **El contenido no está en los puntos.** Para la demostración hace falta Misión Cero escrita y probada en al menos un juego, y la escribe el mismo equipo. Conviene reservarle tiempo desde la semana 2.
 - **Un posible acelerador:** `django-allauth` cubriría buena parte de EM-003, EM-030 y EM-031 (correo como identificador, verificación y recuperación). Es una dependencia nueva, así que necesita un ADR y la decisión del equipo.
 
@@ -127,6 +127,8 @@ Hecho el 3/11/2026:
 - Cuerpo actualizado en las 30 issues cuyos criterios cambiaron en el recorte.
 
 El 4/11/2026 se agregó la deuda de diseño de las pantallas hechas antes de aceptar el ADR 0002: [EM-064](#em-064) (#98) y [EM-077](#em-077) (#99) al bloque A y a la milestone `Semestre`, y [EM-015](#em-015) (#100) al bloque C.
+
+El 14/11/2026 salieron del recorte [EM-008](#em-008) (#8), del bloque A, y [EM-044](#em-044) (#29), del bloque B, que depende de ella. La issue #8 se cerró como no planeada, con la explicación; se reabre si el equipo decide recibir alumnos o pagos reales.
 
 ## Orden sugerido para R1 (olas por dependencias)
 
@@ -353,6 +355,8 @@ Criterios de aceptación:
 - [ ] En desarrollo se sigue usando el backend de consola.
 
 Depende de: [EM-005](#em-005)
+
+Nota: Fuera del recorte de semestre desde el 14/11/2026 y con la issue cerrada como no planeada. La entrega de semestre corre en staging, con Stripe en modo prueba y sin alumnos reales, así que el correo sigue saliendo por la consola: los enlaces de verificación y de recuperación aparecen en los logs de Render (`docs/despliegue.md`), y el administrador puede capturar la fecha de verificación de un usuario en el admin. Hacerla costaría más de lo previsto: Render gratuito bloquea los puertos SMTP 25, 465 y 587 (consulta del 14/11/2026), así que haría falta el envío por API HTTPS, además de un dominio propio para SPF y DKIM. Se retoma, junto con el ADR 0004, si el equipo decide abrir Misión Cero a personas reales.
 
 #### EM-009
 
@@ -780,6 +784,8 @@ Criterios de aceptación:
 - [ ] Si existen, incluye cómo entrar a Discord (EM-080) y la guía de laboratorio local (EM-063).
 
 Depende de: [EM-043](#em-043), [EM-008](#em-008)
+
+Nota: Fuera del recorte de semestre desde el 14/11/2026, junto con EM-008, de la que depende.
 
 #### EM-045
 
@@ -1441,7 +1447,7 @@ Sigue abierto:
 - **Cupo y promesa de 24 horas.** Ocho plazas y revisión en 24 horas son promesas por validar en el piloto. EM-071 y EM-091 miden si se cumplen.
 - **Comisión de Stripe.** El lienzo usa 3.6 % + MXN 3 por pago antes de IVA (consulta del 28/09/2026). Verificar de nuevo en la página oficial antes de abrir ventas.
 - **Pago sin tarjeta (OXXO).** Supuesto: parte del público no tiene tarjeta. EM-048 queda como Could hasta tener evidencia.
-- **Correo.** Sin elegir. EM-008 pide documentar costo con fuente y fecha; el gasto total del piloto está topado en MXN 1,500 según el lienzo.
+- **Correo.** Sin elegir y fuera del recorte de semestre desde el 14/11/2026 (ver la nota de EM-008). El ADR 0004 sigue como propuesta. Cuando se retome, EM-008 pide documentar costo con fuente y fecha; el gasto total del piloto está topado en MXN 1,500 según el lienzo.
 - **Aviso de privacidad, términos y política de devolución.** Los textos son entregables del equipo y deben revisarse contra la ley mexicana vigente. La plataforma solo los muestra y registra aceptación.
 - **Facturación (CFDI).** No está claro si hace falta desde el piloto. Validar con un contador (EM-107).
 - **¿Hace falta la plataforma para el piloto?** Un grupo de ocho personas se podría operar con un enlace de pago, Discord y un formulario. Construir la plataforma tiene valor propio (es parte de la clase y del producto), pero el piloto no debería esperar a que esté completa: EM-053 (inscripción manual) existe para eso.
