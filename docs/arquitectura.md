@@ -4,7 +4,7 @@ Monolito Django con plantillas del lado del servidor. Sin API separada ni fronte
 
 ## Mapa de apps
 
-Cada app es dueña de sus modelos y sus migraciones. Una historia normalmente toca una sola app; si toca otra, el PR lo dice explícitamente. Las apps se crean cuando llega la primera historia que las necesita. Ya existen `core`, `accounts`, `catalog`, `courses`, `enrollments` y `submissions`; la tabla incluye también las apps y modelos previstos para las historias pendientes.
+Cada app es dueña de sus modelos y sus migraciones. Una historia normalmente toca una sola app; si toca otra, el PR lo dice explícitamente. Las apps se crean cuando llega la primera historia que las necesita. Ya existen `core`, `accounts`, `catalog`, `courses`, `enrollments`, `payments` y `submissions`; faltan `cohorts` y `metrics`. La tabla incluye también las apps y modelos previstos para las historias pendientes.
 
 | App | Es dueña de | Modelos previstos | Historias |
 |---|---|---|---|
@@ -46,7 +46,7 @@ LegalText 1──* PrivacyConsent ──> User, o correo si es lista de espera
 - **Usuario:** siempre `settings.AUTH_USER_MODEL` o `get_user_model()`, nunca `django.contrib.auth.models.User`.
 - **Estados** con `models.TextChoices`, no cadenas sueltas.
 - **Borrado:** `on_delete=PROTECT` para pagos e inscripciones; no se borra historial de dinero.
-- **Inscripción sin grupo:** las prácticas cortas (Misión Cero) son autoguiadas. `Enrollment.cohort` y `Payment.cohort` son opcionales y solo se usan en cursos por grupos.
+- **Inscripción sin grupo:** las prácticas cortas (Misión Cero) son autoguiadas. `Enrollment.cohort` y `Payment.cohort` llegan con los grupos (EM-050), serán opcionales y solo se usarán en cursos por grupos. Mientras tanto, un curso por grupos no se puede pagar.
 - **Acceso por tiempo:** la inscripción guarda su fecha de fin de acceso, calculada con los días de acceso del curso. El acceso vigente se calcula (inscripción `activa` y antes de esa fecha); "vencida" no se guarda como estado.
 
 ## Roles y pantallas
@@ -71,7 +71,7 @@ En español y con slugs: `/juegos/<slug>/`, `/cursos/<slug>/`, `/cursos/<slug>/l
 El acceso a un curso pagado depende del webhook de Stripe (EM-043), no de la página de éxito. El webhook es idempotente y verifica firma. La inscripción manual (EM-053) usa el mismo modelo `Enrollment` con otro origen.
 
 - El id de la sesión de Checkout es único en `Payment` y es la llave de idempotencia.
-- Solo se inscribe cuando la sesión llega con `payment_status = paid`. Los pagos diferidos (OXXO) se confirman con `checkout.session.async_payment_succeeded`.
+- Solo se inscribe cuando la sesión llega con `payment_status = paid`. Hoy solo se atiende `checkout.session.completed`. Los pagos diferidos (OXXO) se confirmarán con `checkout.session.async_payment_succeeded` cuando llegue EM-048.
 - El monto pagado se toma de Stripe (`amount_total`), no del precio actual del curso.
 
 ## Correo
