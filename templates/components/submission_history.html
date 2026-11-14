@@ -1,0 +1,37 @@
+{% load i18n %}{# Envíos anteriores de una entrega, cada uno con su revisión (EM-073). Recibe `attempts`, del más nuevo al más viejo, cada uno con `number` y `past_review`, e `intro`. #}
+<section aria-labelledby="envios-anteriores" class="mt-xl">
+  <h2 id="envios-anteriores" class="m-0 text-headline-sm">{% translate "Envíos anteriores" %}</h2>
+  <p class="mt-xs text-body-sm text-ink-muted">{{ intro }}</p>
+  <ul class="m-0 mt-md flex list-none flex-col gap-md p-0">
+    {% for attempt in attempts %}
+      <li class="m-0">
+        <details class="m-0 rounded-lg border border-divider bg-surface">
+          <summary class="flex min-h-touch-target cursor-pointer list-none items-center justify-between gap-md px-lg py-sm [&::-webkit-details-marker]:hidden">
+            <span class="flex flex-col">
+              <span class="text-label-md">{% blocktranslate trimmed with number=attempt.number date=attempt.submitted_at|date:"j \d\e F \d\e Y, H:i" %}Envío {{ number }} · {{ date }}{% endblocktranslate %}</span>
+              <span class="text-body-sm text-ink-muted">{% if attempt.past_review %}{{ attempt.past_review.get_decision_display }}{% else %}{% translate "Sin revisión" %}{% endif %}</span>
+            </span>
+            <span class="flex-none text-body-sm text-primary">{% translate "Ver detalle" %}</span>
+          </summary>
+          <div class="flex flex-col gap-md px-lg pb-lg">
+            <dl class="m-0">
+              <dt>{% translate "Repositorio" %}</dt>
+              <dd class="[overflow-wrap:anywhere]"><a href="{{ attempt.repository_url }}" rel="noopener noreferrer">{{ attempt.repository_url }}</a></dd>
+              <dt>{% translate "Probado con" %}</dt>
+              <dd class="font-mono text-code-sm text-tested">{{ attempt.game_version.number }} + {{ attempt.modding_environment.name }} {{ attempt.modding_environment.version }}</dd>
+              {% if attempt.comment %}
+                <dt>{% translate "Comentario del envío" %}</dt>
+                <dd>{{ attempt.comment|linebreaksbr }}</dd>
+              {% endif %}
+            </dl>
+            {% if attempt.past_review %}
+              {% include "components/review_body.html" with review=attempt.past_review %}
+            {% else %}
+              <p class="m-0 text-body-sm text-ink-muted">{% translate "Este envío no tiene revisión." %}</p>
+            {% endif %}
+          </div>
+        </details>
+      </li>
+    {% endfor %}
+  </ul>
+</section>

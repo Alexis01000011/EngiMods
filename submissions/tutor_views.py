@@ -1,4 +1,4 @@
-"""Pantallas del tutor para revisar entregas, fuera del admin (EM-071 y EM-072)."""
+"""Pantallas del tutor para revisar entregas, fuera del admin (EM-071, EM-072 y EM-073)."""
 
 from datetime import timedelta
 
@@ -16,6 +16,7 @@ from accounts.permissions import tutor_required
 
 from .forms import ReviewForm
 from .models import Review, ReviewScore, Submission, SubmissionAttempt
+from .views import attempts_with_reviews
 
 PENDING = (Submission.Status.SUBMITTED, Submission.Status.IN_REVIEW)
 
@@ -62,10 +63,12 @@ def review(request, pk):
     submission = get_object_or_404(
         Submission.objects.select_related(
             "enrollment__user", "enrollment__course", "exercise__lesson"
-        ).prefetch_related(latest_attempts()),
+        ),
         pk=pk,
     )
-    attempt = submission.attempts.all()[0] if submission.attempts.all() else None
+    # El envío más reciente es el que se revisa; los anteriores quedan como historial (EM-073).
+    attempts = attempts_with_reviews(submission)
+    attempt = attempts[0] if attempts else None
     criteria = list(submission.exercise.rubric_criteria.all())
     can_review = (
         submission.status == Submission.Status.IN_REVIEW
@@ -94,9 +97,8 @@ def review(request, pk):
             "attempt": attempt,
             "criteria": criteria,
             "form": form,
-            "review": Review.objects.with_scores().filter(attempt=attempt).first()
-            if attempt
-            else None,
+            "review": attempt.past_review if attempt else None,
+            "previous_attempts": attempts[1:],
         },
     )
 
