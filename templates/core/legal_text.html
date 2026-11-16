@@ -4,11 +4,15 @@
 {% block title %}{{ legal_text.get_kind_display }} · EngiMods{% endblock %}
 
 {% block content %}
-  <article>
-    <h1>{{ legal_text.get_kind_display }}</h1>
-    <p>
-      {% blocktranslate with version=legal_text.version date=legal_text.effective_date|date|lower %}Versión {{ version }}, vigente desde el {{ date }}.{% endblocktranslate %}
-    </p>
-    {{ legal_text.body|linebreaks }}
+  <article class="max-w-reading-max">
+    <header class="flex flex-col gap-xs">
+      <h1 class="m-0 text-title-md">{{ legal_text.get_kind_display }}</h1>
+      <p class="m-0 text-body-sm text-ink-muted">
+        {% blocktranslate with version=legal_text.version date=legal_text.effective_date|date|lower %}Versión {{ version }}, vigente desde el {{ date }}.{% endblocktranslate %}
+      </p>
+    </header>
+    <div class="mt-lg font-serif text-reading-md [overflow-wrap:anywhere]">
+      {{ legal_text.body|linebreaks }}
+    </div>
   </article>
 {% endblock %}
