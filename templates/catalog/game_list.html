@@ -4,12 +4,53 @@
 {% block title %}{% translate "Juegos" %} · EngiMods{% endblock %}
 
 {% block content %}
-  <h1>{% translate "Juegos" %}</h1>
-  <ul>
-    {% for game in games %}
-      <li><a href="{{ game.get_absolute_url }}">{{ game.name }}</a></li>
-    {% empty %}
-      <li>{% translate "Todavía no hay juegos disponibles." %}</li>
-    {% endfor %}
-  </ul>
+  <header class="flex max-w-reading-max flex-col gap-xs">
+    <h1 class="m-0 text-title-md">{% translate "Juegos" %}</h1>
+    <p class="m-0 font-serif text-dek italic text-ink-soft">{% translate "Cada juego dice con qué versiones y entornos de modding trabajamos, para que sepas qué instalar." %}</p>
+  </header>
+
+  {% if games %}
+    <ul class="m-0 mt-lg grid list-none grid-cols-[repeat(auto-fill,minmax(min(100%,320px),1fr))] gap-md p-0">
+      {% for game in games %}
+        <li class="m-0 flex flex-col gap-sm rounded-lg border border-divider bg-surface p-lg">
+          <h2 class="m-0 text-headline-sm"><a href="{{ game.get_absolute_url }}" class="text-ink no-underline hover:underline">{{ game.name }}</a></h2>
+          <p class="m-0 [overflow-wrap:anywhere]">{{ game.description|truncatewords:30 }}</p>
+
+          {% with versions=game.versions.all %}
+            {% if versions %}
+              <ul class="m-0 flex list-none flex-wrap gap-sm p-0" aria-label="{% translate 'Versiones del juego' %}">
+                {% for version in versions %}
+                  <li class="m-0 inline-flex items-center gap-1.5 rounded-full bg-tested-container px-3 py-1.5 font-mono text-code-sm text-tested">
+                    <svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5l3 3 7-7"/></svg>
+                    {% if version.is_current %}{% blocktranslate with number=version.number %}{{ number }} · actual{% endblocktranslate %}{% else %}{{ version.number }}{% endif %}
+                  </li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              <p class="m-0 inline-flex items-center gap-1.5 self-start rounded-full bg-surface-chip px-3 py-1.5 font-mono text-code-sm text-ink-muted">
+                <svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8h8"/></svg>
+                {% translate "Sin versiones registradas" %}
+              </p>
+            {% endif %}
+          {% endwith %}
+
+          {% with environments=game.modding_environments.all %}
+            {% if environments %}
+              <ul class="m-0 flex list-none flex-wrap gap-sm p-0" aria-label="{% translate 'Entornos de modding' %}">
+                {% for environment in environments %}
+                  <li class="m-0 inline-flex min-h-8 items-center rounded-full bg-surface-chip px-3 text-label-sm text-ink-soft">{{ environment.name }} {{ environment.version }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          {% endwith %}
+
+          <div class="mt-auto pt-sm">
+            <a href="{{ game.get_absolute_url }}" class="button-secondary">{% translate "Ver versiones y entornos" %}<span class="sr-only">: {{ game.name }}</span></a>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="mt-lg max-w-reading-max rounded-lg border border-dashed border-outline bg-surface p-lg">{% translate "Todavía no hay juegos disponibles." %}</p>
+  {% endif %}
 {% endblock %}

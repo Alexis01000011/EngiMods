@@ -4,11 +4,75 @@
 {% block title %}{{ game.name }} · EngiMods{% endblock %}
 
 {% block content %}
-  <p><a href="{% url 'catalog:game_list' %}">{% translate "Todos los juegos" %}</a></p>
-  <h1>{{ game.name }}</h1>
-  {% if game.logo_url %}
-    <img src="{{ game.logo_url }}" alt="" width="96" height="96">
-  {% endif %}
-  {{ game.description|linebreaks }}
-  <p><a href="{{ game.official_url }}">{% translate "Sitio oficial" %}</a></p>
+  <div class="max-w-reading-max">
+    <nav aria-label="{% translate 'Ruta' %}">
+      <a href="{% url 'catalog:game_list' %}" class="inline-flex min-h-touch-target items-center text-label-md">← {% translate "Todos los juegos" %}</a>
+    </nav>
+
+    <header class="mt-sm flex items-center gap-md">
+      {% if game.logo_url %}
+        <img src="{{ game.logo_url }}" alt="" width="56" height="56" class="size-14 shrink-0 rounded-md object-contain">
+      {% endif %}
+      <h1 class="m-0 min-w-0 text-title-md [overflow-wrap:anywhere]">{{ game.name }}</h1>
+    </header>
+
+    <div class="mt-md font-serif text-reading-md [overflow-wrap:anywhere]">
+      {{ game.description|linebreaks }}
+    </div>
+    <p><a href="{{ game.official_url }}" rel="noopener">{% translate "Sitio oficial" %}</a></p>
+  </div>
+
+  <section aria-labelledby="versiones">
+    <h2 id="versiones">{% translate "Versiones y entornos" %}</h2>
+    {% with versions=game.versions.all %}
+      {% if versions %}
+        <p class="text-body-sm text-ink-muted">{% translate "De la más nueva a la más vieja. Cada entorno de modding aparece en las versiones con las que es compatible." %}</p>
+        <div class="max-w-full overflow-x-auto" role="region" aria-labelledby="versiones" tabindex="0">
+          <table class="table min-w-128">
+            <thead>
+              <tr>
+                <th scope="col">{% translate "Versión del juego" %}</th>
+                <th scope="col">{% translate "Publicada" %}</th>
+                <th scope="col">{% translate "Entornos de modding" %}</th>
+                <th scope="col">{% translate "Estado" %}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for version in versions %}
+                <tr>
+                  <td class="whitespace-nowrap font-mono text-code-sm">{{ version.number }}</td>
+                  <td class="whitespace-nowrap">{{ version.release_date|date:"j \d\e F \d\e Y"|lower }}</td>
+                  <td>
+                    {% with environments=version.modding_environments.all %}
+                      {% if environments %}
+                        <ul class="m-0 flex list-none flex-wrap gap-xs p-0">
+                          {% for environment in environments %}
+                            <li class="m-0 inline-flex min-h-8 items-center whitespace-nowrap rounded-full bg-surface-chip px-3 text-label-sm text-ink-soft">{{ environment.name }} {{ environment.version }}</li>
+                          {% endfor %}
+                        </ul>
+                      {% else %}
+                        <span class="text-body-sm text-ink-muted">{% translate "Sin entornos registrados" %}</span>
+                      {% endif %}
+                    {% endwith %}
+                  </td>
+                  <td>
+                    {% if version.is_current %}
+                      <span class="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-tested-container px-3 py-1.5 font-mono text-code-sm text-tested">
+                        <svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5l3 3 7-7"/></svg>
+                        {% translate "Versión actual" %}
+                      </span>
+                    {% else %}
+                      <span class="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-surface-chip px-3 py-1.5 font-mono text-code-sm text-ink-muted">{% translate "Anterior" %}</span>
+                    {% endif %}
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <p class="max-w-reading-max rounded-lg border border-dashed border-outline bg-surface p-lg">{% translate "Aún no registramos versiones de este juego." %}</p>
+      {% endif %}
+    {% endwith %}
+  </section>
 {% endblock %}

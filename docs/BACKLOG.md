@@ -168,7 +168,7 @@ El 14/11/2026 salieron del recorte [EM-008](#em-008) (#8), del bloque A, y [EM-0
 | [EM-012](#em-012) | [#12](https://github.com/Alexis01000011/EngiMods/issues/12) | Página pública de cada juego | E1 | Must | 3 | 4 | EM-011, EM-020 | Pendiente |
 | [EM-013](#em-013) | [#13](https://github.com/Alexis01000011/EngiMods/issues/13) | Filtrar cursos por juego | E1 | Should | 2 | 5 | EM-012 | Pendiente |
 | [EM-014](#em-014) | [#14](https://github.com/Alexis01000011/EngiMods/issues/14) | Marcar contenido pendiente de revalidar al salir una nueva versión | E1 | Should | 5 | 5 | EM-021, EM-035 | Pendiente |
-| [EM-015](#em-015) | [#100](https://github.com/Alexis01000011/EngiMods/issues/100) | Catálogo de juegos y textos legales con la identidad visual | E1 | Should | 2 | 4 | EM-004, EM-010, EM-033, EM-036 | Pendiente |
+| [EM-015](#em-015) | [#100](https://github.com/Alexis01000011/EngiMods/issues/100) | Catálogo de juegos y textos legales con la identidad visual | E1 | Should | 2 | 4 | EM-004, EM-010, EM-033, EM-036 | Hecho |
 | [EM-020](#em-020) | [#15](https://github.com/Alexis01000011/EngiMods/issues/15) | Modelo de curso | E2 | Must | 3 | 3 | EM-010 | Hecho |
 | [EM-021](#em-021) | [#16](https://github.com/Alexis01000011/EngiMods/issues/16) | Módulos y lecciones con versión probada | E2 | Must | 5 | 4 | EM-020, EM-011 | Hecho |
 | [EM-022](#em-022) | [#17](https://github.com/Alexis01000011/EngiMods/issues/17) | Vista previa de lecciones para tutores | E2 | Should | 3 | 6 | EM-021, EM-061 | Pendiente |
@@ -466,14 +466,14 @@ Nota: Es el diferenciador de la propuesta de valor ("ejemplos con versión compr
 
 **Catálogo de juegos y textos legales con la identidad visual**
 
-Tipo: Técnica · Prioridad: Should · Release: R1 · Puntos: 2 · Ola: 4 · Issue: [#100](https://github.com/Alexis01000011/EngiMods/issues/100)
+Tipo: Técnica · Prioridad: Should · Release: R1 · Puntos: 2 · Ola: 4 · Estado: Hecho · Issue: [#100](https://github.com/Alexis01000011/EngiMods/issues/100)
 
 Criterios de aceptación:
 
-- [ ] `catalog/game_list.html` y `catalog/game_detail.html` siguen la anatomía "Catálogo de juegos y detalle de juego" de la skill `disenar-pantalla`: tarjetas sin logo ni arte del juego, versiones en `badge-tested`, entornos como `chip`s y, en el detalle, la tabla de versiones con desplazamiento horizontal propio en teléfono.
-- [ ] `core/legal_text.html` sigue la anatomía "Textos legales": columna `reading-max`, título `title-md`, fecha de vigencia en muted y texto en `reading-md`.
-- [ ] Solo cambia la presentación: vistas, URLs y reglas de acceso quedan igual y las pruebas existentes pasan sin cambiar lo que verifican.
-- [ ] Solo usa clases que salen de `DESIGN.md`, sin `style=` en línea, y se ve bien a 360, 768 y 1280 px sin desplazamiento horizontal de la página.
+- [x] `catalog/game_list.html` y `catalog/game_detail.html` siguen la anatomía "Catálogo de juegos y detalle de juego" de la skill `disenar-pantalla`: tarjetas sin logo ni arte del juego, versiones en `badge-tested`, entornos como `chip`s y, en el detalle, la tabla de versiones con desplazamiento horizontal propio en teléfono.
+- [x] `core/legal_text.html` sigue la anatomía "Textos legales": columna `reading-max`, título `title-md`, fecha de vigencia en muted y texto en `reading-md`.
+- [x] Solo cambia la presentación: vistas, URLs y reglas de acceso quedan igual y las pruebas existentes pasan sin cambiar lo que verifican.
+- [x] Solo usa clases que salen de `DESIGN.md`, sin `style=` en línea, y se ve bien a 360, 768 y 1280 px sin desplazamiento horizontal de la página.
 
 Depende de: [EM-004](#em-004), [EM-010](#em-010), [EM-033](#em-033), [EM-036](#em-036)
 
