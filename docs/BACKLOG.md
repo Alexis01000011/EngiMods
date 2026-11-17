@@ -1437,12 +1437,15 @@ Decidido el 5/11/2026:
 
 - **Hosting de staging:** Render gratuito para la web y Neon gratuito para PostgreSQL, a MXN 0 (ADR 0003, EM-005). Los límites de Neon se verifican al hacer EM-005.
 
+Decidido el 17/11/2026:
+
+- **Juegos del piloto:** Hytale y Minecraft: Java Edition. El plan para producir su contenido (temario de Misión Cero y del curso, versiones, pruebas, marca y decisiones que faltan) está en `docs/contenido/plan-hytale-minecraft.md`. Cada juego exige lecciones propias probadas por versión y un tutor que lo domine; el lienzo calcula 36 horas de tutoría por grupo de seis semanas para un solo curso.
+
 Sigue abierto:
 
 - **Cuántos días dura el acceso,** en Misión Cero y en el curso. Es un dato de cada curso (EM-020).
 - **Quién revisa Misión Cero y si aplica la promesa de 24 horas.** El recorte de semestre supone que los tutores son el mismo equipo y que todos ven todas las entregas (EM-071).
 - **Precio con o sin IVA y quién es el responsable legal.** Hay que resolverlo antes de cobrar dinero real: afecta el precio mostrado, el aviso de privacidad (EM-033), los términos (EM-036) y la cuenta real de Stripe.
-- **Qué juegos arrancan.** La plataforma es multi-juego desde el modelo (E1), pero cada juego exige lecciones propias probadas por versión y un tutor que lo domine. El lienzo calcula 36 horas de tutoría por grupo de seis semanas para un solo curso. Pendiente decidir con qué juegos abre el piloto. Afecta EM-006, EM-012, EM-040 y la carga de contenido.
 - **Precios.** MXN 199 (Misión Cero, piloto), MXN 299 (Misión Cero después) y MXN 1,990 (curso) son propuestas del lienzo para probar. Por eso el precio es un dato del curso (EM-020) y no una constante en código.
 - **Cupo y promesa de 24 horas.** Ocho plazas y revisión en 24 horas son promesas por validar en el piloto. EM-071 y EM-091 miden si se cumplen.
 - **Comisión de Stripe.** El lienzo usa 3.6 % + MXN 3 por pago antes de IVA (consulta del 28/09/2026). Verificar de nuevo en la página oficial antes de abrir ventas.
