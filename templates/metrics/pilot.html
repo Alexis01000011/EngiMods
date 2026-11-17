@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Métricas del piloto" %} · EngiMods{% endblock %}
+
+{% block content %}
+  <header class="flex flex-col gap-sm sm:flex-row sm:items-end sm:justify-between sm:gap-lg">
+    <div class="flex max-w-reading-max flex-col gap-xs">
+      <h1 class="m-0 text-title-md">{% translate "Métricas del piloto" %}</h1>
+      <p class="m-0 text-body-sm text-ink-muted">{% translate "Números agregados por curso, sin datos de personas. Se calculan al abrir esta página." %}</p>
+    </div>
+    <a href="{% url 'metrics:pilot_csv' %}" class="button-secondary self-start sm:self-auto">{% translate "Descargar CSV" %}</a>
+  </header>
+
+  <section aria-labelledby="cuentas" class="mt-lg">
+    <h2 id="cuentas" class="sr-only">{% translate "Cuentas" %}</h2>
+    <dl class="m-0 grid grid-cols-1 gap-md sm:grid-cols-2 lg:max-w-reading-max">
+      <div class="rounded-lg border border-divider bg-surface p-lg">
+        <dt><a href="#def-cuentas">{% translate "Cuentas de alumnos registradas" %}</a></dt>
+        <dd class="m-0 mt-xs font-serif text-title-md">{{ accounts.registered }}</dd>
+      </div>
+      <div class="rounded-lg border border-divider bg-surface p-lg">
+        <dt><a href="#def-verificadas">{% translate "Con correo verificado" %}</a></dt>
+        <dd class="m-0 mt-xs font-serif text-title-md">{{ accounts.verified }}</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section aria-labelledby="por-curso">
+    <h2 id="por-curso">{% translate "Por curso" %}</h2>
+    {% if rows %}
+      <p class="text-body-sm text-ink-muted">{% translate "Toca el nombre de una columna para ver cómo se calcula. Una raya (—) significa que todavía no hay datos para calcularlo." %}</p>
+      <div class="max-w-full overflow-x-auto" role="region" aria-labelledby="por-curso" tabindex="0">
+        <table class="table min-w-192">
+          <thead>
+            <tr>
+              <th scope="col">{% translate "Curso" %}</th>
+              <th scope="col"><a href="#def-pago">{% translate "Iniciaron el pago" %}</a></th>
+              <th scope="col"><a href="#def-inscripciones">{% translate "Inscripciones" %}</a></th>
+              <th scope="col"><a href="#def-pagadas">{% translate "Pagadas" %}</a></th>
+              <th scope="col"><a href="#def-conversion">{% translate "Conversión a curso" %}</a></th>
+              <th scope="col"><a href="#def-avance">{% translate "Avance promedio" %}</a></th>
+              <th scope="col"><a href="#def-finalizacion">{% translate "Finalización" %}</a></th>
+              <th scope="col"><a href="#def-revision">{% translate "Tiempo medio de revisión" %}</a></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in rows %}
+              <tr>
+                <th scope="row" class="min-w-48 text-body-md font-normal text-ink">
+                  <span class="block text-label-sm text-ink-muted">{{ row.course.game.name }} · {{ row.course.get_kind_display }}</span>
+                  {{ row.course.title }}
+                  {% if not row.published %}
+                    <span class="mt-xs inline-flex min-h-8 items-center rounded-full bg-surface-chip px-3 text-label-sm text-ink-soft">{{ row.course.get_status_display }}</span>
+                  {% endif %}
+                </th>
+                <td>{{ row.checkout_started }}</td>
+                <td>{{ row.enrollments }}</td>
+                <td>{{ row.paid }}</td>
+                <td class="whitespace-nowrap">{% if row.conversion is None %}—{% else %}{{ row.conversion|floatformat:"-1" }} %{% endif %}</td>
+                <td class="whitespace-nowrap">{% if row.average_progress is None %}—{% else %}{{ row.average_progress|floatformat:"-1" }} %{% endif %}</td>
+                <td class="whitespace-nowrap">{% if row.completion is None %}—{% else %}{{ row.completion|floatformat:"-1" }} %{% endif %}</td>
+                <td class="whitespace-nowrap">{% if row.review_hours is None %}—{% else %}{% blocktranslate with hours=row.review_hours|floatformat:"-1" count reviews=row.reviews %}{{ hours }} h ({{ reviews }} revisión){% plural %}{{ hours }} h ({{ reviews }} revisiones){% endblocktranslate %}{% endif %}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <p class="max-w-reading-max rounded-lg border border-dashed border-outline bg-surface p-lg">{% translate "Aún no hay cursos. Las métricas aparecen cuando se crea el primero en el admin." %}</p>
+    {% endif %}
+  </section>
+
+  <section aria-labelledby="como-se-calcula" class="max-w-reading-max">
+    <h2 id="como-se-calcula">{% translate "Cómo se calcula" %}</h2>
+    <dl>
+      <dt id="def-cuentas">{% translate "Cuentas de alumnos registradas" %}</dt>
+      <dd>{% translate "Cuentas creadas en el sitio, sin contar al equipo: administradores, superusuarios y tutores. Una cuenta no pertenece a un curso, por eso este número es global." %}</dd>
+
+      <dt id="def-verificadas">{% translate "Con correo verificado" %}</dt>
+      <dd>{% translate "De esas cuentas, las que abrieron el enlace de verificación. Sin correo verificado no se puede pagar." %}</dd>
+
+      <dt id="def-pago">{% translate "Iniciaron el pago" %}</dt>
+      <dd>{% translate "Personas distintas que abrieron Stripe Checkout para el curso, hayan pagado o no. Mide el interés por comprar." %}</dd>
+
+      <dt id="def-inscripciones">{% translate "Inscripciones" %}</dt>
+      <dd>{% translate "Inscripciones al curso que no están canceladas, de cualquier origen (Stripe, beca, prueba o pago externo), con acceso vigente o vencido." %}</dd>
+
+      <dt id="def-pagadas">{% translate "Pagadas" %}</dt>
+      <dd>{% translate "De esas inscripciones, las que creó el webhook de Stripe al confirmar un pago." %}</dd>
+
+      <dt id="def-conversion">{% translate "Conversión a curso" %}</dt>
+      <dd>{% translate "Solo para prácticas cortas como Misión Cero: de las personas inscritas en la práctica, el porcentaje que también tiene una inscripción no cancelada en algún curso por grupos." %}</dd>
+
+      <dt id="def-avance">{% translate "Avance promedio" %}</dt>
+      <dd>{% translate "Para cada inscripción, las lecciones publicadas que marcó como completadas entre todas las lecciones publicadas del curso, igual que en Mi panel. Luego, el promedio de todas las inscripciones." %}</dd>
+
+      <dt id="def-finalizacion">{% translate "Finalización" %}</dt>
+      <dd>{% translate "Porcentaje de inscripciones que completaron todas las lecciones publicadas del curso." %}</dd>
+
+      <dt id="def-revision">{% translate "Tiempo medio de revisión" %}</dt>
+      <dd>{% translate "Promedio de horas entre que el alumno envía un intento y el tutor guarda su revisión, sobre todas las revisiones del curso. Entre paréntesis, cuántas revisiones hay." %}</dd>
+    </dl>
+    <p class="text-body-sm text-ink-muted">{% translate "Las métricas por grupo llegan con los grupos (EM-050) y el número de mods publicados con el proyecto final (EM-076)." %}</p>
+  </section>
+{% endblock %}
