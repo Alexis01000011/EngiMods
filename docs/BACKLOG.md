@@ -212,7 +212,7 @@ El 14/11/2026 salieron del recorte [EM-008](#em-008) (#8), del bloque A, y [EM-0
 | [EM-081](#em-081) | [#51](https://github.com/Alexis01000011/EngiMods/issues/51) | Avisos del curso | E8 | Should | 3 | 5 | EM-050, EM-008, EM-035 | Pendiente |
 | [EM-082](#em-082) | [#52](https://github.com/Alexis01000011/EngiMods/issues/52) | Aviso de nueva versión del juego a alumnos afectados | E8 | Could | 3 | 6 | EM-014, EM-081 | Pendiente |
 | [EM-090](#em-090) | [#53](https://github.com/Alexis01000011/EngiMods/issues/53) | Admin configurado para operar el piloto | E9 | Must | 2 | 7 | EM-053, EM-070 | Pendiente |
-| [EM-091](#em-091) | [#54](https://github.com/Alexis01000011/EngiMods/issues/54) | Métricas del piloto | E9 | Must | 3 | 8 | EM-062, EM-072 | Pendiente |
+| [EM-091](#em-091) | [#54](https://github.com/Alexis01000011/EngiMods/issues/54) | Métricas del piloto | E9 | Must | 3 | 8 | EM-062, EM-072 | Hecho |
 | [EM-092](#em-092) | [#55](https://github.com/Alexis01000011/EngiMods/issues/55) | Exportar datos operativos a CSV | E9 | Should | 2 | 8 | EM-090 | Pendiente |
 | [EM-093](#em-093) | [#56](https://github.com/Alexis01000011/EngiMods/issues/56) | Encuesta de cierre del curso | E9 | Should | 2 | 6 | EM-060 | Pendiente |
 | [EM-100](#em-100) | [#57](https://github.com/Alexis01000011/EngiMods/issues/57) | Membresía de actualizaciones | E10 | Later | - | - | - | Pendiente |
@@ -1254,19 +1254,19 @@ Depende de: [EM-053](#em-053), [EM-070](#em-070)
 
 **Métricas del piloto**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 8 · Issue: [#54](https://github.com/Alexis01000011/EngiMods/issues/54)
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 8 · Estado: Hecho · Issue: [#54](https://github.com/Alexis01000011/EngiMods/issues/54)
 
 > Como **equipo EngiMods**, quiero ver las métricas que validan las hipótesis del piloto, para decidir con datos si el negocio sigue, cambia o se detiene.
 
 Criterios de aceptación:
 
-- [ ] Vista para administradores con, por curso y por grupo: registros, inscripciones pagadas, conversión de Misión Cero a curso, avance promedio, tasa de finalización, tiempo medio de revisión y, cuando EM-076 esté hecha, número de mods publicados.
-- [ ] Cada número enlaza o explica cómo se calcula.
-- [ ] Exportable a CSV.
+- [x] Vista para administradores con, por curso: registros, inscripciones pagadas, conversión de Misión Cero a curso, avance promedio, tasa de finalización, tiempo medio de revisión y, cuando EM-076 esté hecha, número de mods publicados. Las métricas por grupo se agregan cuando exista EM-050.
+- [x] Cada número enlaza o explica cómo se calcula.
+- [x] Exportable a CSV.
 
 Depende de: [EM-062](#em-062), [EM-072](#em-072)
 
-Nota: El lienzo dice que el piloto debe comprobar interés, aprendizaje y disposición de pago. Sin esta vista no hay forma de comprobarlo.
+Nota: El lienzo dice que el piloto debe comprobar interés, aprendizaje y disposición de pago. Sin esta vista no hay forma de comprobarlo. El 17/11/2026 se quitó "por grupo" del alcance del semestre: los grupos (EM-050) quedaron fuera del recorte. Las cuentas registradas son un total global porque una cuenta no pertenece a un curso; como señal de interés por curso se agregó "iniciaron el pago".
 
 #### EM-092
 
