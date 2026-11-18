@@ -171,7 +171,7 @@ El 14/11/2026 salieron del recorte [EM-008](#em-008) (#8), del bloque A, y [EM-0
 | [EM-015](#em-015) | [#100](https://github.com/Alexis01000011/EngiMods/issues/100) | Catálogo de juegos y textos legales con la identidad visual | E1 | Should | 2 | 4 | EM-004, EM-010, EM-033, EM-036 | Hecho |
 | [EM-020](#em-020) | [#15](https://github.com/Alexis01000011/EngiMods/issues/15) | Modelo de curso | E2 | Must | 3 | 3 | EM-010 | Hecho |
 | [EM-021](#em-021) | [#16](https://github.com/Alexis01000011/EngiMods/issues/16) | Módulos y lecciones con versión probada | E2 | Must | 5 | 4 | EM-020, EM-011 | Hecho |
-| [EM-022](#em-022) | [#17](https://github.com/Alexis01000011/EngiMods/issues/17) | Vista previa de lecciones para tutores | E2 | Should | 3 | 6 | EM-021, EM-061 | Pendiente |
+| [EM-022](#em-022) | [#17](https://github.com/Alexis01000011/EngiMods/issues/17) | Vista previa de lecciones para tutores | E2 | Should | 3 | 6 | EM-021, EM-061 | Hecho |
 | [EM-023](#em-023) | [#18](https://github.com/Alexis01000011/EngiMods/issues/18) | Recursos descargables y plantillas por lección | E2 | Must | 2 | 5 | EM-021, EM-053 | Hecho |
 | [EM-024](#em-024) | [#19](https://github.com/Alexis01000011/EngiMods/issues/19) | Lección de muestra gratuita | E2 | Must | 2 | 6 | EM-021, EM-061 | Hecho |
 | [EM-030](#em-030) | [#20](https://github.com/Alexis01000011/EngiMods/issues/20) | Registro con correo y verificación | E3 | Must | 5 | 3 | EM-003, EM-004, EM-033 | Hecho |
@@ -525,13 +525,13 @@ Depende de: [EM-020](#em-020), [EM-011](#em-011)
 
 **Vista previa de lecciones para tutores**
 
-Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 3 · Ola: 6 · Issue: [#17](https://github.com/Alexis01000011/EngiMods/issues/17)
+Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 3 · Ola: 6 · Estado: Hecho · Issue: [#17](https://github.com/Alexis01000011/EngiMods/issues/17)
 
 > Como **tutor**, quiero ver cómo se verá una lección antes de publicarla, para corregir errores sin que los vean los alumnos.
 
 Criterios de aceptación:
 
-- [ ] Desde el admin hay un botón de vista previa que renderiza una lección en borrador igual que la verá el alumno.
+- [x] Desde el admin hay un botón de vista previa que renderiza una lección en borrador igual que la verá el alumno.
 
 Depende de: [EM-021](#em-021), [EM-061](#em-061)
 
