@@ -15,6 +15,33 @@ from enrollments.models import Enrollment, LessonProgress
 from .models import Course, Exercise, Lesson, LessonResource, Module
 
 
+def course_list(request):
+    """Catálogo público de cursos (EM-013), con filtros por juego y nivel en la URL."""
+    courses = (
+        Course.objects.published()
+        .filter(game__status=Game.Status.ACTIVE)
+        .select_related("game")
+        .order_by("title", "pk")
+    )
+    game_slug = request.GET.get("juego", "").strip()
+    level = request.GET.get("nivel", "").strip()
+    if game_slug:
+        courses = courses.filter(game__slug=game_slug)
+    if level in Course.Level.values:
+        courses = courses.filter(level=level)
+    return render(
+        request,
+        "courses/course_list.html",
+        {
+            "courses": courses,
+            "games": Game.objects.filter(status=Game.Status.ACTIVE).order_by("name"),
+            "levels": Course.Level.choices,
+            "selected_game": game_slug,
+            "selected_level": level,
+        },
+    )
+
+
 def course_detail(request, slug):
     course = get_object_or_404(Course.objects.published().select_related("game"), slug=slug)
     lessons = Prefetch("lessons", queryset=Lesson.objects.published().order_by("order", "pk"))

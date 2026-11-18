@@ -166,7 +166,7 @@ El 14/11/2026 salieron del recorte [EM-008](#em-008) (#8), del bloque A, y [EM-0
 | [EM-010](#em-010) | [#10](https://github.com/Alexis01000011/EngiMods/issues/10) | Registrar juegos en el catálogo | E1 | Must | 2 | 2 | EM-003 | Hecho |
 | [EM-011](#em-011) | [#11](https://github.com/Alexis01000011/EngiMods/issues/11) | Registrar versiones del juego y entornos de modding | E1 | Must | 3 | 3 | EM-010 | Hecho |
 | [EM-012](#em-012) | [#12](https://github.com/Alexis01000011/EngiMods/issues/12) | Página pública de cada juego | E1 | Must | 3 | 4 | EM-011, EM-020 | Hecho |
-| [EM-013](#em-013) | [#13](https://github.com/Alexis01000011/EngiMods/issues/13) | Filtrar cursos por juego | E1 | Should | 2 | 5 | EM-012 | Pendiente |
+| [EM-013](#em-013) | [#13](https://github.com/Alexis01000011/EngiMods/issues/13) | Filtrar cursos por juego | E1 | Should | 2 | 5 | EM-012 | Hecho |
 | [EM-014](#em-014) | [#14](https://github.com/Alexis01000011/EngiMods/issues/14) | Marcar contenido pendiente de revalidar al salir una nueva versión | E1 | Should | 5 | 5 | EM-021, EM-035 | Pendiente |
 | [EM-015](#em-015) | [#100](https://github.com/Alexis01000011/EngiMods/issues/100) | Catálogo de juegos y textos legales con la identidad visual | E1 | Should | 2 | 4 | EM-004, EM-010, EM-033, EM-036 | Hecho |
 | [EM-020](#em-020) | [#15](https://github.com/Alexis01000011/EngiMods/issues/15) | Modelo de curso | E2 | Must | 3 | 3 | EM-010 | Hecho |
@@ -432,14 +432,14 @@ Depende de: [EM-011](#em-011), [EM-020](#em-020)
 
 **Filtrar cursos por juego**
 
-Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 2 · Ola: 5 · Issue: [#13](https://github.com/Alexis01000011/EngiMods/issues/13)
+Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 2 · Ola: 5 · Estado: Hecho · Issue: [#13](https://github.com/Alexis01000011/EngiMods/issues/13)
 
 > Como **visitante**, quiero filtrar el catálogo de cursos por juego y por nivel, para encontrar rápido lo que me sirve.
 
 Criterios de aceptación:
 
-- [ ] El listado de cursos tiene filtro por juego y por nivel.
-- [ ] El filtro se refleja en la URL para poder compartirlo.
+- [x] El listado de cursos tiene filtro por juego y por nivel.
+- [x] El filtro se refleja en la URL para poder compartirlo.
 
 Depende de: [EM-012](#em-012)
 
