@@ -23,6 +23,9 @@
               <p class="m-0 text-label-sm text-ink-muted">{% blocktranslate with percent=enrollment.progress_percent %}Avance: {{ percent }} %{% endblocktranslate %}{% if enrollment.lesson_count %} · {% blocktranslate with done=enrollment.completed_count total=enrollment.lesson_count %}{{ done }} de {{ total }} lecciones{% endblocktranslate %}{% endif %}</p>
             </div>
             <p class="m-0 text-body-sm text-ink-muted">{% blocktranslate with date=enrollment.access_ends_at|date:"j \d\e F \d\e Y" %}Acceso hasta el {{ date }}.{% endblocktranslate %}</p>
+            {% if enrollment.course.game.lab_guide %}
+              <p class="m-0"><a href="{% url 'enrollments:lab_guide' enrollment.course.game.slug %}">{% translate "Guía de laboratorio" %}</a></p>
+            {% endif %}
             <div class="mt-auto pt-sm">
               {% if enrollment.next_lesson %}
                 <a href="{% url 'courses:lesson_detail' enrollment.course.slug enrollment.next_lesson.pk %}" class="{% if forloop.first %}button-primary{% else %}button-secondary{% endif %} w-full py-2.5 text-center sm:w-auto">{% translate "Siguiente lección" %}: {{ enrollment.next_lesson.title }}</a>
