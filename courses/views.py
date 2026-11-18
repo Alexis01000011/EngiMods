@@ -5,10 +5,12 @@ from django.core.exceptions import PermissionDenied
 from django.db.models import Prefetch
 from django.http import Http404
 from django.shortcuts import get_object_or_404, render
+from django.utils import timezone
 from django.utils.translation import gettext as _
 
 from accounts.permissions import has_tutor_access
 from catalog.models import Game, GameVersion
+from cohorts.models import Cohort
 from core.views import latest_tests
 from enrollments.models import Enrollment, LessonProgress
 
@@ -69,10 +71,22 @@ def course_detail(request, slug):
             "price": Decimal(course.price_cents) / 100,
             "latest_test": latest_tests([course]).get(course.pk),
             "sample_lesson": sample_lesson,
+            "next_cohort": next_open_cohort(course),
             # Quien ya tiene acceso vigente no ve el botón de pago (EM-042).
             "has_access": request.user.is_authenticated
             and Enrollment.objects.with_access().filter(user=request.user, course=course).exists(),
         },
+    )
+
+
+def next_open_cohort(course):
+    """El próximo grupo con inscripción abierta y fecha de fin vigente, o None."""
+    if course.kind != Course.Kind.COURSE:
+        return None
+    return (
+        course.cohorts.filter(status=Cohort.Status.OPEN, end_date__gte=timezone.localdate())
+        .order_by("start_date", "pk")
+        .first()
     )
 
 

@@ -8,7 +8,7 @@
     <header class="flex flex-col gap-sm">
       <p class="m-0 text-label-sm"><a href="{% url 'reviews:queue' %}" class="text-ink-muted hover:text-ink"><span aria-hidden="true">←&nbsp;</span>{% translate "Entregas por revisar" %}</a></p>
       <h1 class="m-0">{{ submission.exercise.title }}</h1>
-      <p class="m-0 text-body-sm text-ink-muted [overflow-wrap:anywhere]">{{ submission.enrollment.user }} · {{ submission.enrollment.course.title }} · {{ submission.exercise.lesson.title }}</p>
+      <p class="m-0 text-body-sm text-ink-muted [overflow-wrap:anywhere]">{{ submission.enrollment.user }} · {{ submission.enrollment.course.title }}{% if submission.enrollment.cohort %} · {{ submission.enrollment.cohort.name }}{% endif %} · {{ submission.exercise.lesson.title }}</p>
       {% include "components/submission_status.html" %}
     </header>
 

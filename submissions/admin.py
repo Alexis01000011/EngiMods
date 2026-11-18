@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.translation import gettext_lazy as _
 
 from .models import PublicationChecklist, Review, ReviewScore, Submission, SubmissionAttempt
 
@@ -20,12 +21,21 @@ class SubmissionAttemptInline(admin.StackedInline):
 
 @admin.register(Submission)
 class SubmissionAdmin(admin.ModelAdmin):
-    list_display = ("enrollment", "exercise", "status", "created_at")
-    list_filter = ("status", "enrollment__course")
-    search_fields = ("enrollment__user__email", "exercise__title")
-    list_select_related = ("enrollment__user", "enrollment__course", "exercise")
+    list_display = ("enrollment", "cohort", "exercise", "status", "created_at")
+    list_filter = ("status", "enrollment__course", "enrollment__cohort")
+    search_fields = ("enrollment__user__email", "exercise__title", "enrollment__cohort__name")
+    list_select_related = (
+        "enrollment__user",
+        "enrollment__course",
+        "enrollment__cohort",
+        "exercise",
+    )
     raw_id_fields = ("enrollment",)
     inlines = (SubmissionAttemptInline,)
+
+    @admin.display(description=_("grupo"), ordering="enrollment__cohort__name")
+    def cohort(self, submission):
+        return submission.enrollment.cohort or "—"
 
 
 class ReviewScoreInline(admin.TabularInline):

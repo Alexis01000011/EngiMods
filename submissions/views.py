@@ -87,6 +87,7 @@ def submit(request, lesson_pk):
         {
             "course": course,
             "exercise": exercise,
+            "enrollment": enrollment,
             "form": form,
             "checklist_form": checklist_form,
             "submission": submission,

@@ -6,7 +6,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
 from django.db import transaction
-from django.db.models import Max, Prefetch
+from django.db.models import Max, Prefetch, Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.utils.translation import gettext as _
@@ -38,14 +38,22 @@ def queue(request):
     """
     deadline = timedelta(hours=settings.REVIEW_DEADLINE_HOURS)
     now = timezone.now()
-    submissions = list(
+    submissions = (
         Submission.objects.filter(status__in=PENDING)
         .annotate(last_submitted_at=Max("attempts__submitted_at"))
         .filter(last_submitted_at__isnull=False)
-        .select_related("enrollment__user", "enrollment__course", "exercise__lesson")
+        .select_related(
+            "enrollment__user", "enrollment__course", "enrollment__cohort", "exercise__lesson"
+        )
         .prefetch_related(latest_attempts())
         .order_by("last_submitted_at", "pk")
     )
+    # Cada tutor ve las entregas de sus grupos; las prácticas sin grupo siguen abiertas a todos.
+    if not request.user.is_superuser:
+        submissions = submissions.filter(
+            Q(enrollment__cohort__isnull=True) | Q(enrollment__cohort__tutors=request.user)
+        ).distinct()
+    submissions = list(submissions)
     for submission in submissions:
         submission.attempt = submission.attempts.all()[0]
         submission.overdue = now - submission.last_submitted_at > deadline

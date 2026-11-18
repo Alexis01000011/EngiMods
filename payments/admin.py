@@ -7,13 +7,19 @@ from .models import Payment
 class PaymentAdmin(admin.ModelAdmin):
     """Solo lectura: los pagos los crean el Checkout (EM-042) y el webhook (EM-043)."""
 
-    list_display = ("user", "course", "status", "amount_cents", "created_at")
-    list_filter = ("status", "course")
-    search_fields = ("user__email", "user__display_name", "stripe_checkout_session_id")
-    list_select_related = ("user", "course")
+    list_display = ("user", "course", "cohort", "status", "amount_cents", "created_at")
+    list_filter = ("status", "course", "cohort")
+    search_fields = (
+        "user__email",
+        "user__display_name",
+        "stripe_checkout_session_id",
+        "cohort__name",
+    )
+    list_select_related = ("user", "course", "cohort")
     readonly_fields = (
         "user",
         "course",
+        "cohort",
         "status",
         "amount_cents",
         "stripe_checkout_session_id",

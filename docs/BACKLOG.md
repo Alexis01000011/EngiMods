@@ -191,7 +191,7 @@ El 14/11/2026 salieron del recorte [EM-008](#em-008) (#8), del bloque A, y [EM-0
 | [EM-047](#em-047) | [#32](https://github.com/Alexis01000011/EngiMods/issues/32) | Registrar devoluciones | E4 | Should | 3 | 7 | EM-043 | Pendiente |
 | [EM-048](#em-048) | [#33](https://github.com/Alexis01000011/EngiMods/issues/33) | Pago en efectivo en OXXO | E4 | Could | 3 | 7 | EM-043, EM-045 | Pendiente |
 | [EM-049](#em-049) | [#34](https://github.com/Alexis01000011/EngiMods/issues/34) | Códigos de descuento | E4 | Could | 2 | 6 | EM-042 | Pendiente |
-| [EM-050](#em-050) | [#35](https://github.com/Alexis01000011/EngiMods/issues/35) | Crear grupos de un curso | E5 | Must | 3 | 4 | EM-020, EM-003 | Pendiente |
+| [EM-050](#em-050) | [#35](https://github.com/Alexis01000011/EngiMods/issues/35) | Crear grupos de un curso | E5 | Must | 3 | 4 | EM-020, EM-003 | Hecho |
 | [EM-051](#em-051) | [#36](https://github.com/Alexis01000011/EngiMods/issues/36) | Liberar contenido por semana | E5 | Should | 3 | 6 | EM-050, EM-061, EM-035 | Pendiente |
 | [EM-052](#em-052) | [#37](https://github.com/Alexis01000011/EngiMods/issues/37) | Calendario de clínicas grupales | E5 | Should | 2 | 6 | EM-050, EM-060, EM-035 | Pendiente |
 | [EM-053](#em-053) | [#38](https://github.com/Alexis01000011/EngiMods/issues/38) | Inscripciones e inscripción manual por administrador | E5 | Must | 2 | 4 | EM-020, EM-003 | Hecho |
@@ -879,19 +879,19 @@ Grupos de seis semanas con fechas, cupo, tutor y sesiones en vivo.
 
 **Crear grupos de un curso**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 4 · Issue: [#35](https://github.com/Alexis01000011/EngiMods/issues/35)
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 4 · Estado: Hecho · Issue: [#35](https://github.com/Alexis01000011/EngiMods/issues/35)
 
 > Como **administrador**, quiero abrir un grupo de un curso con fechas, cupo y tutor, para organizar cada generación de seis semanas.
 
 Criterios de aceptación:
 
-- [ ] Un grupo tiene curso, nombre, fecha de inicio, fecha de fin, cupo, tutor(es), enlace de Discord y estado (`inscripción abierta`, `en curso`, `cerrado`).
-- [ ] Solo los cursos de tipo `curso` tienen grupos; las prácticas cortas son autoguiadas.
-- [ ] Solo se puede pagar un grupo en `inscripción abierta`.
-- [ ] La inscripción puede llevar grupo (opcional, solo en cursos por grupos) y cuenta para su cupo. En un curso por grupos, la fecha de fin de acceso se cuenta desde que termina el grupo, no desde la inscripción.
-- [ ] Las entregas (EM-070) muestran el grupo de su inscripción, para saber de qué grupo es cada entrega.
-- [ ] En la cola de revisión (EM-071), cada tutor ve solo las entregas de sus grupos.
-- [ ] La página del curso (EM-041) muestra las fechas del próximo grupo; si el grupo está lleno, no ofrece pagar (y ofrece la lista de espera cuando exista EM-046).
+- [x] Un grupo tiene curso, nombre, fecha de inicio, fecha de fin, cupo, tutor(es), enlace de Discord y estado (`inscripción abierta`, `en curso`, `cerrado`).
+- [x] Solo los cursos de tipo `curso` tienen grupos; las prácticas cortas son autoguiadas.
+- [x] Solo se puede pagar un grupo en `inscripción abierta`.
+- [x] La inscripción puede llevar grupo (opcional, solo en cursos por grupos) y cuenta para su cupo. En un curso por grupos, la fecha de fin de acceso se cuenta desde que termina el grupo, no desde la inscripción.
+- [x] Las entregas (EM-070) muestran el grupo de su inscripción, para saber de qué grupo es cada entrega.
+- [x] En la cola de revisión (EM-071), cada tutor ve solo las entregas de sus grupos.
+- [x] La página del curso (EM-041) muestra las fechas del próximo grupo; si el grupo está lleno, no ofrece pagar (y ofrece la lista de espera cuando exista EM-046).
 
 Depende de: [EM-020](#em-020), [EM-003](#em-003)
 
