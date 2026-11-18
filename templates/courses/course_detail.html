@@ -53,6 +53,9 @@
                         <span class="flex min-w-0 flex-col">
                           <span class="text-body-md"><a href="{% url 'courses:lesson_detail' course.slug lesson.pk %}">{{ lesson.title }}</a></span>
                           <span class="text-label-sm text-ink-muted">{% blocktranslate with minutes=lesson.estimated_minutes %}{{ minutes }} min{% endblocktranslate %}</span>
+                          {% if lesson.is_sample %}
+                            <span class="mt-0.5 inline-flex w-fit items-center rounded-full bg-surface-chip px-2 py-0.5 text-label-sm text-ink-soft">{% translate "Muestra gratis" %}</span>
+                          {% endif %}
                         </span>
                       </li>
                     {% endfor %}
@@ -87,6 +90,13 @@
           <span>{% blocktranslate count days=course.access_days %}Acceso al contenido: {{ days }} día.{% plural %}Acceso al contenido: {{ days }} días.{% endblocktranslate %}</span>
         </li>
       </ul>
+
+      {% if sample_lesson %}
+        <div class="flex flex-col gap-xs">
+          <a href="{% url 'courses:lesson_detail' course.slug sample_lesson.pk %}" class="button-secondary w-full">{% translate "Ver la lección de muestra" %}</a>
+          <p class="m-0 text-body-sm text-ink-muted">※ {% translate "Sin cuenta ni pago." %}</p>
+        </div>
+      {% endif %}
 
       <section id="politica-de-devolucion" aria-labelledby="politica-titulo" class="border-t border-divider pt-md">
         <h3 id="politica-titulo" class="m-0 mb-xs font-sans text-label-md">{% translate "Política de devolución" %}</h3>

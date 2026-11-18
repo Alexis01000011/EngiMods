@@ -39,7 +39,7 @@ def course(game):
     )
 
 
-def make_lesson(module, title, order, status=Lesson.Status.PUBLISHED):
+def make_lesson(module, title, order, status=Lesson.Status.PUBLISHED, **extra):
     return Lesson.objects.create(
         module=module,
         title=title,
@@ -47,6 +47,7 @@ def make_lesson(module, title, order, status=Lesson.Status.PUBLISHED):
         estimated_minutes=10,
         order=order,
         status=status,
+        **extra,
     )
 
 
@@ -200,3 +201,42 @@ def test_syllabus_numbers_lessons_across_modules(client, course):
 def test_course_page_has_one_primary_button_to_pay(client, course):
     # La única acción principal es el botón de pago (EM-042).
     assert client.get(url(course)).content.decode().count("button-primary") == 1
+
+
+# Enlace a la lección de muestra (EM-024)
+
+
+def test_course_page_links_to_its_sample_lesson(client, course):
+    module = Module.objects.create(course=course, title="M", order=1)
+    sample = make_lesson(module, "Lección de muestra", 1, is_sample=True)
+    html = client.get(url(course)).content.decode()
+    assert reverse("courses:lesson_detail", args=[course.slug, sample.pk]) in html
+    assert "Ver la lección de muestra" in html
+    assert "Sin cuenta ni pago." in html
+    assert "Muestra gratis" in html
+
+
+def test_course_page_without_sample_has_no_sample_link(client, course):
+    module = Module.objects.create(course=course, title="M", order=1)
+    make_lesson(module, "Lección publicada", 1)
+    html = client.get(url(course)).content.decode()
+    assert "Ver la lección de muestra" not in html
+    assert "Muestra gratis" not in html
+
+
+def test_course_page_links_the_first_sample_when_there_are_several(client, course):
+    module = Module.objects.create(course=course, title="M", order=1)
+    first = make_lesson(module, "Muestra uno", 1, is_sample=True)
+    second = make_lesson(module, "Muestra dos", 2, is_sample=True)
+    html = client.get(url(course)).content.decode()
+    aside = html[html.index('aria-labelledby="inscripcion"') :]
+    assert f'href="{reverse("courses:lesson_detail", args=[course.slug, first.pk])}"' in aside
+    assert f'href="{reverse("courses:lesson_detail", args=[course.slug, second.pk])}"' not in aside
+
+
+def test_course_page_does_not_link_a_draft_sample(client, course):
+    module = Module.objects.create(course=course, title="M", order=1)
+    make_lesson(module, "Muestra borrador", 1, Lesson.Status.DRAFT, is_sample=True)
+    html = client.get(url(course)).content.decode()
+    assert "Ver la lección de muestra" not in html
+    assert "Muestra gratis" not in html
