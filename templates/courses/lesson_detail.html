@@ -76,6 +76,24 @@
         {{ lesson.content_html }}
       </div>
 
+      {% if resources %}
+        <section aria-labelledby="recursos" class="mt-xl flex flex-col gap-sm">
+          <h2 id="recursos" class="m-0 text-headline-sm">{% translate "Recursos de esta lección" %}</h2>
+          <p class="m-0 text-body-sm text-ink-muted">{% translate "Plantillas y proyectos base para empezar sin armar la estructura a mano." %}</p>
+          <ul class="m-0 flex list-none flex-col gap-sm p-0">
+            {% for resource in resources %}
+              <li class="m-0 flex flex-col gap-xs rounded-lg border border-divider bg-surface p-md">
+                <a href="{{ resource.url }}" rel="noopener" target="_blank" class="text-label-md">{{ resource.title }}</a>
+                <p class="m-0 inline-flex flex-wrap items-center gap-1.5 rounded-full bg-tested-container px-3 py-1.5 font-mono text-code-sm text-tested">
+                  <svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5l3 3 7-7"/></svg>
+                  {% blocktranslate with game=resource.game_version.game.name version=resource.game_version.number environment=resource.modding_environment.name environment_version=resource.modding_environment.version %}Para {{ game }} {{ version }} + {{ environment }} {{ environment_version }}{% endblocktranslate %}
+                </p>
+              </li>
+            {% endfor %}
+          </ul>
+        </section>
+      {% endif %}
+
       {% if exercise and has_access %}
         <section aria-labelledby="ejercicio" class="mt-xl flex flex-col gap-sm rounded-lg border border-divider bg-surface p-lg">
           <h2 id="ejercicio" class="m-0 text-headline-sm">{% blocktranslate with title=exercise.title %}Ejercicio: {{ title }}{% endblocktranslate %}</h2>

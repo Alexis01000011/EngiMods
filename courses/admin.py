@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.db.models import Count
 from django.utils.translation import gettext_lazy as _
 
-from .models import Course, Exercise, Lesson, LessonTest, Module, RubricCriterion
+from .models import Course, Exercise, Lesson, LessonResource, LessonTest, Module, RubricCriterion
 
 
 class ModuleInline(admin.TabularInline):
@@ -32,6 +32,12 @@ class LessonTestInline(admin.TabularInline):
     extra = 1
 
 
+class LessonResourceInline(admin.TabularInline):
+    model = LessonResource
+    fields = ("order", "title", "url", "game_version", "modding_environment")
+    extra = 0
+
+
 class ExerciseInline(admin.StackedInline):
     model = Exercise
     fields = ("title", "instructions")
@@ -46,7 +52,7 @@ class LessonAdmin(admin.ModelAdmin):
     list_filter = ("status", "is_sample", "module__course")
     search_fields = ("title", "module__title", "module__course__title")
     list_select_related = ("module__course",)
-    inlines = (LessonTestInline, ExerciseInline)
+    inlines = (LessonTestInline, LessonResourceInline, ExerciseInline)
 
 
 class RubricCriterionInline(admin.TabularInline):

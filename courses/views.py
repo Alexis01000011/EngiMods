@@ -12,7 +12,7 @@ from catalog.models import Game
 from core.views import latest_tests
 from enrollments.models import Enrollment, LessonProgress
 
-from .models import Course, Exercise, Lesson, Module
+from .models import Course, Exercise, Lesson, LessonResource, Module
 
 
 def course_detail(request, slug):
@@ -100,6 +100,12 @@ def lesson_detail(request, slug, pk):
         .first()
     )
     exercise = Exercise.objects.filter(lesson=lesson).first()
+    # Solo los alumnos con acceso ven los recursos; las lecciones de muestra los abren a todos.
+    resources = []
+    if lesson.is_sample or enrollment is not None:
+        resources = LessonResource.objects.filter(lesson=lesson).select_related(
+            "game_version__game", "modding_environment"
+        )
     submission = None
     if exercise and enrollment:
         submission = exercise.submissions.filter(enrollment=enrollment).first()
@@ -114,6 +120,7 @@ def lesson_detail(request, slug, pk):
             "has_access": has_access,
             "completed": completed,
             "exercise": exercise,
+            "resources": resources,
             "submission": submission,
             "lessons": lessons,
             "completed_ids": completed_ids,

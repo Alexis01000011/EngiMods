@@ -211,6 +211,11 @@ def lesson_form_data(module, version, environment, **overrides):
         "tests-0-game_version": version.pk,
         "tests-0-modding_environment": environment.pk,
         "tests-0-tested_on": "2026-11-02",
+        # Inline de recursos (EM-023), vacío.
+        "resources-TOTAL_FORMS": 0,
+        "resources-INITIAL_FORMS": 0,
+        "resources-MIN_NUM_FORMS": 0,
+        "resources-MAX_NUM_FORMS": 1000,
         # Inline del ejercicio entregable (EM-070), vacío.
         "exercise-TOTAL_FORMS": 0,
         "exercise-INITIAL_FORMS": 0,
