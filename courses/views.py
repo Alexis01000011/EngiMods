@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404, render
 from django.utils.translation import gettext as _
 
 from accounts.permissions import has_tutor_access
-from catalog.models import Game
+from catalog.models import Game, GameVersion
 from core.views import latest_tests
 from enrollments.models import Enrollment, LessonProgress
 
@@ -120,12 +120,24 @@ def lesson_detail(request, slug, pk):
             LessonProgress.objects.filter(enrollment=enrollment).values_list("lesson_id", flat=True)
         )
     completed = lesson.pk in completed_ids
-    # Si hay varias pruebas, se muestra la más reciente por fecha de prueba.
-    test = (
-        lesson.tests.select_related("game_version__game", "modding_environment")
-        .order_by("-tested_on", "-pk")
-        .first()
+    # Si hay una prueba con la versión actual, se muestra esa; si no, la más reciente.
+    tests = list(
+        lesson.tests.select_related("game_version__game", "modding_environment").order_by(
+            "-tested_on", "-pk"
+        )
     )
+    current_version = GameVersion.objects.filter(game=course.game, is_current=True).first()
+    current_test = next(
+        (
+            item
+            for item in tests
+            if current_version is not None and item.game_version_id == current_version.pk
+        ),
+        None,
+    )
+    test = current_test or (tests[0] if tests else None)
+    # Probada solo en versiones anteriores: hay que revalidarla con la actual (EM-014).
+    needs_revalidation = bool(tests and current_version and current_test is None)
     exercise = Exercise.objects.filter(lesson=lesson).first()
     # Solo los alumnos con acceso ven los recursos; las lecciones de muestra los abren a todos.
     resources = []
@@ -143,6 +155,8 @@ def lesson_detail(request, slug, pk):
             "course": course,
             "lesson": lesson,
             "test": test,
+            "current_version": current_version,
+            "needs_revalidation": needs_revalidation,
             "enrollment": enrollment,
             "has_access": has_access,
             "completed": completed,

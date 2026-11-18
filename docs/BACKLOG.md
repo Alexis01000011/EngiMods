@@ -167,7 +167,7 @@ El 14/11/2026 salieron del recorte [EM-008](#em-008) (#8), del bloque A, y [EM-0
 | [EM-011](#em-011) | [#11](https://github.com/Alexis01000011/EngiMods/issues/11) | Registrar versiones del juego y entornos de modding | E1 | Must | 3 | 3 | EM-010 | Hecho |
 | [EM-012](#em-012) | [#12](https://github.com/Alexis01000011/EngiMods/issues/12) | Página pública de cada juego | E1 | Must | 3 | 4 | EM-011, EM-020 | Hecho |
 | [EM-013](#em-013) | [#13](https://github.com/Alexis01000011/EngiMods/issues/13) | Filtrar cursos por juego | E1 | Should | 2 | 5 | EM-012 | Hecho |
-| [EM-014](#em-014) | [#14](https://github.com/Alexis01000011/EngiMods/issues/14) | Marcar contenido pendiente de revalidar al salir una nueva versión | E1 | Should | 5 | 5 | EM-021, EM-035 | Pendiente |
+| [EM-014](#em-014) | [#14](https://github.com/Alexis01000011/EngiMods/issues/14) | Marcar contenido pendiente de revalidar al salir una nueva versión | E1 | Should | 5 | 5 | EM-021, EM-035 | Hecho |
 | [EM-015](#em-015) | [#100](https://github.com/Alexis01000011/EngiMods/issues/100) | Catálogo de juegos y textos legales con la identidad visual | E1 | Should | 2 | 4 | EM-004, EM-010, EM-033, EM-036 | Hecho |
 | [EM-020](#em-020) | [#15](https://github.com/Alexis01000011/EngiMods/issues/15) | Modelo de curso | E2 | Must | 3 | 3 | EM-010 | Hecho |
 | [EM-021](#em-021) | [#16](https://github.com/Alexis01000011/EngiMods/issues/16) | Módulos y lecciones con versión probada | E2 | Must | 5 | 4 | EM-020, EM-011 | Hecho |
@@ -447,16 +447,16 @@ Depende de: [EM-012](#em-012)
 
 **Marcar contenido pendiente de revalidar al salir una nueva versión**
 
-Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 5 · Ola: 5 · Issue: [#14](https://github.com/Alexis01000011/EngiMods/issues/14)
+Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 5 · Ola: 5 · Estado: Hecho · Issue: [#14](https://github.com/Alexis01000011/EngiMods/issues/14)
 
 > Como **tutor**, quiero saber qué lecciones quedaron probadas en una versión vieja cuando marco una nueva versión como actual, para mantener la promesa de que todo el contenido indica con qué versión funciona.
 
 Criterios de aceptación:
 
-- [ ] Al marcar una versión del juego como actual, las lecciones probadas en versiones anteriores pasan a `pendiente de revalidar`.
-- [ ] Hay una vista para tutores con la lista de lecciones pendientes, agrupadas por curso.
-- [ ] El alumno ve en la lección: `Probado en X. Pendiente de revalidar en Y`.
-- [ ] Al revalidar, el tutor registra la nueva versión probada y la fecha.
+- [x] Al marcar una versión del juego como actual, las lecciones probadas en versiones anteriores pasan a `pendiente de revalidar`.
+- [x] Hay una vista para tutores con la lista de lecciones pendientes, agrupadas por curso.
+- [x] El alumno ve en la lección: `Probado en X. Pendiente de revalidar en Y`.
+- [x] Al revalidar, el tutor registra la nueva versión probada y la fecha.
 
 Depende de: [EM-021](#em-021), [EM-035](#em-035)
 
