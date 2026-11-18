@@ -26,6 +26,7 @@ from .forms import (
     NewPasswordForm,
     PasswordResetRequestForm,
     PrivacyAcceptForm,
+    ProfileForm,
     RegistrationForm,
 )
 from .models import PrivacyConsent, User
@@ -178,3 +179,17 @@ class PasswordResetConfirmView(auth_views.PasswordResetConfirmView):
 
 class PasswordResetCompleteView(auth_views.PasswordResetCompleteView):
     template_name = "accounts/password_reset_complete.html"
+
+
+@login_required
+def profile(request):
+    """Perfil editable del alumno (EM-032). Solo se edita la cuenta con la sesión iniciada."""
+    if request.method == "POST":
+        form = ProfileForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("Guardamos tu perfil."))
+            return redirect("accounts:profile")
+    else:
+        form = ProfileForm(instance=request.user)
+    return render(request, "accounts/profile.html", {"form": form})

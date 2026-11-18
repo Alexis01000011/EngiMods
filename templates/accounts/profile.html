@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Mi perfil" %} · EngiMods{% endblock %}
+
+{% block content %}
+  <div class="max-w-reading-max">
+    <header class="flex flex-col gap-sm">
+      <h1 class="m-0">{% translate "Mi perfil" %}</h1>
+      <p class="m-0 font-serif text-dek italic text-ink-soft">{% translate "Así te encuentran tus tutores y compañeros en la comunidad." %}</p>
+    </header>
+
+    <section aria-label="{% translate 'Editar mi perfil' %}" class="mt-xl">
+      {% if form.errors %}
+        <div role="alert" class="mb-lg rounded-lg bg-error-container p-md text-error">
+          <p class="m-0"><strong>{% translate "No se pudo guardar tu perfil." %}</strong> {% translate "Revisa los campos marcados y vuelve a intentarlo." %}</p>
+        </div>
+      {% endif %}
+      <form method="post" class="flex flex-col gap-lg">
+        {% csrf_token %}
+        {% for field in form %}
+          {% if field.name == "interested_games" %}
+            <fieldset class="m-0 flex flex-col gap-sm border-0 p-0">
+              <legend class="p-0 font-sans text-label-md">{{ field.label }}</legend>
+              {% if field.help_text %}
+                <p class="m-0 text-body-sm text-ink-muted">{{ field.help_text }}</p>
+              {% endif %}
+              {% if field.field.queryset.exists %}
+                <div class="flex flex-col gap-sm [&_label]:flex [&_label]:min-h-touch-target [&_label]:cursor-pointer [&_label]:items-center [&_label]:gap-sm [&_label]:font-normal">
+                  {% for checkbox in field %}
+                    <label for="{{ checkbox.id_for_label }}">{{ checkbox.tag }} <span>{{ checkbox.choice_label }}</span></label>
+                  {% endfor %}
+                </div>
+              {% else %}
+                <p class="m-0 text-body-sm text-ink-muted">{% translate "Todavía no hay juegos en el catálogo." %}</p>
+              {% endif %}
+              {% include "components/field_errors.html" %}
+            </fieldset>
+          {% else %}
+            <div class="flex flex-col [&_[aria-invalid=true]]:border-2 [&_[aria-invalid=true]]:border-error">
+              {{ field.label_tag }}
+              {{ field }}
+              {% if field.help_text %}
+                <span class="helptext" id="{{ field.auto_id }}_helptext">{{ field.help_text }}</span>
+              {% endif %}
+              {% include "components/field_errors.html" %}
+            </div>
+          {% endif %}
+        {% endfor %}
+        <div>
+          <button type="submit" class="button-primary w-full sm:w-auto">{% translate "Guardar mi perfil" %}</button>
+        </div>
+      </form>
+
+      <p class="mt-xl text-body-sm text-ink-muted">{% blocktranslate with email=user.email %}Tu correo es {{ email }}.{% endblocktranslate %} {% translate "Para cambiarlo, escríbenos." %}</p>
+    </section>
+  </div>
+{% endblock %}

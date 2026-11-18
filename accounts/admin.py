@@ -27,7 +27,10 @@ class UserAdmin(BaseUserAdmin):
     add_form = UserCreationForm
     fieldsets = (
         (None, {"fields": ("email", "password")}),
-        (_("Datos personales"), {"fields": ("display_name",)}),
+        (
+            _("Datos personales"),
+            {"fields": ("display_name", "discord_username", "github_username", "interested_games")},
+        ),
         (
             _("Permisos"),
             {
@@ -56,6 +59,7 @@ class UserAdmin(BaseUserAdmin):
         ),
     )
     list_display = ("email", "display_name", "is_tutor", "is_staff", "is_active", "date_joined")
+    filter_horizontal = ("groups", "user_permissions", "interested_games")
     list_filter = (
         "is_tutor",
         ("email_verified_at", admin.EmptyFieldListFilter),
