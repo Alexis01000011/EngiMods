@@ -10,6 +10,7 @@ urlpatterns = [
     path("juegos/", include("catalog.urls")),
     path("cursos/", include("payments.urls")),
     path("cursos/", include("courses.urls")),
+    path("lista-de-espera/", include("enrollments.waitlist_urls")),
     path("mi-panel/", include("enrollments.urls")),
     path("mi-panel/entregas/", include("submissions.urls")),
     path("tutoria/entregas/", include("submissions.tutor_urls")),

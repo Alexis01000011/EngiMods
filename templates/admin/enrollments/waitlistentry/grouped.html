@@ -1,0 +1,44 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Lista de espera por juego" %} | {{ site_title|default:_("Administración de Django") }}{% endblock %}
+
+{% block breadcrumbs %}
+  <div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}">{% translate "Inicio" %}</a>
+    &rsaquo; <a href="{% url 'admin:app_list' app_label=opts.app_label %}">{{ opts.app_config.verbose_name }}</a>
+    &rsaquo; <a href="{% url 'admin:enrollments_waitlistentry_changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>
+    &rsaquo; {% translate "Por juego" %}
+  </div>
+{% endblock %}
+
+{% block content %}
+  <h1>{% translate "Lista de espera por juego" %}</h1>
+  <p><a href="{% url 'admin:enrollments_waitlistentry_export' %}" class="button">{% translate "Exportar CSV" %}</a></p>
+
+  {% for group in groups %}
+    <h2>{{ group.game.name }}</h2>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">{% translate "Correo" %}</th>
+          <th scope="col">{% translate "Curso" %}</th>
+          <th scope="col">{% translate "Aviso de privacidad" %}</th>
+          <th scope="col">{% translate "Registrado el" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for entry in group.entries %}
+          <tr>
+            <td>{{ entry.email }}</td>
+            <td>{{ entry.course.title|default:"—" }}</td>
+            <td>{{ entry.legal_text.version }}</td>
+            <td>{{ entry.created_at|date:"DATETIME_FORMAT" }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% empty %}
+    <p>{% translate "Todavía no hay intereses registrados." %}</p>
+  {% endfor %}
+{% endblock %}

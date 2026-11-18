@@ -187,7 +187,7 @@ El 14/11/2026 salieron del recorte [EM-008](#em-008) (#8), del bloque A, y [EM-0
 | [EM-043](#em-043) | [#28](https://github.com/Alexis01000011/EngiMods/issues/28) | Webhook de Stripe que confirma el pago e inscribe | E4 | Must | 5 | 6 | EM-042, EM-053 | Hecho |
 | [EM-044](#em-044) | [#29](https://github.com/Alexis01000011/EngiMods/issues/29) | Correo de confirmación de compra | E4 | Must | 2 | 7 | EM-043, EM-008 | Pendiente |
 | [EM-045](#em-045) | [#30](https://github.com/Alexis01000011/EngiMods/issues/30) | Cupo máximo por grupo | E4 | Must | 3 | 6 | EM-042 | Pendiente |
-| [EM-046](#em-046) | [#31](https://github.com/Alexis01000011/EngiMods/issues/31) | Lista de espera e interés por juego | E4 | Should | 2 | 3 | EM-010, EM-033 | Pendiente |
+| [EM-046](#em-046) | [#31](https://github.com/Alexis01000011/EngiMods/issues/31) | Lista de espera e interés por juego | E4 | Should | 2 | 3 | EM-010, EM-033 | Hecho |
 | [EM-047](#em-047) | [#32](https://github.com/Alexis01000011/EngiMods/issues/32) | Registrar devoluciones | E4 | Should | 3 | 7 | EM-043 | Pendiente |
 | [EM-048](#em-048) | [#33](https://github.com/Alexis01000011/EngiMods/issues/33) | Pago en efectivo en OXXO | E4 | Could | 3 | 7 | EM-043, EM-045 | Pendiente |
 | [EM-049](#em-049) | [#34](https://github.com/Alexis01000011/EngiMods/issues/34) | Códigos de descuento | E4 | Could | 2 | 6 | EM-042 | Pendiente |
@@ -809,15 +809,15 @@ Depende de: [EM-042](#em-042)
 
 **Lista de espera e interés por juego**
 
-Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 2 · Ola: 3 · Issue: [#31](https://github.com/Alexis01000011/EngiMods/issues/31)
+Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 2 · Ola: 3 · Estado: Hecho · Issue: [#31](https://github.com/Alexis01000011/EngiMods/issues/31)
 
 > Como **visitante**, quiero dejar mi correo para el próximo grupo o para un juego que aún no tiene curso, para enterarme cuando abra.
 
 Criterios de aceptación:
 
-- [ ] Formulario con correo y juego o curso de interés.
-- [ ] El administrador ve y exporta la lista, agrupada por juego.
-- [ ] Requiere aceptar el aviso de privacidad.
+- [x] Formulario con correo y juego o curso de interés.
+- [x] El administrador ve y exporta la lista, agrupada por juego.
+- [x] Requiere aceptar el aviso de privacidad.
 
 Depende de: [EM-010](#em-010), [EM-033](#em-033)
 

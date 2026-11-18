@@ -6,6 +6,8 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+from core.models import LegalText
+
 
 class EnrollmentQuerySet(models.QuerySet):
     def with_access(self):
@@ -131,3 +133,53 @@ class LessonProgress(models.Model):
 
     def __str__(self):
         return f"{self.enrollment} · {self.lesson}"
+
+
+class WaitlistEntry(models.Model):
+    """Interés de un visitante en un juego o en uno de sus cursos (EM-046).
+
+    Se guarda sin cuenta. El consentimiento del aviso de privacidad vive en
+    ``accounts.PrivacyConsent``, ligado al mismo correo.
+    """
+
+    email = models.EmailField(_("correo"))
+    # PROTECT: el interés es dato de demanda; un juego o curso con lista de espera
+    # se oculta, no se borra.
+    game = models.ForeignKey(
+        "catalog.Game",
+        on_delete=models.PROTECT,
+        related_name="waitlist_entries",
+        verbose_name=_("juego"),
+    )
+    course = models.ForeignKey(
+        "courses.Course",
+        on_delete=models.PROTECT,
+        related_name="waitlist_entries",
+        verbose_name=_("curso"),
+        null=True,
+        blank=True,
+        help_text=_("Opcional. Si se elige, debe ser un curso del juego."),
+    )
+    legal_text = models.ForeignKey(
+        LegalText,
+        on_delete=models.PROTECT,
+        related_name="waitlist_entries",
+        verbose_name=_("aviso de privacidad aceptado"),
+        limit_choices_to={"kind": LegalText.Kind.PRIVACY},
+    )
+    created_at = models.DateTimeField(_("registrado el"), auto_now_add=True)
+
+    class Meta:
+        ordering = ("game__name", "game__pk", "course__title", "-created_at", "-pk")
+        verbose_name = _("interés en lista de espera")
+        verbose_name_plural = _("intereses en lista de espera")
+
+    def __str__(self):
+        return f"{self.email} · {self.course or self.game}"
+
+    def clean(self):
+        super().clean()
+        if self.course_id and self.game_id and self.course.game_id != self.game_id:
+            raise ValidationError({"course": _("El curso debe ser del juego elegido.")})
+        if self.legal_text_id and self.legal_text.kind != LegalText.Kind.PRIVACY:
+            raise ValidationError({"legal_text": _("El aviso aceptado debe ser el de privacidad.")})
