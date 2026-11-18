@@ -1,0 +1,10 @@
+{
+  "Group": "EngiMods",
+  "Name": "Dado",
+  "Version": "0.1.0",
+  "Description": "Ejemplo didáctico: tira dados desde el chat.",
+  "Authors": [{"Name": "EngiMods"}],
+  "Main": "curso.dado.hytale.DadoPlugin",
+  "ServerVersion": "=0.7.7",
+  "IncludesAssetPack": false
+}
