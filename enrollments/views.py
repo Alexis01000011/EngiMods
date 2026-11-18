@@ -1,13 +1,18 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
+from django.db import transaction
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
 
+from accounts.models import PrivacyConsent
+from core.models import LegalText
 from courses.models import Course, Lesson
 
-from .models import Enrollment, LessonProgress
+from .forms import WaitlistJoinForm
+from .models import Enrollment, LessonProgress, WaitlistEntry
 
 
 def course_lessons(course):
@@ -64,6 +69,42 @@ def my_courses(request):
         request,
         "enrollments/my_courses.html",
         {"active": active, "expired": expired, "catalog": catalog},
+    )
+
+
+def join_waitlist(request):
+    """Deja un correo para el próximo grupo o para un juego sin curso (EM-046).
+
+    Sin aviso de privacidad vigente no se muestra el formulario ni se guarda nada.
+    No crea cuenta, no inicia sesión y no envía correo.
+    """
+    privacy_notice = LegalText.objects.current(LegalText.Kind.PRIVACY)
+    form = None
+    if privacy_notice is not None:
+        form = WaitlistJoinForm(request.POST or None)
+        if request.method == "POST" and form.is_valid():
+            with transaction.atomic():
+                WaitlistEntry.objects.create(
+                    email=form.cleaned_data["email"],
+                    game=form.cleaned_data["game"],
+                    course=form.cleaned_data["course"],
+                    legal_text=privacy_notice,
+                )
+                PrivacyConsent.objects.create(
+                    email=form.cleaned_data["email"], legal_text=privacy_notice
+                )
+            messages.success(
+                request,
+                _(
+                    "Listo. Guardamos tu correo. Te avisaremos cuando abra el próximo "
+                    "grupo o el curso que te interesa."
+                ),
+            )
+            return redirect("waitlist:join")
+    return render(
+        request,
+        "enrollments/waitlist.html",
+        {"form": form, "privacy_notice": privacy_notice},
     )
 
 

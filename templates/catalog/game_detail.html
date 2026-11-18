@@ -20,6 +20,7 @@
       {{ game.description|linebreaks }}
     </div>
     <p><a href="{{ game.official_url }}" rel="noopener">{% translate "Sitio oficial" %}</a></p>
+    <p><a href="{% url 'waitlist:join' %}">{% translate "¿Quieres otro grupo o un curso de este juego? Déjanos tu correo." %}</a></p>
   </div>
 
   <section aria-labelledby="versiones">
