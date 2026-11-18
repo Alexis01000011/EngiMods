@@ -42,8 +42,8 @@ class ExerciseInline(admin.StackedInline):
 
 @admin.register(Lesson)
 class LessonAdmin(admin.ModelAdmin):
-    list_display = ("title", "module", "order", "status", "estimated_minutes")
-    list_filter = ("status", "module__course")
+    list_display = ("title", "module", "order", "status", "is_sample", "estimated_minutes")
+    list_filter = ("status", "is_sample", "module__course")
     search_fields = ("title", "module__title", "module__course__title")
     list_select_related = ("module__course",)
     inlines = (LessonTestInline, ExerciseInline)

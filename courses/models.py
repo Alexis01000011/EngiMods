@@ -145,6 +145,13 @@ class Lesson(models.Model):
         _("orden"), help_text=_("Las lecciones se muestran de menor a mayor dentro del módulo.")
     )
     status = models.CharField(_("estado"), max_length=10, choices=Status, default=Status.DRAFT)
+    is_sample = models.BooleanField(
+        _("lección de muestra"),
+        default=False,
+        help_text=_(
+            "Se puede ver sin cuenta ni pago. Si hay varias, el curso enlaza a la primera."
+        ),
+    )
 
     objects = LessonQuerySet.as_manager()
 

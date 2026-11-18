@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.utils import timezone
 
 from catalog.models import Game, GameVersion, ModdingEnvironment
-from courses.models import Course, Lesson, LessonTest, Module
+from courses.models import Course, Exercise, Lesson, LessonTest, Module
 from enrollments.models import Enrollment, LessonProgress
 
 pytestmark = pytest.mark.django_db
@@ -39,7 +39,7 @@ def make_course(game, slug="curso-a", status=Course.Status.PUBLISHED):
     )
 
 
-def make_lesson(module, title, order, status=Lesson.Status.PUBLISHED, content="Cuerpo"):
+def make_lesson(module, title, order, status=Lesson.Status.PUBLISHED, content="Cuerpo", **extra):
     return Lesson.objects.create(
         module=module,
         title=title,
@@ -47,6 +47,7 @@ def make_lesson(module, title, order, status=Lesson.Status.PUBLISHED, content="C
         estimated_minutes=10,
         order=order,
         status=status,
+        **extra,
     )
 
 
@@ -270,3 +271,106 @@ def test_tutor_sees_lesson_without_primary_button(client, lesson):
     html = client.get(url(lesson)).content.decode()
     assert "Lección uno" in html
     assert "button-primary" not in html
+
+
+# Lección de muestra gratuita (EM-024)
+
+
+def test_anonymous_sees_sample_lesson_without_account_or_payment(client, module):
+    sample = make_lesson(module, "Muestra gratis", 2, content="## Paso 1", is_sample=True)
+    response = client.get(url(sample))
+    assert response.status_code == 200
+    html = response.content.decode()
+    assert "<h2>Paso 1</h2>" in html
+    assert "Esta es una lección de muestra" in html
+
+
+def test_anonymous_is_still_redirected_for_a_lesson_that_is_not_sample(client, lesson):
+    # La restricción negativa: marcar una lección no vuelve públicas a las demás.
+    response = client.get(url(lesson))
+    assert response.status_code == 302
+    assert response.url.startswith(reverse("accounts:login"))
+
+
+def test_user_without_enrollment_sees_sample_lesson(client, module):
+    sample = make_lesson(module, "Muestra gratis", 2, is_sample=True)
+    client.force_login(make_user("visita@example.com"))
+    assert client.get(url(sample)).status_code == 200
+
+
+def test_user_without_enrollment_still_cannot_see_non_sample(client, lesson):
+    client.force_login(make_user("visita@example.com"))
+    assert client.get(url(lesson)).status_code == 403
+
+
+def test_sample_of_draft_lesson_is_404(client, module):
+    draft = make_lesson(module, "Borrador", 2, Lesson.Status.DRAFT, is_sample=True)
+    assert client.get(url(draft)).status_code == 404
+
+
+def test_sample_of_draft_course_is_404(client, course, module):
+    sample = make_lesson(module, "Muestra gratis", 2, is_sample=True)
+    course.status = Course.Status.DRAFT
+    course.save()
+    assert client.get(url(sample)).status_code == 404
+
+
+def test_sample_hides_progress_actions_from_visitors(client, module):
+    sample = make_lesson(module, "Muestra gratis", 2, is_sample=True)
+    html = client.get(url(sample)).content.decode()
+    assert "Marcar como completada" not in html
+    assert reverse("enrollments:toggle_lesson", args=[sample.pk]) not in html
+
+
+def test_sample_hides_the_exercise_from_visitors(client, module):
+    sample = make_lesson(module, "Muestra gratis", 2, is_sample=True)
+    Exercise.objects.create(
+        lesson=sample,
+        title="Entrega de pago",
+        instructions="Instrucciones que solo ve el alumno.",
+    )
+    html = client.get(url(sample)).content.decode()
+    assert "Entrega de pago" not in html
+    assert "Instrucciones que solo ve el alumno." not in html
+    assert reverse("submissions:submit", args=[sample.pk]) not in html
+
+
+def test_tutor_sees_the_exercise_without_submission_actions(client, lesson):
+    # La tarjeta del ejercicio se conserva para quien tiene acceso, pero sin acciones de
+    # entrega si no está inscrito (EM-024).
+    Exercise.objects.create(
+        lesson=lesson,
+        title="Entrega del curso",
+        instructions="Instrucciones para el alumno.",
+    )
+    tutor = make_user("tutor@example.com")
+    tutor.is_tutor = True
+    tutor.save()
+    client.force_login(tutor)
+    html = client.get(url(lesson)).content.decode()
+    assert "Ejercicio: Entrega del curso" in html
+    assert reverse("submissions:submit", args=[lesson.pk]) not in html
+
+
+def test_enrolled_student_keeps_progress_actions_on_a_sample(client, course, module, student):
+    sample = make_lesson(module, "Muestra gratis", 2, is_sample=True)
+    Exercise.objects.create(
+        lesson=sample,
+        title="Ejercicio de la muestra",
+        instructions="Instrucciones para el alumno.",
+    )
+    html = client.get(url(sample)).content.decode()
+    assert "Marcar como completada" in html
+    assert "Esta es una lección de muestra" not in html
+    assert reverse("submissions:submit", args=[sample.pk]) in html
+    response = client.post(reverse("enrollments:toggle_lesson", args=[sample.pk]))
+    assert response.status_code == 302
+    assert LessonProgress.objects.filter(lesson=sample).exists()
+
+
+def test_expired_enrollment_reads_a_sample_as_a_visitor(client, course, module, student):
+    sample = make_lesson(module, "Muestra gratis", 2, is_sample=True)
+    Enrollment.objects.update(access_ends_at=timezone.now() - timedelta(days=1))
+    html = client.get(url(sample)).content.decode()
+    assert "Esta es una lección de muestra" in html
+    assert "Marcar como completada" not in html

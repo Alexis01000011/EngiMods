@@ -173,7 +173,7 @@ El 14/11/2026 salieron del recorte [EM-008](#em-008) (#8), del bloque A, y [EM-0
 | [EM-021](#em-021) | [#16](https://github.com/Alexis01000011/EngiMods/issues/16) | Módulos y lecciones con versión probada | E2 | Must | 5 | 4 | EM-020, EM-011 | Hecho |
 | [EM-022](#em-022) | [#17](https://github.com/Alexis01000011/EngiMods/issues/17) | Vista previa de lecciones para tutores | E2 | Should | 3 | 6 | EM-021, EM-061 | Pendiente |
 | [EM-023](#em-023) | [#18](https://github.com/Alexis01000011/EngiMods/issues/18) | Recursos descargables y plantillas por lección | E2 | Must | 2 | 5 | EM-021, EM-053 | Pendiente |
-| [EM-024](#em-024) | [#19](https://github.com/Alexis01000011/EngiMods/issues/19) | Lección de muestra gratuita | E2 | Must | 2 | 6 | EM-021, EM-061 | Pendiente |
+| [EM-024](#em-024) | [#19](https://github.com/Alexis01000011/EngiMods/issues/19) | Lección de muestra gratuita | E2 | Must | 2 | 6 | EM-021, EM-061 | Hecho |
 | [EM-030](#em-030) | [#20](https://github.com/Alexis01000011/EngiMods/issues/20) | Registro con correo y verificación | E3 | Must | 5 | 3 | EM-003, EM-004, EM-033 | Hecho |
 | [EM-031](#em-031) | [#21](https://github.com/Alexis01000011/EngiMods/issues/21) | Inicio de sesión, cierre y recuperación de contraseña | E3 | Must | 2 | 4 | EM-030 | Hecho |
 | [EM-032](#em-032) | [#22](https://github.com/Alexis01000011/EngiMods/issues/22) | Perfil del alumno | E3 | Should | 2 | 4 | EM-030, EM-010 | Pendiente |
@@ -557,17 +557,19 @@ Nota: Para el piloto basta con enlaces. Los recursos de tipo archivo llegan con 
 
 **Lección de muestra gratuita**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 6 · Issue: [#19](https://github.com/Alexis01000011/EngiMods/issues/19)
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 6 · Estado: Hecho · Issue: [#19](https://github.com/Alexis01000011/EngiMods/issues/19)
 
 > Como **visitante**, quiero ver una lección completa gratis antes de pagar, para comprobar si el estilo del curso me sirve.
 
 Criterios de aceptación:
 
-- [ ] Una lección puede marcarse como `muestra`.
-- [ ] Las lecciones de muestra se ven sin cuenta y sin pago, en la misma vista de lección de EM-061.
-- [ ] La página del curso (EM-041) enlaza a su lección de muestra.
+- [x] Una lección puede marcarse como `muestra`.
+- [x] Las lecciones de muestra se ven sin cuenta y sin pago, en la misma vista de lección de EM-061.
+- [x] La página del curso (EM-041) enlaza a su lección de muestra.
 
 Depende de: [EM-021](#em-021), [EM-061](#em-061)
+
+Nota: La muestra se marca con `is_sample` en el admin de la lección. Solo aplica a lecciones publicadas de cursos publicados; el resto de la vista (avance, ejercicio y entregas) sigue pidiendo inscripción vigente. Si el curso tiene varias muestras, su página enlaza a la primera en el orden del temario.
 
 ### E3 Cuentas y datos personales
 

@@ -64,7 +64,10 @@
           {% endif %}
         </li>
         <li class="m-0 inline-flex min-h-8 items-center rounded-full bg-surface-chip px-3 text-label-sm text-ink-soft">{% blocktranslate with minutes=lesson.estimated_minutes %}{{ minutes }} min de lectura{% endblocktranslate %}</li>
-        {% if exercise %}
+        {% if lesson.is_sample %}
+          <li class="m-0 inline-flex min-h-8 items-center rounded-full bg-surface-chip px-3 text-label-sm text-ink-soft">{% translate "Lección de muestra" %}</li>
+        {% endif %}
+        {% if exercise and has_access %}
           <li class="m-0 inline-flex min-h-8 items-center rounded-full bg-surface-chip px-3 text-label-sm text-ink-soft">{% blocktranslate with title=exercise.title %}Entrega: {{ title }}{% endblocktranslate %}</li>
         {% endif %}
       </ul>
@@ -73,7 +76,7 @@
         {{ lesson.content_html }}
       </div>
 
-      {% if exercise %}
+      {% if exercise and has_access %}
         <section aria-labelledby="ejercicio" class="mt-xl flex flex-col gap-sm rounded-lg border border-divider bg-surface p-lg">
           <h2 id="ejercicio" class="m-0 text-headline-sm">{% blocktranslate with title=exercise.title %}Ejercicio: {{ title }}{% endblocktranslate %}</h2>
           {% if submission %}
@@ -82,6 +85,14 @@
           {% elif enrollment %}
             <p class="m-0"><a href="{% url 'submissions:submit' lesson.pk %}">{% translate "Ver instrucciones y enviar mi entrega" %}</a></p>
           {% endif %}
+        </section>
+      {% endif %}
+
+      {% if lesson.is_sample and not has_access %}
+        <section aria-labelledby="muestra" class="mt-xl flex flex-col gap-sm rounded-lg border border-divider bg-surface-sunken p-lg">
+          <h2 id="muestra" class="m-0 text-headline-sm">{% translate "Esta es una lección de muestra" %}</h2>
+          <p class="m-0">{% translate "Puedes leerla completa sin cuenta ni pago. Al inscribirte guardas tu avance, entregas el ejercicio y ves el resto del curso." %}</p>
+          <a href="{% url 'courses:course_detail' course.slug %}" class="button-primary w-full sm:w-auto sm:self-start">{% translate "Ver el curso e inscribirme" %}</a>
         </section>
       {% endif %}
 
