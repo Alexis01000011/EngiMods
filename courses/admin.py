@@ -1,5 +1,8 @@
 from django.contrib import admin
 from django.db.models import Count
+from django.shortcuts import get_object_or_404, render
+from django.urls import path, reverse
+from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
 from .models import Course, Exercise, Lesson, LessonResource, LessonTest, Module, RubricCriterion
@@ -53,6 +56,48 @@ class LessonAdmin(admin.ModelAdmin):
     search_fields = ("title", "module__title", "module__course__title")
     list_select_related = ("module__course",)
     inlines = (LessonTestInline, LessonResourceInline, ExerciseInline)
+    readonly_fields = ("preview_link",)
+
+    def get_urls(self):
+        urls = [
+            path(
+                "<path:object_id>/vista-previa/",
+                self.admin_site.admin_view(self.preview_view),
+                name="courses_lesson_preview",
+            ),
+        ]
+        return urls + super().get_urls()
+
+    @admin.display(description=_("vista previa"))
+    def preview_link(self, lesson):
+        if lesson is None or lesson.pk is None:
+            return _("Guarda la lección para ver la vista previa.")
+        url = reverse("admin:courses_lesson_preview", args=[lesson.pk])
+        return format_html('<a class="button" href="{}">{}</a>', url, _("Ver como alumno"))
+
+    def preview_view(self, request, object_id):
+        """Renderiza la lección, aunque esté en borrador, como la ve el alumno (EM-022)."""
+        lesson = get_object_or_404(
+            Lesson.objects.select_related("module__course__game"), pk=object_id
+        )
+        test = (
+            lesson.tests.select_related("game_version__game", "modding_environment")
+            .order_by("-tested_on", "-pk")
+            .first()
+        )
+        resources = lesson.resources.select_related("game_version__game", "modding_environment")
+        exercise = Exercise.objects.filter(lesson=lesson).first()
+        return render(
+            request,
+            "courses/lesson_preview.html",
+            {
+                "lesson": lesson,
+                "course": lesson.module.course,
+                "test": test,
+                "resources": resources,
+                "exercise": exercise,
+            },
+        )
 
 
 class RubricCriterionInline(admin.TabularInline):

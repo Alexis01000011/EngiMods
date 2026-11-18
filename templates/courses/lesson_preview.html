@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% blocktranslate with title=lesson.title %}Vista previa: {{ title }}{% endblocktranslate %} · EngiMods{% endblock %}
+
+{% block content %}
+  <div class="max-w-reading-max">
+    <div role="status" class="flex flex-col gap-xs rounded-lg border border-divider bg-surface-sunken p-md">
+      <p class="m-0 text-label-md">{% translate "Vista previa para el equipo" %}</p>
+      <p class="m-0 text-body-sm text-ink-muted">{% translate "Así verá la lección el alumno. Esta página no es pública y no cambia el estado de la lección." %}</p>
+      <p class="m-0"><a href="{% url 'admin:courses_lesson_change' lesson.pk %}">← {% translate "Volver a la lección en el admin" %}</a></p>
+    </div>
+
+    <article class="mt-xl">
+      <header class="flex flex-col gap-sm">
+        <p class="m-0 text-label-sm text-ink-muted">{{ course.title }} · {{ lesson.module.title }}</p>
+        <div class="flex items-start gap-lg">
+          <h1 class="m-0 min-w-0 flex-1">{{ lesson.title }}</h1>
+          {% if test %}
+            <div aria-hidden="true" class="hidden size-28 flex-none -rotate-6 flex-col items-center justify-center gap-0.5 rounded-full border-2 border-tested px-2 text-center text-tested sm:flex">
+              <span class="text-eyebrow uppercase">{% translate "Probado" %}</span>
+              <span class="w-15 border-t border-current"></span>
+              <span class="font-mono text-code-sm leading-tight [overflow-wrap:anywhere]">{{ test.game_version.number }}</span>
+              <span class="font-mono text-code-sm leading-tight [overflow-wrap:anywhere]">{{ test.modding_environment.name }} {{ test.modding_environment.version }}</span>
+            </div>
+          {% endif %}
+        </div>
+      </header>
+
+      <ul class="m-0 mt-md flex list-none flex-wrap gap-sm border-y border-divider p-0 py-md">
+        <li class="m-0">
+          {% if test %}
+            <p class="m-0 inline-flex items-center gap-1.5 rounded-full bg-tested-container px-3 py-1.5 font-mono text-code-sm text-tested">
+              <svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5l3 3 7-7"/></svg>
+              {% blocktranslate with game=test.game_version.game.name version=test.game_version.number environment=test.modding_environment.name environment_version=test.modding_environment.version %}Probado con {{ game }} {{ version }} + {{ environment }} {{ environment_version }}{% endblocktranslate %}
+            </p>
+          {% else %}
+            <p class="m-0 inline-flex items-center gap-1.5 rounded-full bg-surface-chip px-3 py-1.5 font-mono text-code-sm text-ink-muted">
+              <svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8h8"/></svg>
+              {% translate "Esta lección no tiene una versión probada registrada." %}
+            </p>
+          {% endif %}
+        </li>
+        <li class="m-0 inline-flex min-h-8 items-center rounded-full bg-surface-chip px-3 text-label-sm text-ink-soft">{% blocktranslate with minutes=lesson.estimated_minutes %}{{ minutes }} min de lectura{% endblocktranslate %}</li>
+        <li class="m-0 inline-flex min-h-8 items-center rounded-full bg-surface-chip px-3 text-label-sm text-ink-soft">{{ lesson.get_status_display }}</li>
+        {% if lesson.is_sample %}
+          <li class="m-0 inline-flex min-h-8 items-center rounded-full bg-surface-chip px-3 text-label-sm text-ink-soft">{% translate "Lección de muestra" %}</li>
+        {% endif %}
+      </ul>
+
+      <div class="mt-xl font-serif text-reading-md sm:text-reading-lg">
+        {{ lesson.content_html }}
+      </div>
+
+      {% if resources %}
+        <section aria-labelledby="recursos" class="mt-xl flex flex-col gap-sm">
+          <h2 id="recursos" class="m-0 text-headline-sm">{% translate "Recursos de esta lección" %}</h2>
+          <ul class="m-0 flex list-none flex-col gap-sm p-0">
+            {% for resource in resources %}
+              <li class="m-0 flex flex-col gap-xs rounded-lg border border-divider bg-surface p-md">
+                <a href="{{ resource.url }}" rel="noopener" target="_blank" class="text-label-md">{{ resource.title }}</a>
+                <p class="m-0 inline-flex flex-wrap items-center gap-1.5 rounded-full bg-tested-container px-3 py-1.5 font-mono text-code-sm text-tested">
+                  {% blocktranslate with game=resource.game_version.game.name version=resource.game_version.number environment=resource.modding_environment.name environment_version=resource.modding_environment.version %}Para {{ game }} {{ version }} + {{ environment }} {{ environment_version }}{% endblocktranslate %}
+                </p>
+              </li>
+            {% endfor %}
+          </ul>
+        </section>
+      {% endif %}
+
+      {% if exercise %}
+        <section aria-labelledby="ejercicio" class="mt-xl flex flex-col gap-sm rounded-lg border border-divider bg-surface p-lg">
+          <h2 id="ejercicio" class="m-0 text-headline-sm">{% blocktranslate with title=exercise.title %}Ejercicio: {{ title }}{% endblocktranslate %}</h2>
+          <div class="font-serif text-reading-md">{{ exercise.instructions_html }}</div>
+        </section>
+      {% endif %}
+    </article>
+  </div>
+{% endblock %}
