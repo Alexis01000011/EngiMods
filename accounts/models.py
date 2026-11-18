@@ -66,6 +66,25 @@ class User(AbstractUser):
             "Sin correo verificado no puede pagar."
         ),
     )
+    discord_username = models.CharField(
+        _("usuario de Discord"),
+        max_length=100,
+        blank=True,
+        help_text=_("Tu nombre en Discord, para que tu tutor te encuentre en la comunidad."),
+    )
+    github_username = models.CharField(
+        _("usuario de GitHub"),
+        max_length=100,
+        blank=True,
+        help_text=_("Tu nombre en GitHub, donde estarán los repositorios de tus mods."),
+    )
+    interested_games = models.ManyToManyField(
+        "catalog.Game",
+        blank=True,
+        related_name="interested_users",
+        verbose_name=_("juegos de interés"),
+        help_text=_("Los juegos del catálogo con los que quieres trabajar."),
+    )
 
     USERNAME_FIELD = "email"
     EMAIL_FIELD = "email"

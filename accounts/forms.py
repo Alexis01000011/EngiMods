@@ -9,6 +9,8 @@ from django.contrib.auth.forms import (
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
+from catalog.models import Game
+
 from .models import User
 
 
@@ -107,3 +109,22 @@ class NewPasswordForm(SetPasswordForm):
             "Usa una que no tengas en otro sitio. Si no es segura, te decimos qué cambiar."
         )
         self.fields["new_password2"].help_text = _("Así confirmamos que la escribiste bien.")
+
+
+class ProfileForm(forms.ModelForm):
+    """Perfil del alumno (EM-032): nombre visible, Discord, GitHub y juegos de interés."""
+
+    class Meta:
+        model = User
+        fields = ("display_name", "discord_username", "github_username", "interested_games")
+        widgets = {"interested_games": forms.CheckboxSelectMultiple}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Solo juegos visibles en el catálogo público.
+        self.fields["interested_games"].queryset = self.fields["interested_games"].queryset.filter(
+            status=Game.Status.ACTIVE
+        )
+        self.fields["display_name"].widget.attrs["autocomplete"] = "nickname"
+        self.fields["discord_username"].widget.attrs["autocomplete"] = "off"
+        self.fields["github_username"].widget.attrs["autocomplete"] = "off"

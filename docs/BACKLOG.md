@@ -176,7 +176,7 @@ El 14/11/2026 salieron del recorte [EM-008](#em-008) (#8), del bloque A, y [EM-0
 | [EM-024](#em-024) | [#19](https://github.com/Alexis01000011/EngiMods/issues/19) | Lección de muestra gratuita | E2 | Must | 2 | 6 | EM-021, EM-061 | Hecho |
 | [EM-030](#em-030) | [#20](https://github.com/Alexis01000011/EngiMods/issues/20) | Registro con correo y verificación | E3 | Must | 5 | 3 | EM-003, EM-004, EM-033 | Hecho |
 | [EM-031](#em-031) | [#21](https://github.com/Alexis01000011/EngiMods/issues/21) | Inicio de sesión, cierre y recuperación de contraseña | E3 | Must | 2 | 4 | EM-030 | Hecho |
-| [EM-032](#em-032) | [#22](https://github.com/Alexis01000011/EngiMods/issues/22) | Perfil del alumno | E3 | Should | 2 | 4 | EM-030, EM-010 | Pendiente |
+| [EM-032](#em-032) | [#22](https://github.com/Alexis01000011/EngiMods/issues/22) | Perfil del alumno | E3 | Should | 2 | 4 | EM-030, EM-010 | Hecho |
 | [EM-033](#em-033) | [#23](https://github.com/Alexis01000011/EngiMods/issues/23) | Aviso de privacidad y consentimiento | E3 | Must | 2 | 2 | EM-003 | Hecho |
 | [EM-034](#em-034) | [#24](https://github.com/Alexis01000011/EngiMods/issues/24) | Solicitar baja de la cuenta y de los datos | E3 | Could | 3 | 5 | EM-032 | Pendiente |
 | [EM-035](#em-035) | [#68](https://github.com/Alexis01000011/EngiMods/issues/68) | Rol de tutor | E3 | Must | 2 | 2 | EM-003 | Hecho |
@@ -613,14 +613,14 @@ Depende de: [EM-030](#em-030)
 
 **Perfil del alumno**
 
-Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 2 · Ola: 4 · Issue: [#22](https://github.com/Alexis01000011/EngiMods/issues/22)
+Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 2 · Ola: 4 · Estado: Hecho · Issue: [#22](https://github.com/Alexis01000011/EngiMods/issues/22)
 
 > Como **alumno**, quiero registrar mi usuario de Discord, mi usuario de GitHub y los juegos que me interesan, para que el tutor me encuentre en la comunidad y pueda revisar mis repositorios.
 
 Criterios de aceptación:
 
-- [ ] Página de perfil editable con nombre a mostrar, usuario de Discord, usuario de GitHub y juegos de interés.
-- [ ] Los juegos de interés salen del catálogo (EM-010).
+- [x] Página de perfil editable con nombre a mostrar, usuario de Discord, usuario de GitHub y juegos de interés.
+- [x] Los juegos de interés salen del catálogo (EM-010).
 
 Depende de: [EM-030](#em-030), [EM-010](#em-010)
 

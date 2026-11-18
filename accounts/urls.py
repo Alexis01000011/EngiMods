@@ -10,6 +10,7 @@ urlpatterns = [
     path("entrar/", views.LoginView.as_view(), name="login"),
     path("salir/", views.logout_view, name="logout"),
     path("privacidad/aceptar/", views.accept_privacy, name="accept_privacy"),
+    path("mi-perfil/", views.profile, name="profile"),
     path("recuperar-contrasena/", views.PasswordResetView.as_view(), name="password_reset"),
     path(
         "recuperar-contrasena/enviado/",
