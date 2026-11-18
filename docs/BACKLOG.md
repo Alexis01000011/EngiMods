@@ -159,7 +159,7 @@ El 14/11/2026 salieron del recorte [EM-008](#em-008) (#8), del bloque A, y [EM-0
 | [EM-003](#em-003) | [#3](https://github.com/Alexis01000011/EngiMods/issues/3) | Modelo de usuario personalizado | E0 | Must | 2 | 1 | EM-001 | Hecho |
 | [EM-004](#em-004) | [#4](https://github.com/Alexis01000011/EngiMods/issues/4) | Plantilla base y sistema de estilos | E0 | Must | 3 | 1 | EM-001 | Hecho |
 | [EM-005](#em-005) | [#5](https://github.com/Alexis01000011/EngiMods/issues/5) | Despliegue a un entorno de pruebas (staging) | E0 | Must | 5 | 1 | EM-001 | Hecho |
-| [EM-006](#em-006) | [#6](https://github.com/Alexis01000011/EngiMods/issues/6) | Datos de ejemplo para desarrollo | E0 | Should | 2 | 5 | EM-003, EM-011, EM-021 | Pendiente |
+| [EM-006](#em-006) | [#6](https://github.com/Alexis01000011/EngiMods/issues/6) | Datos de ejemplo para desarrollo | E0 | Should | 2 | 5 | EM-003, EM-011, EM-021 | Hecho |
 | [EM-007](#em-007) | [#7](https://github.com/Alexis01000011/EngiMods/issues/7) | Almacenamiento de archivos subidos | E0 | Could | 3 | 2 | EM-005 | Pendiente |
 | [EM-008](#em-008) | [#8](https://github.com/Alexis01000011/EngiMods/issues/8) | Correo transaccional en producción | E0 | Must | 3 | 2 | EM-005 | Pendiente |
 | [EM-009](#em-009) | [#9](https://github.com/Alexis01000011/EngiMods/issues/9) | Cuenta de Stripe en modo prueba conectada | E0 | Must | 2 | 1 | EM-001 | Hecho |
@@ -314,13 +314,13 @@ Nota: Presupuesto del piloto en el lienzo: hasta MXN 1,500. El costo del hosting
 
 **Datos de ejemplo para desarrollo**
 
-Tipo: Técnica · Prioridad: Should · Release: R1 · Puntos: 2 · Ola: 5 · Issue: [#6](https://github.com/Alexis01000011/EngiMods/issues/6)
+Tipo: Técnica · Prioridad: Should · Release: R1 · Puntos: 2 · Ola: 5 · Estado: Hecho · Issue: [#6](https://github.com/Alexis01000011/EngiMods/issues/6)
 
 Criterios de aceptación:
 
-- [ ] Comando `python manage.py seed_demo` que crea: 2 juegos con versiones, 1 curso por juego con módulos y lecciones, 1 tutor y 2 alumnos. Si ya existe EM-050, también 1 grupo.
-- [ ] Se puede correr varias veces sin duplicar datos.
-- [ ] Documentado en el README.
+- [x] Comando `python manage.py seed_demo` que crea: 2 juegos con versiones, 1 curso por juego con módulos y lecciones, 1 tutor y 2 alumnos. Si ya existe EM-050, también 1 grupo.
+- [x] Se puede correr varias veces sin duplicar datos.
+- [x] Documentado en el README.
 
 Depende de: [EM-003](#em-003), [EM-011](#em-011), [EM-021](#em-021)
 
