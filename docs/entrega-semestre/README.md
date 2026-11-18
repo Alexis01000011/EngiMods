@@ -9,6 +9,7 @@ Entrega del semestre agosto–diciembre 2026. El 18 de noviembre de 2026, con ho
 | `tecnico.md` | Documento técnico; fuente del PDF. |
 | `tecnico.pdf` | Versión de lectura del documento técnico. |
 | `evidencias.md` | Evidencias de Fabián, por PR. |
+| `evidencias-pedro.md` | Evidencias de Pedro, por PR y coordinación. |
 | `negocio.md` | Modelo de negocio, Canvas, viabilidad y plan de marketing. |
 | `presentacion.md` | Presentación completa con las secciones de cada integrante. |
 | `exportar_pdf.py` | Programa auxiliar que convierte Markdown a PDF. |
