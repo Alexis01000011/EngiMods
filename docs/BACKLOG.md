@@ -1443,7 +1443,7 @@ Decidido el 17/11/2026:
 
 Sigue abierto:
 
-- **Cuántos días dura el acceso,** en Misión Cero y en el curso. Es un dato de cada curso (EM-020).
+- **Cuántos días dura el acceso** del curso y de la Misión Cero de Hytale. Es un dato de cada curso (EM-020). La Misión Cero de Minecraft se decidió el 17/11/2026: MXN 199 y 30 días, con Fabric (`docs/contenido/plan-hytale-minecraft.md`, sección 11).
 - **Quién revisa Misión Cero y si aplica la promesa de 24 horas.** El recorte de semestre supone que los tutores son el mismo equipo y que todos ven todas las entregas (EM-071).
 - **Precio con o sin IVA y quién es el responsable legal.** Hay que resolverlo antes de cobrar dinero real: afecta el precio mostrado, el aviso de privacidad (EM-033), los términos (EM-036) y la cuenta real de Stripe.
 - **Precios.** MXN 199 (Misión Cero, piloto), MXN 299 (Misión Cero después) y MXN 1,990 (curso) son propuestas del lienzo para probar. Por eso el precio es un dato del curso (EM-020) y no una constante en código.

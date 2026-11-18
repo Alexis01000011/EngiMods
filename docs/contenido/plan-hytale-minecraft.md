@@ -4,7 +4,8 @@ Plan para producir el contenido de EngiMods para dos juegos: **Hytale** y **Mine
 
 - Decisión: el 17/11/2026 el equipo eligió Hytale y Minecraft: Java Edition como los juegos con los que arranca el piloto.
 - Investigación: 17/11/2026. Las versiones y herramientas cambian rápido; la sección 7 dice qué se comprobó y qué falta verificar en fuentes oficiales.
-- Lo que este plan propone y el equipo no ha decidido está en la sección 11, con una recomendación.
+- Lo que este plan propone y el equipo no ha decidido está en la sección 11, con una recomendación. Las decisiones que ya se tomaron están ahí mismo, con su fecha.
+- Borradores de Minecraft: `docs/contenido/minecraft/` (17/11/2026), sin probar.
 
 ## 1. Qué se va a producir
 
@@ -37,6 +38,9 @@ El contenido se captura como datos. Ningún texto, versión ni regla de un juego
 Se comprobó con `core.markdown.render_markdown` el 17/11/2026:
 
 - **Sí:** títulos (`##` y `###`; el `#` lo ocupa el título de la lección), listas, tablas, bloques de código, citas, `<details>` con `<summary>`, `<kbd>` y enlaces.
+- **Bloques de código, tablas y párrafos fuera de las listas.** Un bloque de código con sangría dentro de un paso numerado sale roto (se ve como código en línea y corta la lista). Escríbelos sin sangría entre dos pasos: la lista sigue con su número (`<ol start="3">`). Comprobado el 17/11/2026.
+- **Dentro de `<details>` no se procesa Markdown.** Escribe su contenido en HTML: `<p>`, `<strong>`, `<code>` y `<pre><code>` con `<` y `>` escapados. Comprobado el 17/11/2026.
+- **Sin listas de tareas:** `- [ ]` se ve como texto.
 - **Bloques de código:** se quitan el nombre del lenguaje y las clases, así que no hay resaltado ni cabecera. Escribe la ruta del archivo en la línea anterior, por ejemplo: "En `src/main/java/.../Dado.java`:".
 - **Sin clases CSS:** `callout-tip` y `margin-note` de `DESIGN.md` no se pueden usar dentro del contenido. Las notas van como cita (`> ※ ...`); las pistas y soluciones, en `<details>` ("Ver una pista", "Ver la solución").
 - **Imágenes:** se aceptan por URL, pero no hay dónde alojarlas (EM-007 está fuera del semestre) y `DESIGN.md` no quiere arte del juego. El contenido se escribe para entenderse sin capturas.
@@ -212,19 +216,28 @@ Uno por juego (D8). Cada uno con:
 
 Los repositorios se marcan como plantilla de GitHub para que el alumno cree el suyo con un clic.
 
-## 11. Decisiones pendientes del equipo
+## 11. Decisiones del equipo
+
+Decididas el 17/11/2026:
+
+| # | Decisión | Qué se decidió |
+|---|---|---|
+| D1 | Qué juego va primero en la demostración | Minecraft: Java Edition. |
+| D2 | Entorno de Minecraft | Fabric. NeoForge queda como opción del curso. |
+| D4 | Proyecto de Misión Cero | El comando `/dado` (sección 4). |
+| D5 | Dónde vive el contenido | En este repositorio, aunque es público: `docs/contenido/<juego>/`. Las lecciones se revisan en *pull requests* y se cargan en el admin a mano. |
+| D6 | Precio y días de acceso de la Misión Cero de Minecraft | MXN 199 (`price_cents = 19900`) y 30 días de acceso. Sigue abierto si el precio incluye IVA. |
+| D9 | Título del curso de Minecraft | "Misión Cero: tu primer mod para Minecraft". El texto del aviso se confirma en la fuente oficial (sección 8). |
+
+Siguen abiertas:
 
 | # | Decisión | Recomendación |
 |---|---|---|
-| D1 | Qué juego va primero en la demostración | Minecraft: herramientas estables y documentación oficial madura. |
-| D2 | Entorno de Minecraft | Fabric: documentación oficial clara, ya usa los nombres oficiales de Mojang y es ligero para empezar. NeoForge queda como opción del curso. |
 | D3 | Tipo de mod de Hytale | Plugin en Java: enseña la misma ingeniería que en Minecraft. Los recursos sin código entran en la semana 2 del curso. |
-| D4 | Proyecto de Misión Cero | El comando `/dado` (sección 4). |
-| D5 | Dónde vive el contenido | **El repositorio es público.** Recomendación: escribir las lecciones en Markdown en un repositorio **privado** del equipo, para revisarlas en *pull requests*, y cargarlas en el admin a mano. Si se quiere automatizar la carga, proponer una historia nueva para un comando que importe esos archivos. Cargar directo en el admin es más rápido, pero pierde la revisión y el historial. |
-| D6 | Precio y días de acceso de cada Misión Cero | Abierto (hipótesis del piloto). El precio propuesto en `docs/negocio.md` es MXN 199. |
+| D6 | Precio y días de acceso de la Misión Cero de Hytale | Abierto (hipótesis del piloto). |
 | D7 | Quién prueba cada juego | Hace falta al menos una persona con cada juego comprado y una máquina donde probar. |
-| D8 | Dónde viven los repositorios plantilla | Una cuenta u organización del equipo en GitHub, no una personal. |
-| D9 | Título y aviso de cada curso | Según la sección 8, confirmado en las fuentes oficiales. |
+| D8 | Dónde viven los repositorios plantilla | Una cuenta u organización del equipo en GitHub, no una personal. Mientras no exista, la Misión Cero de Minecraft usa el generador oficial de plantillas de Fabric. |
+| D9 | Título y aviso del curso de Hytale | Según la sección 8, confirmado en las fuentes oficiales. |
 
 ## 12. Instrucciones para la sesión que escriba el contenido
 
