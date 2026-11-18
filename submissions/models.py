@@ -201,3 +201,42 @@ class ReviewScore(models.Model):
                 raise ValidationError(
                     {"criterion": _("El criterio no es de la rúbrica de este ejercicio.")}
                 )
+
+
+class PublicationChecklist(models.Model):
+    """Checklist de publicación del proyecto final (EM-076).
+
+    La versión compatible declarada es la del envío (`SubmissionAttempt.game_version`).
+    """
+
+    attempt = models.OneToOneField(
+        SubmissionAttempt,
+        on_delete=models.CASCADE,
+        related_name="publication_checklist",
+        verbose_name=_("envío"),
+    )
+    readme = models.BooleanField(
+        _("README"),
+        help_text=_("El repositorio explica qué hace el mod, cómo instalarlo y cómo probarlo."),
+    )
+    license = models.BooleanField(
+        _("licencia"),
+        help_text=_("El repositorio declara con qué licencia se puede usar y compartir."),
+    )
+    changelog = models.BooleanField(
+        _("registro de cambios"),
+        help_text=_("Hay un archivo o sección con los cambios de cada versión."),
+    )
+    publication_url = models.URLField(
+        _("enlace a la publicación"),
+        max_length=500,
+        blank=True,
+        help_text=_("Déjalo vacío si todavía no publicaste el mod."),
+    )
+
+    class Meta:
+        verbose_name = _("checklist de publicación")
+        verbose_name_plural = _("checklists de publicación")
+
+    def __str__(self):
+        return f"Checklist de {self.attempt}"

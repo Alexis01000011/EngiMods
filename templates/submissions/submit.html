@@ -37,6 +37,9 @@
               <dd>{{ attempt.comment|linebreaksbr }}</dd>
             {% endif %}
           </dl>
+          {% if checklist %}
+            {% include "components/publication_checklist.html" with checklist=checklist attempt=attempt %}
+          {% endif %}
         {% endif %}
       </section>
       {% if review %}
@@ -53,7 +56,7 @@
         {% else %}
           <h2 id="envia">{% translate "Envía tu entrega" %}</h2>
         {% endif %}
-        {% if form.errors %}
+        {% if form.errors or checklist_form.errors %}
           <div role="alert" class="mb-lg rounded-lg bg-error-container p-md text-error">
             <p class="m-0"><strong>{% translate "No se pudo enviar." %}</strong> {% translate "Revisa los campos marcados y vuelve a intentarlo." %}</p>
             {% for error in form.non_field_errors %}
@@ -82,6 +85,36 @@
               {% endif %}
             </div>
           {% endfor %}
+          {% if checklist_form %}
+            <fieldset class="m-0 flex flex-col gap-sm border-0 p-0">
+              <legend class="p-0 text-label-md">{% translate "Checklist de publicación" %}</legend>
+              <p class="m-0 text-body-sm text-ink-muted">{% translate "Marca lo que ya tiene tu repositorio. La versión compatible es la que elegiste arriba." %}</p>
+              {% if checklist_form.non_field_errors %}
+                <div role="alert" class="rounded-lg bg-error-container p-md text-error">
+                  {% for error in checklist_form.non_field_errors %}<p class="m-0">{{ error }}</p>{% endfor %}
+                </div>
+              {% endif %}
+              {% for field in checklist_form %}
+                {% if field.name == "publication_url" %}
+                  <div class="flex flex-col [&_[aria-invalid=true]]:border-2 [&_[aria-invalid=true]]:border-error">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.help_text %}<span class="helptext" id="{{ field.auto_id }}_helptext">{{ field.help_text }}</span>{% endif %}
+                    {% include "components/field_errors.html" %}
+                  </div>
+                {% else %}
+                  <div class="flex flex-col gap-xs">
+                    <div class="flex min-h-touch-target items-start gap-sm">
+                      {{ field }}
+                      <label for="{{ field.auto_id }}" class="font-normal">{{ field.label }}</label>
+                    </div>
+                    {% if field.help_text %}<span class="helptext" id="{{ field.auto_id }}_helptext">{{ field.help_text }}</span>{% endif %}
+                    {% include "components/field_errors.html" %}
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </fieldset>
+          {% endif %}
           <div>
             <button type="submit" class="button-primary w-full sm:w-auto">{% if submission %}{% translate "Reenviar mi entrega" %}{% else %}{% translate "Enviar mi entrega" %}{% endif %}</button>
           </div>

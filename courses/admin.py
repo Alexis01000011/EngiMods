@@ -110,8 +110,8 @@ class RubricCriterionInline(admin.TabularInline):
 class ExerciseAdmin(admin.ModelAdmin):
     """La rúbrica se captura aquí, criterio por criterio (EM-072)."""
 
-    list_display = ("title", "lesson", "course", "criteria_count")
-    list_filter = ("lesson__module__course",)
+    list_display = ("title", "lesson", "course", "is_final_project", "criteria_count")
+    list_filter = ("lesson__module__course", "is_final_project")
     search_fields = ("title", "lesson__title", "lesson__module__course__title")
     list_select_related = ("lesson__module__course",)
     raw_id_fields = ("lesson",)

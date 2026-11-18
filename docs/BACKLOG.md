@@ -206,7 +206,7 @@ El 14/11/2026 salieron del recorte [EM-008](#em-008) (#8), del bloque A, y [EM-0
 | [EM-073](#em-073) | [#46](https://github.com/Alexis01000011/EngiMods/issues/46) | Reenviar entrega tras cambios | E7 | Must | 2 | 8 | EM-072 | Hecho |
 | [EM-074](#em-074) | [#47](https://github.com/Alexis01000011/EngiMods/issues/47) | Notificaciones de entregas por correo | E7 | Should | 2 | 8 | EM-072, EM-008 | Pendiente |
 | [EM-075](#em-075) | [#48](https://github.com/Alexis01000011/EngiMods/issues/48) | Entregar archivo .zip | E7 | Could | 3 | 7 | EM-070, EM-007 | Pendiente |
-| [EM-076](#em-076) | [#49](https://github.com/Alexis01000011/EngiMods/issues/49) | Proyecto final con checklist de publicación | E7 | Should | 3 | 8 | EM-072 | Pendiente |
+| [EM-076](#em-076) | [#49](https://github.com/Alexis01000011/EngiMods/issues/49) | Proyecto final con checklist de publicación | E7 | Should | 3 | 8 | EM-072 | Hecho |
 | [EM-077](#em-077) | [#99](https://github.com/Alexis01000011/EngiMods/issues/99) | Pantallas del tutor con la identidad visual | E7 | Must | 2 | 8 | EM-004, EM-071 | Hecho |
 | [EM-080](#em-080) | [#50](https://github.com/Alexis01000011/EngiMods/issues/50) | Acceso al Discord del grupo | E8 | Must | 1 | 6 | EM-050, EM-060 | Pendiente |
 | [EM-081](#em-081) | [#51](https://github.com/Alexis01000011/EngiMods/issues/51) | Avisos del curso | E8 | Should | 3 | 5 | EM-050, EM-008, EM-035 | Pendiente |
@@ -1155,15 +1155,15 @@ Nota: Contradice en parte la propuesta (Git es parte de lo que se enseña). Deci
 
 **Proyecto final con checklist de publicación**
 
-Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 3 · Ola: 8 · Issue: [#49](https://github.com/Alexis01000011/EngiMods/issues/49)
+Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 3 · Ola: 8 · Estado: Hecho · Issue: [#49](https://github.com/Alexis01000011/EngiMods/issues/49)
 
 > Como **alumno**, quiero entregar mi mod final con un checklist de publicación, para dejarlo listo para publicarlo y mantenerlo.
 
 Criterios de aceptación:
 
-- [ ] El proyecto final pide: README, licencia, registro de cambios, versión compatible declarada y enlace a la publicación si ya existe.
-- [ ] El tutor revisa el checklist como parte de la rúbrica.
-- [ ] Se registra si el alumno publicó su mod y dónde.
+- [x] El proyecto final pide: README, licencia, registro de cambios, versión compatible declarada y enlace a la publicación si ya existe.
+- [x] El tutor revisa el checklist como parte de la rúbrica.
+- [x] Se registra si el alumno publicó su mod y dónde.
 
 Depende de: [EM-072](#em-072)
 

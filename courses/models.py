@@ -232,6 +232,14 @@ class Exercise(models.Model):
         _("instrucciones"),
         help_text=_("En Markdown. Al mostrarse se quitan los scripts y el HTML inseguro."),
     )
+    is_final_project = models.BooleanField(
+        _("proyecto final"),
+        default=False,
+        help_text=_(
+            "Al entregarlo, el alumno completa el checklist de publicación (README, licencia, "
+            "registro de cambios y enlace al mod publicado)."
+        ),
+    )
 
     class Meta:
         ordering = ("lesson__module__course__title", "lesson__module__order", "lesson__order")

@@ -15,7 +15,7 @@ from django.views.decorators.http import require_POST
 from accounts.permissions import tutor_required
 
 from .forms import ReviewForm
-from .models import Review, ReviewScore, Submission, SubmissionAttempt
+from .models import PublicationChecklist, Review, ReviewScore, Submission, SubmissionAttempt
 from .views import attempts_with_reviews
 
 PENDING = (Submission.Status.SUBMITTED, Submission.Status.IN_REVIEW)
@@ -97,6 +97,9 @@ def review(request, pk):
             "attempt": attempt,
             "criteria": criteria,
             "form": form,
+            "checklist": (
+                PublicationChecklist.objects.filter(attempt=attempt).first() if attempt else None
+            ),
             "review": attempt.past_review if attempt else None,
             "previous_attempts": attempts[1:],
         },
