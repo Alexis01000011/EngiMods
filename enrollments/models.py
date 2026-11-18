@@ -183,3 +183,34 @@ class WaitlistEntry(models.Model):
             raise ValidationError({"course": _("El curso debe ser del juego elegido.")})
         if self.legal_text_id and self.legal_text.kind != LegalText.Kind.PRIVACY:
             raise ValidationError({"legal_text": _("El aviso aceptado debe ser el de privacidad.")})
+
+
+class LabStepProgress(models.Model):
+    """Paso de la guía de laboratorio que un alumno marcó como hecho (EM-063)."""
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="lab_step_progress",
+        verbose_name=_("alumno"),
+    )
+    step = models.ForeignKey(
+        "catalog.LabStep",
+        on_delete=models.CASCADE,
+        related_name="progress",
+        verbose_name=_("paso"),
+    )
+    completed_at = models.DateTimeField(_("fecha de completado"), default=timezone.now)
+
+    class Meta:
+        ordering = ("-completed_at", "-pk")
+        verbose_name = _("paso de laboratorio completado")
+        verbose_name_plural = _("pasos de laboratorio completados")
+        constraints = [
+            models.UniqueConstraint(
+                fields=("user", "step"), name="unique_lab_step_progress_per_user"
+            )
+        ]
+
+    def __str__(self):
+        return f"{self.user} · {self.step}"

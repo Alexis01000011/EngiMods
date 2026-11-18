@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% blocktranslate with game=guide.game.name %}Laboratorio de {{ game }}{% endblocktranslate %} · EngiMods{% endblock %}
+
+{% block content %}
+  <div class="max-w-reading-max">
+    <nav aria-label="{% translate 'Ruta' %}">
+      <a href="{% url 'enrollments:my_courses' %}" class="inline-flex min-h-touch-target items-center text-label-md">← {% translate "Mi panel" %}</a>
+    </nav>
+
+    <header class="mt-sm flex flex-col gap-sm">
+      <p class="m-0 text-label-sm text-ink-muted">{{ guide.game.name }}</p>
+      <h1 class="m-0">{% translate "Prepara tu computadora" %}</h1>
+      <p class="m-0 font-serif text-dek italic text-ink-soft">{% translate "Sigue los pasos en orden. Si algo no funciona, marca hasta dónde llegaste y pide ayuda a tu tutor." %}</p>
+      <p class="m-0 inline-flex flex-wrap items-center gap-1.5 self-start rounded-full bg-tested-container px-3 py-1.5 font-mono text-code-sm text-tested">
+        <svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5l3 3 7-7"/></svg>
+        {% blocktranslate with version=guide.game_version.number environment=guide.modding_environment.name environment_version=guide.modding_environment.version %}Válida para {{ version }} + {{ environment }} {{ environment_version }}{% endblocktranslate %}
+      </p>
+    </header>
+
+    <section aria-labelledby="requisitos" class="mt-xl flex flex-col gap-sm rounded-lg bg-surface-sunken p-lg">
+      <h2 id="requisitos" class="m-0 text-headline-sm">{% translate "Antes de empezar" %}</h2>
+      <div class="font-serif text-reading-md">{{ guide.requirements|linebreaks }}</div>
+    </section>
+
+    <section aria-labelledby="pasos" class="mt-xl">
+      <div class="flex flex-wrap items-baseline justify-between gap-sm">
+        <h2 id="pasos" class="m-0 text-headline-sm">{% translate "Paso a paso" %}</h2>
+        {% if steps %}
+          <p class="m-0 text-label-sm text-ink-muted">{% blocktranslate with done=completed total=steps|length %}{{ done }} de {{ total }} pasos completos{% endblocktranslate %}</p>
+        {% endif %}
+      </div>
+      {% if steps %}
+        <progress value="{{ completed }}" max="{{ steps|length }}" aria-label="{% translate 'Avance de la guía de laboratorio' %}" class="mt-sm block h-1.5 w-full appearance-none overflow-hidden rounded-[3px] bg-progress-track [&::-moz-progress-bar]:bg-primary [&::-webkit-progress-bar]:bg-progress-track [&::-webkit-progress-value]:bg-primary">{{ completed }} / {{ steps|length }}</progress>
+        <ol class="m-0 mt-md flex list-none flex-col gap-md p-0">
+          {% for step in steps %}
+            <li class="m-0 flex flex-col gap-sm rounded-lg border border-divider bg-surface p-lg">
+              <div class="flex flex-wrap items-start justify-between gap-sm">
+                <div class="flex min-w-0 items-baseline gap-sm">
+                  <span class="font-mono text-code-sm text-ink-muted">{{ forloop.counter|stringformat:"02d" }}</span>
+                  <h3 class="m-0 text-headline-sm">{{ step.title }}</h3>
+                </div>
+                {% if step.done %}
+                  <span class="inline-flex items-center gap-1.5 rounded-full bg-tested-container px-3 py-1.5 font-mono text-code-sm text-tested">
+                    <svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5l3 3 7-7"/></svg>
+                    {% translate "Hecho" %}
+                  </span>
+                {% endif %}
+              </div>
+              <div class="font-serif text-reading-md">{{ step.instructions_html }}</div>
+              {% if can_mark %}
+                <form method="post" action="{% url 'enrollments:toggle_lab_step' guide.game.slug step.pk %}" class="m-0">
+                  {% csrf_token %}
+                  {% if step.done %}
+                    <button type="submit" class="button-quiet">{% translate "Desmarcar este paso" %}</button>
+                  {% else %}
+                    <button type="submit" class="button-secondary">{% translate "Marcar como hecho" %}</button>
+                  {% endif %}
+                </form>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ol>
+      {% else %}
+        <div class="mt-md rounded-lg border border-dashed border-outline bg-surface p-lg">
+          <p class="m-0">{% translate "Esta guía todavía no tiene pasos." %}</p>
+        </div>
+      {% endif %}
+    </section>
+
+    <section aria-labelledby="prueba-final" class="mt-xl flex flex-col gap-sm rounded-lg border border-divider bg-surface p-lg">
+      <h2 id="prueba-final" class="m-0 text-headline-sm">{% translate "Comprueba que todo funciona" %}</h2>
+      <div class="font-serif text-reading-md">{{ guide.final_check|linebreaks }}</div>
+    </section>
+
+    {% if tutor_rows is not None %}
+      <section aria-labelledby="avance-alumnos" class="mt-xl">
+        <h2 id="avance-alumnos" class="m-0 text-headline-sm">{% translate "Quién está atorado" %}</h2>
+        <p class="m-0 mt-xs text-body-sm text-ink-muted">{% translate "Alumnos con acceso a un curso de este juego. Primero quienes llevan menos pasos." %}</p>
+        {% if tutor_rows %}
+          <div class="mt-sm max-w-full overflow-x-auto" role="region" aria-labelledby="avance-alumnos" tabindex="0">
+            <table class="table min-w-128">
+              <thead>
+                <tr>
+                  <th scope="col">{% translate "Alumno" %}</th>
+                  <th scope="col">{% translate "Curso" %}</th>
+                  <th scope="col">{% translate "Pasos" %}</th>
+                  <th scope="col">{% translate "Paso pendiente" %}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for row in tutor_rows %}
+                  <tr>
+                    <td>{{ row.user.display_name }}<br><span class="text-label-sm text-ink-muted">{{ row.user.email }}</span></td>
+                    <td>{{ row.course.title }}</td>
+                    <td class="whitespace-nowrap">{{ row.done }} / {{ row.total }}</td>
+                    <td>
+                      {% if row.finished %}
+                        <span class="text-tested">{% translate "Terminó la guía" %}</span>
+                      {% elif row.next %}
+                        {{ row.next.title }}
+                      {% else %}
+                        <span class="text-ink-muted">{% translate "Sin pasos" %}</span>
+                      {% endif %}
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% else %}
+          <p class="mt-sm rounded-lg border border-dashed border-outline bg-surface p-lg">{% translate "Todavía no hay alumnos con acceso a este juego." %}</p>
+        {% endif %}
+      </section>
+    {% endif %}
+  </div>
+{% endblock %}

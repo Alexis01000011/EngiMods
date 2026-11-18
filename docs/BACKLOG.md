@@ -198,7 +198,7 @@ El 14/11/2026 salieron del recorte [EM-008](#em-008) (#8), del bloque A, y [EM-0
 | [EM-060](#em-060) | [#39](https://github.com/Alexis01000011/EngiMods/issues/39) | Panel del alumno: mis cursos | E6 | Must | 3 | 5 | EM-053 | Hecho |
 | [EM-061](#em-061) | [#40](https://github.com/Alexis01000011/EngiMods/issues/40) | Ver una lección | E6 | Must | 3 | 5 | EM-021, EM-053 | Hecho |
 | [EM-062](#em-062) | [#41](https://github.com/Alexis01000011/EngiMods/issues/41) | Marcar lección como completada | E6 | Must | 2 | 6 | EM-061, EM-060 | Hecho |
-| [EM-063](#em-063) | [#42](https://github.com/Alexis01000011/EngiMods/issues/42) | Guía de laboratorio local por juego | E6 | Should | 3 | 6 | EM-011, EM-060, EM-035 | Pendiente |
+| [EM-063](#em-063) | [#42](https://github.com/Alexis01000011/EngiMods/issues/42) | Guía de laboratorio local por juego | E6 | Should | 3 | 6 | EM-011, EM-060, EM-035 | Hecho |
 | [EM-064](#em-064) | [#98](https://github.com/Alexis01000011/EngiMods/issues/98) | Pantallas del alumno con la identidad visual | E6 | Must | 5 | 7 | EM-004, EM-041, EM-062, EM-070 | Hecho |
 | [EM-070](#em-070) | [#43](https://github.com/Alexis01000011/EngiMods/issues/43) | Enviar una entrega | E7 | Must | 3 | 6 | EM-061 | Hecho |
 | [EM-071](#em-071) | [#44](https://github.com/Alexis01000011/EngiMods/issues/44) | Cola de revisión con alerta de 24 horas | E7 | Must | 3 | 7 | EM-070, EM-035 | Hecho |
@@ -1006,15 +1006,15 @@ Depende de: [EM-061](#em-061), [EM-060](#em-060)
 
 **Guía de laboratorio local por juego**
 
-Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 3 · Ola: 6 · Issue: [#42](https://github.com/Alexis01000011/EngiMods/issues/42)
+Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 3 · Ola: 6 · Estado: Hecho · Issue: [#42](https://github.com/Alexis01000011/EngiMods/issues/42)
 
 > Como **alumno**, quiero una guía paso a paso para preparar mi computadora para hacer mods de mi juego, para no abandonar en la instalación.
 
 Criterios de aceptación:
 
-- [ ] Cada juego puede tener una guía de laboratorio con requisitos, pasos de instalación y una prueba final de que todo funciona.
-- [ ] La guía indica para qué versión del juego y del entorno es válida.
-- [ ] El alumno marca cada paso como hecho; el tutor ve quién está atorado.
+- [x] Cada juego puede tener una guía de laboratorio con requisitos, pasos de instalación y una prueba final de que todo funciona.
+- [x] La guía indica para qué versión del juego y del entorno es válida.
+- [x] El alumno marca cada paso como hecho; el tutor ve quién está atorado.
 
 Depende de: [EM-011](#em-011), [EM-060](#em-060), [EM-035](#em-035)
 

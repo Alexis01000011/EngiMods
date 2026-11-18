@@ -8,7 +8,7 @@ from django.urls import path
 from django.utils import timezone
 from django.utils.translation import gettext as _
 
-from .models import Enrollment, LessonProgress, WaitlistEntry
+from .models import Enrollment, LabStepProgress, LessonProgress, WaitlistEntry
 
 CSV_FORMULA_PREFIXES = ("=", "+", "-", "@", "\t", "\r")
 
@@ -121,3 +121,12 @@ class WaitlistEntryAdmin(admin.ModelAdmin):
                 ]
             )
         return response
+
+
+@admin.register(LabStepProgress)
+class LabStepProgressAdmin(admin.ModelAdmin):
+    list_display = ("user", "step", "completed_at")
+    list_filter = ("step__guide__game",)
+    search_fields = ("user__email", "user__display_name", "step__title")
+    list_select_related = ("user", "step__guide__game")
+    raw_id_fields = ("user", "step")

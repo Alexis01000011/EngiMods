@@ -14,6 +14,7 @@ urlpatterns = [
     path("mi-panel/", include("enrollments.urls")),
     path("mi-panel/entregas/", include("submissions.urls")),
     path("tutoria/entregas/", include("submissions.tutor_urls")),
+    path("tutoria/laboratorio/", include("enrollments.tutor_urls")),
     path("metricas/", include("metrics.urls")),
     path("", include("core.urls")),
 ]
