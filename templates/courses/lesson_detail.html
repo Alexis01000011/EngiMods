@@ -38,7 +38,7 @@
         <p class="m-0 text-label-sm text-ink-muted"><a href="{% url 'courses:course_detail' course.slug %}" class="text-ink-muted hover:text-ink">{{ course.title }}</a> · {{ lesson.module.title }} · {% blocktranslate with number=lesson.number total=lessons|length %}Lección {{ number }} de {{ total }}{% endblocktranslate %}</p>
         <div class="flex items-start gap-lg">
           <h1 class="m-0 min-w-0 flex-1">{{ lesson.title }}</h1>
-          {% if test %}
+          {% if test and not needs_revalidation %}
             <div aria-hidden="true" class="hidden size-28 flex-none -rotate-6 flex-col items-center justify-center gap-0.5 rounded-full border-2 border-tested px-2 text-center text-tested sm:flex">
               <span class="text-eyebrow uppercase">{% translate "Probado" %}</span>
               <span class="w-15 border-t border-current"></span>
@@ -51,7 +51,12 @@
 
       <ul class="m-0 mt-md flex list-none flex-wrap gap-sm border-y border-divider p-0 py-md">
         <li class="m-0">
-          {% if test %}
+          {% if needs_revalidation %}
+            <p class="m-0 inline-flex items-center gap-1.5 rounded-full bg-revalidate-container px-3 py-1.5 font-mono text-code-sm text-revalidate">
+              <svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4M8 11v.5"/></svg>
+              {% blocktranslate with old=test.game_version.number current=current_version.number %}Probado en {{ old }}. Pendiente de revalidar en {{ current }}.{% endblocktranslate %}
+            </p>
+          {% elif test %}
             <p class="m-0 inline-flex items-center gap-1.5 rounded-full bg-tested-container px-3 py-1.5 font-mono text-code-sm text-tested">
               <svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5l3 3 7-7"/></svg>
               {% blocktranslate with game=test.game_version.game.name version=test.game_version.number environment=test.modding_environment.name environment_version=test.modding_environment.version %}Probado con {{ game }} {{ version }} + {{ environment }} {{ environment_version }}{% endblocktranslate %}
