@@ -165,7 +165,7 @@ El 14/11/2026 salieron del recorte [EM-008](#em-008) (#8), del bloque A, y [EM-0
 | [EM-009](#em-009) | [#9](https://github.com/Alexis01000011/EngiMods/issues/9) | Cuenta de Stripe en modo prueba conectada | E0 | Must | 2 | 1 | EM-001 | Hecho |
 | [EM-010](#em-010) | [#10](https://github.com/Alexis01000011/EngiMods/issues/10) | Registrar juegos en el catálogo | E1 | Must | 2 | 2 | EM-003 | Hecho |
 | [EM-011](#em-011) | [#11](https://github.com/Alexis01000011/EngiMods/issues/11) | Registrar versiones del juego y entornos de modding | E1 | Must | 3 | 3 | EM-010 | Hecho |
-| [EM-012](#em-012) | [#12](https://github.com/Alexis01000011/EngiMods/issues/12) | Página pública de cada juego | E1 | Must | 3 | 4 | EM-011, EM-020 | Pendiente |
+| [EM-012](#em-012) | [#12](https://github.com/Alexis01000011/EngiMods/issues/12) | Página pública de cada juego | E1 | Must | 3 | 4 | EM-011, EM-020 | Hecho |
 | [EM-013](#em-013) | [#13](https://github.com/Alexis01000011/EngiMods/issues/13) | Filtrar cursos por juego | E1 | Should | 2 | 5 | EM-012 | Pendiente |
 | [EM-014](#em-014) | [#14](https://github.com/Alexis01000011/EngiMods/issues/14) | Marcar contenido pendiente de revalidar al salir una nueva versión | E1 | Should | 5 | 5 | EM-021, EM-035 | Pendiente |
 | [EM-015](#em-015) | [#100](https://github.com/Alexis01000011/EngiMods/issues/100) | Catálogo de juegos y textos legales con la identidad visual | E1 | Should | 2 | 4 | EM-004, EM-010, EM-033, EM-036 | Hecho |
@@ -416,15 +416,15 @@ Nota: El modelo debe servir para cualquier juego; no se asume nada específico d
 
 **Página pública de cada juego**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 4 · Issue: [#12](https://github.com/Alexis01000011/EngiMods/issues/12)
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 3 · Ola: 4 · Estado: Hecho · Issue: [#12](https://github.com/Alexis01000011/EngiMods/issues/12)
 
 > Como **visitante**, quiero ver una página de cada juego con sus cursos disponibles y las versiones que soportamos, para saber si EngiMods me sirve para el juego que me interesa.
 
 Criterios de aceptación:
 
-- [ ] URL `/juegos/<slug>/` con descripción, versión actual soportada y lista de cursos publicados de ese juego.
-- [ ] Si el juego no tiene cursos publicados, se indica y, cuando EM-046 esté hecha, se ofrece dejar el correo.
-- [ ] Listado general `/juegos/` con todos los juegos activos.
+- [x] URL `/juegos/<slug>/` con descripción, versión actual soportada y lista de cursos publicados de ese juego.
+- [x] Si el juego no tiene cursos publicados, se indica y, cuando EM-046 esté hecha, se ofrece dejar el correo.
+- [x] Listado general `/juegos/` con todos los juegos activos.
 
 Depende de: [EM-011](#em-011), [EM-020](#em-020)
 

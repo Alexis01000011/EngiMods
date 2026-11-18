@@ -8,6 +8,7 @@ from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
 
 from accounts.models import PrivacyConsent
+from catalog.models import Game
 from core.models import LegalText
 from courses.models import Course, Lesson
 
@@ -81,7 +82,14 @@ def join_waitlist(request):
     privacy_notice = LegalText.objects.current(LegalText.Kind.PRIVACY)
     form = None
     if privacy_notice is not None:
-        form = WaitlistJoinForm(request.POST or None)
+        # El enlace de la página de un juego (EM-012) preselecciona ese juego.
+        initial = {}
+        game_slug = request.GET.get("juego")
+        if game_slug:
+            game = Game.objects.filter(status=Game.Status.ACTIVE, slug=game_slug).first()
+            if game is not None:
+                initial["game"] = game
+        form = WaitlistJoinForm(request.POST or None, initial=initial)
         if request.method == "POST" and form.is_valid():
             with transaction.atomic():
                 WaitlistEntry.objects.create(

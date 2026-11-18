@@ -395,3 +395,17 @@ def test_un_visitante_no_entra_a_la_exportacion(client):
     response = client.get(reverse("admin:enrollments_waitlistentry_export"))
     assert response.status_code == 302
     assert "/admin/login/" in response.url
+
+
+def test_el_enlace_de_un_juego_preselecciona_ese_juego(client, aviso, game, otro_juego):
+    content = client.get(WAITLIST_URL, {"juego": game.slug}).content.decode()
+    assert f'<option value="{game.pk}" selected>' in content
+    assert f'<option value="{otro_juego.pk}">' in content
+
+
+def test_un_juego_oculto_o_inexistente_no_se_preselecciona(client, aviso, game):
+    game.status = Game.Status.HIDDEN
+    game.save()
+    for slug in (game.slug, "no-existe"):
+        content = client.get(WAITLIST_URL, {"juego": slug}).content.decode()
+        assert f'<option value="{game.pk}" selected>' not in content

@@ -20,8 +20,32 @@
       {{ game.description|linebreaks }}
     </div>
     <p><a href="{{ game.official_url }}" rel="noopener">{% translate "Sitio oficial" %}</a></p>
-    <p><a href="{% url 'waitlist:join' %}">{% translate "¿Quieres otro grupo o un curso de este juego? Déjanos tu correo." %}</a></p>
   </div>
+
+  <section aria-labelledby="cursos" class="mt-xl">
+    <h2 id="cursos">{% translate "Cursos de este juego" %}</h2>
+    {% if has_courses %}
+      <ul class="m-0 grid list-none grid-cols-1 gap-md p-0 md:grid-cols-2">
+        {% for course in courses %}
+          <li class="m-0 flex flex-col gap-sm rounded-lg border border-divider bg-surface p-lg">
+            <p class="m-0 text-label-sm text-ink-muted">{{ course.get_kind_display }} · {{ course.get_level_display }}</p>
+            <h3 class="m-0"><a href="{% url 'courses:course_detail' course.slug %}" class="text-ink no-underline hover:underline">{{ course.title }}</a></h3>
+            <p class="m-0">{{ course.description|truncatewords:30 }}</p>
+            <div class="mt-auto pt-sm">
+              <a href="{% url 'courses:course_detail' course.slug %}" class="button-secondary">{% translate "Ver el curso" %}<span class="sr-only">: {{ course.title }}</span></a>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+      <p class="mt-lg"><a href="{% url 'waitlist:join' %}?juego={{ game.slug|urlencode }}">{% translate "¿Buscas otro grupo o un curso de este juego? Déjanos tu correo." %}</a></p>
+    {% else %}
+      <div class="max-w-reading-max rounded-lg border border-dashed border-outline bg-surface p-lg">
+        <p class="m-0"><strong>{{ game.name }}</strong> {% translate "todavía no tiene cursos publicados." %}</p>
+        <p class="m-0 mt-sm">{% translate "Déjanos tu correo y te avisamos cuando abra un curso de este juego." %}</p>
+        <p class="mt-md"><a href="{% url 'waitlist:join' %}?juego={{ game.slug|urlencode }}" class="button-secondary">{% translate "Dejar mi correo en la lista de espera" %}</a></p>
+      </div>
+    {% endif %}
+  </section>
 
   <section aria-labelledby="versiones">
     <h2 id="versiones">{% translate "Versiones y entornos" %}</h2>
