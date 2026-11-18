@@ -1,4 +1,4 @@
-from datetime import timedelta
+from datetime import datetime, time, timedelta
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
@@ -7,6 +7,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from core.models import LegalText
+from courses.models import Course
 
 
 class EnrollmentQuerySet(models.QuerySet):
@@ -40,6 +41,15 @@ class Enrollment(models.Model):
         on_delete=models.PROTECT,
         related_name="enrollments",
         verbose_name=_("curso"),
+    )
+    # Opcional: solo en cursos por grupos. PROTECT para no perder de qué grupo era.
+    cohort = models.ForeignKey(
+        "cohorts.Cohort",
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+        related_name="enrollments",
+        verbose_name=_("grupo"),
     )
     origin = models.CharField(_("origen"), max_length=20, choices=Origin)
     status = models.CharField(_("estado"), max_length=10, choices=Status, default=Status.ACTIVE)
@@ -88,20 +98,41 @@ class Enrollment(models.Model):
         )
 
     def _fill_access_ends_at(self):
-        if self.access_ends_at is None and self.course_id and self.enrolled_at:
-            self.access_ends_at = self.enrolled_at + timedelta(days=self.course.access_days)
+        if self.access_ends_at is not None or not self.course_id or not self.enrolled_at:
+            return
+        if self.cohort_id:
+            # En un curso por grupos, el acceso se cuenta desde que termina el grupo.
+            base = timezone.make_aware(datetime.combine(self.cohort.end_date, time.max))
+        else:
+            base = self.enrolled_at
+        self.access_ends_at = base + timedelta(days=self.course.access_days)
 
     def clean(self):
         super().clean()
         self._fill_access_ends_at()
+        errors = {}
+        if self.cohort_id and self.course_id:
+            if self.cohort.course_id != self.course_id:
+                errors["cohort"] = _("El grupo no es del curso de la inscripción.")
+            elif self.course.kind != Course.Kind.COURSE:
+                errors["cohort"] = _("Solo los cursos por grupos llevan grupo.")
+            elif (
+                self.cohort.enrollments.filter(status=self.Status.ACTIVE)
+                .exclude(pk=self.pk)
+                .count()
+                >= self.cohort.capacity
+            ):
+                errors["cohort"] = _("El grupo ya está lleno.")
         if self.user_id and self.course_id and self.has_access:
             others = Enrollment.objects.with_access().filter(
                 user_id=self.user_id, course_id=self.course_id
             )
             if others.exclude(pk=self.pk).exists():
-                raise ValidationError(
-                    _("El alumno ya tiene una inscripción con acceso vigente a este curso.")
+                errors["__all__"] = _(
+                    "El alumno ya tiene una inscripción con acceso vigente a este curso."
                 )
+        if errors:
+            raise ValidationError(errors)
 
 
 class LessonProgress(models.Model):

@@ -7,13 +7,14 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
+from cohorts.models import Cohort
 from courses.models import Course
 from enrollments.models import Enrollment
 
@@ -27,6 +28,8 @@ class Blocker:
 
     HAS_ACCESS = "has_access"
     COHORT_COURSE = "cohort_course"
+    COHORT_CLOSED = "cohort_closed"
+    COHORT_FULL = "cohort_full"
     UNVERIFIED_EMAIL = "unverified_email"
     UNAVAILABLE = "unavailable"
 
@@ -35,13 +38,17 @@ def has_access(user, course):
     return Enrollment.objects.with_access().filter(user=user, course=course).exists()
 
 
-def checkout_blocker(user, course):
-    """El motivo por el que `user` no puede pagar `course`, o None si sí puede."""
+def checkout_blocker(user, course, cohort=None):
+    """El motivo por el que `user` no puede pagar `course` (y su grupo), o None."""
     if has_access(user, course):
         return Blocker.HAS_ACCESS
-    # Un curso por grupos se paga para un grupo; los grupos llegan con EM-050.
     if course.kind == Course.Kind.COURSE:
-        return Blocker.COHORT_COURSE
+        if cohort is None:
+            return Blocker.COHORT_COURSE
+        if cohort.status != Cohort.Status.OPEN:
+            return Blocker.COHORT_CLOSED
+        if cohort.is_full:
+            return Blocker.COHORT_FULL
     if not user.can_pay:
         return Blocker.UNVERIFIED_EMAIL
     if not settings.STRIPE_SECRET_KEY:
@@ -49,9 +56,12 @@ def checkout_blocker(user, course):
     return None
 
 
-def create_checkout_session(request, course):
+def create_checkout_session(request, course, cohort=None):
     """Sesión de Stripe Checkout con el precio del curso guardado en la base de datos."""
     client = stripe.StripeClient(settings.STRIPE_SECRET_KEY)
+    metadata = {"user_id": str(request.user.pk), "course_id": str(course.pk)}
+    if cohort is not None:
+        metadata["cohort_id"] = str(cohort.pk)
     success_url = request.build_absolute_uri(reverse("payments:success", args=[course.slug]))
     return client.v1.checkout.sessions.create(
         params={
@@ -70,7 +80,7 @@ def create_checkout_session(request, course):
             ],
             "customer_email": request.user.email,
             "client_reference_id": str(request.user.pk),
-            "metadata": {"user_id": str(request.user.pk), "course_id": str(course.pk)},
+            "metadata": metadata,
             "locale": "es-419",
             # Stripe reemplaza {CHECKOUT_SESSION_ID}; por eso no pasa por reverse().
             "success_url": f"{success_url}?session_id={{CHECKOUT_SESSION_ID}}",
@@ -85,10 +95,16 @@ def create_checkout_session(request, course):
 def checkout(request, slug):
     """Confirmar y pagar (EM-042). GET muestra el resumen; POST abre Stripe Checkout."""
     course = get_object_or_404(Course.objects.published().select_related("game"), slug=slug)
-    blocker = checkout_blocker(request.user, course)
+    cohort_id = request.POST.get("grupo") or request.GET.get("grupo")
+    cohort = None
+    if cohort_id:
+        if not str(cohort_id).isdigit():
+            raise Http404
+        cohort = get_object_or_404(Cohort.objects.filter(course=course), pk=cohort_id)
+    blocker = checkout_blocker(request.user, course, cohort)
     if request.method == "POST" and blocker is None:
         try:
-            session = create_checkout_session(request, course)
+            session = create_checkout_session(request, course, cohort)
         except stripe.StripeError as error:
             # Solo el tipo de error: el mensaje de Stripe puede traer datos de la petición.
             logger.warning(
@@ -102,6 +118,7 @@ def checkout(request, slug):
         Payment.objects.create(
             user=request.user,
             course=course,
+            cohort=cohort,
             amount_cents=course.price_cents,
             stripe_checkout_session_id=session.id,
         )
@@ -114,6 +131,7 @@ def checkout(request, slug):
             "course": course,
             "price": Decimal(course.price_cents) / 100,
             "blocker": blocker,
+            "cohort": cohort,
         },
         status=400 if request.method == "POST" else 200,
     )
@@ -173,7 +191,10 @@ def confirm_payment(session):
             )
             return
         enrollment = Enrollment(
-            user=payment.user, course=payment.course, origin=Enrollment.Origin.STRIPE
+            user=payment.user,
+            course=payment.course,
+            cohort=payment.cohort,
+            origin=Enrollment.Origin.STRIPE,
         )
         enrollment.full_clean()
         enrollment.save()

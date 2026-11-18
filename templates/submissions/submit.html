@@ -6,8 +6,11 @@
 {% block content %}
   <div class="max-w-reading-max">
     <header class="flex flex-col gap-sm">
-      <p class="m-0 text-label-sm text-ink-muted"><a href="{% url 'courses:lesson_detail' course.slug exercise.lesson.pk %}" class="text-ink-muted hover:text-ink">{{ exercise.lesson.title }}</a> · {{ course.title }}</p>
+      <p class="m-0 text-label-sm text-ink-muted"><a href="{% url 'courses:lesson_detail' course.slug exercise.lesson.pk %}" class="text-ink-muted hover:text-ink">{{ exercise.lesson.title }}</a> · {{ course.title }}{% if submission.enrollment.cohort %} · {{ submission.enrollment.cohort.name }}{% endif %}</p>
       <h1 class="m-0">{{ exercise.title }}</h1>
+      {% if enrollment.cohort %}
+        <p class="m-0 inline-flex w-fit items-center gap-1.5 rounded-full bg-surface-chip px-3 py-1.5 font-mono text-code-sm text-ink-soft">{% blocktranslate with name=enrollment.cohort.name %}Grupo: {{ name }}{% endblocktranslate %}</p>
+      {% endif %}
       {% if review_hours %}
         <p class="m-0 font-serif text-dek italic text-ink-soft">{% blocktranslate count hours=review_hours %}Tu tutor lo revisa en menos de {{ hours }} hora.{% plural %}Tu tutor lo revisa en menos de {{ hours }} horas.{% endblocktranslate %}</p>
       {% endif %}

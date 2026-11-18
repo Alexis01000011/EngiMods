@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     "enrollments",
     "submissions",
     "payments",
+    "cohorts",
     "metrics",
 ]
 

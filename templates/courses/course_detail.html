@@ -110,7 +110,21 @@
         <p class="m-0 text-body-sm text-ink-muted">{% translate "Ya tienes acceso a este curso." %}</p>
         <a href="{% url 'enrollments:my_courses' %}" class="button-secondary w-full">{% translate "Ir a Mi panel" %}</a>
       {% elif course.kind == "course" %}
-        <p class="m-0 text-body-sm text-ink-muted">{% translate "Este curso se imparte por grupos. La inscripción abre cuando haya un grupo con fecha." %}</p>
+        {% if next_cohort %}
+          <div class="flex flex-col gap-xs rounded-md bg-surface-sunken p-sm">
+            <p class="m-0 font-sans text-label-md">{% blocktranslate with name=next_cohort.name %}Próximo grupo: {{ name }}{% endblocktranslate %}</p>
+            <p class="m-0 text-body-sm text-ink-muted">{% blocktranslate with start=next_cohort.start_date|date:"j \d\e F" end=next_cohort.end_date|date:"j \d\e F \d\e Y" %}Del {{ start }} al {{ end }}.{% endblocktranslate %}</p>
+            <p class="m-0 text-body-sm text-ink-muted">{% blocktranslate with left=next_cohort.seats_left total=next_cohort.capacity %}{{ left }} de {{ total }} lugares disponibles.{% endblocktranslate %}</p>
+          </div>
+          {% if next_cohort.is_full %}
+            <p class="m-0 text-body-sm text-ink-muted">{% translate "Este grupo está lleno. Déjanos tu correo y te avisamos del próximo." %}</p>
+            <a href="{% url 'waitlist:join' %}?juego={{ course.game.slug|urlencode }}" class="button-secondary w-full">{% translate "Lista de espera" %}</a>
+          {% else %}
+            <a href="{% url 'payments:checkout' course.slug %}?grupo={{ next_cohort.pk }}" class="button-primary w-full">{% translate "Inscribirme y pagar" %}</a>
+          {% endif %}
+        {% else %}
+          <p class="m-0 text-body-sm text-ink-muted">{% translate "Este curso se imparte por grupos. La inscripción abre cuando haya un grupo con fecha." %}</p>
+        {% endif %}
       {% else %}
         <a href="{% url 'payments:checkout' course.slug %}" class="button-primary w-full">{% translate "Inscribirme y pagar" %}</a>
       {% endif %}

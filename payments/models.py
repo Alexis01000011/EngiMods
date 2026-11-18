@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -28,6 +29,14 @@ class Payment(models.Model):
         related_name="payments",
         verbose_name=_("curso"),
     )
+    cohort = models.ForeignKey(
+        "cohorts.Cohort",
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+        related_name="payments",
+        verbose_name=_("grupo"),
+    )
     status = models.CharField(_("estado"), max_length=10, choices=Status, default=Status.PENDING)
     amount_cents = models.PositiveIntegerField(
         _("monto en centavos"),
@@ -48,3 +57,13 @@ class Payment(models.Model):
 
     def __str__(self):
         return f"{self.user} · {self.course} · {self.get_status_display()}"
+
+    def clean(self):
+        super().clean()
+        if self.cohort_id and self.course_id:
+            from cohorts.models import Cohort
+
+            if self.cohort.course_id != self.course_id:
+                raise ValidationError({"cohort": _("El grupo no es del curso del pago.")})
+            if self.cohort.status != Cohort.Status.OPEN:
+                raise ValidationError({"cohort": _("El grupo no tiene la inscripción abierta.")})
