@@ -193,7 +193,7 @@ El 14/11/2026 salieron del recorte [EM-008](#em-008) (#8), del bloque A, y [EM-0
 | [EM-049](#em-049) | [#34](https://github.com/Alexis01000011/EngiMods/issues/34) | Códigos de descuento | E4 | Could | 2 | 6 | EM-042 | Pendiente |
 | [EM-050](#em-050) | [#35](https://github.com/Alexis01000011/EngiMods/issues/35) | Crear grupos de un curso | E5 | Must | 3 | 4 | EM-020, EM-003 | Hecho |
 | [EM-051](#em-051) | [#36](https://github.com/Alexis01000011/EngiMods/issues/36) | Liberar contenido por semana | E5 | Should | 3 | 6 | EM-050, EM-061, EM-035 | Pendiente |
-| [EM-052](#em-052) | [#37](https://github.com/Alexis01000011/EngiMods/issues/37) | Calendario de clínicas grupales | E5 | Should | 2 | 6 | EM-050, EM-060, EM-035 | Pendiente |
+| [EM-052](#em-052) | [#37](https://github.com/Alexis01000011/EngiMods/issues/37) | Calendario de clínicas grupales | E5 | Should | 2 | 6 | EM-050, EM-060, EM-035 | Hecho |
 | [EM-053](#em-053) | [#38](https://github.com/Alexis01000011/EngiMods/issues/38) | Inscripciones e inscripción manual por administrador | E5 | Must | 2 | 4 | EM-020, EM-003 | Hecho |
 | [EM-060](#em-060) | [#39](https://github.com/Alexis01000011/EngiMods/issues/39) | Panel del alumno: mis cursos | E6 | Must | 3 | 5 | EM-053 | Hecho |
 | [EM-061](#em-061) | [#40](https://github.com/Alexis01000011/EngiMods/issues/40) | Ver una lección | E6 | Must | 3 | 5 | EM-021, EM-053 | Hecho |
@@ -915,15 +915,15 @@ Depende de: [EM-050](#em-050), [EM-061](#em-061), [EM-035](#em-035)
 
 **Calendario de clínicas grupales**
 
-Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 2 · Ola: 6 · Issue: [#37](https://github.com/Alexis01000011/EngiMods/issues/37)
+Tipo: Historia de usuario · Prioridad: Should · Release: R1 · Puntos: 2 · Ola: 6 · Estado: Hecho · Issue: [#37](https://github.com/Alexis01000011/EngiMods/issues/37)
 
 > Como **alumno**, quiero ver las fechas y enlaces de las clínicas en vivo de mi grupo, para no perderme ninguna.
 
 Criterios de aceptación:
 
-- [ ] El tutor registra sesiones con fecha, hora (zona horaria de México), tema y enlace.
-- [ ] El alumno las ve en su panel, ordenadas y con las pasadas marcadas.
-- [ ] El enlace a las clínicas aparece en el panel del alumno (EM-060) cuando su curso es por grupos y hay clínicas.
+- [x] El tutor registra sesiones con fecha, hora (zona horaria de México), tema y enlace.
+- [x] El alumno las ve en su panel, ordenadas y con las pasadas marcadas.
+- [x] El enlace a las clínicas aparece en el panel del alumno (EM-060) cuando su curso es por grupos y hay clínicas.
 
 Depende de: [EM-050](#em-050), [EM-060](#em-060), [EM-035](#em-035)
 

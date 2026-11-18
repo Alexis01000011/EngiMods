@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Clínicas de mis grupos" %} · EngiMods{% endblock %}
+
+{% block content %}
+  <header class="flex flex-col gap-xs">
+    <h1 class="m-0 text-title-md">{% translate "Clínicas de mis grupos" %}</h1>
+    <p class="m-0 text-body-sm text-ink-muted">{% translate "Registra la fecha, la hora de Ciudad de México, el tema y el enlace. Tus alumnos las ven en su panel." %}</p>
+  </header>
+
+  {% if cohorts %}
+    <section aria-labelledby="nueva-clinica" class="mt-lg rounded-lg border border-divider bg-surface p-lg">
+      <h2 id="nueva-clinica" class="m-0 text-headline-sm">{% translate "Agregar una clínica" %}</h2>
+      {% if form.errors %}
+        <div role="alert" class="mt-sm rounded-lg bg-error-container p-md text-error">
+          <p class="m-0"><strong>{% translate "No se pudo guardar." %}</strong> {% translate "Revisa los campos marcados." %}</p>
+        </div>
+      {% endif %}
+      <form method="post" class="mt-sm flex flex-col gap-md">
+        {% csrf_token %}
+        {% for field in form %}
+          <div class="flex flex-col [&_[aria-invalid=true]]:border-2 [&_[aria-invalid=true]]:border-error">
+            {{ field.label_tag }}
+            {{ field }}
+            {% if field.help_text %}<span class="helptext" id="{{ field.auto_id }}_helptext">{{ field.help_text }}</span>{% endif %}
+            {% include "components/field_errors.html" %}
+          </div>
+        {% endfor %}
+        <div>
+          <button type="submit" class="button-primary w-full sm:w-auto">{% translate "Agregar clínica" %}</button>
+        </div>
+      </form>
+    </section>
+
+    <div class="mt-xl flex flex-col gap-lg">
+      {% for cohort in cohorts %}
+        <section aria-labelledby="grupo-{{ cohort.pk }}" class="flex flex-col gap-sm rounded-lg border border-divider bg-surface p-lg">
+          <div class="flex flex-wrap items-baseline justify-between gap-sm">
+            <h2 id="grupo-{{ cohort.pk }}" class="m-0 text-headline-sm">{{ cohort.course.title }} · {{ cohort.name }}</h2>
+            <p class="m-0 text-label-sm text-ink-muted">{{ cohort.get_status_display }}</p>
+          </div>
+          {% with sessions=cohort.live_sessions.all %}
+            {% if sessions %}
+              <ul class="m-0 flex list-none flex-col gap-sm p-0">
+                {% for session in sessions %}
+                  <li class="m-0 flex flex-wrap items-center justify-between gap-sm border-t border-divider pt-sm">
+                    <p class="m-0 text-body-sm">
+                      <span class="font-mono text-code-sm">{{ session.date|date:"j \d\e F \d\e Y" }}</span> · {{ session.start_time|time:"H:i" }} · {{ session.topic }}
+                    </p>
+                    <p class="m-0 flex items-center gap-sm">
+                      {% if session.is_past %}
+                        <span class="inline-flex min-h-8 items-center rounded-full bg-surface-chip px-3 text-label-sm text-ink-soft">{% translate "Pasada" %}</span>
+                      {% else %}
+                        <a href="{{ session.join_url }}" rel="noopener" class="button-secondary">{% translate "Abrir enlace" %}</a>
+                      {% endif %}
+                    </p>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              <p class="m-0 text-body-sm text-ink-muted">{% translate "Este grupo todavía no tiene clínicas." %}</p>
+            {% endif %}
+          {% endwith %}
+        </section>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="mt-lg rounded-lg border border-dashed border-outline bg-surface p-lg">{% translate "Todavía no tienes grupos asignados." %}</p>
+  {% endif %}
+{% endblock %}

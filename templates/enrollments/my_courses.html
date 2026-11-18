@@ -23,6 +23,24 @@
               <p class="m-0 text-label-sm text-ink-muted">{% blocktranslate with percent=enrollment.progress_percent %}Avance: {{ percent }} %{% endblocktranslate %}{% if enrollment.lesson_count %} · {% blocktranslate with done=enrollment.completed_count total=enrollment.lesson_count %}{{ done }} de {{ total }} lecciones{% endblocktranslate %}{% endif %}</p>
             </div>
             <p class="m-0 text-body-sm text-ink-muted">{% blocktranslate with date=enrollment.access_ends_at|date:"j \d\e F \d\e Y" %}Acceso hasta el {{ date }}.{% endblocktranslate %}</p>
+            {% if enrollment.live_sessions %}
+              <section aria-labelledby="clinicas-{{ enrollment.pk }}" class="flex flex-col gap-xs">
+                <h3 id="clinicas-{{ enrollment.pk }}" class="m-0 font-sans text-label-md">{% translate "Clínicas en vivo" %}</h3>
+                <p class="m-0 text-label-sm text-ink-muted">{% translate "Hora de Ciudad de México." %}</p>
+                <ul class="m-0 flex list-none flex-col gap-xs p-0">
+                  {% for session in enrollment.live_sessions %}
+                    <li class="m-0 flex flex-wrap items-center justify-between gap-sm border-t border-divider pt-xs">
+                      <span class="text-body-sm"><span class="font-mono text-code-sm">{{ session.date|date:"j \d\e F \d\e Y" }}</span> · {{ session.start_time|time:"H:i" }} · {{ session.topic }}</span>
+                      {% if session.is_past %}
+                        <span class="inline-flex min-h-8 items-center rounded-full bg-surface-chip px-3 text-label-sm text-ink-soft">{% translate "Pasada" %}</span>
+                      {% else %}
+                        <a href="{{ session.join_url }}" rel="noopener" class="text-label-sm">{% translate "Entrar" %}</a>
+                      {% endif %}
+                    </li>
+                  {% endfor %}
+                </ul>
+              </section>
+            {% endif %}
             {% if enrollment.course.game.lab_guide %}
               <p class="m-0"><a href="{% url 'enrollments:lab_guide' enrollment.course.game.slug %}">{% translate "Guía de laboratorio" %}</a></p>
             {% endif %}
