@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Cursos" %} · EngiMods{% endblock %}
+
+{% block content %}
+  <header class="flex max-w-reading-max flex-col gap-xs">
+    <h1 class="m-0 text-title-md">{% translate "Cursos" %}</h1>
+    <p class="m-0 font-serif text-dek italic text-ink-soft">{% translate "Filtra por juego y nivel para encontrar la práctica que te sirve." %}</p>
+  </header>
+
+  <form method="get" class="mt-lg flex flex-col gap-md rounded-lg bg-surface-sunken p-md sm:flex-row sm:flex-wrap sm:items-end">
+    <div class="flex min-w-0 flex-1 flex-col">
+      <label for="juego">{% translate "Juego" %}</label>
+      <select name="juego" id="juego">
+        <option value="">{% translate "Todos los juegos" %}</option>
+        {% for game in games %}
+          <option value="{{ game.slug }}"{% if game.slug == selected_game %} selected{% endif %}>{{ game.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="flex min-w-0 flex-1 flex-col">
+      <label for="nivel">{% translate "Nivel" %}</label>
+      <select name="nivel" id="nivel">
+        <option value="">{% translate "Todos los niveles" %}</option>
+        {% for value, label in levels %}
+          <option value="{{ value }}"{% if value == selected_level %} selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="flex flex-wrap gap-sm">
+      <button type="submit" class="button-primary">{% translate "Filtrar" %}</button>
+      <a href="{% url 'courses:course_list' %}" class="button-quiet">{% translate "Limpiar" %}</a>
+    </div>
+  </form>
+
+  <section aria-labelledby="resultados" class="mt-xl">
+    <div class="flex flex-wrap items-baseline justify-between gap-sm">
+      <h2 id="resultados" class="m-0 text-headline-sm">{% translate "Cursos disponibles" %}</h2>
+      <p class="m-0 text-label-sm text-ink-muted">{% blocktranslate count total=courses|length %}{{ total }} curso{% plural %}{{ total }} cursos{% endblocktranslate %}</p>
+    </div>
+
+    {% if courses %}
+      <ul class="m-0 mt-md grid list-none grid-cols-1 gap-md p-0 md:grid-cols-2">
+        {% for course in courses %}
+          <li class="m-0 flex flex-col gap-sm rounded-lg border border-divider bg-surface p-lg">
+            <p class="m-0 text-label-sm text-ink-muted">{{ course.game.name }} · {{ course.get_kind_display }}</p>
+            <h3 class="m-0"><a href="{% url 'courses:course_detail' course.slug %}" class="text-ink no-underline hover:underline">{{ course.title }}</a></h3>
+            <p class="m-0">{{ course.description|truncatewords:30 }}</p>
+            <ul class="m-0 flex list-none flex-wrap gap-sm p-0">
+              <li class="m-0 inline-flex min-h-8 items-center rounded-full bg-surface-chip px-3 text-label-sm text-ink-soft">{{ course.get_level_display }}</li>
+              <li class="m-0 inline-flex min-h-8 items-center rounded-full bg-surface-chip px-3 text-label-sm text-ink-soft">{% blocktranslate count weeks=course.duration_weeks %}{{ weeks }} semana{% plural %}{{ weeks }} semanas{% endblocktranslate %}</li>
+            </ul>
+            <div class="mt-auto pt-sm">
+              <a href="{% url 'courses:course_detail' course.slug %}" class="button-secondary">{% translate "Ver el curso" %}<span class="sr-only">: {{ course.title }}</span></a>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <div class="mt-md max-w-reading-max rounded-lg border border-dashed border-outline bg-surface p-lg">
+        <p class="m-0">{% translate "No hay cursos publicados con ese filtro." %}</p>
+        <p class="m-0 mt-sm">{% translate "Prueba con otro juego u otro nivel." %}</p>
+      </div>
+    {% endif %}
+  </section>
+{% endblock %}
