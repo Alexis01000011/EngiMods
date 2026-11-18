@@ -172,7 +172,7 @@ El 14/11/2026 salieron del recorte [EM-008](#em-008) (#8), del bloque A, y [EM-0
 | [EM-020](#em-020) | [#15](https://github.com/Alexis01000011/EngiMods/issues/15) | Modelo de curso | E2 | Must | 3 | 3 | EM-010 | Hecho |
 | [EM-021](#em-021) | [#16](https://github.com/Alexis01000011/EngiMods/issues/16) | Módulos y lecciones con versión probada | E2 | Must | 5 | 4 | EM-020, EM-011 | Hecho |
 | [EM-022](#em-022) | [#17](https://github.com/Alexis01000011/EngiMods/issues/17) | Vista previa de lecciones para tutores | E2 | Should | 3 | 6 | EM-021, EM-061 | Pendiente |
-| [EM-023](#em-023) | [#18](https://github.com/Alexis01000011/EngiMods/issues/18) | Recursos descargables y plantillas por lección | E2 | Must | 2 | 5 | EM-021, EM-053 | Pendiente |
+| [EM-023](#em-023) | [#18](https://github.com/Alexis01000011/EngiMods/issues/18) | Recursos descargables y plantillas por lección | E2 | Must | 2 | 5 | EM-021, EM-053 | Hecho |
 | [EM-024](#em-024) | [#19](https://github.com/Alexis01000011/EngiMods/issues/19) | Lección de muestra gratuita | E2 | Must | 2 | 6 | EM-021, EM-061 | Hecho |
 | [EM-030](#em-030) | [#20](https://github.com/Alexis01000011/EngiMods/issues/20) | Registro con correo y verificación | E3 | Must | 5 | 3 | EM-003, EM-004, EM-033 | Hecho |
 | [EM-031](#em-031) | [#21](https://github.com/Alexis01000011/EngiMods/issues/21) | Inicio de sesión, cierre y recuperación de contraseña | E3 | Must | 2 | 4 | EM-030 | Hecho |
@@ -539,15 +539,15 @@ Depende de: [EM-021](#em-021), [EM-061](#em-061)
 
 **Recursos descargables y plantillas por lección**
 
-Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 5 · Issue: [#18](https://github.com/Alexis01000011/EngiMods/issues/18)
+Tipo: Historia de usuario · Prioridad: Must · Release: R1 · Puntos: 2 · Ola: 5 · Estado: Hecho · Issue: [#18](https://github.com/Alexis01000011/EngiMods/issues/18)
 
 > Como **alumno**, quiero descargar la plantilla o el proyecto base de cada lección, para empezar a trabajar sin perder tiempo armando la estructura.
 
 Criterios de aceptación:
 
-- [ ] Una lección puede tener recursos de tipo enlace (por ejemplo a un repo plantilla).
-- [ ] Cada recurso indica la versión del juego y del entorno para la que sirve.
-- [ ] Solo los alumnos inscritos ven los recursos, salvo en lecciones de muestra.
+- [x] Una lección puede tener recursos de tipo enlace (por ejemplo a un repo plantilla).
+- [x] Cada recurso indica la versión del juego y del entorno para la que sirve.
+- [x] Solo los alumnos inscritos ven los recursos, salvo en lecciones de muestra.
 
 Depende de: [EM-021](#em-021), [EM-053](#em-053)
 

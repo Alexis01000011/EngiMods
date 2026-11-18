@@ -272,3 +272,54 @@ class RubricCriterion(models.Model):
 
     def __str__(self):
         return f"{self.exercise} · {self.title}"
+
+
+class LessonResource(models.Model):
+    """Enlace de apoyo de una lección (plantilla, repositorio base) con su versión probada.
+
+    Para el piloto los recursos son enlaces; los archivos llegan con EM-007.
+    """
+
+    lesson = models.ForeignKey(
+        Lesson, on_delete=models.CASCADE, related_name="resources", verbose_name=_("lección")
+    )
+    title = models.CharField(_("título"), max_length=200)
+    url = models.URLField(_("enlace"), max_length=500)
+    # PROTECT: no se borra una versión ni un entorno que un recurso declara.
+    game_version = models.ForeignKey(
+        "catalog.GameVersion",
+        on_delete=models.PROTECT,
+        related_name="lesson_resources",
+        verbose_name=_("versión del juego"),
+    )
+    modding_environment = models.ForeignKey(
+        "catalog.ModdingEnvironment",
+        on_delete=models.PROTECT,
+        related_name="lesson_resources",
+        verbose_name=_("entorno de modding"),
+    )
+    order = models.PositiveSmallIntegerField(
+        _("orden"), default=1, help_text=_("Los recursos se muestran de menor a mayor.")
+    )
+
+    class Meta:
+        ordering = ("order", "pk")
+        verbose_name = _("recurso de la lección")
+        verbose_name_plural = _("recursos de la lección")
+
+    def __str__(self):
+        return self.title
+
+    def clean(self):
+        super().clean()
+        lesson = getattr(self, "lesson", None)
+        if lesson is None or not lesson.module_id:
+            return
+        game_id = lesson.module.course.game_id
+        errors = {}
+        if self.game_version_id and self.game_version.game_id != game_id:
+            errors["game_version"] = _("Elige una versión del juego del curso.")
+        if self.modding_environment_id and self.modding_environment.game_id != game_id:
+            errors["modding_environment"] = _("Elige un entorno de modding del juego del curso.")
+        if errors:
+            raise ValidationError(errors)
