@@ -8,8 +8,8 @@ from django.utils.translation import gettext as _
 from courses.models import Course, Exercise, Lesson
 from enrollments.models import Enrollment
 
-from .forms import SubmissionAttemptForm
-from .models import Review, Submission
+from .forms import PublicationChecklistForm, SubmissionAttemptForm
+from .models import PublicationChecklist, Review, Submission
 
 
 def find_submission(user, exercise, enrollment):
@@ -44,7 +44,9 @@ def submit(request, lesson_pk):
         and enrollment is not None
     )
 
+    checklist = PublicationChecklist.objects.filter(attempt=attempt).first() if attempt else None
     form = None
+    checklist_form = None
     if submission is None or can_resubmit:
         initial = None
         if attempt is not None:
@@ -54,11 +56,27 @@ def submit(request, lesson_pk):
                 "modding_environment": attempt.modding_environment_id,
             }
         form = SubmissionAttemptForm(request.POST or None, game=course.game, initial=initial)
-        if request.method == "POST" and form.is_valid():
+        if exercise.is_final_project:
+            checklist_initial = None
+            if checklist is not None:
+                checklist_initial = {
+                    "readme": checklist.readme,
+                    "license": checklist.license,
+                    "changelog": checklist.changelog,
+                    "publication_url": checklist.publication_url,
+                }
+            checklist_form = PublicationChecklistForm(
+                request.POST or None, initial=checklist_initial
+            )
+        if (
+            request.method == "POST"
+            and form.is_valid()
+            and (checklist_form is None or checklist_form.is_valid())
+        ):
             if submission is None:
-                create_submission(exercise, enrollment, form)
+                create_submission(exercise, enrollment, form, checklist_form)
             else:
-                resubmit(submission.pk, form)
+                resubmit(submission.pk, form, checklist_form)
             return redirect("submissions:submit", lesson_pk)
     elif request.method == "POST":
         return redirect("submissions:submit", lesson_pk)
@@ -70,8 +88,10 @@ def submit(request, lesson_pk):
             "course": course,
             "exercise": exercise,
             "form": form,
+            "checklist_form": checklist_form,
             "submission": submission,
             "attempt": attempt,
+            "checklist": checklist,
             # La revisión del tutor, con su rúbrica (EM-072). Solo de la entrega propia.
             "review": attempt.past_review if attempt else None,
             "previous_attempts": attempts[1:],
@@ -97,31 +117,36 @@ def attempts_with_reviews(submission):
     return attempts
 
 
-def create_submission(exercise, enrollment, form):
+def create_submission(exercise, enrollment, form, checklist_form=None):
     with transaction.atomic():
         submission = Submission(exercise=exercise, enrollment=enrollment)
         submission.full_clean()
         submission.save()
-        save_attempt(submission, form)
+        save_attempt(submission, form, checklist_form)
 
 
-def resubmit(submission_pk, form):
+def resubmit(submission_pk, form, checklist_form=None):
     """Agrega un envío nuevo y la entrega vuelve a la cola. Los anteriores no se tocan."""
     with transaction.atomic():
         submission = Submission.objects.select_for_update().get(pk=submission_pk)
         # Si dos envíos llegan juntos, solo cuenta el primero.
         if submission.status != Submission.Status.CHANGES_REQUESTED:
             return
-        save_attempt(submission, form)
+        save_attempt(submission, form, checklist_form)
         submission.status = Submission.Status.SUBMITTED
         submission.save(update_fields=["status"])
 
 
-def save_attempt(submission, form):
+def save_attempt(submission, form, checklist_form=None):
     attempt = form.save(commit=False)
     attempt.submission = submission
     attempt.full_clean()
     attempt.save()
+    if checklist_form is not None:
+        checklist = checklist_form.save(commit=False)
+        checklist.attempt = attempt
+        checklist.full_clean()
+        checklist.save()
 
 
 @login_required

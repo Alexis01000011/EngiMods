@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 
 from catalog.models import GameVersion, ModdingEnvironment
 
-from .models import Review, ReviewScore, SubmissionAttempt
+from .models import PublicationChecklist, Review, ReviewScore, SubmissionAttempt
 
 
 class SubmissionAttemptForm(forms.ModelForm):
@@ -64,3 +64,20 @@ class ReviewForm(forms.Form):
     def scores(self):
         """Pares (criterio, nivel) ya validados."""
         return [(c, self.cleaned_data[self.criterion_field(c)]) for c in self.criteria]
+
+
+class PublicationChecklistForm(forms.ModelForm):
+    """Checklist del proyecto final (EM-076). Los tres documentos son obligatorios."""
+
+    class Meta:
+        model = PublicationChecklist
+        fields = ("readme", "license", "changelog", "publication_url")
+        widgets = {"publication_url": forms.URLInput(attrs={"placeholder": "https://"})}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for name in ("readme", "license", "changelog"):
+            self.fields[name].required = True
+            self.fields[name].error_messages["required"] = _(
+                "Confirma que tu proyecto incluye este elemento."
+            )

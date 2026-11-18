@@ -1,0 +1,28 @@
+{% load i18n %}{% comment %}
+  Checklist de publicación del proyecto final (EM-076). Recibe `checklist` y `attempt`.
+{% endcomment %}
+<div>
+  <h3 class="m-0 font-sans text-label-md">{% translate "Checklist de publicación" %}</h3>
+  <ul class="m-0 mt-xs flex list-none flex-col p-0">
+    <li class="m-0 flex items-center gap-1.5 py-xs text-body-sm">
+      {% if checklist.readme %}<span class="text-tested">✓</span>{% else %}<span class="text-error">✗</span>{% endif %}
+      README
+    </li>
+    <li class="m-0 flex items-center gap-1.5 py-xs text-body-sm">
+      {% if checklist.license %}<span class="text-tested">✓</span>{% else %}<span class="text-error">✗</span>{% endif %}
+      {% translate "Licencia" %}
+    </li>
+    <li class="m-0 flex items-center gap-1.5 py-xs text-body-sm">
+      {% if checklist.changelog %}<span class="text-tested">✓</span>{% else %}<span class="text-error">✗</span>{% endif %}
+      {% translate "Registro de cambios" %}
+    </li>
+    <li class="m-0 py-xs text-body-sm">{% blocktranslate with version=attempt.game_version.number environment=attempt.modding_environment.name environment_version=attempt.modding_environment.version %}Versión compatible declarada: {{ version }} + {{ environment }} {{ environment_version }}.{% endblocktranslate %}</li>
+    <li class="m-0 py-xs text-body-sm">
+      {% if checklist.publication_url %}
+        {% translate "Publicado en" %} <a href="{{ checklist.publication_url }}" rel="noopener noreferrer" class="[overflow-wrap:anywhere]">{{ checklist.publication_url }}</a>
+      {% else %}
+        {% translate "Todavía no lo publicó." %}
+      {% endif %}
+    </li>
+  </ul>
+</div>

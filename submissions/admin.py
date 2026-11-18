@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Review, ReviewScore, Submission, SubmissionAttempt
+from .models import PublicationChecklist, Review, ReviewScore, Submission, SubmissionAttempt
 
 
 class SubmissionAttemptInline(admin.StackedInline):
@@ -53,3 +53,20 @@ class ReviewAdmin(admin.ModelAdmin):
     )
     raw_id_fields = ("attempt", "reviewer")
     inlines = (ReviewScoreInline,)
+
+
+@admin.register(PublicationChecklist)
+class PublicationChecklistAdmin(admin.ModelAdmin):
+    """Solo lectura: lo completa el alumno al entregar el proyecto final."""
+
+    list_display = ("attempt", "readme", "license", "changelog", "publication_url")
+    list_filter = ("readme", "license", "changelog")
+    search_fields = ("attempt__submission__enrollment__user__email", "publication_url")
+    list_select_related = ("attempt__submission__enrollment__user",)
+    raw_id_fields = ("attempt",)
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
