@@ -47,9 +47,11 @@ def add_progress(enrollment):
 @login_required
 def my_courses(request):
     """Panel del alumno: sus cursos con acceso vigente y los vencidos, solo los propios."""
-    enrollments = Enrollment.objects.filter(
-        user=request.user, status=Enrollment.Status.ACTIVE
-    ).select_related("course__game__lab_guide")
+    enrollments = (
+        Enrollment.objects.filter(user=request.user, status=Enrollment.Status.ACTIVE)
+        .select_related("course__game__lab_guide", "cohort")
+        .prefetch_related("cohort__live_sessions")
+    )
     active = list(enrollments.with_access().order_by("-enrolled_at", "-pk"))
 
     # Un curso con una inscripción vigente no aparece también como vencido, ni se repite.
@@ -64,6 +66,8 @@ def my_courses(request):
 
     for enrollment in active + expired:
         add_progress(enrollment)
+        if enrollment.cohort_id:
+            enrollment.live_sessions = list(enrollment.cohort.live_sessions.all())
 
     catalog = []
     if not active and not expired:

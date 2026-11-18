@@ -16,6 +16,7 @@ urlpatterns = [
     path("tutoria/entregas/", include("submissions.tutor_urls")),
     path("tutoria/laboratorio/", include("enrollments.tutor_urls")),
     path("tutoria/revalidar/", include("courses.tutor_urls")),
+    path("tutoria/clinicas/", include("cohorts.tutor_urls")),
     path("metricas/", include("metrics.urls")),
     path("", include("core.urls")),
 ]

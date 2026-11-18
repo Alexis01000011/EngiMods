@@ -1,7 +1,10 @@
+from datetime import datetime
+
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from courses.models import Course
@@ -73,3 +76,32 @@ class Cohort(models.Model):
     @property
     def is_full(self):
         return self.seats_taken >= self.capacity
+
+
+class LiveSession(models.Model):
+    """Clínica en vivo de un grupo: fecha, hora de México, tema y enlace (EM-052)."""
+
+    cohort = models.ForeignKey(
+        Cohort, on_delete=models.CASCADE, related_name="live_sessions", verbose_name=_("grupo")
+    )
+    date = models.DateField(_("fecha"))
+    start_time = models.TimeField(_("hora"))
+    topic = models.CharField(_("tema"), max_length=200)
+    join_url = models.URLField(_("enlace para entrar"), max_length=500)
+
+    class Meta:
+        ordering = ("date", "start_time", "pk")
+        verbose_name = _("clínica en vivo")
+        verbose_name_plural = _("clínicas en vivo")
+
+    def __str__(self):
+        return f"{self.cohort} · {self.topic}"
+
+    @property
+    def starts_at(self):
+        """La fecha y hora se guardan en la zona de México (settings.TIME_ZONE)."""
+        return timezone.make_aware(datetime.combine(self.date, self.start_time))
+
+    @property
+    def is_past(self):
+        return self.starts_at < timezone.now()
