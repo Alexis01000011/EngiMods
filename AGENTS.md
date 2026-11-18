@@ -23,10 +23,10 @@ Los precios, cupos y plazos son **hipótesis a validar en un piloto**, no datos.
 - **Antes de tomar trabajo:** consulta el estado y las dependencias en `docs/BACKLOG.md`, las asignaciones en GitHub Issues y los PR abiertos.
 - Para configurar Stripe sigue `docs/stripe.md`. Las llaves de prueba las proporciona quien administra la cuenta del equipo, por un canal privado. EM-009 configuró las llaves; el Checkout (EM-042) y el webhook (EM-043) ya están en `payments`.
 - Los textos legales se capturan en el admin (`LegalText`) con su versión vigente. El equipo aún debe aportar el aviso de privacidad, los términos y la política de devolución, y definir al responsable legal; sin una versión vigente, `/privacidad/` y `/terminos/` responden 404. No cargues textos inventados para llenar la pantalla.
-- El ADR 0002 (estilos) está aceptado: Tailwind CSS con la identidad visual de `DESIGN.md` (sección 6). El ADR 0003 (hosting) está aceptado: Render gratuito para la web y Neon gratuito para PostgreSQL. El ADR 0004 (correo) es una propuesta; integrar su documento no equivale a aceptar su recomendación. Se decide si EM-008 se retoma. El juego inicial y los días de acceso siguen abiertos: ya no bloquean código, porque se capturan como datos del catálogo y de cada curso, pero sí la carga del contenido de Misión Cero. No tomes una historia con `decision-pendiente` como si estuviera lista.
+- El ADR 0002 (estilos) está aceptado: Tailwind CSS con la identidad visual de `DESIGN.md` (sección 6). El ADR 0003 (hosting) está aceptado: Render gratuito para la web y Neon gratuito para PostgreSQL. El ADR 0004 (correo) es una propuesta; integrar su documento no equivale a aceptar su recomendación. Se decide si EM-008 se retoma. Los juegos del piloto se decidieron el 17 de noviembre de 2026: Hytale y Minecraft: Java Edition. El plan de su contenido está en `docs/contenido/plan-hytale-minecraft.md` y los borradores de Minecraft en `docs/contenido/minecraft/`; el contenido no lo escribe ninguna historia del backlog. La Misión Cero de Minecraft (Fabric, MXN 199, 30 días de acceso) se decidió el 17 de noviembre de 2026; los días de acceso del curso y de Hytale siguen abiertos y son datos de cada curso. No tomes una historia con `decision-pendiente` como si estuviera lista.
 - **Hay un recorte vigente para la entrega de semestre** (hasta alrededor del 1 de diciembre de 2026). El objetivo es Misión Cero de punta a punta en staging. Solo se toman historias de ese recorte; ver la sección "Recorte para la entrega de semestre" en `docs/BACKLOG.md`.
 - Decidido: Misión Cero es autoguiada (sin grupo), el acceso al contenido es por tiempo y el tutor trabaja en pantallas propias, no en el admin. Ver `docs/arquitectura.md`.
-- Decisiones abiertas que no debes inventar: proveedor de correo, juegos con los que arranca el piloto, días de acceso, textos legales. Ver la sección final de `docs/BACKLOG.md`.
+- Decisiones abiertas que no debes inventar: proveedor de correo, días de acceso, textos legales y las decisiones de contenido que siguen abiertas en `docs/contenido/plan-hytale-minecraft.md` (sección 11). Ver la sección final de `docs/BACKLOG.md`.
 
 ## 3. Stack y comandos
 
@@ -73,6 +73,7 @@ docs/
   flujo-de-trabajo.md  sprints, etiquetas, Definition of Ready, refinamiento
   despliegue.md      staging en Render y Neon: desplegar, respaldar y restaurar
   decisiones/        registros de decisiones (ADR) numerados
+  contenido/         plan de contenido y borradores de lecciones por juego (públicos por decisión del equipo)
 scripts/             backlog.py, agent_hook.py (hooks de agente) y render-build.sh (build de staging)
 render.yaml          Blueprint de Render para staging
 .githooks/           git hooks del repo (sección 10)
